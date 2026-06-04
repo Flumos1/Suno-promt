@@ -83,6 +83,23 @@ public/                   Front-end (index.html, styles.css, app.js)
 test/                     Unit tests (node:test)
 ```
 
+## Deploy to Render
+
+The repo ships a `render.yaml` blueprint. Either:
+
+**One-click (Blueprint):** Render dashboard → *New* → *Blueprint* → pick the
+`Flumos1/Suno-promt` repo → Apply. Render reads `render.yaml` and creates a free
+web service (`npm install` + `npm start`).
+
+**Manual:** *New* → *Web Service* → connect the repo → Build `npm install`,
+Start `npm start`, plan Free. Render injects `PORT` automatically.
+
+Set `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` (and optionally `ACCESS_CODES`,
+`UNLOCK_CODES`) under *Environment* to enable real AI generation in production.
+
+> Note: Render's free tier sleeps after inactivity, so the first request after
+> idle takes ~30s to wake.
+
 ## Notes
 
 - Reference analysis extracts **real** container/codec metadata and embedded ID3/Vorbis

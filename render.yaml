@@ -1,0 +1,23 @@
+# Render Blueprint — deploys the Express app as a free web service.
+# Render injects PORT; server.js already reads process.env.PORT.
+services:
+  - type: web
+    name: siliconsense
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # Optional — set in the Render dashboard to enable real AI generation:
+      # - key: ANTHROPIC_API_KEY
+      #   sync: false
+      # - key: OPENAI_API_KEY
+      #   sync: false
+      # Optional — override demo access / unlock codes:
+      # - key: ACCESS_CODES
+      #   value: "SILICON-DEMO,SUNO-2026"
+      # - key: UNLOCK_CODES
+      #   value: "SILICON-PRO"
