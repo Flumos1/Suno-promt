@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SiliconSense — Suno AI Prompt Catalog</title>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
 </head>
 <body>
   <div class="bg-grid"></div>
+  <div class="bg-orb orb-a"></div>
+  <div class="bg-orb orb-b"></div>
 
   <!-- Access gate -->
   <section id="gate" class="gate">
     <div class="gate-card">
       <div class="logo">◢◣ SILICON<span>SENSE</span></div>
-      <p class="tagline">Suno AI prompt catalog · v5.5</p>
+      <p class="tagline">SUNO AI PROMPT CATALOG · v5.5</p>
       <p class="gate-hint">Enter your access code to continue.</p>
       <form id="gate-form">
         <input id="access-code" type="text" placeholder="ACCESS CODE" autocomplete="off" />
-        <button type="submit">Unlock</button>
+        <button type="submit">Unlock →</button>
       </form>
       <p id="gate-error" class="error"></p>
       <p class="demo-note">Demo codes: <code>SILICON-DEMO</code> · <code>SUNO-2026</code> · <code>FREEPASS</code></p>
@@ -29,20 +30,25 @@
   <main id="app" class="app hidden">
     <header class="topbar">
       <div class="logo small">◢◣ SILICON<span>SENSE</span></div>
-      <nav>
-        <button class="tab active" data-tab="catalog">Catalog</button>
-        <button class="tab" data-tab="anchor">Vocal Anchor</button>
-        <button class="tab" data-tab="analyze">Reference</button>
-        <button class="tab" data-tab="cover">Cover Art</button>
-      </nav>
+      <div class="topbar-right">
+        <span id="ai-pill" class="pill" title="Generation engine">…</span>
+        <button id="logout" class="ghost" title="Lock">⏻</button>
+      </div>
     </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="catalog">⌕ Catalog</button>
+      <button class="tab" data-tab="anchor">🎙 Vocal Anchor</button>
+      <button class="tab" data-tab="analyze">♪ Reference</button>
+      <button class="tab" data-tab="cover">▦ Cover Art</button>
+    </nav>
 
     <!-- Catalog -->
     <section class="panel active" id="tab-catalog">
       <h1>Prompt Catalog</h1>
       <p class="sub">Type an artist or style. If it isn't in the catalog, a card is generated for you.</p>
       <div class="searchbar">
-        <input id="search" type="text" placeholder="e.g. Neon Velvet, synthwave, lofi…" />
+        <input id="search" type="text" placeholder="e.g. Neon Velvet, synthwave, lofi, afrobeats…" />
         <button id="search-btn">Search</button>
       </div>
       <div id="results" class="cards"></div>
@@ -98,9 +104,10 @@
     <!-- Reference -->
     <section class="panel" id="tab-analyze">
       <h1>Reference Analysis</h1>
-      <p class="sub">Drop an mp3 to detect era, instruments and vocals — get a prompt plus 3 closest catalog artists.</p>
+      <p class="sub">Drop an audio file — real metadata (duration, bitrate, codec, tags) is read from it, then turned into a Suno prompt plus the 3 closest catalog artists.</p>
       <div class="dropzone" id="dropzone">
         <input id="file" type="file" accept="audio/*" hidden />
+        <div class="dz-icon">♪</div>
         <p>Click or drop an audio file here</p>
         <span id="filename" class="muted"></span>
       </div>
@@ -122,7 +129,7 @@
       <div id="cover-out" class="output"></div>
     </section>
 
-    <footer class="foot">SiliconSense-style demo · template-driven generation · no external API required</footer>
+    <footer class="foot">SiliconSense-style demo · <span id="foot-engine">template engine</span> · catalog of <span id="foot-count">…</span> styles</footer>
   </main>
 
   <script src="app.js"></script>

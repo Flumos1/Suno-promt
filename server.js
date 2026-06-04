@@ -1,4 +1,5 @@
 import express from "express";
+import multer from "multer";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -8,6 +9,8 @@ import {
   analyzeReference,
   buildCoverConcept
 } from "./lib/promptGenerator.js";
+import { aiEnabled, activeProvider, aiArtistCard, aiPromptFromAnalysis } from "./lib/aiProvider.js";
+import { extractAudioMeta, promptFromMeta, closestFromMeta } from "./lib/audioAnalyzer.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
@@ -25,6 +28,20 @@ const catalog = JSON.parse(
 const app = express();
 app.use(express.json());
 app.use(express.static(join(__dirname, "public")));
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 25 * 1024 * 1024 } // 25 MB
+});
+
+// --- Status (lets the UI show whether real AI is active) ---
+app.get("/api/status", (req, res) => {
+  res.json({
+    ai: aiEnabled(),
+    provider: activeProvider(),
+    catalogSize: catalog.length
+  });
+});
 
 // --- Access ---
 app.post("/api/access", (req, res) => {
@@ -48,11 +65,16 @@ app.get("/api/catalog", (req, res) => {
   res.json({ results });
 });
 
-// --- Get or generate a card by name ---
-app.get("/api/card/:name", (req, res) => {
+// --- Get or generate a card by name (AI when available, template otherwise) ---
+app.get("/api/card/:name", async (req, res) => {
   const name = req.params.name;
   const found = catalog.find((a) => a.name.toLowerCase() === name.toLowerCase());
   if (found) return res.json({ card: found, source: "catalog" });
+
+  if (aiEnabled()) {
+    const aiCard = await aiArtistCard(name);
+    if (aiCard) return res.json({ card: aiCard, source: "ai" });
+  }
   res.json({ card: generateArtistCard(name), source: "generated" });
 });
 
@@ -61,10 +83,63 @@ app.post("/api/vocal-anchor", (req, res) => {
   res.json(buildVocalAnchor(req.body || {}));
 });
 
-// --- Reference analysis (mock; accepts a filename) ---
-app.post("/api/analyze", (req, res) => {
-  const filename = String(req.body?.filename || "reference.mp3");
-  res.json(analyzeReference(filename, catalog));
+// --- Reference analysis: real metadata extraction (+ AI prompt when available) ---
+app.post("/api/analyze", upload.single("file"), async (req, res) => {
+  try {
+    let meta;
+    if (req.file?.buffer) {
+      meta = await extractAudioMeta(req.file.buffer, req.file.originalname);
+    } else if (req.body?.filename) {
+      // Backwards-compatible path: no real file, fall back to the mock.
+      return res.json({ ...analyzeReference(req.body.filename, catalog), mode: "mock" });
+    } else {
+      return res.status(400).json({ error: "No audio file uploaded" });
+    }
+
+    let prompt = promptFromMeta(meta);
+    let closest = closestFromMeta(meta, catalog);
+    let mode = "metadata";
+
+    if (aiEnabled()) {
+      const ai = await aiPromptFromAnalysis(meta, catalog.map((a) => a.name));
+      if (ai) {
+        prompt = ai.prompt || prompt;
+        if (Array.isArray(ai.closest) && ai.closest.length) {
+          closest = ai.closest
+            .map((nm) => catalog.find((a) => a.name === nm))
+            .filter(Boolean)
+            .map((a) => ({ id: a.id, name: a.name, genre: a.genre }));
+          if (!closest.length) closest = closestFromMeta(meta, catalog);
+        }
+        meta.aiGenre = ai.genre;
+        meta.aiVocals = ai.vocals;
+        meta.aiEra = ai.era;
+        mode = "ai";
+      }
+    }
+
+    res.json({
+      filename: meta.filename,
+      detected: {
+        era: meta.aiEra || meta.era,
+        genre: meta.aiGenre || meta.tagGenre || "unknown",
+        bpm: meta.tagBpm || null,
+        durationSec: meta.durationSec,
+        bitrate: meta.bitrate,
+        sampleRate: meta.sampleRate,
+        channels: meta.channels,
+        codec: meta.codec,
+        lossless: meta.lossless,
+        vocals: meta.aiVocals || (meta.tagArtist ? `tagged: ${meta.tagArtist}` : "—")
+      },
+      prompt,
+      closest,
+      mode
+    });
+  } catch (err) {
+    console.error("[analyze] failed:", err.message);
+    res.status(500).json({ error: "Could not read this audio file" });
+  }
 });
 
 // --- Cover concept ---
@@ -74,6 +149,7 @@ app.post("/api/cover", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`SiliconSense clone running at http://localhost:${PORT}`);
+  console.log(`AI provider: ${activeProvider()} (${aiEnabled() ? "live" : "template fallback"})`);
 });
 
 export default app;
