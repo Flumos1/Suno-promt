@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SiliconSense — Suno AI Prompt Catalog</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <!-- Access gate -->
+  <section id="gate" class="gate">
+    <div class="gate-card">
+      <div class="logo">◢◣ SILICON<span>SENSE</span></div>
+      <p class="tagline">Suno AI prompt catalog · v5.5</p>
+      <p class="gate-hint">Enter your access code to continue.</p>
+      <form id="gate-form">
+        <input id="access-code" type="text" placeholder="ACCESS CODE" autocomplete="off" />
+        <button type="submit">Unlock</button>
+      </form>
+      <p id="gate-error" class="error"></p>
+      <p class="demo-note">Demo codes: <code>SILICON-DEMO</code> · <code>SUNO-2026</code> · <code>FREEPASS</code></p>
+    </div>
+  </section>
+
+  <!-- App -->
+  <main id="app" class="app hidden">
+    <header class="topbar">
+      <div class="logo small">◢◣ SILICON<span>SENSE</span></div>
+      <nav>
+        <button class="tab active" data-tab="catalog">Catalog</button>
+        <button class="tab" data-tab="anchor">Vocal Anchor</button>
+        <button class="tab" data-tab="analyze">Reference</button>
+        <button class="tab" data-tab="cover">Cover Art</button>
+      </nav>
+    </header>
+
+    <!-- Catalog -->
+    <section class="panel active" id="tab-catalog">
+      <h1>Prompt Catalog</h1>
+      <p class="sub">Type an artist or style. If it isn't in the catalog, a card is generated for you.</p>
+      <div class="searchbar">
+        <input id="search" type="text" placeholder="e.g. Neon Velvet, synthwave, lofi…" />
+        <button id="search-btn">Search</button>
+      </div>
+      <div id="results" class="cards"></div>
+    </section>
+
+    <!-- Vocal Anchor -->
+    <section class="panel" id="tab-anchor">
+      <h1>Vocal Anchor Builder</h1>
+      <p class="sub">Shape a unique vocal along 5 axes. Add a donor for spirit, not imitation.</p>
+      <div class="axes">
+        <label>Pitch
+          <select id="ax-pitch">
+            <option value="">—</option>
+            <option>low bass</option><option>baritone</option><option>tenor</option>
+            <option>alto</option><option>soprano</option><option>falsetto</option>
+          </select>
+        </label>
+        <label>Timbre
+          <select id="ax-timbre">
+            <option value="">—</option>
+            <option>bright</option><option>warm</option><option>breathy</option>
+            <option>gritty</option><option>smooth</option><option>rich</option><option>metallic</option>
+          </select>
+        </label>
+        <label>Delivery
+          <select id="ax-delivery">
+            <option value="">—</option>
+            <option>intimate close-mic</option><option>belting</option><option>whispered</option>
+            <option>rap cadence</option><option>operatic</option><option>crooned</option><option>shouted</option>
+          </select>
+        </label>
+        <label>Texture
+          <select id="ax-texture">
+            <option value="">—</option>
+            <option>clean</option><option>lightly distorted</option><option>auto-tuned</option>
+            <option>vocoded</option><option>doubled and layered</option><option>tape-saturated</option>
+          </select>
+        </label>
+        <label>Age
+          <select id="ax-age">
+            <option value="">—</option>
+            <option>youthful</option><option>mature</option><option>ageless</option><option>weathered</option>
+          </select>
+        </label>
+        <label>Donor (optional)
+          <input id="ax-donor" type="text" placeholder="e.g. a smoky jazz crooner" />
+        </label>
+      </div>
+      <button id="anchor-btn" class="primary">Build Anchor</button>
+      <div id="anchor-out" class="output"></div>
+    </section>
+
+    <!-- Reference -->
+    <section class="panel" id="tab-analyze">
+      <h1>Reference Analysis</h1>
+      <p class="sub">Drop an mp3 to detect era, instruments and vocals — get a prompt plus 3 closest catalog artists.</p>
+      <div class="dropzone" id="dropzone">
+        <input id="file" type="file" accept="audio/*" hidden />
+        <p>Click or drop an audio file here</p>
+        <span id="filename" class="muted"></span>
+      </div>
+      <button id="analyze-btn" class="primary" disabled>Analyze</button>
+      <div id="analyze-out" class="output"></div>
+    </section>
+
+    <!-- Cover -->
+    <section class="panel" id="tab-cover">
+      <h1>Album Cover Concept</h1>
+      <p class="sub">Generate a 2048×2048 cover concept for Spotify / Apple Music / Yandex.</p>
+      <div class="cover-form">
+        <input id="cv-title" type="text" placeholder="Album title" />
+        <input id="cv-artist" type="text" placeholder="Artist name" />
+        <input id="cv-genre" type="text" placeholder="Genre / vibe" />
+        <label class="check"><input id="cv-logo" type="checkbox" /> Include wordmark logo</label>
+      </div>
+      <button id="cover-btn" class="primary">Generate Concept</button>
+      <div id="cover-out" class="output"></div>
+    </section>
+
+    <footer class="foot">SiliconSense-style demo · template-driven generation · no external API required</footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
