@@ -1,418 +1,5321 @@
 [
   {
-    "id": "neon-velvet",
-    "name": "Neon Velvet",
-    "genre": "Synthwave",
-    "era": "1980s revival",
-    "mood": ["nostalgic", "cinematic", "driving"],
-    "bpm": 110,
-    "key": "A minor",
-    "vocals": "breathy female lead, wide reverb, airy falsetto",
-    "instruments": ["analog synth pads", "gated reverb drums", "FM bass", "arpeggiated leads"],
-    "prompt": "80s synthwave, breathy female vocals with wide hall reverb, lush analog pad layers, gated reverb snare, pulsing FM bass, arpeggiated neon leads, cinematic and nostalgic, 110 BPM, A minor",
-    "tags": ["synthwave", "retrowave", "female vocal", "cinematic"]
-  },
-  {
-    "id": "iron-cathedral",
-    "name": "Iron Cathedral",
-    "genre": "Symphonic Metal",
-    "era": "modern",
-    "mood": ["epic", "dark", "triumphant"],
-    "bpm": 145,
-    "key": "D minor",
-    "vocals": "operatic soprano over gritty male growls",
-    "instruments": ["double-kick drums", "orchestral strings", "down-tuned guitars", "choir"],
-    "prompt": "symphonic metal, soaring operatic soprano contrasted with guttural male growls, full orchestral strings and brass, down-tuned palm-muted guitars, thunderous double-kick drums, epic gothic choir, dark and triumphant, 145 BPM, D minor",
-    "tags": ["metal", "symphonic", "operatic", "epic"]
-  },
-  {
-    "id": "lofi-tide",
-    "name": "Lofi Tide",
-    "genre": "Lo-fi Hip Hop",
-    "era": "contemporary",
-    "mood": ["calm", "warm", "study"],
-    "bpm": 78,
-    "key": "F major",
-    "vocals": "instrumental, occasional spoken samples",
-    "instruments": ["dusty Rhodes piano", "vinyl crackle", "soft boom-bap drums", "muted trumpet"],
-    "prompt": "lo-fi hip hop, dusty Rhodes piano chords, warm vinyl crackle, soft swung boom-bap drums, mellow muted trumpet, rain ambience, calm and cozy study vibe, 78 BPM, F major",
-    "tags": ["lofi", "chill", "instrumental", "study beats"]
-  },
-  {
-    "id": "crimson-saloon",
-    "name": "Crimson Saloon",
-    "genre": "Outlaw Country",
-    "era": "dusty modern",
-    "mood": ["gritty", "wistful", "rebellious"],
-    "bpm": 96,
-    "key": "E major",
-    "vocals": "weathered baritone, slight rasp, intimate close-mic",
-    "instruments": ["slide guitar", "upright bass", "brushed drums", "fiddle"],
-    "prompt": "outlaw country, weathered raspy baritone close-miked, mournful slide guitar, walking upright bass, brushed snare, lonesome fiddle, gritty and wistful, dusty barroom atmosphere, 96 BPM, E major",
-    "tags": ["country", "americana", "male vocal", "acoustic"]
-  },
-  {
-    "id": "azure-circuit",
-    "name": "Azure Circuit",
-    "genre": "Future Bass",
-    "era": "modern",
-    "mood": ["euphoric", "bright", "energetic"],
-    "bpm": 150,
-    "key": "G major",
-    "vocals": "pitched chopped female vox, bright and processed",
-    "instruments": ["supersaw chords", "sidechained bass", "trap hats", "vocal chops"],
-    "prompt": "future bass, euphoric pitched vocal chops, lush detuned supersaw chords, heavy sidechain pump, snappy trap hi-hats, deep sub bass drops, bright and energetic festival anthem, 150 BPM, G major",
-    "tags": ["edm", "future bass", "festival", "electronic"]
-  },
-  {
-    "id": "midnight-bossa",
-    "name": "Midnight Bossa",
-    "genre": "Bossa Nova",
-    "era": "classic",
-    "mood": ["romantic", "smooth", "intimate"],
-    "bpm": 92,
-    "key": "C major",
-    "vocals": "soft whispery female Portuguese vocals",
-    "instruments": ["nylon guitar", "brush drums", "subtle piano", "shaker"],
-    "prompt": "bossa nova, soft whispered female vocals in Portuguese, gentle nylon-string guitar, brushed drums, warm upright bass, subtle piano fills, intimate candlelit lounge mood, romantic and smooth, 92 BPM, C major",
-    "tags": ["bossa nova", "jazz", "latin", "romantic"]
-  },
-  {
-    "id": "voltage-priest",
-    "name": "Voltage Priest",
-    "genre": "Industrial",
-    "era": "modern",
-    "mood": ["aggressive", "mechanical", "cold"],
-    "bpm": 128,
-    "key": "C minor",
-    "vocals": "distorted shouted male vocals, vocoded layers",
-    "instruments": ["metallic percussion", "distorted synth bass", "noise textures", "four-on-floor kick"],
-    "prompt": "industrial, distorted shouted male vocals with vocoded layers, pounding metallic percussion, growling distorted synth bass, harsh noise textures, relentless four-on-the-floor kick, cold and aggressive, 128 BPM, C minor",
-    "tags": ["industrial", "ebm", "dark", "electronic"]
-  },
-  {
-    "id": "honey-gospel",
-    "name": "Honey Gospel",
-    "genre": "Soul / Gospel",
-    "era": "vintage",
-    "mood": ["uplifting", "warm", "passionate"],
-    "bpm": 84,
-    "key": "Bb major",
-    "vocals": "powerful belting female lead with full choir",
-    "instruments": ["Hammond organ", "live drums", "horn section", "tambourine"],
-    "prompt": "soul gospel, powerful belting female lead backed by a full hand-clapping choir, warm Hammond organ, punchy live drums, bright horn section, tambourine, uplifting and passionate, vintage Stax warmth, 84 BPM, Bb major",
-    "tags": ["soul", "gospel", "female vocal", "choir"]
-  },
-  {
-    "id": "glass-monolith",
-    "name": "Glass Monolith",
-    "genre": "Ambient",
-    "era": "contemporary",
-    "mood": ["meditative", "vast", "weightless"],
-    "bpm": 60,
-    "key": "drone in E",
-    "vocals": "wordless ethereal pads, distant choir",
-    "instruments": ["granular textures", "deep drones", "field recordings", "soft bells"],
-    "prompt": "ambient, wordless ethereal vocal pads and distant choir, slow evolving granular textures, deep sustained drones, gentle field recordings, soft resonant bells, vast and weightless, meditative, 60 BPM, E drone",
-    "tags": ["ambient", "drone", "atmospheric", "instrumental"]
-  },
-  {
-    "id": "ruby-riot",
-    "name": "Ruby Riot",
-    "genre": "Pop Punk",
-    "era": "2000s revival",
-    "mood": ["energetic", "rebellious", "catchy"],
-    "bpm": 168,
-    "key": "G major",
-    "vocals": "bright snotty female lead, gang vocal shouts",
-    "instruments": ["distorted power chords", "fast punk drums", "driving bass"],
-    "prompt": "pop punk, bright snotty female lead with gang-vocal shout choruses, palm-muted to open distorted power chords, fast galloping punk drums, driving bass, catchy and rebellious, 2000s skate-punk energy, 168 BPM, G major",
-    "tags": ["pop punk", "punk", "female vocal", "rock"]
-  },
-  {
-    "id": "obsidian-trap",
-    "name": "Obsidian Trap",
-    "genre": "Dark Trap",
-    "era": "modern",
-    "mood": ["menacing", "moody", "heavy"],
-    "bpm": 140,
-    "key": "F# minor",
-    "vocals": "auto-tuned melodic male rap, ad-libs",
-    "instruments": ["808 bass", "rolling hi-hats", "dark piano", "vinyl pads"],
-    "prompt": "dark trap, auto-tuned melodic male rap with layered ad-libs, booming 808 sub bass, rapid rolling hi-hats with triplets, eerie minor piano, hazy vinyl pads, menacing and moody, 140 BPM, F# minor",
-    "tags": ["trap", "hip hop", "dark", "male vocal"]
-  },
-  {
-    "id": "emerald-folk",
-    "name": "Emerald Folk",
-    "genre": "Celtic Folk",
-    "era": "timeless",
-    "mood": ["yearning", "earthy", "hopeful"],
-    "bpm": 100,
-    "key": "D major",
-    "vocals": "clear ethereal female vocals with ornamentation",
-    "instruments": ["tin whistle", "bodhran", "acoustic guitar", "fiddle", "harp"],
-    "prompt": "celtic folk, clear ethereal female vocals with traditional ornamentation, lilting tin whistle, driving bodhran, fingerpicked acoustic guitar, soaring fiddle, delicate harp, earthy and yearning, misty highland atmosphere, 100 BPM, D major",
-    "tags": ["folk", "celtic", "acoustic", "female vocal"]
-  },
-  {
-    "id": "velour-funk",
-    "name": "Velour Funk",
-    "genre": "Funk",
-    "era": "1970s",
-    "mood": ["groovy", "playful", "confident"],
-    "bpm": 108,
-    "key": "E minor",
-    "vocals": "slick male falsetto with call-and-response backing",
-    "instruments": ["slap bass", "wah guitar", "clavinet", "tight horn stabs"],
-    "prompt": "70s funk, slick male falsetto with call-and-response backing vocals, popping slap bass, wah-wah rhythm guitar, funky clavinet, tight horn stabs, crisp live drums, groovy and confident, 108 BPM, E minor",
-    "tags": ["funk", "groove", "retro", "male vocal"]
-  },
-  {
-    "id": "polar-techno",
-    "name": "Polar Techno",
-    "genre": "Techno",
-    "era": "modern",
-    "mood": ["hypnotic", "cold", "driving"],
-    "bpm": 132,
-    "key": "A minor",
-    "vocals": "occasional processed vocal stabs",
-    "instruments": ["pounding kick", "modular bleeps", "rumbling bass", "metallic hats"],
-    "prompt": "driving techno, hypnotic processed vocal stabs, relentless four-on-the-floor kick, rumbling sub bass, modular synth bleeps, metallic hi-hats, cavernous reverb, cold and industrial warehouse energy, 132 BPM, A minor",
-    "tags": ["techno", "electronic", "club", "instrumental"]
-  },
-  {
-    "id": "saffron-raga",
-    "name": "Saffron Raga",
-    "genre": "Indian Fusion",
-    "era": "contemporary",
-    "mood": ["spiritual", "hypnotic", "warm"],
-    "bpm": 88,
-    "key": "raga-based",
-    "vocals": "melismatic female vocals with classical ornamentation",
-    "instruments": ["sitar", "tabla", "tanpura drone", "bansuri flute"],
-    "prompt": "indian fusion, melismatic female vocals with classical ornamentation, intricate sitar, rolling tabla, sustained tanpura drone, breathy bansuri flute, subtle electronic pads, spiritual and hypnotic, 88 BPM, raga-based modal",
-    "tags": ["world", "indian", "fusion", "female vocal"]
-  },
-  {
-    "id": "static-grunge",
-    "name": "Static Grunge",
-    "genre": "Grunge",
+    "id": "алый-brass",
+    "name": "Алый Brass",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Jazz/Soul",
+    "subgenre": "jazz trio",
     "era": "1990s",
-    "mood": ["angsty", "raw", "heavy"],
-    "bpm": 120,
-    "key": "E minor",
-    "vocals": "raw male vocals shifting from mumble to scream",
-    "instruments": ["fuzzed-out guitars", "loose drums", "thick bass"],
-    "prompt": "90s grunge, raw male vocals shifting from mumbled verse to anguished scream, fuzzed-out distorted guitars with quiet-loud dynamics, loose pummeling drums, thick muddy bass, angsty and cathartic, 120 BPM, E minor",
-    "tags": ["grunge", "rock", "alternative", "male vocal"]
+    "mood": [
+      "warm",
+      "late-night"
+    ],
+    "scenario": "road trip",
+    "bpm": 113,
+    "key": "C major",
+    "vocals": "call-and-response choir",
+    "prompt": "1990s jazz trio (jazz/soul), call-and-response choir, Russian-language vocals, warm Rhodes, upright bass, slap bass, horn section, punchy mix, sampled textures, slightly lo-fi grit, warm and late-night mood, fits a road trip, 113 BPM, C major",
+    "tags": [
+      "jazz/soul",
+      "jazz trio",
+      "1990s",
+      "warm",
+      "late-night"
+    ],
+    "free": false,
+    "isNew": false
   },
   {
-    "id": "coral-citypop",
-    "name": "Coral City Pop",
-    "genre": "City Pop",
-    "era": "1980s Japan",
-    "mood": ["breezy", "nostalgic", "romantic"],
-    "bpm": 116,
-    "key": "F major",
-    "vocals": "smooth female Japanese vocals, polished",
-    "instruments": ["chorus electric piano", "slap bass", "bright synth brass", "crisp drums"],
-    "prompt": "80s japanese city pop, smooth polished female vocals, chorused electric piano, funky slap bass, bright synth brass, crisp gated drums, sparkling guitar licks, breezy nostalgic seaside-drive mood, 116 BPM, F major",
-    "tags": ["city pop", "retro", "japanese", "female vocal"]
-  },
-  {
-    "id": "thunder-dnb",
-    "name": "Thunder DnB",
-    "genre": "Drum and Bass",
-    "era": "modern",
-    "mood": ["urgent", "dark", "propulsive"],
-    "bpm": 174,
-    "key": "F minor",
-    "vocals": "chopped atmospheric female vox",
-    "instruments": ["amen breaks", "reese bass", "atmospheric pads", "sub drops"],
-    "prompt": "neurofunk drum and bass, chopped atmospheric female vox, fast intricate amen breaks, growling reese bass, dark atmospheric pads, heavy sub drops, urgent and propulsive, 174 BPM, F minor",
-    "tags": ["dnb", "drum and bass", "electronic", "dark"]
-  },
-  {
-    "id": "marigold-reggae",
-    "name": "Marigold Reggae",
-    "genre": "Roots Reggae",
-    "era": "classic",
-    "mood": ["laid-back", "warm", "hopeful"],
-    "bpm": 74,
-    "key": "A major",
-    "vocals": "warm male lead with harmony backing",
-    "instruments": ["offbeat skank guitar", "deep dub bass", "organ bubble", "one-drop drums"],
-    "prompt": "roots reggae, warm male lead with sweet harmony backing, offbeat skank guitar, deep rolling dub bass, bubbling organ, one-drop drums, spring reverb, laid-back and hopeful, 74 BPM, A major",
-    "tags": ["reggae", "dub", "roots", "male vocal"]
-  },
-  {
-    "id": "porcelain-classical",
-    "name": "Porcelain Classical",
-    "genre": "Neoclassical",
-    "era": "contemporary",
-    "mood": ["tender", "melancholic", "intimate"],
-    "bpm": 68,
-    "key": "C minor",
-    "vocals": "instrumental",
-    "instruments": ["solo grand piano", "intimate string quartet", "soft felt hammers"],
-    "prompt": "neoclassical, intimate solo grand piano with felt-muted hammers, tender string quartet swells, subtle room ambience and pedal noise, melancholic and cinematic, slow and reflective, 68 BPM, C minor",
-    "tags": ["classical", "piano", "cinematic", "instrumental"]
-  },
-  {
-    "id": "scarlet-disco",
-    "name": "Scarlet Disco",
-    "genre": "Nu-Disco",
-    "era": "modern retro",
-    "mood": ["uplifting", "glamorous", "danceable"],
-    "bpm": 120,
-    "key": "B minor",
-    "vocals": "soulful female lead, filtered backing",
-    "instruments": ["four-on-floor kick", "string stabs", "funky guitar", "synth bass"],
-    "prompt": "nu-disco, soulful female lead with filtered backing vocals, punchy four-on-the-floor kick, lush string stabs, funky muted guitar, bouncing analog synth bass, glittering hi-hats, uplifting and glamorous dancefloor groove, 120 BPM, B minor",
-    "tags": ["disco", "nu-disco", "dance", "female vocal"]
-  },
-  {
-    "id": "cobalt-shoegaze",
-    "name": "Cobalt Shoegaze",
-    "genre": "Shoegaze",
-    "era": "1990s revival",
-    "mood": ["dreamy", "bittersweet", "immersive"],
-    "bpm": 104,
+    "id": "алый-iron",
+    "name": "Алый Iron",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Rock",
+    "subgenre": "stadium rock",
+    "era": "1970s",
+    "mood": [
+      "bittersweet",
+      "energetic"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 119,
     "key": "D major",
-    "vocals": "buried breathy androgynous vocals",
-    "instruments": ["walls of reverb guitar", "tremolo swells", "fuzz bass", "washed drums"],
-    "prompt": "shoegaze, breathy androgynous vocals buried in the mix, towering walls of reverb-drenched guitar, tremolo swells, warm fuzz bass, washed-out drums, dreamy and bittersweet, immersive and hazy, 104 BPM, D major",
-    "tags": ["shoegaze", "dream pop", "alternative", "atmospheric"]
+    "vocals": "breathy androgynous vocals",
+    "prompt": "1970s stadium rock (rock), breathy androgynous vocals, Russian-language vocals, tambourine, organ swells, jangly guitars, melodic bass, analog warmth, live room sound, subtle tape saturation, bittersweet and energetic mood, fits a dancefloor peak, 119 BPM, D major",
+    "tags": [
+      "rock",
+      "stadium rock",
+      "1970s",
+      "bittersweet",
+      "energetic"
+    ],
+    "free": false,
+    "isNew": false
   },
   {
-    "id": "amber-jazztrio",
-    "name": "Amber Jazz Trio",
-    "genre": "Jazz",
-    "era": "classic",
-    "mood": ["smoky", "sophisticated", "late-night"],
-    "bpm": 120,
-    "key": "Bb major",
-    "vocals": "instrumental",
-    "instruments": ["upright bass", "brushed drums", "expressive grand piano"],
-    "prompt": "acoustic jazz trio, expressive swinging grand piano, warm walking upright bass, brushed drums with subtle ride, intimate club room sound, smoky and sophisticated late-night mood, 120 BPM swing, Bb major",
-    "tags": ["jazz", "trio", "instrumental", "acoustic"]
-  },
-  {
-    "id": "ultraviolet-hyperpop",
-    "name": "Ultraviolet Hyperpop",
-    "genre": "Hyperpop",
-    "era": "modern",
-    "mood": ["chaotic", "euphoric", "glitchy"],
-    "bpm": 160,
-    "key": "C# minor",
-    "vocals": "pitched-up auto-tuned vocals, glitch chops",
-    "instruments": ["distorted 808s", "saw synths", "glitch fx", "metallic percussion"],
-    "prompt": "hyperpop, pitched-up heavily auto-tuned vocals with glitch chops, distorted booming 808s, bright saw synth leads, bitcrushed glitch fx, metallic percussion, maximalist and chaotic, euphoric sugar-rush energy, 160 BPM, C# minor",
-    "tags": ["hyperpop", "pop", "experimental", "electronic"]
-  },
-  {
-    "id": "driftwood-indie",
-    "name": "Driftwood Indie",
-    "genre": "Indie Folk",
-    "era": "contemporary",
-    "mood": ["warm", "earnest", "bittersweet"],
-    "bpm": 112,
-    "key": "G major",
-    "vocals": "warm male vocals with group harmony swells",
-    "instruments": ["fingerpicked acoustic", "banjo", "kick-stomp", "glockenspiel"],
-    "prompt": "indie folk, warm earnest male vocals with soaring group harmony swells, fingerpicked acoustic guitar, rolling banjo, foot-stomp kick and claps, twinkling glockenspiel, warm and bittersweet anthemic build, 112 BPM, G major",
-    "tags": ["indie folk", "folk", "acoustic", "male vocal"]
-  },
-  {
-    "id": "neon-kpop",
-    "name": "Neon K-Pop",
-    "genre": "K-Pop",
-    "era": "modern",
-    "mood": ["bright", "punchy", "confident"],
-    "bpm": 124,
+    "id": "алый-shine",
+    "name": "Алый Shine",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Pop",
+    "subgenre": "dance-pop",
+    "era": "2010s",
+    "mood": [
+      "wistful",
+      "catchy"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 128,
     "key": "A minor",
-    "vocals": "polished group vocals, rap verse, big harmonies",
-    "instruments": ["bright synth leads", "trap-pop drums", "slap bass", "orchestral hits"],
-    "prompt": "k-pop, polished mixed-group vocals with a punchy rap verse and big stacked harmonies, bright synth leads, hybrid trap-pop drums, slap bass, dramatic orchestral hits, glossy and confident, switch-up structure, 124 BPM, A minor",
-    "tags": ["kpop", "pop", "dance", "group vocal"]
+    "vocals": "smooth male lead",
+    "prompt": "2010s dance-pop (pop), smooth male lead, Russian-language vocals, glossy pads, vocal chops, punchy drum machine, shimmering guitars, modern loud master, crisp transients, sidechained space, wistful and catchy mood, fits a late-night drive, 128 BPM, A minor",
+    "tags": [
+      "pop",
+      "dance-pop",
+      "2010s",
+      "wistful",
+      "catchy"
+    ],
+    "free": false,
+    "isNew": false
   },
   {
-    "id": "rustbelt-blues",
-    "name": "Rustbelt Blues",
-    "genre": "Electric Blues",
-    "era": "vintage",
-    "mood": ["gritty", "soulful", "raw"],
-    "bpm": 92,
-    "key": "A minor",
-    "vocals": "raspy soulful male vocals",
-    "instruments": ["overdriven guitar", "harmonica", "walking bass", "shuffle drums"],
-    "prompt": "electric blues, raspy soulful male vocals, stinging overdriven guitar bends, wailing harmonica, walking bass, shuffle drums, smoky juke-joint atmosphere, gritty and raw, 92 BPM, A minor",
-    "tags": ["blues", "rock", "vintage", "male vocal"]
+    "id": "алый-smoke",
+    "name": "Алый Smoke",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Jazz/Soul",
+    "subgenre": "soul",
+    "era": "2000s",
+    "mood": [
+      "groovy",
+      "late-night"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 117,
+    "key": "Eb major",
+    "vocals": "call-and-response choir",
+    "prompt": "2000s soul (jazz/soul), call-and-response choir, Russian-language vocals, brushed drums, warm Rhodes, slap bass, horn section, polished digital sheen, tight compression, layered production, groovy and late-night mood, fits a late-night drive, 117 BPM, Eb major",
+    "tags": [
+      "jazz/soul",
+      "soul",
+      "2000s",
+      "groovy",
+      "late-night"
+    ],
+    "free": false,
+    "isNew": false
   },
   {
-    "id": "halcyon-trance",
-    "name": "Halcyon Trance",
-    "genre": "Uplifting Trance",
-    "era": "2000s revival",
-    "mood": ["euphoric", "soaring", "emotional"],
-    "bpm": 138,
+    "id": "бархатный-obsidian",
+    "name": "Бархатный Obsidian",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Hip-hop",
+    "subgenre": "lo-fi hip hop",
+    "era": "1970s",
+    "mood": [
+      "smooth",
+      "moody"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 128,
+    "key": "Bb minor",
+    "vocals": "confident male rap",
+    "prompt": "1970s lo-fi hip hop (hip-hop), confident male rap, Russian-language vocals, vinyl crackle, rolling hi-hats, booming 808s, dusty Rhodes, analog warmth, live room sound, subtle tape saturation, smooth and moody mood, fits a dancefloor peak, 128 BPM, Bb minor",
+    "tags": [
+      "hip-hop",
+      "lo-fi hip hop",
+      "1970s",
+      "smooth",
+      "moody"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "бархатный-volt",
+    "name": "Бархатный Volt",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Electronic",
+    "subgenre": "ambient",
+    "era": "1960s",
+    "mood": [
+      "energetic",
+      "weightless"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 137,
     "key": "F# minor",
     "vocals": "ethereal female topline",
-    "instruments": ["supersaw leads", "rolling bassline", "gated pads", "big breakdown"],
-    "prompt": "uplifting trance, ethereal female topline, soaring supersaw leads, rolling off-beat bassline, gated shimmering pads, emotional piano breakdown into a euphoric drop, festival main-stage energy, 138 BPM, F# minor",
-    "tags": ["trance", "edm", "electronic", "female vocal"]
+    "prompt": "1960s ambient (electronic), ethereal female topline, Russian-language vocals, rolling bassline, four-on-floor kick, modular bleeps, supersaw chords, warm vintage tape, mono-leaning mix, plate reverb, energetic and weightless mood, fits a cinematic trailer, 137 BPM, F# minor",
+    "tags": [
+      "electronic",
+      "ambient",
+      "1960s",
+      "energetic",
+      "weightless"
+    ],
+    "free": true,
+    "isNew": false
   },
   {
-    "id": "sable-rnb",
-    "name": "Sable R&B",
-    "genre": "Alternative R&B",
-    "era": "modern",
-    "mood": ["sultry", "moody", "intimate"],
-    "bpm": 90,
-    "key": "D# minor",
-    "vocals": "smooth airy male falsetto, layered harmonies",
-    "instruments": ["warm Rhodes", "muted 808s", "lush pads", "finger snaps"],
-    "prompt": "alternative R&B, smooth airy male falsetto with layered close harmonies, warm Rhodes chords, soft muted 808s, lush ambient pads, finger snaps, late-night sultry and moody intimacy, 90 BPM, D# minor",
-    "tags": ["rnb", "soul", "moody", "male vocal"]
+    "id": "вишневий-iron",
+    "name": "Вишневий Iron",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Rock",
+    "subgenre": "alt rock",
+    "era": "2020s",
+    "mood": [
+      "rebellious",
+      "angsty"
+    ],
+    "scenario": "credits roll",
+    "bpm": 137,
+    "key": "A major",
+    "vocals": "raw female lead",
+    "prompt": "2020s alt rock (rock), raw female lead, Ukrainian-language vocals, live drums, jangly guitars, organ swells, melodic bass, hyper-clean hybrid production, deep sub, immersive width, rebellious and angsty mood, fits a credits roll, 137 BPM, A major",
+    "tags": [
+      "rock",
+      "alt rock",
+      "2020s",
+      "rebellious",
+      "angsty"
+    ],
+    "free": false,
+    "isNew": false
   },
   {
-    "id": "tundra-blackmetal",
-    "name": "Tundra Black Metal",
-    "genre": "Atmospheric Black Metal",
-    "era": "modern",
-    "mood": ["frostbitten", "vast", "desolate"],
-    "bpm": 160,
-    "key": "E minor",
-    "vocals": "shrieked rasping vocals, distant",
-    "instruments": ["tremolo guitars", "blast-beat drums", "cold synth pads", "deep bass"],
-    "prompt": "atmospheric black metal, distant shrieked rasping vocals, icy tremolo-picked guitar walls, relentless blast-beat drums, cold ambient synth pads, deep rumbling bass, frostbitten and vast, desolate grandeur, 160 BPM, E minor",
-    "tags": ["metal", "black metal", "atmospheric", "dark"]
+    "id": "вишневий-vapor",
+    "name": "Вишневий Vapor",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Hip-hop",
+    "subgenre": "cloud rap",
+    "era": "1990s",
+    "mood": [
+      "confident",
+      "moody"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 82,
+    "key": "G minor",
+    "vocals": "melodic auto-tuned rap",
+    "prompt": "1990s cloud rap (hip-hop), melodic auto-tuned rap, Ukrainian-language vocals, rolling hi-hats, dusty Rhodes, booming 808s, soul sample chops, punchy mix, sampled textures, slightly lo-fi grit, confident and moody mood, fits a festival main stage, 82 BPM, G minor",
+    "tags": [
+      "hip-hop",
+      "cloud rap",
+      "1990s",
+      "confident",
+      "moody"
+    ],
+    "free": false,
+    "isNew": true
   },
   {
-    "id": "papaya-afrobeats",
-    "name": "Papaya Afrobeats",
-    "genre": "Afrobeats",
-    "era": "modern",
-    "mood": ["sunny", "danceable", "joyful"],
+    "id": "вишневий-wave",
+    "name": "Вишневий Wave",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Pop",
+    "subgenre": "synth-pop",
+    "era": "1980s",
+    "mood": [
+      "uplifting",
+      "bright"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 101,
+    "key": "F major",
+    "vocals": "polished female lead",
+    "prompt": "1980s synth-pop (pop), polished female lead, Ukrainian-language vocals, punchy drum machine, glossy pads, plucky bass, bright synth leads, gated reverb drums, bright chorus, wide stereo, uplifting and bright mood, fits a festival main stage, 101 BPM, F major",
+    "tags": [
+      "pop",
+      "synth-pop",
+      "1980s",
+      "uplifting",
+      "bright"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "дніпровський-riot",
+    "name": "Дніпровський Riot",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Rock",
+    "subgenre": "garage rock",
+    "era": "1960s",
+    "mood": [
+      "rebellious",
+      "angsty"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 132,
+    "key": "D major",
+    "vocals": "breathy androgynous vocals",
+    "prompt": "1960s garage rock (rock), breathy androgynous vocals, Ukrainian-language vocals, tambourine, organ swells, driving distorted guitars, live drums, warm vintage tape, mono-leaning mix, plate reverb, rebellious and angsty mood, fits a late-night drive, 132 BPM, D major",
+    "tags": [
+      "rock",
+      "garage rock",
+      "1960s",
+      "rebellious",
+      "angsty"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "карпатський-prism",
+    "name": "Карпатський Prism",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Electronic",
+    "subgenre": "techno",
+    "era": "1990s",
+    "mood": [
+      "weightless",
+      "hypnotic"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 170,
+    "key": "F# minor",
+    "vocals": "processed vocal stabs",
+    "prompt": "1990s techno (electronic), processed vocal stabs, Ukrainian-language vocals, rolling bassline, four-on-floor kick, supersaw chords, modular bleeps, punchy mix, sampled textures, slightly lo-fi grit, weightless and hypnotic mood, fits a workout playlist, 170 BPM, F# minor",
+    "tags": [
+      "electronic",
+      "techno",
+      "1990s",
+      "weightless",
+      "hypnotic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "карпатський-pulse",
+    "name": "Карпатський Pulse",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Pop",
+    "subgenre": "synth-pop",
+    "era": "1980s",
+    "mood": [
+      "catchy",
+      "uplifting"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 119,
+    "key": "C major",
+    "vocals": "polished female lead",
+    "prompt": "1980s synth-pop (pop), polished female lead, Ukrainian-language vocals, punchy drum machine, glossy pads, vocal chops, shimmering guitars, gated reverb drums, bright chorus, wide stereo, catchy and uplifting mood, fits a late-night drive, 119 BPM, C major",
+    "tags": [
+      "pop",
+      "synth-pop",
+      "1980s",
+      "catchy",
+      "uplifting"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "карпатський-riot",
+    "name": "Карпатський Riot",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Rock",
+    "subgenre": "post-punk",
+    "era": "1980s",
+    "mood": [
+      "energetic",
+      "rebellious"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 149,
+    "key": "D major",
+    "vocals": "raw female lead",
+    "prompt": "1980s post-punk (rock), raw female lead, Ukrainian-language vocals, tambourine, jangly guitars, organ swells, live drums, gated reverb drums, bright chorus, wide stereo, energetic and rebellious mood, fits a festival main stage, 149 BPM, D major",
+    "tags": [
+      "rock",
+      "post-punk",
+      "1980s",
+      "energetic",
+      "rebellious"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "карпатський-shine",
+    "name": "Карпатський Shine",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Pop",
+    "subgenre": "dance-pop",
+    "era": "2010s",
+    "mood": [
+      "wistful",
+      "uplifting"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 106,
+    "key": "C major",
+    "vocals": "layered group harmonies",
+    "prompt": "2010s dance-pop (pop), layered group harmonies, Ukrainian-language vocals, shimmering guitars, punchy drum machine, bright synth leads, vocal chops, modern loud master, crisp transients, sidechained space, wistful and uplifting mood, fits a rainy study session, 106 BPM, C major",
+    "tags": [
+      "pop",
+      "dance-pop",
+      "2010s",
+      "wistful",
+      "uplifting"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "карпатський-static",
+    "name": "Карпатський Static",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Rock",
+    "subgenre": "alt rock",
+    "era": "1970s",
+    "mood": [
+      "bittersweet",
+      "energetic"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 152,
+    "key": "A major",
+    "vocals": "anthemic group shouts",
+    "prompt": "1970s alt rock (rock), anthemic group shouts, Ukrainian-language vocals, jangly guitars, organ swells, live drums, driving distorted guitars, analog warmth, live room sound, subtle tape saturation, bittersweet and energetic mood, fits a cinematic trailer, 152 BPM, A major",
+    "tags": [
+      "rock",
+      "alt rock",
+      "1970s",
+      "bittersweet",
+      "energetic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "київський-cabaret",
+    "name": "Київський Cabaret",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Chanson",
+    "subgenre": "accordion waltz",
+    "era": "1980s",
+    "mood": [
+      "intimate",
+      "dramatic"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 86,
+    "key": "A minor",
+    "vocals": "intimate crooned vocals",
+    "prompt": "1980s accordion waltz (chanson), intimate crooned vocals, Ukrainian-language vocals, intimate piano, accordion, muted trumpet, upright bass, gated reverb drums, bright chorus, wide stereo, intimate and dramatic mood, fits a cinematic trailer, 86 BPM, A minor",
+    "tags": [
+      "chanson",
+      "accordion waltz",
+      "1980s",
+      "intimate",
+      "dramatic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "невский-circuit",
+    "name": "Невский Circuit",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Electronic",
+    "subgenre": "house",
+    "era": "1980s",
+    "mood": [
+      "hypnotic",
+      "energetic"
+    ],
+    "scenario": "credits roll",
+    "bpm": 164,
+    "key": "B minor",
+    "vocals": "ethereal female topline",
+    "prompt": "1980s house (electronic), ethereal female topline, Russian-language vocals, rolling bassline, gated pads, modular bleeps, sidechained bass, gated reverb drums, bright chorus, wide stereo, hypnotic and energetic mood, fits a credits roll, 164 BPM, B minor",
+    "tags": [
+      "electronic",
+      "house",
+      "1980s",
+      "hypnotic",
+      "energetic"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "невский-glow",
+    "name": "Невский Glow",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Pop",
+    "subgenre": "bedroom pop",
+    "era": "2020s",
+    "mood": [
+      "bright",
+      "catchy"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 115,
+    "key": "F major",
+    "vocals": "polished female lead",
+    "prompt": "2020s bedroom pop (pop), polished female lead, Russian-language vocals, shimmering guitars, bright synth leads, plucky bass, punchy drum machine, hyper-clean hybrid production, deep sub, immersive width, bright and catchy mood, fits a dancefloor peak, 115 BPM, F major",
+    "tags": [
+      "pop",
+      "bedroom pop",
+      "2020s",
+      "bright",
+      "catchy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "полночный-dream",
+    "name": "Полночный Dream",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Pop",
+    "subgenre": "electro-pop",
+    "era": "2000s",
+    "mood": [
+      "bright",
+      "catchy"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 117,
+    "key": "C major",
+    "vocals": "smooth male lead",
+    "prompt": "2000s electro-pop (pop), smooth male lead, Russian-language vocals, glossy pads, plucky bass, shimmering guitars, vocal chops, polished digital sheen, tight compression, layered production, bright and catchy mood, fits a festival main stage, 117 BPM, C major",
+    "tags": [
+      "pop",
+      "electro-pop",
+      "2000s",
+      "bright",
+      "catchy"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "полночный-emerald",
+    "name": "Полночный Emerald",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Folk/Ethnic",
+    "subgenre": "indie folk",
+    "era": "1970s",
+    "mood": [
+      "yearning",
+      "spiritual"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 119,
+    "key": "D major",
+    "vocals": "warm male vocals with harmony",
+    "prompt": "1970s indie folk (folk/ethnic), warm male vocals with harmony, Russian-language vocals, hand percussion, banjo, tin whistle, fiddle, analog warmth, live room sound, subtle tape saturation, yearning and spiritual mood, fits a late-night drive, 119 BPM, D major",
+    "tags": [
+      "folk/ethnic",
+      "indie folk",
+      "1970s",
+      "yearning",
+      "spiritual"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "северный-wave",
+    "name": "Северный Wave",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Pop",
+    "subgenre": "indie pop",
+    "era": "1970s",
+    "mood": [
+      "romantic",
+      "uplifting"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 118,
+    "key": "F major",
+    "vocals": "layered group harmonies",
+    "prompt": "1970s indie pop (pop), layered group harmonies, Russian-language vocals, glossy pads, plucky bass, shimmering guitars, punchy drum machine, analog warmth, live room sound, subtle tape saturation, romantic and uplifting mood, fits a festival main stage, 118 BPM, F major",
+    "tags": [
+      "pop",
+      "indie pop",
+      "1970s",
+      "romantic",
+      "uplifting"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "сибирский-bloom",
+    "name": "Сибирский Bloom",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Pop",
+    "subgenre": "synth-pop",
+    "era": "1990s",
+    "mood": [
+      "wistful",
+      "romantic"
+    ],
+    "scenario": "intimate cafe",
     "bpm": 104,
-    "key": "C# minor",
-    "vocals": "smooth melodic male vocals with pidgin hooks",
-    "instruments": ["log-drum bass", "bright marimba", "syncopated percussion", "plucky synths"],
-    "prompt": "afrobeats, smooth melodic male vocals with catchy pidgin hooks, bouncing log-drum bass, bright marimba, syncopated layered percussion, plucky synths, sunny and danceable, joyful summer groove, 104 BPM, C# minor",
-    "tags": ["afrobeats", "world", "dance", "male vocal"]
+    "key": "C major",
+    "vocals": "layered group harmonies",
+    "prompt": "1990s synth-pop (pop), layered group harmonies, Russian-language vocals, plucky bass, glossy pads, bright synth leads, vocal chops, punchy mix, sampled textures, slightly lo-fi grit, wistful and romantic mood, fits a intimate cafe, 104 BPM, C major",
+    "tags": [
+      "pop",
+      "synth-pop",
+      "1990s",
+      "wistful",
+      "romantic"
+    ],
+    "free": true,
+    "isNew": false
   },
   {
-    "id": "graphite-mathrock",
-    "name": "Graphite Math Rock",
-    "genre": "Math Rock",
-    "era": "modern",
-    "mood": ["intricate", "bright", "restless"],
-    "bpm": 145,
-    "key": "irregular",
+    "id": "сибирский-cedar",
+    "name": "Сибирский Cedar",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Folk/Ethnic",
+    "subgenre": "afrobeats",
+    "era": "1970s",
+    "mood": [
+      "earthy",
+      "spiritual"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 104,
+    "key": "A minor",
+    "vocals": "group folk harmonies",
+    "prompt": "1970s afrobeats (folk/ethnic), group folk harmonies, Russian-language vocals, fiddle, tin whistle, fingerpicked acoustic guitar, drone strings, analog warmth, live room sound, subtle tape saturation, earthy and spiritual mood, fits a rainy study session, 104 BPM, A minor",
+    "tags": [
+      "folk/ethnic",
+      "afrobeats",
+      "1970s",
+      "earthy",
+      "spiritual"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "сибирский-circuit",
+    "name": "Сибирский Circuit",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Electronic",
+    "subgenre": "house",
+    "era": "1980s",
+    "mood": [
+      "weightless",
+      "hypnotic"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 137,
+    "key": "F# minor",
     "vocals": "instrumental",
-    "instruments": ["tapped clean guitars", "odd-time drums", "melodic bass"],
-    "prompt": "math rock, bright tapped and arpeggiated clean guitars in interlocking patterns, intricate odd-time-signature drumming, melodic nimble bass, instrumental, restless and intricate yet playful, 145 BPM, shifting meters",
-    "tags": ["math rock", "rock", "instrumental", "experimental"]
+    "prompt": "1980s house (electronic), instrumental, Russian-language vocals, sidechained bass, modular bleeps, rolling bassline, gated pads, gated reverb drums, bright chorus, wide stereo, weightless and hypnotic mood, fits a festival main stage, 137 BPM, F# minor",
+    "tags": [
+      "electronic",
+      "house",
+      "1980s",
+      "weightless",
+      "hypnotic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "сибирский-concrete",
+    "name": "Сибирский Concrete",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Hip-hop",
+    "subgenre": "drill",
+    "era": "1970s",
+    "mood": [
+      "menacing",
+      "nostalgic"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 90,
+    "key": "Bb minor",
+    "vocals": "spoken-word verses",
+    "prompt": "1970s drill (hip-hop), spoken-word verses, Russian-language vocals, booming 808s, soul sample chops, vinyl crackle, rolling hi-hats, analog warmth, live room sound, subtle tape saturation, menacing and nostalgic mood, fits a festival main stage, 90 BPM, Bb minor",
+    "tags": [
+      "hip-hop",
+      "drill",
+      "1970s",
+      "menacing",
+      "nostalgic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "сибирский-glow",
+    "name": "Сибирский Glow",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Pop",
+    "subgenre": "indie pop",
+    "era": "1960s",
+    "mood": [
+      "catchy",
+      "uplifting"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 126,
+    "key": "C major",
+    "vocals": "airy female topline",
+    "prompt": "1960s indie pop (pop), airy female topline, Russian-language vocals, punchy drum machine, bright synth leads, shimmering guitars, plucky bass, warm vintage tape, mono-leaning mix, plate reverb, catchy and uplifting mood, fits a dancefloor peak, 126 BPM, C major",
+    "tags": [
+      "pop",
+      "indie pop",
+      "1960s",
+      "catchy",
+      "uplifting"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "сибирский-wave",
+    "name": "Сибирский Wave",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Pop",
+    "subgenre": "dream pop",
+    "era": "1990s",
+    "mood": [
+      "romantic",
+      "bright"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 102,
+    "key": "F major",
+    "vocals": "smooth male lead",
+    "prompt": "1990s dream pop (pop), smooth male lead, Russian-language vocals, shimmering guitars, bright synth leads, plucky bass, glossy pads, punchy mix, sampled textures, slightly lo-fi grit, romantic and bright mood, fits a late-night drive, 102 BPM, F major",
+    "tags": [
+      "pop",
+      "dream pop",
+      "1990s",
+      "romantic",
+      "bright"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "соняшний-glow",
+    "name": "Соняшний Glow",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Pop",
+    "subgenre": "dream pop",
+    "era": "2000s",
+    "mood": [
+      "bright",
+      "uplifting"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 117,
+    "key": "C major",
+    "vocals": "airy female topline",
+    "prompt": "2000s dream pop (pop), airy female topline, Ukrainian-language vocals, punchy drum machine, shimmering guitars, plucky bass, bright synth leads, polished digital sheen, tight compression, layered production, bright and uplifting mood, fits a festival main stage, 117 BPM, C major",
+    "tags": [
+      "pop",
+      "dream pop",
+      "2000s",
+      "bright",
+      "uplifting"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "степовий-riot",
+    "name": "Степовий Riot",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Rock",
+    "subgenre": "shoegaze",
+    "era": "1970s",
+    "mood": [
+      "angsty",
+      "energetic"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 152,
+    "key": "A major",
+    "vocals": "anthemic group shouts",
+    "prompt": "1970s shoegaze (rock), anthemic group shouts, Ukrainian-language vocals, organ swells, tambourine, jangly guitars, melodic bass, analog warmth, live room sound, subtle tape saturation, angsty and energetic mood, fits a late-night drive, 152 BPM, A major",
+    "tags": [
+      "rock",
+      "shoegaze",
+      "1970s",
+      "angsty",
+      "energetic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "степовий-shine",
+    "name": "Степовий Shine",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Pop",
+    "subgenre": "synth-pop",
+    "era": "1970s",
+    "mood": [
+      "romantic",
+      "catchy"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 107,
+    "key": "F major",
+    "vocals": "polished female lead",
+    "prompt": "1970s synth-pop (pop), polished female lead, Ukrainian-language vocals, glossy pads, plucky bass, bright synth leads, vocal chops, analog warmth, live room sound, subtle tape saturation, romantic and catchy mood, fits a festival main stage, 107 BPM, F major",
+    "tags": [
+      "pop",
+      "synth-pop",
+      "1970s",
+      "romantic",
+      "catchy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "степовий-wave",
+    "name": "Степовий Wave",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Pop",
+    "subgenre": "art pop",
+    "era": "1960s",
+    "mood": [
+      "romantic",
+      "wistful"
+    ],
+    "scenario": "credits roll",
+    "bpm": 121,
+    "key": "A minor",
+    "vocals": "smooth male lead",
+    "prompt": "1960s art pop (pop), smooth male lead, Ukrainian-language vocals, punchy drum machine, bright synth leads, shimmering guitars, plucky bass, warm vintage tape, mono-leaning mix, plate reverb, romantic and wistful mood, fits a credits roll, 121 BPM, A minor",
+    "tags": [
+      "pop",
+      "art pop",
+      "1960s",
+      "romantic",
+      "wistful"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "янтарный-ash",
+    "name": "Янтарный Ash",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Metal",
+    "subgenre": "power metal",
+    "era": "2010s",
+    "mood": [
+      "triumphant",
+      "epic"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 167,
+    "key": "D minor",
+    "vocals": "operatic soprano over growls",
+    "prompt": "2010s power metal (metal), operatic soprano over growls, Russian-language vocals, down-tuned guitars, tremolo guitars, double-kick drums, orchestral strings, modern loud master, crisp transients, sidechained space, triumphant and epic mood, fits a cinematic trailer, 167 BPM, D minor",
+    "tags": [
+      "metal",
+      "power metal",
+      "2010s",
+      "triumphant",
+      "epic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "янтарный-bloom",
+    "name": "Янтарный Bloom",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Pop",
+    "subgenre": "bedroom pop",
+    "era": "1960s",
+    "mood": [
+      "romantic",
+      "wistful"
+    ],
+    "scenario": "road trip",
+    "bpm": 121,
+    "key": "C major",
+    "vocals": "polished female lead",
+    "prompt": "1960s bedroom pop (pop), polished female lead, Russian-language vocals, bright synth leads, vocal chops, shimmering guitars, glossy pads, warm vintage tape, mono-leaning mix, plate reverb, romantic and wistful mood, fits a road trip, 121 BPM, C major",
+    "tags": [
+      "pop",
+      "bedroom pop",
+      "1960s",
+      "romantic",
+      "wistful"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "янтарный-driftwood",
+    "name": "Янтарный Driftwood",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Folk/Ethnic",
+    "subgenre": "neo-traditional",
+    "era": "2000s",
+    "mood": [
+      "yearning",
+      "warm"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 107,
+    "key": "A minor",
+    "vocals": "clear ethereal female vocals",
+    "prompt": "2000s neo-traditional (folk/ethnic), clear ethereal female vocals, Russian-language vocals, fingerpicked acoustic guitar, banjo, tin whistle, fiddle, polished digital sheen, tight compression, layered production, yearning and warm mood, fits a festival main stage, 107 BPM, A minor",
+    "tags": [
+      "folk/ethnic",
+      "neo-traditional",
+      "2000s",
+      "yearning",
+      "warm"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "янтарный-obsidian",
+    "name": "Янтарный Obsidian",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Hip-hop",
+    "subgenre": "trap",
+    "era": "1990s",
+    "mood": [
+      "smooth",
+      "moody"
+    ],
+    "scenario": "road trip",
+    "bpm": 85,
+    "key": "Bb minor",
+    "vocals": "confident male rap",
+    "prompt": "1990s trap (hip-hop), confident male rap, Russian-language vocals, vinyl crackle, booming 808s, soul sample chops, rolling hi-hats, punchy mix, sampled textures, slightly lo-fi grit, smooth and moody mood, fits a road trip, 85 BPM, Bb minor",
+    "tags": [
+      "hip-hop",
+      "trap",
+      "1990s",
+      "smooth",
+      "moody"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "янтарный-shadow",
+    "name": "Янтарный Shadow",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Hip-hop",
+    "subgenre": "g-funk",
+    "era": "1960s",
+    "mood": [
+      "smooth",
+      "menacing"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 102,
+    "key": "F minor",
+    "vocals": "confident male rap",
+    "prompt": "1960s g-funk (hip-hop), confident male rap, Russian-language vocals, vinyl crackle, dusty Rhodes, booming 808s, soul sample chops, warm vintage tape, mono-leaning mix, plate reverb, smooth and menacing mood, fits a cinematic trailer, 102 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "g-funk",
+      "1960s",
+      "smooth",
+      "menacing"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "янтарный-volt",
+    "name": "Янтарный Volt",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Electronic",
+    "subgenre": "trance",
+    "era": "1990s",
+    "mood": [
+      "euphoric",
+      "weightless"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 151,
+    "key": "F# minor",
+    "vocals": "instrumental",
+    "prompt": "1990s trance (electronic), instrumental, Russian-language vocals, gated pads, four-on-floor kick, sidechained bass, supersaw chords, punchy mix, sampled textures, slightly lo-fi grit, euphoric and weightless mood, fits a festival main stage, 151 BPM, F# minor",
+    "tags": [
+      "electronic",
+      "trance",
+      "1990s",
+      "euphoric",
+      "weightless"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "anadolu-bloom",
+    "name": "Anadolu Bloom",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Pop",
+    "subgenre": "dance-pop",
+    "era": "1970s",
+    "mood": [
+      "uplifting",
+      "bright"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 116,
+    "key": "C major",
+    "vocals": "smooth male lead",
+    "prompt": "1970s dance-pop (pop), smooth male lead, Turkish-language vocals, shimmering guitars, plucky bass, punchy drum machine, vocal chops, analog warmth, live room sound, subtle tape saturation, uplifting and bright mood, fits a cinematic trailer, 116 BPM, C major",
+    "tags": [
+      "pop",
+      "dance-pop",
+      "1970s",
+      "uplifting",
+      "bright"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "anadolu-honey",
+    "name": "Anadolu Honey",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Jazz/Soul",
+    "subgenre": "soul",
+    "era": "2020s",
+    "mood": [
+      "late-night",
+      "groovy"
+    ],
+    "scenario": "intimate cafe",
+    "bpm": 87,
+    "key": "C major",
+    "vocals": "call-and-response choir",
+    "prompt": "2020s soul (jazz/soul), call-and-response choir, Turkish-language vocals, upright bass, brushed drums, Hammond organ, warm Rhodes, hyper-clean hybrid production, deep sub, immersive width, late-night and groovy mood, fits a intimate cafe, 87 BPM, C major",
+    "tags": [
+      "jazz/soul",
+      "soul",
+      "2020s",
+      "late-night",
+      "groovy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "anadolu-saffron",
+    "name": "Anadolu Saffron",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Folk/Ethnic",
+    "subgenre": "americana",
+    "era": "1990s",
+    "mood": [
+      "hopeful",
+      "warm"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 119,
+    "key": "G major",
+    "vocals": "warm male vocals with harmony",
+    "prompt": "1990s americana (folk/ethnic), warm male vocals with harmony, Turkish-language vocals, tin whistle, fingerpicked acoustic guitar, hand percussion, banjo, punchy mix, sampled textures, slightly lo-fi grit, hopeful and warm mood, fits a focus & coding, 119 BPM, G major",
+    "tags": [
+      "folk/ethnic",
+      "americana",
+      "1990s",
+      "hopeful",
+      "warm"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "atl-ntico-emerald",
+    "name": "Atlântico Emerald",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Folk/Ethnic",
+    "subgenre": "world fusion",
+    "era": "1990s",
+    "mood": [
+      "spiritual",
+      "earthy"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 114,
+    "key": "A minor",
+    "vocals": "warm male vocals with harmony",
+    "prompt": "1990s world fusion (folk/ethnic), warm male vocals with harmony, Portuguese-language vocals, drone strings, fiddle, hand percussion, fingerpicked acoustic guitar, punchy mix, sampled textures, slightly lo-fi grit, spiritual and earthy mood, fits a dancefloor peak, 114 BPM, A minor",
+    "tags": [
+      "folk/ethnic",
+      "world fusion",
+      "1990s",
+      "spiritual",
+      "earthy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "atl-ntico-storm",
+    "name": "Atlântico Storm",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Rock",
+    "subgenre": "post-punk",
+    "era": "2020s",
+    "mood": [
+      "bittersweet",
+      "energetic"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 110,
+    "key": "E minor",
+    "vocals": "anthemic group shouts",
+    "prompt": "2020s post-punk (rock), anthemic group shouts, Portuguese-language vocals, tambourine, jangly guitars, melodic bass, live drums, hyper-clean hybrid production, deep sub, immersive width, bittersweet and energetic mood, fits a festival main stage, 110 BPM, E minor",
+    "tags": [
+      "rock",
+      "post-punk",
+      "2020s",
+      "bittersweet",
+      "energetic"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "bahor-glow",
+    "name": "Bahor Glow",
+    "language": "uz",
+    "languageLabel": "Узбекские",
+    "genre": "Pop",
+    "subgenre": "art pop",
+    "era": "2000s",
+    "mood": [
+      "uplifting",
+      "wistful"
+    ],
+    "scenario": "credits roll",
+    "bpm": 114,
+    "key": "C major",
+    "vocals": "polished female lead",
+    "prompt": "2000s art pop (pop), polished female lead, Uzbek-language vocals, punchy drum machine, shimmering guitars, bright synth leads, vocal chops, polished digital sheen, tight compression, layered production, uplifting and wistful mood, fits a credits roll, 114 BPM, C major",
+    "tags": [
+      "pop",
+      "art pop",
+      "2000s",
+      "uplifting",
+      "wistful"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "bahor-gold",
+    "name": "Bahor Gold",
+    "language": "uz",
+    "languageLabel": "Узбекские",
+    "genre": "Hip-hop",
+    "subgenre": "boom-bap",
+    "era": "1990s",
+    "mood": [
+      "nostalgic",
+      "confident"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 100,
+    "key": "Bb minor",
+    "vocals": "spoken-word verses",
+    "prompt": "1990s boom-bap (hip-hop), spoken-word verses, Uzbek-language vocals, dusty Rhodes, boom-bap drums, rolling hi-hats, soul sample chops, punchy mix, sampled textures, slightly lo-fi grit, nostalgic and confident mood, fits a rainy study session, 100 BPM, Bb minor",
+    "tags": [
+      "hip-hop",
+      "boom-bap",
+      "1990s",
+      "nostalgic",
+      "confident"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "berlin-saffron",
+    "name": "Berlin Saffron",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Folk/Ethnic",
+    "subgenre": "americana",
+    "era": "2010s",
+    "mood": [
+      "earthy",
+      "hopeful"
+    ],
+    "scenario": "road trip",
+    "bpm": 101,
+    "key": "A minor",
+    "vocals": "clear ethereal female vocals",
+    "prompt": "2010s americana (folk/ethnic), clear ethereal female vocals, German-language vocals, banjo, fingerpicked acoustic guitar, hand percussion, tin whistle, modern loud master, crisp transients, sidechained space, earthy and hopeful mood, fits a road trip, 101 BPM, A minor",
+    "tags": [
+      "folk/ethnic",
+      "americana",
+      "2010s",
+      "earthy",
+      "hopeful"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "bosphor-marigold",
+    "name": "Bosphor Marigold",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Folk/Ethnic",
+    "subgenre": "world fusion",
+    "era": "1970s",
+    "mood": [
+      "warm",
+      "spiritual"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 114,
+    "key": "D major",
+    "vocals": "clear ethereal female vocals",
+    "prompt": "1970s world fusion (folk/ethnic), clear ethereal female vocals, Turkish-language vocals, tin whistle, fingerpicked acoustic guitar, drone strings, fiddle, analog warmth, live room sound, subtle tape saturation, warm and spiritual mood, fits a cinematic trailer, 114 BPM, D major",
+    "tags": [
+      "folk/ethnic",
+      "world fusion",
+      "1970s",
+      "warm",
+      "spiritual"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "bosphor-shadow",
+    "name": "Bosphor Shadow",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Hip-hop",
+    "subgenre": "trap",
+    "era": "1960s",
+    "mood": [
+      "nostalgic",
+      "menacing"
+    ],
+    "scenario": "credits roll",
+    "bpm": 84,
+    "key": "G minor",
+    "vocals": "confident male rap",
+    "prompt": "1960s trap (hip-hop), confident male rap, Turkish-language vocals, dusty Rhodes, vinyl crackle, soul sample chops, boom-bap drums, warm vintage tape, mono-leaning mix, plate reverb, nostalgic and menacing mood, fits a credits roll, 84 BPM, G minor",
+    "tags": [
+      "hip-hop",
+      "trap",
+      "1960s",
+      "nostalgic",
+      "menacing"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "brume-halcyon",
+    "name": "Brume Halcyon",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Electronic",
+    "subgenre": "synthwave",
+    "era": "1960s",
+    "mood": [
+      "euphoric",
+      "hypnotic"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 155,
+    "key": "C minor",
+    "vocals": "instrumental",
+    "prompt": "1960s synthwave (electronic), instrumental, French-language vocals, rolling bassline, supersaw chords, modular bleeps, sidechained bass, warm vintage tape, mono-leaning mix, plate reverb, euphoric and hypnotic mood, fits a late-night drive, 155 BPM, C minor",
+    "tags": [
+      "electronic",
+      "synthwave",
+      "1960s",
+      "euphoric",
+      "hypnotic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "brume-vapor",
+    "name": "Brume Vapor",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Hip-hop",
+    "subgenre": "conscious rap",
+    "era": "1990s",
+    "mood": [
+      "smooth",
+      "confident"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 87,
+    "key": "Bb minor",
+    "vocals": "confident male rap",
+    "prompt": "1990s conscious rap (hip-hop), confident male rap, French-language vocals, vinyl crackle, soul sample chops, boom-bap drums, dusty Rhodes, punchy mix, sampled textures, slightly lo-fi grit, smooth and confident mood, fits a workout playlist, 87 BPM, Bb minor",
+    "tags": [
+      "hip-hop",
+      "conscious rap",
+      "1990s",
+      "smooth",
+      "confident"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "bulbul-riot",
+    "name": "Bulbul Riot",
+    "language": "uz",
+    "languageLabel": "Узбекские",
+    "genre": "Rock",
+    "subgenre": "grunge",
+    "era": "1960s",
+    "mood": [
+      "bittersweet",
+      "anthemic"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 158,
+    "key": "G major",
+    "vocals": "breathy androgynous vocals",
+    "prompt": "1960s grunge (rock), breathy androgynous vocals, Uzbek-language vocals, tambourine, live drums, melodic bass, driving distorted guitars, warm vintage tape, mono-leaning mix, plate reverb, bittersweet and anthemic mood, fits a rainy study session, 158 BPM, G major",
+    "tags": [
+      "rock",
+      "grunge",
+      "1960s",
+      "bittersweet",
+      "anthemic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "bulbul-shine",
+    "name": "Bulbul Shine",
+    "language": "uz",
+    "languageLabel": "Узбекские",
+    "genre": "Pop",
+    "subgenre": "bedroom pop",
+    "era": "1980s",
+    "mood": [
+      "catchy",
+      "wistful"
+    ],
+    "scenario": "credits roll",
+    "bpm": 117,
+    "key": "F major",
+    "vocals": "layered group harmonies",
+    "prompt": "1980s bedroom pop (pop), layered group harmonies, Uzbek-language vocals, bright synth leads, plucky bass, vocal chops, glossy pads, gated reverb drums, bright chorus, wide stereo, catchy and wistful mood, fits a credits roll, 117 BPM, F major",
+    "tags": [
+      "pop",
+      "bedroom pop",
+      "1980s",
+      "catchy",
+      "wistful"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "busan-cedar",
+    "name": "Busan Cedar",
+    "language": "ko",
+    "languageLabel": "Корейские",
+    "genre": "Folk/Ethnic",
+    "subgenre": "americana",
+    "era": "1970s",
+    "mood": [
+      "earthy",
+      "yearning"
+    ],
+    "scenario": "road trip",
+    "bpm": 98,
+    "key": "raga-based",
+    "vocals": "clear ethereal female vocals",
+    "prompt": "1970s americana (folk/ethnic), clear ethereal female vocals, Korean-language vocals, banjo, tin whistle, hand percussion, fingerpicked acoustic guitar, analog warmth, live room sound, subtle tape saturation, earthy and yearning mood, fits a road trip, 98 BPM, raga-based",
+    "tags": [
+      "folk/ethnic",
+      "americana",
+      "1970s",
+      "earthy",
+      "yearning"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "busan-gold",
+    "name": "Busan Gold",
+    "language": "ko",
+    "languageLabel": "Корейские",
+    "genre": "Hip-hop",
+    "subgenre": "g-funk",
+    "era": "1970s",
+    "mood": [
+      "menacing",
+      "confident"
+    ],
+    "scenario": "intimate cafe",
+    "bpm": 82,
+    "key": "F minor",
+    "vocals": "spoken-word verses",
+    "prompt": "1970s g-funk (hip-hop), spoken-word verses, Korean-language vocals, boom-bap drums, booming 808s, dusty Rhodes, vinyl crackle, analog warmth, live room sound, subtle tape saturation, menacing and confident mood, fits a intimate cafe, 82 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "g-funk",
+      "1970s",
+      "menacing",
+      "confident"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "busan-tundra",
+    "name": "Busan Tundra",
+    "language": "ko",
+    "languageLabel": "Корейские",
+    "genre": "Metal",
+    "subgenre": "djent",
+    "era": "1970s",
+    "mood": [
+      "frostbitten",
+      "heavy"
+    ],
+    "scenario": "credits roll",
+    "bpm": 153,
+    "key": "E minor",
+    "vocals": "clean-to-scream male lead",
+    "prompt": "1970s djent (metal), clean-to-scream male lead, Korean-language vocals, orchestral strings, double-kick drums, down-tuned guitars, tremolo guitars, analog warmth, live room sound, subtle tape saturation, frostbitten and heavy mood, fits a credits roll, 153 BPM, E minor",
+    "tags": [
+      "metal",
+      "djent",
+      "1970s",
+      "frostbitten",
+      "heavy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "caf-driftwood",
+    "name": "Café Driftwood",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Folk/Ethnic",
+    "subgenre": "afrobeats",
+    "era": "1970s",
+    "mood": [
+      "earthy",
+      "yearning"
+    ],
+    "scenario": "credits roll",
+    "bpm": 98,
+    "key": "D major",
+    "vocals": "group folk harmonies",
+    "prompt": "1970s afrobeats (folk/ethnic), group folk harmonies, French-language vocals, hand percussion, banjo, tin whistle, drone strings, analog warmth, live room sound, subtle tape saturation, earthy and yearning mood, fits a credits roll, 98 BPM, D major",
+    "tags": [
+      "folk/ethnic",
+      "afrobeats",
+      "1970s",
+      "earthy",
+      "yearning"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "caf-wave",
+    "name": "Café Wave",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Pop",
+    "subgenre": "city pop",
+    "era": "2010s",
+    "mood": [
+      "wistful",
+      "catchy"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 111,
+    "key": "F major",
+    "vocals": "airy female topline",
+    "prompt": "2010s city pop (pop), airy female topline, French-language vocals, plucky bass, punchy drum machine, shimmering guitars, bright synth leads, modern loud master, crisp transients, sidechained space, wistful and catchy mood, fits a festival main stage, 111 BPM, F major",
+    "tags": [
+      "pop",
+      "city pop",
+      "2010s",
+      "wistful",
+      "catchy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "carm-n-concrete",
+    "name": "Carmín Concrete",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Hip-hop",
+    "subgenre": "cloud rap",
+    "era": "1960s",
+    "mood": [
+      "menacing",
+      "nostalgic"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 121,
+    "key": "F# minor",
+    "vocals": "melodic auto-tuned rap",
+    "prompt": "1960s cloud rap (hip-hop), melodic auto-tuned rap, Spanish-language vocals, boom-bap drums, vinyl crackle, soul sample chops, booming 808s, warm vintage tape, mono-leaning mix, plate reverb, menacing and nostalgic mood, fits a cinematic trailer, 121 BPM, F# minor",
+    "tags": [
+      "hip-hop",
+      "cloud rap",
+      "1960s",
+      "menacing",
+      "nostalgic"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "carm-n-frost",
+    "name": "Carmín Frost",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Metal",
+    "subgenre": "metalcore",
+    "era": "1970s",
+    "mood": [
+      "frostbitten",
+      "epic"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 157,
+    "key": "C minor",
+    "vocals": "operatic soprano over growls",
+    "prompt": "1970s metalcore (metal), operatic soprano over growls, Spanish-language vocals, orchestral strings, tremolo guitars, blast beats, deep bass, analog warmth, live room sound, subtle tape saturation, frostbitten and epic mood, fits a focus & coding, 157 BPM, C minor",
+    "tags": [
+      "metal",
+      "metalcore",
+      "1970s",
+      "frostbitten",
+      "epic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "cobalt-bloom",
+    "name": "Cobalt Bloom",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Pop",
+    "subgenre": "dream pop",
+    "era": "2020s",
+    "mood": [
+      "uplifting",
+      "romantic"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 113,
+    "key": "A minor",
+    "vocals": "layered group harmonies",
+    "prompt": "2020s dream pop (pop), layered group harmonies, French-language vocals, vocal chops, punchy drum machine, shimmering guitars, plucky bass, hyper-clean hybrid production, deep sub, immersive width, uplifting and romantic mood, fits a late-night drive, 113 BPM, A minor",
+    "tags": [
+      "pop",
+      "dream pop",
+      "2020s",
+      "uplifting",
+      "romantic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "cobalt-iron",
+    "name": "Cobalt Iron",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Rock",
+    "subgenre": "post-punk",
+    "era": "2000s",
+    "mood": [
+      "anthemic",
+      "bittersweet"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 110,
+    "key": "G major",
+    "vocals": "earnest male lead",
+    "prompt": "2000s post-punk (rock), earnest male lead, French-language vocals, driving distorted guitars, jangly guitars, melodic bass, tambourine, polished digital sheen, tight compression, layered production, anthemic and bittersweet mood, fits a late-night drive, 110 BPM, G major",
+    "tags": [
+      "rock",
+      "post-punk",
+      "2000s",
+      "anthemic",
+      "bittersweet"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "coral-ash",
+    "name": "Coral Ash",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Metal",
+    "subgenre": "symphonic metal",
+    "era": "1990s",
+    "mood": [
+      "frostbitten",
+      "heavy"
+    ],
+    "scenario": "road trip",
+    "bpm": 156,
+    "key": "E minor",
+    "vocals": "operatic soprano over growls",
+    "prompt": "1990s symphonic metal (metal), operatic soprano over growls, Portuguese-language vocals, tremolo guitars, down-tuned guitars, blast beats, orchestral strings, punchy mix, sampled textures, slightly lo-fi grit, frostbitten and heavy mood, fits a road trip, 156 BPM, E minor",
+    "tags": [
+      "metal",
+      "symphonic metal",
+      "1990s",
+      "frostbitten",
+      "heavy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "coral-shadow",
+    "name": "Coral Shadow",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Hip-hop",
+    "subgenre": "g-funk",
+    "era": "2000s",
+    "mood": [
+      "moody",
+      "confident"
+    ],
+    "scenario": "road trip",
+    "bpm": 119,
+    "key": "F minor",
+    "vocals": "melodic auto-tuned rap",
+    "prompt": "2000s g-funk (hip-hop), melodic auto-tuned rap, Portuguese-language vocals, dusty Rhodes, vinyl crackle, boom-bap drums, rolling hi-hats, polished digital sheen, tight compression, layered production, moody and confident mood, fits a road trip, 119 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "g-funk",
+      "2000s",
+      "moody",
+      "confident"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "coral-static",
+    "name": "Coral Static",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Rock",
+    "subgenre": "alt rock",
+    "era": "1960s",
+    "mood": [
+      "anthemic",
+      "angsty"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 126,
+    "key": "D major",
+    "vocals": "earnest male lead",
+    "prompt": "1960s alt rock (rock), earnest male lead, Portuguese-language vocals, tambourine, organ swells, live drums, driving distorted guitars, warm vintage tape, mono-leaning mix, plate reverb, anthemic and angsty mood, fits a focus & coding, 126 BPM, D major",
+    "tags": [
+      "rock",
+      "alt rock",
+      "1960s",
+      "anthemic",
+      "angsty"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "costa-bloom",
+    "name": "Costa Bloom",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Pop",
+    "subgenre": "dream pop",
+    "era": "1970s",
+    "mood": [
+      "catchy",
+      "bright"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 125,
+    "key": "G major",
+    "vocals": "smooth male lead",
+    "prompt": "1970s dream pop (pop), smooth male lead, Spanish-language vocals, glossy pads, vocal chops, punchy drum machine, plucky bass, analog warmth, live room sound, subtle tape saturation, catchy and bright mood, fits a late-night drive, 125 BPM, G major",
+    "tags": [
+      "pop",
+      "dream pop",
+      "1970s",
+      "catchy",
+      "bright"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "crimson-velour",
+    "name": "Crimson Velour",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Jazz/Soul",
+    "subgenre": "jazz trio",
+    "era": "1980s",
+    "mood": [
+      "late-night",
+      "uplifting"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 79,
+    "key": "Eb major",
+    "vocals": "smoky female lead",
+    "prompt": "1980s jazz trio (jazz/soul), smoky female lead, English-language vocals, upright bass, Hammond organ, brushed drums, horn section, gated reverb drums, bright chorus, wide stereo, late-night and uplifting mood, fits a focus & coding, 79 BPM, Eb major",
+    "tags": [
+      "jazz/soul",
+      "jazz trio",
+      "1980s",
+      "late-night",
+      "uplifting"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "eisen-amber",
+    "name": "Eisen Amber",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Jazz/Soul",
+    "subgenre": "funk",
+    "era": "1960s",
+    "mood": [
+      "sultry",
+      "groovy"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 110,
+    "key": "Bb major",
+    "vocals": "call-and-response choir",
+    "prompt": "1960s funk (jazz/soul), call-and-response choir, German-language vocals, Hammond organ, upright bass, slap bass, horn section, warm vintage tape, mono-leaning mix, plate reverb, sultry and groovy mood, fits a workout playlist, 110 BPM, Bb major",
+    "tags": [
+      "jazz/soul",
+      "funk",
+      "1960s",
+      "sultry",
+      "groovy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "electric-drive",
+    "name": "Electric Drive",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Rock",
+    "subgenre": "grunge",
+    "era": "1990s",
+    "mood": [
+      "angsty",
+      "rebellious"
+    ],
+    "scenario": "intimate cafe",
+    "bpm": 134,
+    "key": "E minor",
+    "vocals": "raw female lead",
+    "prompt": "1990s grunge (rock), raw female lead, English-language vocals, jangly guitars, tambourine, driving distorted guitars, organ swells, punchy mix, sampled textures, slightly lo-fi grit, angsty and rebellious mood, fits a intimate cafe, 134 BPM, E minor",
+    "tags": [
+      "rock",
+      "grunge",
+      "1990s",
+      "angsty",
+      "rebellious"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "electric-emerald",
+    "name": "Electric Emerald",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Folk/Ethnic",
+    "subgenre": "neo-traditional",
+    "era": "1980s",
+    "mood": [
+      "warm",
+      "hopeful"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 110,
+    "key": "G major",
+    "vocals": "warm male vocals with harmony",
+    "prompt": "1980s neo-traditional (folk/ethnic), warm male vocals with harmony, English-language vocals, banjo, fingerpicked acoustic guitar, drone strings, fiddle, gated reverb drums, bright chorus, wide stereo, warm and hopeful mood, fits a festival main stage, 110 BPM, G major",
+    "tags": [
+      "folk/ethnic",
+      "neo-traditional",
+      "1980s",
+      "warm",
+      "hopeful"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "electric-frost",
+    "name": "Electric Frost",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Metal",
+    "subgenre": "power metal",
+    "era": "2000s",
+    "mood": [
+      "epic",
+      "dark"
+    ],
+    "scenario": "credits roll",
+    "bpm": 160,
+    "key": "D minor",
+    "vocals": "operatic soprano over growls",
+    "prompt": "2000s power metal (metal), operatic soprano over growls, English-language vocals, orchestral strings, blast beats, tremolo guitars, deep bass, polished digital sheen, tight compression, layered production, epic and dark mood, fits a credits roll, 160 BPM, D minor",
+    "tags": [
+      "metal",
+      "power metal",
+      "2000s",
+      "epic",
+      "dark"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "electric-gold",
+    "name": "Electric Gold",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Hip-hop",
+    "subgenre": "conscious rap",
+    "era": "1990s",
+    "mood": [
+      "nostalgic",
+      "menacing"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 124,
+    "key": "F minor",
+    "vocals": "smooth female flow",
+    "prompt": "1990s conscious rap (hip-hop), smooth female flow, English-language vocals, booming 808s, dusty Rhodes, vinyl crackle, rolling hi-hats, punchy mix, sampled textures, slightly lo-fi grit, nostalgic and menacing mood, fits a dancefloor peak, 124 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "conscious rap",
+      "1990s",
+      "nostalgic",
+      "menacing"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "flamenco-sable",
+    "name": "Flamenco Sable",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Jazz/Soul",
+    "subgenre": "soul",
+    "era": "1980s",
+    "mood": [
+      "groovy",
+      "warm"
+    ],
+    "scenario": "intimate cafe",
+    "bpm": 103,
+    "key": "Bb major",
+    "vocals": "call-and-response choir",
+    "prompt": "1980s soul (jazz/soul), call-and-response choir, Spanish-language vocals, warm Rhodes, Hammond organ, horn section, upright bass, gated reverb drums, bright chorus, wide stereo, groovy and warm mood, fits a intimate cafe, 103 BPM, Bb major",
+    "tags": [
+      "jazz/soul",
+      "soul",
+      "1980s",
+      "groovy",
+      "warm"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "flamenco-smoke",
+    "name": "Flamenco Smoke",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Jazz/Soul",
+    "subgenre": "soul",
+    "era": "1980s",
+    "mood": [
+      "sultry",
+      "groovy"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 101,
+    "key": "Eb major",
+    "vocals": "belting soul vocals",
+    "prompt": "1980s soul (jazz/soul), belting soul vocals, Spanish-language vocals, brushed drums, horn section, slap bass, upright bass, gated reverb drums, bright chorus, wide stereo, sultry and groovy mood, fits a focus & coding, 101 BPM, Eb major",
+    "tags": [
+      "jazz/soul",
+      "soul",
+      "1980s",
+      "sultry",
+      "groovy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "flamenco-storm",
+    "name": "Flamenco Storm",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Rock",
+    "subgenre": "garage rock",
+    "era": "1990s",
+    "mood": [
+      "rebellious",
+      "bittersweet"
+    ],
+    "scenario": "road trip",
+    "bpm": 127,
+    "key": "E minor",
+    "vocals": "anthemic group shouts",
+    "prompt": "1990s garage rock (rock), anthemic group shouts, Spanish-language vocals, driving distorted guitars, tambourine, live drums, organ swells, punchy mix, sampled textures, slightly lo-fi grit, rebellious and bittersweet mood, fits a road trip, 127 BPM, E minor",
+    "tags": [
+      "rock",
+      "garage rock",
+      "1990s",
+      "rebellious",
+      "bittersweet"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "gece-circuit",
+    "name": "Gece Circuit",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Electronic",
+    "subgenre": "synthwave",
+    "era": "1990s",
+    "mood": [
+      "driving",
+      "euphoric"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 143,
+    "key": "B minor",
+    "vocals": "instrumental",
+    "prompt": "1990s synthwave (electronic), instrumental, Turkish-language vocals, modular bleeps, sidechained bass, four-on-floor kick, rolling bassline, punchy mix, sampled textures, slightly lo-fi grit, driving and euphoric mood, fits a late-night drive, 143 BPM, B minor",
+    "tags": [
+      "electronic",
+      "synthwave",
+      "1990s",
+      "driving",
+      "euphoric"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "gece-halcyon",
+    "name": "Gece Halcyon",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Electronic",
+    "subgenre": "drum and bass",
+    "era": "2020s",
+    "mood": [
+      "driving",
+      "weightless"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 159,
+    "key": "C minor",
+    "vocals": "processed vocal stabs",
+    "prompt": "2020s drum and bass (electronic), processed vocal stabs, Turkish-language vocals, supersaw chords, four-on-floor kick, modular bleeps, gated pads, hyper-clean hybrid production, deep sub, immersive width, driving and weightless mood, fits a dancefloor peak, 159 BPM, C minor",
+    "tags": [
+      "electronic",
+      "drum and bass",
+      "2020s",
+      "driving",
+      "weightless"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "gece-storm",
+    "name": "Gece Storm",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Rock",
+    "subgenre": "shoegaze",
+    "era": "1990s",
+    "mood": [
+      "bittersweet",
+      "rebellious"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 166,
+    "key": "G major",
+    "vocals": "earnest male lead",
+    "prompt": "1990s shoegaze (rock), earnest male lead, Turkish-language vocals, live drums, driving distorted guitars, melodic bass, organ swells, punchy mix, sampled textures, slightly lo-fi grit, bittersweet and rebellious mood, fits a festival main stage, 166 BPM, G major",
+    "tags": [
+      "rock",
+      "shoegaze",
+      "1990s",
+      "bittersweet",
+      "rebellious"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "golden-block",
+    "name": "Golden Block",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Hip-hop",
+    "subgenre": "boom-bap",
+    "era": "1980s",
+    "mood": [
+      "nostalgic",
+      "moody"
+    ],
+    "scenario": "road trip",
+    "bpm": 93,
+    "key": "Bb minor",
+    "vocals": "melodic auto-tuned rap",
+    "prompt": "1980s boom-bap (hip-hop), melodic auto-tuned rap, English-language vocals, rolling hi-hats, booming 808s, soul sample chops, dusty Rhodes, gated reverb drums, bright chorus, wide stereo, nostalgic and moody mood, fits a road trip, 93 BPM, Bb minor",
+    "tags": [
+      "hip-hop",
+      "boom-bap",
+      "1980s",
+      "nostalgic",
+      "moody"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "golden-ember",
+    "name": "Golden Ember",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Rock",
+    "subgenre": "art rock",
+    "era": "2000s",
+    "mood": [
+      "angsty",
+      "rebellious"
+    ],
+    "scenario": "road trip",
+    "bpm": 115,
+    "key": "E minor",
+    "vocals": "anthemic group shouts",
+    "prompt": "2000s art rock (rock), anthemic group shouts, English-language vocals, live drums, tambourine, driving distorted guitars, organ swells, polished digital sheen, tight compression, layered production, angsty and rebellious mood, fits a road trip, 115 BPM, E minor",
+    "tags": [
+      "rock",
+      "art rock",
+      "2000s",
+      "angsty",
+      "rebellious"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "golden-honey",
+    "name": "Golden Honey",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Jazz/Soul",
+    "subgenre": "neo-soul",
+    "era": "2020s",
+    "mood": [
+      "groovy",
+      "sultry"
+    ],
+    "scenario": "intimate cafe",
+    "bpm": 112,
+    "key": "Bb major",
+    "vocals": "belting soul vocals",
+    "prompt": "2020s neo-soul (jazz/soul), belting soul vocals, English-language vocals, upright bass, brushed drums, horn section, slap bass, hyper-clean hybrid production, deep sub, immersive width, groovy and sultry mood, fits a intimate cafe, 112 BPM, Bb major",
+    "tags": [
+      "jazz/soul",
+      "neo-soul",
+      "2020s",
+      "groovy",
+      "sultry"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "hallyu-concrete",
+    "name": "Hallyu Concrete",
+    "language": "ko",
+    "languageLabel": "Корейские",
+    "genre": "Hip-hop",
+    "subgenre": "drill",
+    "era": "1970s",
+    "mood": [
+      "nostalgic",
+      "smooth"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 143,
+    "key": "F# minor",
+    "vocals": "spoken-word verses",
+    "prompt": "1970s drill (hip-hop), spoken-word verses, Korean-language vocals, boom-bap drums, vinyl crackle, dusty Rhodes, rolling hi-hats, analog warmth, live room sound, subtle tape saturation, nostalgic and smooth mood, fits a cinematic trailer, 143 BPM, F# minor",
+    "tags": [
+      "hip-hop",
+      "drill",
+      "1970s",
+      "nostalgic",
+      "smooth"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "hallyu-dream",
+    "name": "Hallyu Dream",
+    "language": "ko",
+    "languageLabel": "Корейские",
+    "genre": "Pop",
+    "subgenre": "electro-pop",
+    "era": "2000s",
+    "mood": [
+      "bright",
+      "uplifting"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 101,
+    "key": "C major",
+    "vocals": "airy female topline",
+    "prompt": "2000s electro-pop (pop), airy female topline, Korean-language vocals, punchy drum machine, vocal chops, bright synth leads, plucky bass, polished digital sheen, tight compression, layered production, bright and uplifting mood, fits a late-night drive, 101 BPM, C major",
+    "tags": [
+      "pop",
+      "electro-pop",
+      "2000s",
+      "bright",
+      "uplifting"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "hangang-aurora",
+    "name": "Hangang Aurora",
+    "language": "ko",
+    "languageLabel": "Корейские",
+    "genre": "Electronic",
+    "subgenre": "synthwave",
+    "era": "2000s",
+    "mood": [
+      "weightless",
+      "hypnotic"
+    ],
+    "scenario": "intimate cafe",
+    "bpm": 124,
+    "key": "C minor",
+    "vocals": "processed vocal stabs",
+    "prompt": "2000s synthwave (electronic), processed vocal stabs, Korean-language vocals, supersaw chords, modular bleeps, four-on-floor kick, gated pads, polished digital sheen, tight compression, layered production, weightless and hypnotic mood, fits a intimate cafe, 124 BPM, C minor",
+    "tags": [
+      "electronic",
+      "synthwave",
+      "2000s",
+      "weightless",
+      "hypnotic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "hangang-obsidian",
+    "name": "Hangang Obsidian",
+    "language": "ko",
+    "languageLabel": "Корейские",
+    "genre": "Hip-hop",
+    "subgenre": "conscious rap",
+    "era": "1960s",
+    "mood": [
+      "menacing",
+      "nostalgic"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 100,
+    "key": "F minor",
+    "vocals": "confident male rap",
+    "prompt": "1960s conscious rap (hip-hop), confident male rap, Korean-language vocals, booming 808s, dusty Rhodes, rolling hi-hats, soul sample chops, warm vintage tape, mono-leaning mix, plate reverb, menacing and nostalgic mood, fits a focus & coding, 100 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "conscious rap",
+      "1960s",
+      "menacing",
+      "nostalgic"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "hollow-polar",
+    "name": "Hollow Polar",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Electronic",
+    "subgenre": "house",
+    "era": "1970s",
+    "mood": [
+      "weightless",
+      "driving"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 173,
+    "key": "C minor",
+    "vocals": "pitched vocal chops",
+    "prompt": "1970s house (electronic), pitched vocal chops, English-language vocals, supersaw chords, gated pads, rolling bassline, modular bleeps, analog warmth, live room sound, subtle tape saturation, weightless and driving mood, fits a festival main stage, 173 BPM, C minor",
+    "tags": [
+      "electronic",
+      "house",
+      "1970s",
+      "weightless",
+      "driving"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "hollow-sable",
+    "name": "Hollow Sable",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Jazz/Soul",
+    "subgenre": "jazz trio",
+    "era": "2020s",
+    "mood": [
+      "warm",
+      "groovy"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 79,
+    "key": "Bb major",
+    "vocals": "belting soul vocals",
+    "prompt": "2020s jazz trio (jazz/soul), belting soul vocals, English-language vocals, Hammond organ, horn section, upright bass, warm Rhodes, hyper-clean hybrid production, deep sub, immersive width, warm and groovy mood, fits a cinematic trailer, 79 BPM, Bb major",
+    "tags": [
+      "jazz/soul",
+      "jazz trio",
+      "2020s",
+      "warm",
+      "groovy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "indigo-circuit",
+    "name": "Indigo Circuit",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Electronic",
+    "subgenre": "ambient",
+    "era": "1980s",
+    "mood": [
+      "energetic",
+      "weightless"
+    ],
+    "scenario": "credits roll",
+    "bpm": 138,
+    "key": "F# minor",
+    "vocals": "instrumental",
+    "prompt": "1980s ambient (electronic), instrumental, Hindi/Indian-language vocals, gated pads, supersaw chords, modular bleeps, rolling bassline, gated reverb drums, bright chorus, wide stereo, energetic and weightless mood, fits a credits roll, 138 BPM, F# minor",
+    "tags": [
+      "electronic",
+      "ambient",
+      "1980s",
+      "energetic",
+      "weightless"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "indigo-dream",
+    "name": "Indigo Dream",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Pop",
+    "subgenre": "synth-pop",
+    "era": "1970s",
+    "mood": [
+      "catchy",
+      "bright"
+    ],
+    "scenario": "credits roll",
+    "bpm": 102,
+    "key": "A minor",
+    "vocals": "smooth male lead",
+    "prompt": "1970s synth-pop (pop), smooth male lead, Hindi/Indian-language vocals, bright synth leads, punchy drum machine, vocal chops, shimmering guitars, analog warmth, live room sound, subtle tape saturation, catchy and bright mood, fits a credits roll, 102 BPM, A minor",
+    "tags": [
+      "pop",
+      "synth-pop",
+      "1970s",
+      "catchy",
+      "bright"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "indigo-ember",
+    "name": "Indigo Ember",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Rock",
+    "subgenre": "indie rock",
+    "era": "1980s",
+    "mood": [
+      "rebellious",
+      "bittersweet"
+    ],
+    "scenario": "credits roll",
+    "bpm": 129,
+    "key": "A major",
+    "vocals": "breathy androgynous vocals",
+    "prompt": "1980s indie rock (rock), breathy androgynous vocals, Hindi/Indian-language vocals, melodic bass, organ swells, live drums, jangly guitars, gated reverb drums, bright chorus, wide stereo, rebellious and bittersweet mood, fits a credits roll, 129 BPM, A major",
+    "tags": [
+      "rock",
+      "indie rock",
+      "1980s",
+      "rebellious",
+      "bittersweet"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "indigo-pulse",
+    "name": "Indigo Pulse",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Pop",
+    "subgenre": "synth-pop",
+    "era": "1960s",
+    "mood": [
+      "uplifting",
+      "bright"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 100,
+    "key": "F major",
+    "vocals": "layered group harmonies",
+    "prompt": "1960s synth-pop (pop), layered group harmonies, Hindi/Indian-language vocals, shimmering guitars, bright synth leads, plucky bass, glossy pads, warm vintage tape, mono-leaning mix, plate reverb, uplifting and bright mood, fits a festival main stage, 100 BPM, F major",
+    "tags": [
+      "pop",
+      "synth-pop",
+      "1960s",
+      "uplifting",
+      "bright"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "jeju-pulse",
+    "name": "Jeju Pulse",
+    "language": "ko",
+    "languageLabel": "Корейские",
+    "genre": "Pop",
+    "subgenre": "art pop",
+    "era": "2000s",
+    "mood": [
+      "wistful",
+      "catchy"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 110,
+    "key": "G major",
+    "vocals": "layered group harmonies",
+    "prompt": "2000s art pop (pop), layered group harmonies, Korean-language vocals, bright synth leads, plucky bass, vocal chops, punchy drum machine, polished digital sheen, tight compression, layered production, wistful and catchy mood, fits a focus & coding, 110 BPM, G major",
+    "tags": [
+      "pop",
+      "art pop",
+      "2000s",
+      "wistful",
+      "catchy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "kintsugi-riot",
+    "name": "Kintsugi Riot",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Rock",
+    "subgenre": "garage rock",
+    "era": "1990s",
+    "mood": [
+      "rebellious",
+      "angsty"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 118,
+    "key": "A major",
+    "vocals": "earnest male lead",
+    "prompt": "1990s garage rock (rock), earnest male lead, Japanese-language vocals, tambourine, organ swells, driving distorted guitars, live drums, punchy mix, sampled textures, slightly lo-fi grit, rebellious and angsty mood, fits a festival main stage, 118 BPM, A major",
+    "tags": [
+      "rock",
+      "garage rock",
+      "1990s",
+      "rebellious",
+      "angsty"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "kintsugi-storm",
+    "name": "Kintsugi Storm",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Rock",
+    "subgenre": "indie rock",
+    "era": "2020s",
+    "mood": [
+      "energetic",
+      "bittersweet"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 122,
+    "key": "A major",
+    "vocals": "anthemic group shouts",
+    "prompt": "2020s indie rock (rock), anthemic group shouts, Japanese-language vocals, organ swells, melodic bass, tambourine, jangly guitars, hyper-clean hybrid production, deep sub, immersive width, energetic and bittersweet mood, fits a workout playlist, 122 BPM, A major",
+    "tags": [
+      "rock",
+      "indie rock",
+      "2020s",
+      "energetic",
+      "bittersweet"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "kobalt-boulevard",
+    "name": "Kobalt Boulevard",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Chanson",
+    "subgenre": "accordion waltz",
+    "era": "2020s",
+    "mood": [
+      "wistful",
+      "nostalgic"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 104,
+    "key": "E minor",
+    "vocals": "dramatic theatrical vocals",
+    "prompt": "2020s accordion waltz (chanson), dramatic theatrical vocals, German-language vocals, brushed drums, muted trumpet, intimate piano, nylon guitar, hyper-clean hybrid production, deep sub, immersive width, wistful and nostalgic mood, fits a cinematic trailer, 104 BPM, E minor",
+    "tags": [
+      "chanson",
+      "accordion waltz",
+      "2020s",
+      "wistful",
+      "nostalgic"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "kobalt-ember",
+    "name": "Kobalt Ember",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Rock",
+    "subgenre": "stadium rock",
+    "era": "2000s",
+    "mood": [
+      "rebellious",
+      "angsty"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 166,
+    "key": "E minor",
+    "vocals": "raw female lead",
+    "prompt": "2000s stadium rock (rock), raw female lead, German-language vocals, melodic bass, jangly guitars, live drums, driving distorted guitars, polished digital sheen, tight compression, layered production, rebellious and angsty mood, fits a workout playlist, 166 BPM, E minor",
+    "tags": [
+      "rock",
+      "stadium rock",
+      "2000s",
+      "rebellious",
+      "angsty"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "kobalt-polar",
+    "name": "Kobalt Polar",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Electronic",
+    "subgenre": "house",
+    "era": "2000s",
+    "mood": [
+      "energetic",
+      "driving"
+    ],
+    "scenario": "credits roll",
+    "bpm": 167,
+    "key": "C minor",
+    "vocals": "ethereal female topline",
+    "prompt": "2000s house (electronic), ethereal female topline, German-language vocals, gated pads, supersaw chords, sidechained bass, four-on-floor kick, polished digital sheen, tight compression, layered production, energetic and driving mood, fits a credits roll, 167 BPM, C minor",
+    "tags": [
+      "electronic",
+      "house",
+      "2000s",
+      "energetic",
+      "driving"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "kraftwell-emerald",
+    "name": "Kraftwell Emerald",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Folk/Ethnic",
+    "subgenre": "americana",
+    "era": "1960s",
+    "mood": [
+      "earthy",
+      "spiritual"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 101,
+    "key": "raga-based",
+    "vocals": "clear ethereal female vocals",
+    "prompt": "1960s americana (folk/ethnic), clear ethereal female vocals, German-language vocals, drone strings, tin whistle, banjo, hand percussion, warm vintage tape, mono-leaning mix, plate reverb, earthy and spiritual mood, fits a rainy study session, 101 BPM, raga-based",
+    "tags": [
+      "folk/ethnic",
+      "americana",
+      "1960s",
+      "earthy",
+      "spiritual"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "kraftwell-gold",
+    "name": "Kraftwell Gold",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Hip-hop",
+    "subgenre": "g-funk",
+    "era": "1980s",
+    "mood": [
+      "smooth",
+      "confident"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 78,
+    "key": "F minor",
+    "vocals": "melodic auto-tuned rap",
+    "prompt": "1980s g-funk (hip-hop), melodic auto-tuned rap, German-language vocals, boom-bap drums, rolling hi-hats, vinyl crackle, booming 808s, gated reverb drums, bright chorus, wide stereo, smooth and confident mood, fits a workout playlist, 78 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "g-funk",
+      "1980s",
+      "smooth",
+      "confident"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "kraftwell-marigold",
+    "name": "Kraftwell Marigold",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Folk/Ethnic",
+    "subgenre": "afrobeats",
+    "era": "1960s",
+    "mood": [
+      "warm",
+      "yearning"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 97,
+    "key": "raga-based",
+    "vocals": "clear ethereal female vocals",
+    "prompt": "1960s afrobeats (folk/ethnic), clear ethereal female vocals, German-language vocals, fiddle, drone strings, tin whistle, fingerpicked acoustic guitar, warm vintage tape, mono-leaning mix, plate reverb, warm and yearning mood, fits a dancefloor peak, 97 BPM, raga-based",
+    "tags": [
+      "folk/ethnic",
+      "afrobeats",
+      "1960s",
+      "warm",
+      "yearning"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "kuhsor-ash",
+    "name": "Kuhsor Ash",
+    "language": "tj",
+    "languageLabel": "Таджикские",
+    "genre": "Metal",
+    "subgenre": "power metal",
+    "era": "1970s",
+    "mood": [
+      "heavy",
+      "triumphant"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 175,
+    "key": "D minor",
+    "vocals": "operatic soprano over growls",
+    "prompt": "1970s power metal (metal), operatic soprano over growls, Tajik-language vocals, blast beats, orchestral strings, down-tuned guitars, tremolo guitars, analog warmth, live room sound, subtle tape saturation, heavy and triumphant mood, fits a rainy study session, 175 BPM, D minor",
+    "tags": [
+      "metal",
+      "power metal",
+      "1970s",
+      "heavy",
+      "triumphant"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "kuhsor-pulse",
+    "name": "Kuhsor Pulse",
+    "language": "tj",
+    "languageLabel": "Таджикские",
+    "genre": "Pop",
+    "subgenre": "indie pop",
+    "era": "2010s",
+    "mood": [
+      "uplifting",
+      "wistful"
+    ],
+    "scenario": "road trip",
+    "bpm": 128,
+    "key": "C major",
+    "vocals": "layered group harmonies",
+    "prompt": "2010s indie pop (pop), layered group harmonies, Tajik-language vocals, bright synth leads, vocal chops, glossy pads, plucky bass, modern loud master, crisp transients, sidechained space, uplifting and wistful mood, fits a road trip, 128 BPM, C major",
+    "tags": [
+      "pop",
+      "indie pop",
+      "2010s",
+      "uplifting",
+      "wistful"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "lale-dream",
+    "name": "Lale Dream",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Pop",
+    "subgenre": "electro-pop",
+    "era": "1960s",
+    "mood": [
+      "romantic",
+      "bright"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 112,
+    "key": "G major",
+    "vocals": "polished female lead",
+    "prompt": "1960s electro-pop (pop), polished female lead, Turkish-language vocals, vocal chops, glossy pads, bright synth leads, plucky bass, warm vintage tape, mono-leaning mix, plate reverb, romantic and bright mood, fits a dancefloor peak, 112 BPM, G major",
+    "tags": [
+      "pop",
+      "electro-pop",
+      "1960s",
+      "romantic",
+      "bright"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "lale-pulse",
+    "name": "Lale Pulse",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Pop",
+    "subgenre": "indie pop",
+    "era": "1990s",
+    "mood": [
+      "uplifting",
+      "romantic"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 116,
+    "key": "A minor",
+    "vocals": "polished female lead",
+    "prompt": "1990s indie pop (pop), polished female lead, Turkish-language vocals, bright synth leads, shimmering guitars, plucky bass, punchy drum machine, punchy mix, sampled textures, slightly lo-fi grit, uplifting and romantic mood, fits a rainy study session, 116 BPM, A minor",
+    "tags": [
+      "pop",
+      "indie pop",
+      "1990s",
+      "uplifting",
+      "romantic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "lazur-bloom",
+    "name": "Lazur Bloom",
+    "language": "tj",
+    "languageLabel": "Таджикские",
+    "genre": "Pop",
+    "subgenre": "electro-pop",
+    "era": "1960s",
+    "mood": [
+      "wistful",
+      "romantic"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 124,
+    "key": "C major",
+    "vocals": "polished female lead",
+    "prompt": "1960s electro-pop (pop), polished female lead, Tajik-language vocals, vocal chops, bright synth leads, shimmering guitars, glossy pads, warm vintage tape, mono-leaning mix, plate reverb, wistful and romantic mood, fits a festival main stage, 124 BPM, C major",
+    "tags": [
+      "pop",
+      "electro-pop",
+      "1960s",
+      "wistful",
+      "romantic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "lazur-driftwood",
+    "name": "Lazur Driftwood",
+    "language": "tj",
+    "languageLabel": "Таджикские",
+    "genre": "Folk/Ethnic",
+    "subgenre": "indie folk",
+    "era": "2020s",
+    "mood": [
+      "warm",
+      "yearning"
+    ],
+    "scenario": "road trip",
+    "bpm": 115,
+    "key": "raga-based",
+    "vocals": "warm male vocals with harmony",
+    "prompt": "2020s indie folk (folk/ethnic), warm male vocals with harmony, Tajik-language vocals, drone strings, tin whistle, banjo, fiddle, hyper-clean hybrid production, deep sub, immersive width, warm and yearning mood, fits a road trip, 115 BPM, raga-based",
+    "tags": [
+      "folk/ethnic",
+      "indie folk",
+      "2020s",
+      "warm",
+      "yearning"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "lazur-iron",
+    "name": "Lazur Iron",
+    "language": "tj",
+    "languageLabel": "Таджикские",
+    "genre": "Rock",
+    "subgenre": "post-punk",
+    "era": "1970s",
+    "mood": [
+      "energetic",
+      "anthemic"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 116,
+    "key": "A major",
+    "vocals": "breathy androgynous vocals",
+    "prompt": "1970s post-punk (rock), breathy androgynous vocals, Tajik-language vocals, jangly guitars, live drums, organ swells, melodic bass, analog warmth, live room sound, subtle tape saturation, energetic and anthemic mood, fits a late-night drive, 116 BPM, A major",
+    "tags": [
+      "rock",
+      "post-punk",
+      "1970s",
+      "energetic",
+      "anthemic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "lazurit-brass",
+    "name": "Lazurit Brass",
+    "language": "uz",
+    "languageLabel": "Узбекские",
+    "genre": "Jazz/Soul",
+    "subgenre": "bossa nova",
+    "era": "2020s",
+    "mood": [
+      "late-night",
+      "groovy"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 104,
+    "key": "Eb major",
+    "vocals": "belting soul vocals",
+    "prompt": "2020s bossa nova (jazz/soul), belting soul vocals, Uzbek-language vocals, brushed drums, horn section, warm Rhodes, slap bass, hyper-clean hybrid production, deep sub, immersive width, late-night and groovy mood, fits a dancefloor peak, 104 BPM, Eb major",
+    "tags": [
+      "jazz/soul",
+      "bossa nova",
+      "2020s",
+      "late-night",
+      "groovy"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "lazurit-pulse",
+    "name": "Lazurit Pulse",
+    "language": "uz",
+    "languageLabel": "Узбекские",
+    "genre": "Pop",
+    "subgenre": "indie pop",
+    "era": "1970s",
+    "mood": [
+      "catchy",
+      "wistful"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 110,
+    "key": "G major",
+    "vocals": "smooth male lead",
+    "prompt": "1970s indie pop (pop), smooth male lead, Uzbek-language vocals, shimmering guitars, punchy drum machine, glossy pads, bright synth leads, analog warmth, live room sound, subtle tape saturation, catchy and wistful mood, fits a late-night drive, 110 BPM, G major",
+    "tags": [
+      "pop",
+      "indie pop",
+      "1970s",
+      "catchy",
+      "wistful"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "lisboa-vapor",
+    "name": "Lisboa Vapor",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Hip-hop",
+    "subgenre": "g-funk",
+    "era": "2020s",
+    "mood": [
+      "moody",
+      "smooth"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 128,
+    "key": "F minor",
+    "vocals": "smooth female flow",
+    "prompt": "2020s g-funk (hip-hop), smooth female flow, Portuguese-language vocals, vinyl crackle, soul sample chops, dusty Rhodes, rolling hi-hats, hyper-clean hybrid production, deep sub, immersive width, moody and smooth mood, fits a workout playlist, 128 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "g-funk",
+      "2020s",
+      "moody",
+      "smooth"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "lotus-circuit",
+    "name": "Lotus Circuit",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Electronic",
+    "subgenre": "techno",
+    "era": "1960s",
+    "mood": [
+      "energetic",
+      "driving"
+    ],
+    "scenario": "road trip",
+    "bpm": 168,
+    "key": "C minor",
+    "vocals": "pitched vocal chops",
+    "prompt": "1960s techno (electronic), pitched vocal chops, Hindi/Indian-language vocals, supersaw chords, rolling bassline, modular bleeps, four-on-floor kick, warm vintage tape, mono-leaning mix, plate reverb, energetic and driving mood, fits a road trip, 168 BPM, C minor",
+    "tags": [
+      "electronic",
+      "techno",
+      "1960s",
+      "energetic",
+      "driving"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "lotus-ember",
+    "name": "Lotus Ember",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Rock",
+    "subgenre": "alt rock",
+    "era": "1960s",
+    "mood": [
+      "bittersweet",
+      "anthemic"
+    ],
+    "scenario": "credits roll",
+    "bpm": 112,
+    "key": "D major",
+    "vocals": "raw female lead",
+    "prompt": "1960s alt rock (rock), raw female lead, Hindi/Indian-language vocals, organ swells, jangly guitars, driving distorted guitars, tambourine, warm vintage tape, mono-leaning mix, plate reverb, bittersweet and anthemic mood, fits a credits roll, 112 BPM, D major",
+    "tags": [
+      "rock",
+      "alt rock",
+      "1960s",
+      "bittersweet",
+      "anthemic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "lotus-smoke",
+    "name": "Lotus Smoke",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Jazz/Soul",
+    "subgenre": "acid jazz",
+    "era": "2010s",
+    "mood": [
+      "late-night",
+      "sultry"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 77,
+    "key": "Eb major",
+    "vocals": "belting soul vocals",
+    "prompt": "2010s acid jazz (jazz/soul), belting soul vocals, Hindi/Indian-language vocals, brushed drums, horn section, slap bass, warm Rhodes, modern loud master, crisp transients, sidechained space, late-night and sultry mood, fits a rainy study session, 77 BPM, Eb major",
+    "tags": [
+      "jazz/soul",
+      "acid jazz",
+      "2010s",
+      "late-night",
+      "sultry"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "lumi-re-driftwood",
+    "name": "Lumière Driftwood",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Folk/Ethnic",
+    "subgenre": "americana",
+    "era": "2000s",
+    "mood": [
+      "hopeful",
+      "earthy"
+    ],
+    "scenario": "road trip",
+    "bpm": 120,
+    "key": "G major",
+    "vocals": "group folk harmonies",
+    "prompt": "2000s americana (folk/ethnic), group folk harmonies, French-language vocals, fingerpicked acoustic guitar, drone strings, hand percussion, tin whistle, polished digital sheen, tight compression, layered production, hopeful and earthy mood, fits a road trip, 120 BPM, G major",
+    "tags": [
+      "folk/ethnic",
+      "americana",
+      "2000s",
+      "hopeful",
+      "earthy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "lumi-re-riot",
+    "name": "Lumière Riot",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Rock",
+    "subgenre": "post-punk",
+    "era": "2020s",
+    "mood": [
+      "rebellious",
+      "angsty"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 117,
+    "key": "G major",
+    "vocals": "anthemic group shouts",
+    "prompt": "2020s post-punk (rock), anthemic group shouts, French-language vocals, organ swells, jangly guitars, melodic bass, driving distorted guitars, hyper-clean hybrid production, deep sub, immersive width, rebellious and angsty mood, fits a rainy study session, 117 BPM, G major",
+    "tags": [
+      "rock",
+      "post-punk",
+      "2020s",
+      "rebellious",
+      "angsty"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "mar-shine",
+    "name": "Maré Shine",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Pop",
+    "subgenre": "bedroom pop",
+    "era": "1990s",
+    "mood": [
+      "wistful",
+      "bright"
+    ],
+    "scenario": "credits roll",
+    "bpm": 122,
+    "key": "A minor",
+    "vocals": "layered group harmonies",
+    "prompt": "1990s bedroom pop (pop), layered group harmonies, Portuguese-language vocals, glossy pads, plucky bass, shimmering guitars, vocal chops, punchy mix, sampled textures, slightly lo-fi grit, wistful and bright mood, fits a credits roll, 122 BPM, A minor",
+    "tags": [
+      "pop",
+      "bedroom pop",
+      "1990s",
+      "wistful",
+      "bright"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "mar-tide",
+    "name": "Maré Tide",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Folk/Ethnic",
+    "subgenre": "americana",
+    "era": "1980s",
+    "mood": [
+      "earthy",
+      "hopeful"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 118,
+    "key": "A minor",
+    "vocals": "group folk harmonies",
+    "prompt": "1980s americana (folk/ethnic), group folk harmonies, Portuguese-language vocals, banjo, fingerpicked acoustic guitar, hand percussion, drone strings, gated reverb drums, bright chorus, wide stereo, earthy and hopeful mood, fits a workout playlist, 118 BPM, A minor",
+    "tags": [
+      "folk/ethnic",
+      "americana",
+      "1980s",
+      "earthy",
+      "hopeful"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "mavi-dream",
+    "name": "Mavi Dream",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Pop",
+    "subgenre": "dream pop",
+    "era": "1970s",
+    "mood": [
+      "wistful",
+      "uplifting"
+    ],
+    "scenario": "credits roll",
+    "bpm": 116,
+    "key": "C major",
+    "vocals": "airy female topline",
+    "prompt": "1970s dream pop (pop), airy female topline, Turkish-language vocals, shimmering guitars, plucky bass, punchy drum machine, glossy pads, analog warmth, live room sound, subtle tape saturation, wistful and uplifting mood, fits a credits roll, 116 BPM, C major",
+    "tags": [
+      "pop",
+      "dream pop",
+      "1970s",
+      "wistful",
+      "uplifting"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "mavi-iron",
+    "name": "Mavi Iron",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Rock",
+    "subgenre": "art rock",
+    "era": "2000s",
+    "mood": [
+      "bittersweet",
+      "rebellious"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 153,
+    "key": "D major",
+    "vocals": "raw female lead",
+    "prompt": "2000s art rock (rock), raw female lead, Turkish-language vocals, driving distorted guitars, live drums, melodic bass, organ swells, polished digital sheen, tight compression, layered production, bittersweet and rebellious mood, fits a late-night drive, 153 BPM, D major",
+    "tags": [
+      "rock",
+      "art rock",
+      "2000s",
+      "bittersweet",
+      "rebellious"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "mavi-vapor",
+    "name": "Mavi Vapor",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Hip-hop",
+    "subgenre": "trap",
+    "era": "1970s",
+    "mood": [
+      "moody",
+      "nostalgic"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 127,
+    "key": "G minor",
+    "vocals": "melodic auto-tuned rap",
+    "prompt": "1970s trap (hip-hop), melodic auto-tuned rap, Turkish-language vocals, boom-bap drums, vinyl crackle, soul sample chops, booming 808s, analog warmth, live room sound, subtle tape saturation, moody and nostalgic mood, fits a festival main stage, 127 BPM, G minor",
+    "tags": [
+      "hip-hop",
+      "trap",
+      "1970s",
+      "moody",
+      "nostalgic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "midnight-brass",
+    "name": "Midnight Brass",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Jazz/Soul",
+    "subgenre": "gospel",
+    "era": "1970s",
+    "mood": [
+      "warm",
+      "sultry"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 110,
+    "key": "Bb major",
+    "vocals": "call-and-response choir",
+    "prompt": "1970s gospel (jazz/soul), call-and-response choir, English-language vocals, warm Rhodes, slap bass, horn section, Hammond organ, analog warmth, live room sound, subtle tape saturation, warm and sultry mood, fits a rainy study session, 110 BPM, Bb major",
+    "tags": [
+      "jazz/soul",
+      "gospel",
+      "1970s",
+      "warm",
+      "sultry"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "midnight-ember",
+    "name": "Midnight Ember",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Rock",
+    "subgenre": "grunge",
+    "era": "1970s",
+    "mood": [
+      "rebellious",
+      "anthemic"
+    ],
+    "scenario": "intimate cafe",
+    "bpm": 157,
+    "key": "D major",
+    "vocals": "earnest male lead",
+    "prompt": "1970s grunge (rock), earnest male lead, English-language vocals, driving distorted guitars, live drums, jangly guitars, organ swells, analog warmth, live room sound, subtle tape saturation, rebellious and anthemic mood, fits a intimate cafe, 157 BPM, D major",
+    "tags": [
+      "rock",
+      "grunge",
+      "1970s",
+      "rebellious",
+      "anthemic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "midnight-halcyon",
+    "name": "Midnight Halcyon",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Electronic",
+    "subgenre": "drum and bass",
+    "era": "1970s",
+    "mood": [
+      "driving",
+      "weightless"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 129,
+    "key": "A minor",
+    "vocals": "pitched vocal chops",
+    "prompt": "1970s drum and bass (electronic), pitched vocal chops, English-language vocals, rolling bassline, modular bleeps, four-on-floor kick, sidechained bass, analog warmth, live room sound, subtle tape saturation, driving and weightless mood, fits a late-night drive, 129 BPM, A minor",
+    "tags": [
+      "electronic",
+      "drum and bass",
+      "1970s",
+      "driving",
+      "weightless"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "midnight-riot",
+    "name": "Midnight Riot",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Rock",
+    "subgenre": "shoegaze",
+    "era": "1960s",
+    "mood": [
+      "angsty",
+      "bittersweet"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 118,
+    "key": "D major",
+    "vocals": "breathy androgynous vocals",
+    "prompt": "1960s shoegaze (rock), breathy androgynous vocals, English-language vocals, melodic bass, jangly guitars, tambourine, organ swells, warm vintage tape, mono-leaning mix, plate reverb, angsty and bittersweet mood, fits a focus & coding, 118 BPM, D major",
+    "tags": [
+      "rock",
+      "shoegaze",
+      "1960s",
+      "angsty",
+      "bittersweet"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "minuit-cabaret",
+    "name": "Minuit Cabaret",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Chanson",
+    "subgenre": "accordion waltz",
+    "era": "1990s",
+    "mood": [
+      "smoky",
+      "dramatic"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 83,
+    "key": "D minor",
+    "vocals": "dramatic theatrical vocals",
+    "prompt": "1990s accordion waltz (chanson), dramatic theatrical vocals, French-language vocals, intimate piano, upright bass, muted trumpet, brushed drums, punchy mix, sampled textures, slightly lo-fi grit, smoky and dramatic mood, fits a rainy study session, 83 BPM, D minor",
+    "tags": [
+      "chanson",
+      "accordion waltz",
+      "1990s",
+      "smoky",
+      "dramatic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "minuit-iron",
+    "name": "Minuit Iron",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Rock",
+    "subgenre": "post-punk",
+    "era": "2020s",
+    "mood": [
+      "rebellious",
+      "bittersweet"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 145,
+    "key": "E minor",
+    "vocals": "raw female lead",
+    "prompt": "2020s post-punk (rock), raw female lead, French-language vocals, organ swells, melodic bass, tambourine, live drums, hyper-clean hybrid production, deep sub, immersive width, rebellious and bittersweet mood, fits a focus & coding, 145 BPM, E minor",
+    "tags": [
+      "rock",
+      "post-punk",
+      "2020s",
+      "rebellious",
+      "bittersweet"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "mizu-ember",
+    "name": "Mizu Ember",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Rock",
+    "subgenre": "shoegaze",
+    "era": "1990s",
+    "mood": [
+      "anthemic",
+      "angsty"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 145,
+    "key": "E minor",
+    "vocals": "anthemic group shouts",
+    "prompt": "1990s shoegaze (rock), anthemic group shouts, Japanese-language vocals, driving distorted guitars, jangly guitars, live drums, organ swells, punchy mix, sampled textures, slightly lo-fi grit, anthemic and angsty mood, fits a workout playlist, 145 BPM, E minor",
+    "tags": [
+      "rock",
+      "shoegaze",
+      "1990s",
+      "anthemic",
+      "angsty"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "mizu-shadow",
+    "name": "Mizu Shadow",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Hip-hop",
+    "subgenre": "jazz-rap",
+    "era": "2020s",
+    "mood": [
+      "moody",
+      "nostalgic"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 109,
+    "key": "F minor",
+    "vocals": "melodic auto-tuned rap",
+    "prompt": "2020s jazz-rap (hip-hop), melodic auto-tuned rap, Japanese-language vocals, booming 808s, vinyl crackle, boom-bap drums, dusty Rhodes, hyper-clean hybrid production, deep sub, immersive width, moody and nostalgic mood, fits a late-night drive, 109 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "jazz-rap",
+      "2020s",
+      "moody",
+      "nostalgic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "mizu-static",
+    "name": "Mizu Static",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Rock",
+    "subgenre": "garage rock",
+    "era": "1990s",
+    "mood": [
+      "angsty",
+      "anthemic"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 116,
+    "key": "E minor",
+    "vocals": "raw female lead",
+    "prompt": "1990s garage rock (rock), raw female lead, Japanese-language vocals, melodic bass, driving distorted guitars, live drums, tambourine, punchy mix, sampled textures, slightly lo-fi grit, angsty and anthemic mood, fits a rainy study session, 116 BPM, E minor",
+    "tags": [
+      "rock",
+      "garage rock",
+      "1990s",
+      "angsty",
+      "anthemic"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "monsoon-smoke",
+    "name": "Monsoon Smoke",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Jazz/Soul",
+    "subgenre": "neo-soul",
+    "era": "1970s",
+    "mood": [
+      "groovy",
+      "uplifting"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 100,
+    "key": "Eb major",
+    "vocals": "smooth falsetto",
+    "prompt": "1970s neo-soul (jazz/soul), smooth falsetto, Hindi/Indian-language vocals, upright bass, slap bass, horn section, Hammond organ, analog warmth, live room sound, subtle tape saturation, groovy and uplifting mood, fits a dancefloor peak, 100 BPM, Eb major",
+    "tags": [
+      "jazz/soul",
+      "neo-soul",
+      "1970s",
+      "groovy",
+      "uplifting"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "monsoon-wave",
+    "name": "Monsoon Wave",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Pop",
+    "subgenre": "art pop",
+    "era": "1960s",
+    "mood": [
+      "romantic",
+      "wistful"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 128,
+    "key": "A minor",
+    "vocals": "airy female topline",
+    "prompt": "1960s art pop (pop), airy female topline, Hindi/Indian-language vocals, plucky bass, glossy pads, shimmering guitars, punchy drum machine, warm vintage tape, mono-leaning mix, plate reverb, romantic and wistful mood, fits a festival main stage, 128 BPM, A minor",
+    "tags": [
+      "pop",
+      "art pop",
+      "1960s",
+      "romantic",
+      "wistful"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "mumbai-bloom",
+    "name": "Mumbai Bloom",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Pop",
+    "subgenre": "city pop",
+    "era": "2000s",
+    "mood": [
+      "bright",
+      "romantic"
+    ],
+    "scenario": "credits roll",
+    "bpm": 117,
+    "key": "F major",
+    "vocals": "polished female lead",
+    "prompt": "2000s city pop (pop), polished female lead, Hindi/Indian-language vocals, glossy pads, punchy drum machine, vocal chops, bright synth leads, polished digital sheen, tight compression, layered production, bright and romantic mood, fits a credits roll, 117 BPM, F major",
+    "tags": [
+      "pop",
+      "city pop",
+      "2000s",
+      "bright",
+      "romantic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "mumbai-polar",
+    "name": "Mumbai Polar",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Electronic",
+    "subgenre": "future bass",
+    "era": "2020s",
+    "mood": [
+      "hypnotic",
+      "energetic"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 152,
+    "key": "A minor",
+    "vocals": "pitched vocal chops",
+    "prompt": "2020s future bass (electronic), pitched vocal chops, Hindi/Indian-language vocals, sidechained bass, rolling bassline, four-on-floor kick, modular bleeps, hyper-clean hybrid production, deep sub, immersive width, hypnotic and energetic mood, fits a festival main stage, 152 BPM, A minor",
+    "tags": [
+      "electronic",
+      "future bass",
+      "2020s",
+      "hypnotic",
+      "energetic"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "nacht-amber",
+    "name": "Nacht Amber",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Jazz/Soul",
+    "subgenre": "neo-soul",
+    "era": "1970s",
+    "mood": [
+      "warm",
+      "groovy"
+    ],
+    "scenario": "credits roll",
+    "bpm": 118,
+    "key": "E minor",
+    "vocals": "smoky female lead",
+    "prompt": "1970s neo-soul (jazz/soul), smoky female lead, German-language vocals, slap bass, warm Rhodes, brushed drums, Hammond organ, analog warmth, live room sound, subtle tape saturation, warm and groovy mood, fits a credits roll, 118 BPM, E minor",
+    "tags": [
+      "jazz/soul",
+      "neo-soul",
+      "1970s",
+      "warm",
+      "groovy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "nacht-concrete",
+    "name": "Nacht Concrete",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Hip-hop",
+    "subgenre": "trap",
+    "era": "1990s",
+    "mood": [
+      "smooth",
+      "moody"
+    ],
+    "scenario": "intimate cafe",
+    "bpm": 103,
+    "key": "G minor",
+    "vocals": "smooth female flow",
+    "prompt": "1990s trap (hip-hop), smooth female flow, German-language vocals, soul sample chops, vinyl crackle, boom-bap drums, booming 808s, punchy mix, sampled textures, slightly lo-fi grit, smooth and moody mood, fits a intimate cafe, 103 BPM, G minor",
+    "tags": [
+      "hip-hop",
+      "trap",
+      "1990s",
+      "smooth",
+      "moody"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "nacht-shadow",
+    "name": "Nacht Shadow",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Hip-hop",
+    "subgenre": "cloud rap",
+    "era": "1980s",
+    "mood": [
+      "smooth",
+      "confident"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 129,
+    "key": "Bb minor",
+    "vocals": "confident male rap",
+    "prompt": "1980s cloud rap (hip-hop), confident male rap, German-language vocals, vinyl crackle, dusty Rhodes, soul sample chops, boom-bap drums, gated reverb drums, bright chorus, wide stereo, smooth and confident mood, fits a festival main stage, 129 BPM, Bb minor",
+    "tags": [
+      "hip-hop",
+      "cloud rap",
+      "1980s",
+      "smooth",
+      "confident"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "neon-glow",
+    "name": "Neon Glow",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Pop",
+    "subgenre": "dance-pop",
+    "era": "2010s",
+    "mood": [
+      "catchy",
+      "uplifting"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 127,
+    "key": "C major",
+    "vocals": "smooth male lead",
+    "prompt": "2010s dance-pop (pop), smooth male lead, English-language vocals, glossy pads, vocal chops, bright synth leads, plucky bass, modern loud master, crisp transients, sidechained space, catchy and uplifting mood, fits a late-night drive, 127 BPM, C major",
+    "tags": [
+      "pop",
+      "dance-pop",
+      "2010s",
+      "catchy",
+      "uplifting"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "neon-lantern",
+    "name": "Neon Lantern",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Chanson",
+    "subgenre": "torch ballad",
+    "era": "1990s",
+    "mood": [
+      "intimate",
+      "smoky"
+    ],
+    "scenario": "intimate cafe",
+    "bpm": 111,
+    "key": "E minor",
+    "vocals": "dramatic theatrical vocals",
+    "prompt": "1990s torch ballad (chanson), dramatic theatrical vocals, English-language vocals, intimate piano, accordion, muted trumpet, nylon guitar, punchy mix, sampled textures, slightly lo-fi grit, intimate and smoky mood, fits a intimate cafe, 111 BPM, E minor",
+    "tags": [
+      "chanson",
+      "torch ballad",
+      "1990s",
+      "intimate",
+      "smoky"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "neon-prism",
+    "name": "Neon Prism",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Electronic",
+    "subgenre": "future bass",
+    "era": "1970s",
+    "mood": [
+      "energetic",
+      "hypnotic"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 155,
+    "key": "A minor",
+    "vocals": "pitched vocal chops",
+    "prompt": "1970s future bass (electronic), pitched vocal chops, English-language vocals, supersaw chords, sidechained bass, modular bleeps, rolling bassline, analog warmth, live room sound, subtle tape saturation, energetic and hypnotic mood, fits a festival main stage, 155 BPM, A minor",
+    "tags": [
+      "electronic",
+      "future bass",
+      "1970s",
+      "energetic",
+      "hypnotic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "neon-seoul-aurora",
+    "name": "Neon Seoul Aurora",
+    "language": "ko",
+    "languageLabel": "Корейские",
+    "genre": "Electronic",
+    "subgenre": "trance",
+    "era": "2000s",
+    "mood": [
+      "energetic",
+      "euphoric"
+    ],
+    "scenario": "road trip",
+    "bpm": 127,
+    "key": "F# minor",
+    "vocals": "ethereal female topline",
+    "prompt": "2000s trance (electronic), ethereal female topline, Korean-language vocals, supersaw chords, four-on-floor kick, sidechained bass, modular bleeps, polished digital sheen, tight compression, layered production, energetic and euphoric mood, fits a road trip, 127 BPM, F# minor",
+    "tags": [
+      "electronic",
+      "trance",
+      "2000s",
+      "energetic",
+      "euphoric"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "neon-seoul-honey",
+    "name": "Neon Seoul Honey",
+    "language": "ko",
+    "languageLabel": "Корейские",
+    "genre": "Jazz/Soul",
+    "subgenre": "neo-soul",
+    "era": "1960s",
+    "mood": [
+      "warm",
+      "uplifting"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 82,
+    "key": "C major",
+    "vocals": "call-and-response choir",
+    "prompt": "1960s neo-soul (jazz/soul), call-and-response choir, Korean-language vocals, slap bass, warm Rhodes, horn section, Hammond organ, warm vintage tape, mono-leaning mix, plate reverb, warm and uplifting mood, fits a workout playlist, 82 BPM, C major",
+    "tags": [
+      "jazz/soul",
+      "neo-soul",
+      "1960s",
+      "warm",
+      "uplifting"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "neon-seoul-obsidian",
+    "name": "Neon Seoul Obsidian",
+    "language": "ko",
+    "languageLabel": "Корейские",
+    "genre": "Hip-hop",
+    "subgenre": "jazz-rap",
+    "era": "1980s",
+    "mood": [
+      "nostalgic",
+      "confident"
+    ],
+    "scenario": "road trip",
+    "bpm": 87,
+    "key": "G minor",
+    "vocals": "confident male rap",
+    "prompt": "1980s jazz-rap (hip-hop), confident male rap, Korean-language vocals, booming 808s, rolling hi-hats, boom-bap drums, soul sample chops, gated reverb drums, bright chorus, wide stereo, nostalgic and confident mood, fits a road trip, 87 BPM, G minor",
+    "tags": [
+      "hip-hop",
+      "jazz-rap",
+      "1980s",
+      "nostalgic",
+      "confident"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "neon-seoul-shine",
+    "name": "Neon Seoul Shine",
+    "language": "ko",
+    "languageLabel": "Корейские",
+    "genre": "Pop",
+    "subgenre": "dance-pop",
+    "era": "1980s",
+    "mood": [
+      "uplifting",
+      "catchy"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 101,
+    "key": "F major",
+    "vocals": "layered group harmonies",
+    "prompt": "1980s dance-pop (pop), layered group harmonies, Korean-language vocals, shimmering guitars, vocal chops, punchy drum machine, bright synth leads, gated reverb drums, bright chorus, wide stereo, uplifting and catchy mood, fits a workout playlist, 101 BPM, F major",
+    "tags": [
+      "pop",
+      "dance-pop",
+      "1980s",
+      "uplifting",
+      "catchy"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "neon-shibuya-bloom",
+    "name": "Neon Shibuya Bloom",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Pop",
+    "subgenre": "dance-pop",
+    "era": "1990s",
+    "mood": [
+      "bright",
+      "wistful"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 113,
+    "key": "C major",
+    "vocals": "layered group harmonies",
+    "prompt": "1990s dance-pop (pop), layered group harmonies, Japanese-language vocals, vocal chops, shimmering guitars, punchy drum machine, bright synth leads, punchy mix, sampled textures, slightly lo-fi grit, bright and wistful mood, fits a cinematic trailer, 113 BPM, C major",
+    "tags": [
+      "pop",
+      "dance-pop",
+      "1990s",
+      "bright",
+      "wistful"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "neon-shibuya-driftwood",
+    "name": "Neon Shibuya Driftwood",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Folk/Ethnic",
+    "subgenre": "world fusion",
+    "era": "1960s",
+    "mood": [
+      "yearning",
+      "earthy"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 115,
+    "key": "G major",
+    "vocals": "clear ethereal female vocals",
+    "prompt": "1960s world fusion (folk/ethnic), clear ethereal female vocals, Japanese-language vocals, drone strings, banjo, tin whistle, fiddle, warm vintage tape, mono-leaning mix, plate reverb, yearning and earthy mood, fits a festival main stage, 115 BPM, G major",
+    "tags": [
+      "folk/ethnic",
+      "world fusion",
+      "1960s",
+      "yearning",
+      "earthy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "neon-shibuya-glow",
+    "name": "Neon Shibuya Glow",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Pop",
+    "subgenre": "dream pop",
+    "era": "1970s",
+    "mood": [
+      "romantic",
+      "bright"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 109,
+    "key": "G major",
+    "vocals": "polished female lead",
+    "prompt": "1970s dream pop (pop), polished female lead, Japanese-language vocals, bright synth leads, punchy drum machine, glossy pads, plucky bass, analog warmth, live room sound, subtle tape saturation, romantic and bright mood, fits a focus & coding, 109 BPM, G major",
+    "tags": [
+      "pop",
+      "dream pop",
+      "1970s",
+      "romantic",
+      "bright"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "nocturno-drive",
+    "name": "Nocturno Drive",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Rock",
+    "subgenre": "art rock",
+    "era": "1970s",
+    "mood": [
+      "bittersweet",
+      "angsty"
+    ],
+    "scenario": "road trip",
+    "bpm": 110,
+    "key": "A major",
+    "vocals": "anthemic group shouts",
+    "prompt": "1970s art rock (rock), anthemic group shouts, Spanish-language vocals, organ swells, jangly guitars, live drums, tambourine, analog warmth, live room sound, subtle tape saturation, bittersweet and angsty mood, fits a road trip, 110 BPM, A major",
+    "tags": [
+      "rock",
+      "art rock",
+      "1970s",
+      "bittersweet",
+      "angsty"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "nocturno-obsidian",
+    "name": "Nocturno Obsidian",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Hip-hop",
+    "subgenre": "trap",
+    "era": "1980s",
+    "mood": [
+      "smooth",
+      "menacing"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 131,
+    "key": "F minor",
+    "vocals": "confident male rap",
+    "prompt": "1980s trap (hip-hop), confident male rap, Spanish-language vocals, rolling hi-hats, vinyl crackle, dusty Rhodes, soul sample chops, gated reverb drums, bright chorus, wide stereo, smooth and menacing mood, fits a late-night drive, 131 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "trap",
+      "1980s",
+      "smooth",
+      "menacing"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "nocturno-pulse",
+    "name": "Nocturno Pulse",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Pop",
+    "subgenre": "electro-pop",
+    "era": "2020s",
+    "mood": [
+      "wistful",
+      "catchy"
+    ],
+    "scenario": "credits roll",
+    "bpm": 104,
+    "key": "F major",
+    "vocals": "polished female lead",
+    "prompt": "2020s electro-pop (pop), polished female lead, Spanish-language vocals, vocal chops, plucky bass, glossy pads, punchy drum machine, hyper-clean hybrid production, deep sub, immersive width, wistful and catchy mood, fits a credits roll, 104 BPM, F major",
+    "tags": [
+      "pop",
+      "electro-pop",
+      "2020s",
+      "wistful",
+      "catchy"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "nocturno-smoke",
+    "name": "Nocturno Smoke",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Jazz/Soul",
+    "subgenre": "funk",
+    "era": "1990s",
+    "mood": [
+      "groovy",
+      "warm"
+    ],
+    "scenario": "road trip",
+    "bpm": 98,
+    "key": "Eb major",
+    "vocals": "smoky female lead",
+    "prompt": "1990s funk (jazz/soul), smoky female lead, Spanish-language vocals, Hammond organ, brushed drums, slap bass, horn section, punchy mix, sampled textures, slightly lo-fi grit, groovy and warm mood, fits a road trip, 98 BPM, Eb major",
+    "tags": [
+      "jazz/soul",
+      "funk",
+      "1990s",
+      "groovy",
+      "warm"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "nocturno-tide",
+    "name": "Nocturno Tide",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Folk/Ethnic",
+    "subgenre": "indie folk",
+    "era": "1980s",
+    "mood": [
+      "spiritual",
+      "warm"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 113,
+    "key": "raga-based",
+    "vocals": "group folk harmonies",
+    "prompt": "1980s indie folk (folk/ethnic), group folk harmonies, Spanish-language vocals, fiddle, hand percussion, banjo, fingerpicked acoustic guitar, gated reverb drums, bright chorus, wide stereo, spiritual and warm mood, fits a late-night drive, 113 BPM, raga-based",
+    "tags": [
+      "folk/ethnic",
+      "indie folk",
+      "1980s",
+      "spiritual",
+      "warm"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "oltin-lantern",
+    "name": "Oltin Lantern",
+    "language": "uz",
+    "languageLabel": "Узбекские",
+    "genre": "Chanson",
+    "subgenre": "accordion waltz",
+    "era": "2000s",
+    "mood": [
+      "nostalgic",
+      "smoky"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 80,
+    "key": "A minor",
+    "vocals": "intimate crooned vocals",
+    "prompt": "2000s accordion waltz (chanson), intimate crooned vocals, Uzbek-language vocals, brushed drums, nylon guitar, muted trumpet, intimate piano, polished digital sheen, tight compression, layered production, nostalgic and smoky mood, fits a festival main stage, 80 BPM, A minor",
+    "tags": [
+      "chanson",
+      "accordion waltz",
+      "2000s",
+      "nostalgic",
+      "smoky"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "oltin-polar",
+    "name": "Oltin Polar",
+    "language": "uz",
+    "languageLabel": "Узбекские",
+    "genre": "Electronic",
+    "subgenre": "house",
+    "era": "1980s",
+    "mood": [
+      "driving",
+      "weightless"
+    ],
+    "scenario": "road trip",
+    "bpm": 151,
+    "key": "B minor",
+    "vocals": "processed vocal stabs",
+    "prompt": "1980s house (electronic), processed vocal stabs, Uzbek-language vocals, rolling bassline, four-on-floor kick, sidechained bass, gated pads, gated reverb drums, bright chorus, wide stereo, driving and weightless mood, fits a road trip, 151 BPM, B minor",
+    "tags": [
+      "electronic",
+      "house",
+      "1980s",
+      "driving",
+      "weightless"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "pamir-cedar",
+    "name": "Pamir Cedar",
+    "language": "tj",
+    "languageLabel": "Таджикские",
+    "genre": "Folk/Ethnic",
+    "subgenre": "celtic folk",
+    "era": "1960s",
+    "mood": [
+      "earthy",
+      "yearning"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 92,
+    "key": "raga-based",
+    "vocals": "group folk harmonies",
+    "prompt": "1960s celtic folk (folk/ethnic), group folk harmonies, Tajik-language vocals, drone strings, fingerpicked acoustic guitar, hand percussion, banjo, warm vintage tape, mono-leaning mix, plate reverb, earthy and yearning mood, fits a dancefloor peak, 92 BPM, raga-based",
+    "tags": [
+      "folk/ethnic",
+      "celtic folk",
+      "1960s",
+      "earthy",
+      "yearning"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pamir-shine",
+    "name": "Pamir Shine",
+    "language": "tj",
+    "languageLabel": "Таджикские",
+    "genre": "Pop",
+    "subgenre": "city pop",
+    "era": "1960s",
+    "mood": [
+      "romantic",
+      "uplifting"
+    ],
+    "scenario": "road trip",
+    "bpm": 122,
+    "key": "A minor",
+    "vocals": "smooth male lead",
+    "prompt": "1960s city pop (pop), smooth male lead, Tajik-language vocals, glossy pads, plucky bass, shimmering guitars, vocal chops, warm vintage tape, mono-leaning mix, plate reverb, romantic and uplifting mood, fits a road trip, 122 BPM, A minor",
+    "tags": [
+      "pop",
+      "city pop",
+      "1960s",
+      "romantic",
+      "uplifting"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "pamir-volt",
+    "name": "Pamir Volt",
+    "language": "tj",
+    "languageLabel": "Таджикские",
+    "genre": "Electronic",
+    "subgenre": "drum and bass",
+    "era": "2000s",
+    "mood": [
+      "driving",
+      "hypnotic"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 170,
+    "key": "F# minor",
+    "vocals": "pitched vocal chops",
+    "prompt": "2000s drum and bass (electronic), pitched vocal chops, Tajik-language vocals, supersaw chords, modular bleeps, gated pads, four-on-floor kick, polished digital sheen, tight compression, layered production, driving and hypnotic mood, fits a late-night drive, 170 BPM, F# minor",
+    "tags": [
+      "electronic",
+      "drum and bass",
+      "2000s",
+      "driving",
+      "hypnotic"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "raga-glow",
+    "name": "Raga Glow",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Pop",
+    "subgenre": "dance-pop",
+    "era": "2000s",
+    "mood": [
+      "catchy",
+      "wistful"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 105,
+    "key": "A minor",
+    "vocals": "airy female topline",
+    "prompt": "2000s dance-pop (pop), airy female topline, Hindi/Indian-language vocals, bright synth leads, punchy drum machine, shimmering guitars, vocal chops, polished digital sheen, tight compression, layered production, catchy and wistful mood, fits a cinematic trailer, 105 BPM, A minor",
+    "tags": [
+      "pop",
+      "dance-pop",
+      "2000s",
+      "catchy",
+      "wistful"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "saffron-obsidian",
+    "name": "Saffron Obsidian",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Hip-hop",
+    "subgenre": "g-funk",
+    "era": "1980s",
+    "mood": [
+      "moody",
+      "confident"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 91,
+    "key": "Bb minor",
+    "vocals": "spoken-word verses",
+    "prompt": "1980s g-funk (hip-hop), spoken-word verses, Hindi/Indian-language vocals, rolling hi-hats, boom-bap drums, vinyl crackle, booming 808s, gated reverb drums, bright chorus, wide stereo, moody and confident mood, fits a dancefloor peak, 91 BPM, Bb minor",
+    "tags": [
+      "hip-hop",
+      "g-funk",
+      "1980s",
+      "moody",
+      "confident"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "sahar-honey",
+    "name": "Sahar Honey",
+    "language": "tj",
+    "languageLabel": "Таджикские",
+    "genre": "Jazz/Soul",
+    "subgenre": "bossa nova",
+    "era": "1990s",
+    "mood": [
+      "warm",
+      "sultry"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 91,
+    "key": "E minor",
+    "vocals": "smoky female lead",
+    "prompt": "1990s bossa nova (jazz/soul), smoky female lead, Tajik-language vocals, Hammond organ, horn section, slap bass, warm Rhodes, punchy mix, sampled textures, slightly lo-fi grit, warm and sultry mood, fits a dancefloor peak, 91 BPM, E minor",
+    "tags": [
+      "jazz/soul",
+      "bossa nova",
+      "1990s",
+      "warm",
+      "sultry"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "sahar-iron",
+    "name": "Sahar Iron",
+    "language": "tj",
+    "languageLabel": "Таджикские",
+    "genre": "Rock",
+    "subgenre": "grunge",
+    "era": "1970s",
+    "mood": [
+      "anthemic",
+      "energetic"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 166,
+    "key": "A major",
+    "vocals": "anthemic group shouts",
+    "prompt": "1970s grunge (rock), anthemic group shouts, Tajik-language vocals, jangly guitars, melodic bass, live drums, tambourine, analog warmth, live room sound, subtle tape saturation, anthemic and energetic mood, fits a dancefloor peak, 166 BPM, A major",
+    "tags": [
+      "rock",
+      "grunge",
+      "1970s",
+      "anthemic",
+      "energetic"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "sahar-saffron",
+    "name": "Sahar Saffron",
+    "language": "tj",
+    "languageLabel": "Таджикские",
+    "genre": "Folk/Ethnic",
+    "subgenre": "world fusion",
+    "era": "2000s",
+    "mood": [
+      "spiritual",
+      "hopeful"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 108,
+    "key": "A minor",
+    "vocals": "clear ethereal female vocals",
+    "prompt": "2000s world fusion (folk/ethnic), clear ethereal female vocals, Tajik-language vocals, tin whistle, drone strings, fingerpicked acoustic guitar, banjo, polished digital sheen, tight compression, layered production, spiritual and hopeful mood, fits a cinematic trailer, 108 BPM, A minor",
+    "tags": [
+      "folk/ethnic",
+      "world fusion",
+      "2000s",
+      "spiritual",
+      "hopeful"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "sakura-aurora",
+    "name": "Sakura Aurora",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Electronic",
+    "subgenre": "drum and bass",
+    "era": "2020s",
+    "mood": [
+      "hypnotic",
+      "driving"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 155,
+    "key": "B minor",
+    "vocals": "pitched vocal chops",
+    "prompt": "2020s drum and bass (electronic), pitched vocal chops, Japanese-language vocals, four-on-floor kick, gated pads, supersaw chords, modular bleeps, hyper-clean hybrid production, deep sub, immersive width, hypnotic and driving mood, fits a dancefloor peak, 155 BPM, B minor",
+    "tags": [
+      "electronic",
+      "drum and bass",
+      "2020s",
+      "hypnotic",
+      "driving"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "samarqand-aurora",
+    "name": "Samarqand Aurora",
+    "language": "uz",
+    "languageLabel": "Узбекские",
+    "genre": "Electronic",
+    "subgenre": "ambient",
+    "era": "1990s",
+    "mood": [
+      "weightless",
+      "hypnotic"
+    ],
+    "scenario": "road trip",
+    "bpm": 122,
+    "key": "C minor",
+    "vocals": "pitched vocal chops",
+    "prompt": "1990s ambient (electronic), pitched vocal chops, Uzbek-language vocals, modular bleeps, gated pads, rolling bassline, supersaw chords, punchy mix, sampled textures, slightly lo-fi grit, weightless and hypnotic mood, fits a road trip, 122 BPM, C minor",
+    "tags": [
+      "electronic",
+      "ambient",
+      "1990s",
+      "weightless",
+      "hypnotic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "samarqand-block",
+    "name": "Samarqand Block",
+    "language": "uz",
+    "languageLabel": "Узбекские",
+    "genre": "Hip-hop",
+    "subgenre": "boom-bap",
+    "era": "1970s",
+    "mood": [
+      "nostalgic",
+      "confident"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 85,
+    "key": "F minor",
+    "vocals": "confident male rap",
+    "prompt": "1970s boom-bap (hip-hop), confident male rap, Uzbek-language vocals, soul sample chops, dusty Rhodes, rolling hi-hats, vinyl crackle, analog warmth, live room sound, subtle tape saturation, nostalgic and confident mood, fits a focus & coding, 85 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "boom-bap",
+      "1970s",
+      "nostalgic",
+      "confident"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "samarqand-noir",
+    "name": "Samarqand Noir",
+    "language": "uz",
+    "languageLabel": "Узбекские",
+    "genre": "Chanson",
+    "subgenre": "chanson",
+    "era": "2000s",
+    "mood": [
+      "wistful",
+      "intimate"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 98,
+    "key": "D minor",
+    "vocals": "weathered storyteller vocals",
+    "prompt": "2000s chanson (chanson), weathered storyteller vocals, Uzbek-language vocals, nylon guitar, muted trumpet, brushed drums, upright bass, polished digital sheen, tight compression, layered production, wistful and intimate mood, fits a rainy study session, 98 BPM, D minor",
+    "tags": [
+      "chanson",
+      "chanson",
+      "2000s",
+      "wistful",
+      "intimate"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "samarqand-saffron",
+    "name": "Samarqand Saffron",
+    "language": "uz",
+    "languageLabel": "Узбекские",
+    "genre": "Folk/Ethnic",
+    "subgenre": "afrobeats",
+    "era": "1990s",
+    "mood": [
+      "earthy",
+      "yearning"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 120,
+    "key": "raga-based",
+    "vocals": "warm male vocals with harmony",
+    "prompt": "1990s afrobeats (folk/ethnic), warm male vocals with harmony, Uzbek-language vocals, tin whistle, fiddle, fingerpicked acoustic guitar, drone strings, punchy mix, sampled textures, slightly lo-fi grit, earthy and yearning mood, fits a dancefloor peak, 120 BPM, raga-based",
+    "tags": [
+      "folk/ethnic",
+      "afrobeats",
+      "1990s",
+      "earthy",
+      "yearning"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "samarqand-sepia",
+    "name": "Samarqand Sepia",
+    "language": "uz",
+    "languageLabel": "Узбекские",
+    "genre": "Chanson",
+    "subgenre": "accordion waltz",
+    "era": "2010s",
+    "mood": [
+      "dramatic",
+      "nostalgic"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 85,
+    "key": "A minor",
+    "vocals": "dramatic theatrical vocals",
+    "prompt": "2010s accordion waltz (chanson), dramatic theatrical vocals, Uzbek-language vocals, nylon guitar, brushed drums, muted trumpet, intimate piano, modern loud master, crisp transients, sidechained space, dramatic and nostalgic mood, fits a rainy study session, 85 BPM, A minor",
+    "tags": [
+      "chanson",
+      "accordion waltz",
+      "2010s",
+      "dramatic",
+      "nostalgic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "saudade-aurora",
+    "name": "Saudade Aurora",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Electronic",
+    "subgenre": "trance",
+    "era": "2020s",
+    "mood": [
+      "driving",
+      "euphoric"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 158,
+    "key": "F# minor",
+    "vocals": "ethereal female topline",
+    "prompt": "2020s trance (electronic), ethereal female topline, Portuguese-language vocals, sidechained bass, four-on-floor kick, modular bleeps, supersaw chords, hyper-clean hybrid production, deep sub, immersive width, driving and euphoric mood, fits a late-night drive, 158 BPM, F# minor",
+    "tags": [
+      "electronic",
+      "trance",
+      "2020s",
+      "driving",
+      "euphoric"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "saudade-dream",
+    "name": "Saudade Dream",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Pop",
+    "subgenre": "synth-pop",
+    "era": "1960s",
+    "mood": [
+      "bright",
+      "romantic"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 118,
+    "key": "F major",
+    "vocals": "polished female lead",
+    "prompt": "1960s synth-pop (pop), polished female lead, Portuguese-language vocals, punchy drum machine, vocal chops, plucky bass, glossy pads, warm vintage tape, mono-leaning mix, plate reverb, bright and romantic mood, fits a workout playlist, 118 BPM, F major",
+    "tags": [
+      "pop",
+      "synth-pop",
+      "1960s",
+      "bright",
+      "romantic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "saudade-glow",
+    "name": "Saudade Glow",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Pop",
+    "subgenre": "bedroom pop",
+    "era": "2000s",
+    "mood": [
+      "catchy",
+      "bright"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 120,
+    "key": "G major",
+    "vocals": "smooth male lead",
+    "prompt": "2000s bedroom pop (pop), smooth male lead, Portuguese-language vocals, vocal chops, bright synth leads, plucky bass, shimmering guitars, polished digital sheen, tight compression, layered production, catchy and bright mood, fits a late-night drive, 120 BPM, G major",
+    "tags": [
+      "pop",
+      "bedroom pop",
+      "2000s",
+      "catchy",
+      "bright"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "seoul-honey",
+    "name": "Seoul Honey",
+    "language": "ko",
+    "languageLabel": "Корейские",
+    "genre": "Jazz/Soul",
+    "subgenre": "R&B",
+    "era": "1980s",
+    "mood": [
+      "sultry",
+      "warm"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 108,
+    "key": "C major",
+    "vocals": "belting soul vocals",
+    "prompt": "1980s R&B (jazz/soul), belting soul vocals, Korean-language vocals, slap bass, warm Rhodes, horn section, upright bass, gated reverb drums, bright chorus, wide stereo, sultry and warm mood, fits a late-night drive, 108 BPM, C major",
+    "tags": [
+      "jazz/soul",
+      "R&B",
+      "1980s",
+      "sultry",
+      "warm"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "seoul-pulse",
+    "name": "Seoul Pulse",
+    "language": "ko",
+    "languageLabel": "Корейские",
+    "genre": "Pop",
+    "subgenre": "indie pop",
+    "era": "1970s",
+    "mood": [
+      "uplifting",
+      "catchy"
+    ],
+    "scenario": "credits roll",
+    "bpm": 103,
+    "key": "G major",
+    "vocals": "polished female lead",
+    "prompt": "1970s indie pop (pop), polished female lead, Korean-language vocals, punchy drum machine, shimmering guitars, glossy pads, plucky bass, analog warmth, live room sound, subtle tape saturation, uplifting and catchy mood, fits a credits roll, 103 BPM, G major",
+    "tags": [
+      "pop",
+      "indie pop",
+      "1970s",
+      "uplifting",
+      "catchy"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "sharq-frost",
+    "name": "Sharq Frost",
+    "language": "uz",
+    "languageLabel": "Узбекские",
+    "genre": "Metal",
+    "subgenre": "power metal",
+    "era": "2000s",
+    "mood": [
+      "frostbitten",
+      "dark"
+    ],
+    "scenario": "intimate cafe",
+    "bpm": 153,
+    "key": "C minor",
+    "vocals": "operatic soprano over growls",
+    "prompt": "2000s power metal (metal), operatic soprano over growls, Uzbek-language vocals, tremolo guitars, blast beats, double-kick drums, deep bass, polished digital sheen, tight compression, layered production, frostbitten and dark mood, fits a intimate cafe, 153 BPM, C minor",
+    "tags": [
+      "metal",
+      "power metal",
+      "2000s",
+      "frostbitten",
+      "dark"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "silver-concrete",
+    "name": "Silver Concrete",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Hip-hop",
+    "subgenre": "lo-fi hip hop",
+    "era": "2020s",
+    "mood": [
+      "smooth",
+      "menacing"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 81,
+    "key": "Bb minor",
+    "vocals": "melodic auto-tuned rap",
+    "prompt": "2020s lo-fi hip hop (hip-hop), melodic auto-tuned rap, English-language vocals, rolling hi-hats, soul sample chops, dusty Rhodes, vinyl crackle, hyper-clean hybrid production, deep sub, immersive width, smooth and menacing mood, fits a festival main stage, 81 BPM, Bb minor",
+    "tags": [
+      "hip-hop",
+      "lo-fi hip hop",
+      "2020s",
+      "smooth",
+      "menacing"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "silver-gold",
+    "name": "Silver Gold",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Hip-hop",
+    "subgenre": "g-funk",
+    "era": "1980s",
+    "mood": [
+      "confident",
+      "menacing"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 144,
+    "key": "G minor",
+    "vocals": "confident male rap",
+    "prompt": "1980s g-funk (hip-hop), confident male rap, English-language vocals, rolling hi-hats, booming 808s, soul sample chops, vinyl crackle, gated reverb drums, bright chorus, wide stereo, confident and menacing mood, fits a rainy study session, 144 BPM, G minor",
+    "tags": [
+      "hip-hop",
+      "g-funk",
+      "1980s",
+      "confident",
+      "menacing"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "silver-iron",
+    "name": "Silver Iron",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Rock",
+    "subgenre": "art rock",
+    "era": "1980s",
+    "mood": [
+      "bittersweet",
+      "angsty"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 163,
+    "key": "E minor",
+    "vocals": "earnest male lead",
+    "prompt": "1980s art rock (rock), earnest male lead, English-language vocals, melodic bass, organ swells, jangly guitars, live drums, gated reverb drums, bright chorus, wide stereo, bittersweet and angsty mood, fits a focus & coding, 163 BPM, E minor",
+    "tags": [
+      "rock",
+      "art rock",
+      "1980s",
+      "bittersweet",
+      "angsty"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "silver-polar",
+    "name": "Silver Polar",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Electronic",
+    "subgenre": "trance",
+    "era": "2020s",
+    "mood": [
+      "driving",
+      "weightless"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 171,
+    "key": "B minor",
+    "vocals": "processed vocal stabs",
+    "prompt": "2020s trance (electronic), processed vocal stabs, English-language vocals, supersaw chords, sidechained bass, gated pads, rolling bassline, hyper-clean hybrid production, deep sub, immersive width, driving and weightless mood, fits a cinematic trailer, 171 BPM, B minor",
+    "tags": [
+      "electronic",
+      "trance",
+      "2020s",
+      "driving",
+      "weightless"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "silver-velour",
+    "name": "Silver Velour",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Jazz/Soul",
+    "subgenre": "jazz trio",
+    "era": "1990s",
+    "mood": [
+      "sultry",
+      "late-night"
+    ],
+    "scenario": "rainy study session",
+    "bpm": 84,
+    "key": "Eb major",
+    "vocals": "belting soul vocals",
+    "prompt": "1990s jazz trio (jazz/soul), belting soul vocals, English-language vocals, slap bass, horn section, warm Rhodes, upright bass, punchy mix, sampled textures, slightly lo-fi grit, sultry and late-night mood, fits a rainy study session, 84 BPM, Eb major",
+    "tags": [
+      "jazz/soul",
+      "jazz trio",
+      "1990s",
+      "sultry",
+      "late-night"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "stahl-block",
+    "name": "Stahl Block",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Hip-hop",
+    "subgenre": "conscious rap",
+    "era": "1990s",
+    "mood": [
+      "moody",
+      "confident"
+    ],
+    "scenario": "road trip",
+    "bpm": 127,
+    "key": "F minor",
+    "vocals": "spoken-word verses",
+    "prompt": "1990s conscious rap (hip-hop), spoken-word verses, German-language vocals, dusty Rhodes, boom-bap drums, vinyl crackle, soul sample chops, punchy mix, sampled textures, slightly lo-fi grit, moody and confident mood, fits a road trip, 127 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "conscious rap",
+      "1990s",
+      "moody",
+      "confident"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "stahl-smoke",
+    "name": "Stahl Smoke",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Jazz/Soul",
+    "subgenre": "acid jazz",
+    "era": "1960s",
+    "mood": [
+      "groovy",
+      "warm"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 107,
+    "key": "C major",
+    "vocals": "call-and-response choir",
+    "prompt": "1960s acid jazz (jazz/soul), call-and-response choir, German-language vocals, warm Rhodes, upright bass, Hammond organ, brushed drums, warm vintage tape, mono-leaning mix, plate reverb, groovy and warm mood, fits a focus & coding, 107 BPM, C major",
+    "tags": [
+      "jazz/soul",
+      "acid jazz",
+      "1960s",
+      "groovy",
+      "warm"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "tokyo-riot",
+    "name": "Tokyo Riot",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Rock",
+    "subgenre": "shoegaze",
+    "era": "1990s",
+    "mood": [
+      "energetic",
+      "anthemic"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 120,
+    "key": "E minor",
+    "vocals": "anthemic group shouts",
+    "prompt": "1990s shoegaze (rock), anthemic group shouts, Japanese-language vocals, organ swells, driving distorted guitars, live drums, melodic bass, punchy mix, sampled textures, slightly lo-fi grit, energetic and anthemic mood, fits a dancefloor peak, 120 BPM, E minor",
+    "tags": [
+      "rock",
+      "shoegaze",
+      "1990s",
+      "energetic",
+      "anthemic"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "tropical-block",
+    "name": "Tropical Block",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Hip-hop",
+    "subgenre": "drill",
+    "era": "1990s",
+    "mood": [
+      "confident",
+      "moody"
+    ],
+    "scenario": "credits roll",
+    "bpm": 90,
+    "key": "G minor",
+    "vocals": "melodic auto-tuned rap",
+    "prompt": "1990s drill (hip-hop), melodic auto-tuned rap, Portuguese-language vocals, rolling hi-hats, soul sample chops, booming 808s, dusty Rhodes, punchy mix, sampled textures, slightly lo-fi grit, confident and moody mood, fits a credits roll, 90 BPM, G minor",
+    "tags": [
+      "hip-hop",
+      "drill",
+      "1990s",
+      "confident",
+      "moody"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "tropical-concrete",
+    "name": "Tropical Concrete",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Hip-hop",
+    "subgenre": "g-funk",
+    "era": "1970s",
+    "mood": [
+      "menacing",
+      "nostalgic"
+    ],
+    "scenario": "intimate cafe",
+    "bpm": 87,
+    "key": "Bb minor",
+    "vocals": "melodic auto-tuned rap",
+    "prompt": "1970s g-funk (hip-hop), melodic auto-tuned rap, Portuguese-language vocals, vinyl crackle, dusty Rhodes, rolling hi-hats, soul sample chops, analog warmth, live room sound, subtle tape saturation, menacing and nostalgic mood, fits a intimate cafe, 87 BPM, Bb minor",
+    "tags": [
+      "hip-hop",
+      "g-funk",
+      "1970s",
+      "menacing",
+      "nostalgic"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "tropical-shine",
+    "name": "Tropical Shine",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Pop",
+    "subgenre": "art pop",
+    "era": "2000s",
+    "mood": [
+      "wistful",
+      "bright"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 127,
+    "key": "G major",
+    "vocals": "smooth male lead",
+    "prompt": "2000s art pop (pop), smooth male lead, Portuguese-language vocals, shimmering guitars, punchy drum machine, glossy pads, plucky bass, polished digital sheen, tight compression, layered production, wistful and bright mood, fits a focus & coding, 127 BPM, G major",
+    "tags": [
+      "pop",
+      "art pop",
+      "2000s",
+      "wistful",
+      "bright"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "velours-glow",
+    "name": "Velours Glow",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Pop",
+    "subgenre": "city pop",
+    "era": "2000s",
+    "mood": [
+      "bright",
+      "romantic"
+    ],
+    "scenario": "cinematic trailer",
+    "bpm": 125,
+    "key": "C major",
+    "vocals": "polished female lead",
+    "prompt": "2000s city pop (pop), polished female lead, French-language vocals, bright synth leads, shimmering guitars, vocal chops, glossy pads, polished digital sheen, tight compression, layered production, bright and romantic mood, fits a cinematic trailer, 125 BPM, C major",
+    "tags": [
+      "pop",
+      "city pop",
+      "2000s",
+      "bright",
+      "romantic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "velours-polar",
+    "name": "Velours Polar",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Electronic",
+    "subgenre": "ambient",
+    "era": "2010s",
+    "mood": [
+      "euphoric",
+      "energetic"
+    ],
+    "scenario": "credits roll",
+    "bpm": 170,
+    "key": "B minor",
+    "vocals": "ethereal female topline",
+    "prompt": "2010s ambient (electronic), ethereal female topline, French-language vocals, supersaw chords, sidechained bass, modular bleeps, gated pads, modern loud master, crisp transients, sidechained space, euphoric and energetic mood, fits a credits roll, 170 BPM, B minor",
+    "tags": [
+      "electronic",
+      "ambient",
+      "2010s",
+      "euphoric",
+      "energetic"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "velours-vapor",
+    "name": "Velours Vapor",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Hip-hop",
+    "subgenre": "drill",
+    "era": "1980s",
+    "mood": [
+      "smooth",
+      "menacing"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 138,
+    "key": "F minor",
+    "vocals": "smooth female flow",
+    "prompt": "1980s drill (hip-hop), smooth female flow, French-language vocals, soul sample chops, dusty Rhodes, booming 808s, boom-bap drums, gated reverb drums, bright chorus, wide stereo, smooth and menacing mood, fits a workout playlist, 138 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "drill",
+      "1980s",
+      "smooth",
+      "menacing"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "velours-velour",
+    "name": "Velours Velour",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Jazz/Soul",
+    "subgenre": "soul",
+    "era": "2010s",
+    "mood": [
+      "late-night",
+      "sultry"
+    ],
+    "scenario": "late-night drive",
+    "bpm": 108,
+    "key": "Eb major",
+    "vocals": "belting soul vocals",
+    "prompt": "2010s soul (jazz/soul), belting soul vocals, French-language vocals, horn section, slap bass, brushed drums, Hammond organ, modern loud master, crisp transients, sidechained space, late-night and sultry mood, fits a late-night drive, 108 BPM, Eb major",
+    "tags": [
+      "jazz/soul",
+      "soul",
+      "2010s",
+      "late-night",
+      "sultry"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "velvet-glow",
+    "name": "Velvet Glow",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Pop",
+    "subgenre": "indie pop",
+    "era": "2020s",
+    "mood": [
+      "uplifting",
+      "bright"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 128,
+    "key": "C major",
+    "vocals": "smooth male lead",
+    "prompt": "2020s indie pop (pop), smooth male lead, English-language vocals, plucky bass, glossy pads, vocal chops, punchy drum machine, hyper-clean hybrid production, deep sub, immersive width, uplifting and bright mood, fits a focus & coding, 128 BPM, C major",
+    "tags": [
+      "pop",
+      "indie pop",
+      "2020s",
+      "uplifting",
+      "bright"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "velvet-prism",
+    "name": "Velvet Prism",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Electronic",
+    "subgenre": "drum and bass",
+    "era": "1970s",
+    "mood": [
+      "hypnotic",
+      "euphoric"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 165,
+    "key": "F# minor",
+    "vocals": "pitched vocal chops",
+    "prompt": "1970s drum and bass (electronic), pitched vocal chops, English-language vocals, supersaw chords, sidechained bass, four-on-floor kick, modular bleeps, analog warmth, live room sound, subtle tape saturation, hypnotic and euphoric mood, fits a dancefloor peak, 165 BPM, F# minor",
+    "tags": [
+      "electronic",
+      "drum and bass",
+      "1970s",
+      "hypnotic",
+      "euphoric"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "verano-concrete",
+    "name": "Verano Concrete",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Hip-hop",
+    "subgenre": "drill",
+    "era": "1970s",
+    "mood": [
+      "menacing",
+      "moody"
+    ],
+    "scenario": "road trip",
+    "bpm": 131,
+    "key": "G minor",
+    "vocals": "confident male rap",
+    "prompt": "1970s drill (hip-hop), confident male rap, Spanish-language vocals, soul sample chops, rolling hi-hats, booming 808s, boom-bap drums, analog warmth, live room sound, subtle tape saturation, menacing and moody mood, fits a road trip, 131 BPM, G minor",
+    "tags": [
+      "hip-hop",
+      "drill",
+      "1970s",
+      "menacing",
+      "moody"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "verano-wave",
+    "name": "Verano Wave",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Pop",
+    "subgenre": "city pop",
+    "era": "1960s",
+    "mood": [
+      "catchy",
+      "bright"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 104,
+    "key": "F major",
+    "vocals": "airy female topline",
+    "prompt": "1960s city pop (pop), airy female topline, Spanish-language vocals, plucky bass, vocal chops, punchy drum machine, glossy pads, warm vintage tape, mono-leaning mix, plate reverb, catchy and bright mood, fits a workout playlist, 104 BPM, F major",
+    "tags": [
+      "pop",
+      "city pop",
+      "1960s",
+      "catchy",
+      "bright"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "y-ld-z-noir",
+    "name": "Yıldız Noir",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Chanson",
+    "subgenre": "chanson",
+    "era": "1990s",
+    "mood": [
+      "smoky",
+      "dramatic"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 86,
+    "key": "A minor",
+    "vocals": "dramatic theatrical vocals",
+    "prompt": "1990s chanson (chanson), dramatic theatrical vocals, Turkish-language vocals, muted trumpet, brushed drums, intimate piano, nylon guitar, punchy mix, sampled textures, slightly lo-fi grit, smoky and dramatic mood, fits a dancefloor peak, 86 BPM, A minor",
+    "tags": [
+      "chanson",
+      "chanson",
+      "1990s",
+      "smoky",
+      "dramatic"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "yoru-halcyon",
+    "name": "Yoru Halcyon",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Electronic",
+    "subgenre": "drum and bass",
+    "era": "2020s",
+    "mood": [
+      "driving",
+      "weightless"
+    ],
+    "scenario": "intimate cafe",
+    "bpm": 133,
+    "key": "C minor",
+    "vocals": "instrumental",
+    "prompt": "2020s drum and bass (electronic), instrumental, Japanese-language vocals, supersaw chords, sidechained bass, rolling bassline, gated pads, hyper-clean hybrid production, deep sub, immersive width, driving and weightless mood, fits a intimate cafe, 133 BPM, C minor",
+    "tags": [
+      "electronic",
+      "drum and bass",
+      "2020s",
+      "driving",
+      "weightless"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "yoru-riot",
+    "name": "Yoru Riot",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Rock",
+    "subgenre": "art rock",
+    "era": "1970s",
+    "mood": [
+      "anthemic",
+      "rebellious"
+    ],
+    "scenario": "workout playlist",
+    "bpm": 148,
+    "key": "D major",
+    "vocals": "breathy androgynous vocals",
+    "prompt": "1970s art rock (rock), breathy androgynous vocals, Japanese-language vocals, melodic bass, jangly guitars, organ swells, driving distorted guitars, analog warmth, live room sound, subtle tape saturation, anthemic and rebellious mood, fits a workout playlist, 148 BPM, D major",
+    "tags": [
+      "rock",
+      "art rock",
+      "1970s",
+      "anthemic",
+      "rebellious"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "yoru-shadow",
+    "name": "Yoru Shadow",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Hip-hop",
+    "subgenre": "jazz-rap",
+    "era": "1960s",
+    "mood": [
+      "smooth",
+      "menacing"
+    ],
+    "scenario": "focus & coding",
+    "bpm": 110,
+    "key": "G minor",
+    "vocals": "melodic auto-tuned rap",
+    "prompt": "1960s jazz-rap (hip-hop), melodic auto-tuned rap, Japanese-language vocals, rolling hi-hats, boom-bap drums, soul sample chops, booming 808s, warm vintage tape, mono-leaning mix, plate reverb, smooth and menacing mood, fits a focus & coding, 110 BPM, G minor",
+    "tags": [
+      "hip-hop",
+      "jazz-rap",
+      "1960s",
+      "smooth",
+      "menacing"
+    ],
+    "free": false,
+    "isNew": false
+  },
+  {
+    "id": "zarafshon-glow",
+    "name": "Zarafshon Glow",
+    "language": "tj",
+    "languageLabel": "Таджикские",
+    "genre": "Pop",
+    "subgenre": "dance-pop",
+    "era": "1980s",
+    "mood": [
+      "catchy",
+      "romantic"
+    ],
+    "scenario": "festival main stage",
+    "bpm": 111,
+    "key": "G major",
+    "vocals": "smooth male lead",
+    "prompt": "1980s dance-pop (pop), smooth male lead, Tajik-language vocals, glossy pads, vocal chops, punchy drum machine, plucky bass, gated reverb drums, bright chorus, wide stereo, catchy and romantic mood, fits a festival main stage, 111 BPM, G major",
+    "tags": [
+      "pop",
+      "dance-pop",
+      "1980s",
+      "catchy",
+      "romantic"
+    ],
+    "free": true,
+    "isNew": false
+  },
+  {
+    "id": "zarafshon-halcyon",
+    "name": "Zarafshon Halcyon",
+    "language": "tj",
+    "languageLabel": "Таджикские",
+    "genre": "Electronic",
+    "subgenre": "ambient",
+    "era": "2000s",
+    "mood": [
+      "driving",
+      "hypnotic"
+    ],
+    "scenario": "road trip",
+    "bpm": 165,
+    "key": "B minor",
+    "vocals": "instrumental",
+    "prompt": "2000s ambient (electronic), instrumental, Tajik-language vocals, four-on-floor kick, supersaw chords, modular bleeps, sidechained bass, polished digital sheen, tight compression, layered production, driving and hypnotic mood, fits a road trip, 165 BPM, B minor",
+    "tags": [
+      "electronic",
+      "ambient",
+      "2000s",
+      "driving",
+      "hypnotic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zarafshon-honey",
+    "name": "Zarafshon Honey",
+    "language": "tj",
+    "languageLabel": "Таджикские",
+    "genre": "Jazz/Soul",
+    "subgenre": "funk",
+    "era": "1990s",
+    "mood": [
+      "warm",
+      "groovy"
+    ],
+    "scenario": "dancefloor peak",
+    "bpm": 118,
+    "key": "E minor",
+    "vocals": "belting soul vocals",
+    "prompt": "1990s funk (jazz/soul), belting soul vocals, Tajik-language vocals, Hammond organ, brushed drums, warm Rhodes, slap bass, punchy mix, sampled textures, slightly lo-fi grit, warm and groovy mood, fits a dancefloor peak, 118 BPM, E minor",
+    "tags": [
+      "jazz/soul",
+      "funk",
+      "1990s",
+      "warm",
+      "groovy"
+    ],
+    "free": true,
+    "isNew": false
   }
 ]

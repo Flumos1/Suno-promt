@@ -8,6 +8,10 @@ import {
 } from "../lib/promptGenerator.js";
 import { activeProvider, aiEnabled } from "../lib/aiProvider.js";
 import { extractAudioMeta, promptFromMeta, closestFromMeta } from "../lib/audioAnalyzer.js";
+import { buildSongStructure, buildLyricSkeleton } from "../lib/songTools.js";
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 
 const catalog = [
   { id: "a", name: "Neon Velvet", genre: "Synthwave", instruments: ["analog synth pads"], mood: ["nostalgic"], bpm: 110 },
@@ -80,6 +84,35 @@ test("extractAudioMeta reads real WAV properties", async () => {
   assert.equal(meta.channels, 2);
   assert.equal(meta.durationSec, 2);
   assert.ok(meta.era);
+});
+
+/* ---------- Song tools ---------- */
+test("buildSongStructure produces tagged sections", () => {
+  const r = buildSongStructure({ style: "80s synthwave", preset: "standard", title: "Neon" });
+  assert.match(r.suno, /\[Chorus\]/);
+  assert.match(r.suno, /\[Style\] 80s synthwave/);
+  assert.ok(r.sections.length > 4);
+});
+
+test("buildLyricSkeleton includes verse and chorus tags", () => {
+  const r = buildLyricSkeleton({ theme: "city lights", mood: "wistful", language: "English" });
+  assert.match(r, /\[Verse 1\]/);
+  assert.match(r, /\[Chorus\]/);
+  assert.match(r, /city lights/);
+});
+
+/* ---------- Generated catalog integrity ---------- */
+test("generated catalog has required facet fields", () => {
+  const dir = dirname(fileURLToPath(import.meta.url));
+  const data = JSON.parse(readFileSync(join(dir, "..", "data", "artists.json"), "utf8"));
+  assert.ok(data.length > 100, "catalog should be large");
+  for (const c of data.slice(0, 50)) {
+    assert.ok(c.id && c.name && c.prompt, "core fields present");
+    assert.ok(c.language && c.genre && c.era, "facet fields present");
+    assert.equal(typeof c.free, "boolean");
+    assert.equal(typeof c.isNew, "boolean");
+    assert.ok(c.prompt.split(" ").length >= 20, "prompt is descriptive");
+  }
 });
 
 test("promptFromMeta and closestFromMeta build from metadata", () => {

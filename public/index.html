@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SiliconSense — Suno AI Prompt Catalog</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=3" />
 </head>
 <body>
   <div class="bg-grid"></div>
@@ -31,6 +31,7 @@
     <header class="topbar">
       <div class="logo small">◢◣ SILICON<span>SENSE</span></div>
       <div class="topbar-right">
+        <span id="unlock-pill" class="pill" title="Catalog access">locked</span>
         <span id="ai-pill" class="pill" title="Generation engine">…</span>
         <button id="logout" class="ghost" title="Lock">⏻</button>
       </div>
@@ -41,17 +42,41 @@
       <button class="tab" data-tab="anchor">🎙 Vocal Anchor</button>
       <button class="tab" data-tab="analyze">♪ Reference</button>
       <button class="tab" data-tab="cover">▦ Cover Art</button>
+      <button class="tab" data-tab="structure">⊞ Structure</button>
+      <button class="tab" data-tab="lyrics">✎ Lyrics</button>
+      <button class="tab" data-tab="saved">★ Saved</button>
     </nav>
 
     <!-- Catalog -->
     <section class="panel active" id="tab-catalog">
-      <h1>Prompt Catalog</h1>
-      <p class="sub">Type an artist or style. If it isn't in the catalog, a card is generated for you.</p>
-      <div class="searchbar">
-        <input id="search" type="text" placeholder="e.g. Neon Velvet, synthwave, lofi, afrobeats…" />
-        <button id="search-btn">Search</button>
+      <div class="cat-head">
+        <h1>Prompt Catalog <span id="cat-total" class="count-big"></span></h1>
+        <button id="unlock-btn" class="primary small">🔓 Unlock all</button>
       </div>
+      <p class="sub">Ready 60–90 word style descriptions: era, instruments, production, vocal anchor. No artist names — passes Suno's filter.</p>
+
+      <div class="filters">
+        <div id="f-language" class="chiprow"></div>
+        <div id="f-era" class="chiprow"></div>
+        <div id="f-genre" class="chiprow"></div>
+        <div class="filter-bottom">
+          <select id="f-mood">
+            <option value="">All moods</option>
+            <option>bright</option><option>uplifting</option><option>romantic</option><option>catchy</option>
+            <option>energetic</option><option>angsty</option><option>bittersweet</option><option>anthemic</option>
+            <option>confident</option><option>moody</option><option>menacing</option><option>nostalgic</option>
+            <option>euphoric</option><option>hypnotic</option><option>driving</option><option>weightless</option>
+            <option>warm</option><option>sultry</option><option>groovy</option><option>late-night</option>
+            <option>earthy</option><option>yearning</option><option>hopeful</option><option>spiritual</option>
+            <option>epic</option><option>dark</option><option>heavy</option><option>dramatic</option><option>smoky</option>
+          </select>
+          <input id="search" type="text" placeholder="Search style, genre, sub-genre…" />
+          <button id="search-btn">Search</button>
+        </div>
+      </div>
+
       <div id="results" class="cards"></div>
+      <div id="pager" class="pager"></div>
     </section>
 
     <!-- Vocal Anchor -->
@@ -59,43 +84,12 @@
       <h1>Vocal Anchor Builder</h1>
       <p class="sub">Shape a unique vocal along 5 axes. Add a donor for spirit, not imitation.</p>
       <div class="axes">
-        <label>Pitch
-          <select id="ax-pitch">
-            <option value="">—</option>
-            <option>low bass</option><option>baritone</option><option>tenor</option>
-            <option>alto</option><option>soprano</option><option>falsetto</option>
-          </select>
-        </label>
-        <label>Timbre
-          <select id="ax-timbre">
-            <option value="">—</option>
-            <option>bright</option><option>warm</option><option>breathy</option>
-            <option>gritty</option><option>smooth</option><option>rich</option><option>metallic</option>
-          </select>
-        </label>
-        <label>Delivery
-          <select id="ax-delivery">
-            <option value="">—</option>
-            <option>intimate close-mic</option><option>belting</option><option>whispered</option>
-            <option>rap cadence</option><option>operatic</option><option>crooned</option><option>shouted</option>
-          </select>
-        </label>
-        <label>Texture
-          <select id="ax-texture">
-            <option value="">—</option>
-            <option>clean</option><option>lightly distorted</option><option>auto-tuned</option>
-            <option>vocoded</option><option>doubled and layered</option><option>tape-saturated</option>
-          </select>
-        </label>
-        <label>Age
-          <select id="ax-age">
-            <option value="">—</option>
-            <option>youthful</option><option>mature</option><option>ageless</option><option>weathered</option>
-          </select>
-        </label>
-        <label>Donor (optional)
-          <input id="ax-donor" type="text" placeholder="e.g. a smoky jazz crooner" />
-        </label>
+        <label>Pitch<select id="ax-pitch"><option value="">—</option><option>low bass</option><option>baritone</option><option>tenor</option><option>alto</option><option>soprano</option><option>falsetto</option></select></label>
+        <label>Timbre<select id="ax-timbre"><option value="">—</option><option>bright</option><option>warm</option><option>breathy</option><option>gritty</option><option>smooth</option><option>rich</option><option>metallic</option></select></label>
+        <label>Delivery<select id="ax-delivery"><option value="">—</option><option>intimate close-mic</option><option>belting</option><option>whispered</option><option>rap cadence</option><option>operatic</option><option>crooned</option><option>shouted</option></select></label>
+        <label>Texture<select id="ax-texture"><option value="">—</option><option>clean</option><option>lightly distorted</option><option>auto-tuned</option><option>vocoded</option><option>doubled and layered</option><option>tape-saturated</option></select></label>
+        <label>Age<select id="ax-age"><option value="">—</option><option>youthful</option><option>mature</option><option>ageless</option><option>weathered</option></select></label>
+        <label>Donor (optional)<input id="ax-donor" type="text" placeholder="e.g. a smoky jazz crooner" /></label>
       </div>
       <button id="anchor-btn" class="primary">Build Anchor</button>
       <div id="anchor-out" class="output"></div>
@@ -104,7 +98,7 @@
     <!-- Reference -->
     <section class="panel" id="tab-analyze">
       <h1>Reference Analysis</h1>
-      <p class="sub">Drop an audio file — real metadata (duration, bitrate, codec, tags) is read from it, then turned into a Suno prompt plus the 3 closest catalog artists.</p>
+      <p class="sub">Drop an audio file — real metadata (duration, bitrate, codec, tags) is read from it, then turned into a Suno prompt plus the 3 closest catalog styles.</p>
       <div class="dropzone" id="dropzone">
         <input id="file" type="file" accept="audio/*" hidden />
         <div class="dz-icon">♪</div>
@@ -129,9 +123,52 @@
       <div id="cover-out" class="output"></div>
     </section>
 
+    <!-- Structure -->
+    <section class="panel" id="tab-structure">
+      <h1>Song Structure</h1>
+      <p class="sub">Generate a Suno-ready arrangement with [Section] tags and production hints.</p>
+      <div class="cover-form">
+        <input id="st-style" type="text" placeholder="Style (e.g. 80s synthwave, female vocal)" />
+        <input id="st-title" type="text" placeholder="Title (optional)" />
+        <label>Preset
+          <select id="st-preset"><option value="standard">Standard (pop)</option><option value="short">Short</option><option value="electronic">Electronic (build/drop)</option><option value="ballad">Ballad</option></select>
+        </label>
+      </div>
+      <button id="structure-btn" class="primary">Build Structure</button>
+      <div id="structure-out" class="output"></div>
+    </section>
+
+    <!-- Lyrics -->
+    <section class="panel" id="tab-lyrics">
+      <h1>Lyrics Generator</h1>
+      <p class="sub">Draft original lyrics with verse/chorus tags. Full lyrics need an AI key — otherwise you get a structured skeleton.</p>
+      <div class="cover-form">
+        <input id="ly-theme" type="text" placeholder="Theme (e.g. late-night city drive)" />
+        <input id="ly-style" type="text" placeholder="Musical style (optional)" />
+        <div class="row2">
+          <input id="ly-mood" type="text" placeholder="Mood (e.g. hopeful)" />
+          <input id="ly-lang" type="text" placeholder="Language (e.g. English)" />
+        </div>
+      </div>
+      <button id="lyrics-btn" class="primary">Write Lyrics</button>
+      <div id="lyrics-out" class="output"></div>
+    </section>
+
+    <!-- Saved -->
+    <section class="panel" id="tab-saved">
+      <h1>Saved Prompts <span id="saved-count" class="count-big"></span></h1>
+      <p class="sub">Everything you star is kept in this browser. Export to take it with you.</p>
+      <div class="saved-actions">
+        <button id="export-json" class="small">⭳ Export JSON</button>
+        <button id="export-txt" class="small">⭳ Export TXT</button>
+        <button id="clear-saved" class="ghost small">Clear all</button>
+      </div>
+      <div id="saved-list" class="cards"></div>
+    </section>
+
     <footer class="foot">SiliconSense-style demo · <span id="foot-engine">template engine</span> · catalog of <span id="foot-count">…</span> styles</footer>
   </main>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
