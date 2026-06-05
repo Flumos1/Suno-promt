@@ -242,6 +242,65 @@ button.small { padding: 8px 14px; font-size: 13px; }
 .foot { margin-top: 54px; text-align: center; color: var(--muted); font-size: 12px; }
 .foot span { color: var(--neon2); }
 
+/* ── AI Lab ─────────────────────────────────────────────────────────── */
+.ai-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 22px;
+  margin-top: 18px;
+}
+.ai-card h2 { font-size: 20px; margin: 0 0 6px; }
+.ai-card .sub { margin-bottom: 14px; }
+.ai-card textarea {
+  width: 100%; box-sizing: border-box;
+  background: rgba(0,0,0,0.3); color: #e8e8e8;
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+  padding: 10px; font-family: inherit; font-size: 14px;
+  resize: vertical; min-height: 80px;
+}
+.ai-card .row2 { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; gap: 12px; flex-wrap: wrap; }
+.ai-card button.primary { margin-top: 12px; }
+
+.quota-pill {
+  display: inline-block; padding: 6px 12px; border-radius: 999px;
+  background: rgba(255,165,0,0.12); color: #ffb86c;
+  font-size: 12px; font-weight: 500; margin: 8px 0;
+}
+.quota-pill.unlocked { background: rgba(80,250,123,0.12); color: #50fa7b; }
+
+.img-preview {
+  display: block; max-width: 280px; max-height: 200px;
+  border-radius: 10px; margin: 12px 0; border: 1px solid rgba(255,255,255,0.1);
+}
+.img-preview.hidden { display: none; }
+
+.ai-result { margin-top: 14px; display: flex; flex-direction: column; gap: 14px; }
+.ai-atmo { color: #c9c9c9; line-height: 1.5; }
+.ai-atmo strong { color: var(--neon2); margin-right: 6px; }
+.ai-prompt-box {
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 14px;
+}
+.prompt-label { font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.08em; }
+.prompt-label .ok { color: #50fa7b; text-transform: none; letter-spacing: normal; }
+.ai-prompt-box .prompt { color: #f1f1f1; line-height: 1.5; }
+.ai-prompt-box pre.prompt.struct {
+  margin: 0; white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: 13px;
+}
+.ai-prompt-box .copy { margin-top: 10px; }
+.ai-meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.ai-meta .tag {
+  font-size: 11px; padding: 4px 9px; border-radius: 999px;
+  background: rgba(255,255,255,0.06); color: #ddd; border: 1px solid rgba(255,255,255,0.08);
+}
+.ai-meta .tag.mood { color: #ffb86c; border-color: rgba(255,184,108,0.3); }
+.ai-meta .tag.inst { color: #8be9fd; border-color: rgba(139,233,253,0.3); }
+.spinner { color: var(--muted); padding: 12px 0; font-style: italic; }
+.error { color: #ff6b6b; padding: 12px; background: rgba(255,107,107,0.08); border-radius: 8px; white-space: pre-wrap; }
+
 @media (max-width: 520px) {
   .gate-card { padding: 30px; }
   h1 { font-size: 23px; }

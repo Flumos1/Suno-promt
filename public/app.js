@@ -360,5 +360,173 @@ function download(name, text) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 
+/* ---------- AI Lab ---------- */
+function unlockHeader() {
+  const tok = localStorage.getItem(UNLOCK_KEY);
+  return tok ? { "X-Unlock-Token": tok } : {};
+}
+function renderQuota(headers) {
+  const pill = $("#ailab-quota");
+  if (!pill) return;
+  if (headers.get("X-RateLimit-Unlocked") === "1") {
+    pill.textContent = "● Unlocked — без лимита";
+    pill.className = "quota-pill unlocked";
+    return;
+  }
+  const remaining = headers.get("X-RateLimit-Remaining");
+  const limit = headers.get("X-RateLimit-Limit");
+  if (remaining != null && limit != null) {
+    pill.textContent = `${remaining} из ${limit} бесплатных запросов осталось сегодня`;
+    pill.className = "quota-pill";
+  }
+}
+async function aiCall(url, opts = {}) {
+  const headers = { ...(opts.headers || {}), ...unlockHeader() };
+  const res = await fetch(url, { ...opts, headers });
+  renderQuota(res.headers);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    if (data.unlock) {
+      throw new Error(`${data.message || data.error}\nВведи unlock-код, чтобы продолжить.`);
+    }
+    throw new Error(data.error || `HTTP ${res.status}`);
+  }
+  return data;
+}
+
+// --- Mood from Image ---
+const imgDz = $("#img-dropzone");
+const imgFile = $("#img-file");
+const imgBtn = $("#img-btn");
+const imgPreview = $("#img-preview");
+if (imgDz) {
+  imgDz.addEventListener("click", () => imgFile.click());
+  imgDz.addEventListener("dragover", (e) => { e.preventDefault(); imgDz.classList.add("drag"); });
+  imgDz.addEventListener("dragleave", () => imgDz.classList.remove("drag"));
+  imgDz.addEventListener("drop", (e) => {
+    e.preventDefault(); imgDz.classList.remove("drag");
+    if (e.dataTransfer.files[0]) { imgFile.files = e.dataTransfer.files; imgFile.dispatchEvent(new Event("change")); }
+  });
+  imgFile.addEventListener("change", () => {
+    const f = imgFile.files[0]; if (!f) return;
+    $("#img-filename").textContent = f.name;
+    imgBtn.disabled = false;
+    const reader = new FileReader();
+    reader.onload = (e) => { imgPreview.src = e.target.result; imgPreview.classList.remove("hidden"); };
+    reader.readAsDataURL(f);
+  });
+  imgBtn.addEventListener("click", async () => {
+    const f = imgFile.files[0]; if (!f) return;
+    const out = $("#img-out");
+    out.innerHTML = `<div class="spinner">Claude Vision слушает картинку…</div>`;
+    imgBtn.disabled = true;
+    try {
+      const fd = new FormData(); fd.append("image", f);
+      const data = await aiCall("/api/ai/mood-from-image", { method: "POST", body: fd });
+      if (!data.ok) throw new Error(data.error);
+      out.innerHTML = renderMoodResult(data);
+      wireCopyButtons(out);
+    } catch (err) {
+      out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+    } finally { imgBtn.disabled = false; }
+  });
+}
+function renderMoodResult(d) {
+  return `
+    <div class="ai-result">
+      <div class="ai-atmo"><strong>Атмосфера:</strong> ${escapeHtml(d.atmosphere)}</div>
+      <div class="ai-prompt-box">
+        <div class="prompt-label">Suno-промпт</div>
+        <div class="prompt">${escapeHtml(d.prompt)}</div>
+        <button class="copy" data-prompt="${escapeAttr(d.prompt)}">Copy</button>
+      </div>
+      <div class="ai-meta">
+        ${d.bpm ? `<span class="tag">${d.bpm} BPM</span>` : ""}
+        ${d.key ? `<span class="tag">${escapeHtml(d.key)}</span>` : ""}
+        ${d.vocal ? `<span class="tag">vocal: ${escapeHtml(d.vocal)}</span>` : ""}
+        ${(d.mood || []).map((m) => `<span class="tag mood">${escapeHtml(m)}</span>`).join("")}
+        ${(d.instruments || []).map((i) => `<span class="tag inst">${escapeHtml(i)}</span>`).join("")}
+      </div>
+    </div>`;
+}
+
+// --- Scene → Score ---
+const sceneBtn = $("#scene-btn");
+if (sceneBtn) {
+  sceneBtn.addEventListener("click", async () => {
+    const scene = $("#scene-input").value.trim();
+    const out = $("#scene-out");
+    if (!scene) { out.innerHTML = `<div class="error">Опиши сцену</div>`; return; }
+    const lang = $("#scene-lang").checked ? "ru" : "en";
+    out.innerHTML = `<div class="spinner">Claude собирает партитуру…</div>`;
+    sceneBtn.disabled = true;
+    try {
+      const data = await aiCall("/api/ai/scene-to-score", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ scene, lang })
+      });
+      if (!data.ok) throw new Error(data.error);
+      out.innerHTML = renderSceneResult(data);
+      wireCopyButtons(out);
+    } catch (err) {
+      out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+    } finally { sceneBtn.disabled = false; }
+  });
+}
+function renderSceneResult(d) {
+  return `
+    <div class="ai-result">
+      <div class="ai-prompt-box">
+        <div class="prompt-label">Style (промпт)</div>
+        <div class="prompt">${escapeHtml(d.prompt)}</div>
+        <button class="copy" data-prompt="${escapeAttr(d.prompt)}">Copy style</button>
+      </div>
+      <div class="ai-prompt-box">
+        <div class="prompt-label">Structure (для Lyrics-поля)</div>
+        <pre class="prompt struct">${escapeHtml(d.structure)}</pre>
+        <button class="copy" data-prompt="${escapeAttr(d.structure)}">Copy structure</button>
+      </div>
+      <div class="ai-meta">
+        ${d.bpm ? `<span class="tag">${d.bpm} BPM</span>` : ""}
+        ${d.key ? `<span class="tag">${escapeHtml(d.key)}</span>` : ""}
+        ${(d.mood || []).map((m) => `<span class="tag mood">${escapeHtml(m)}</span>`).join("")}
+        ${(d.instruments || []).map((i) => `<span class="tag inst">${escapeHtml(i)}</span>`).join("")}
+      </div>
+    </div>`;
+}
+
+// --- RU → EN Mirror ---
+const transBtn = $("#trans-btn");
+if (transBtn) {
+  transBtn.addEventListener("click", async () => {
+    const text = $("#trans-input").value.trim();
+    const out = $("#trans-out");
+    if (!text) { out.innerHTML = `<div class="error">Вставь русскую лирику</div>`; return; }
+    out.innerHTML = `<div class="spinner">Зеркалю на английский с рифмой…</div>`;
+    transBtn.disabled = true;
+    try {
+      const data = await aiCall("/api/ai/translate-lyrics", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text })
+      });
+      if (!data.ok) throw new Error(data.error);
+      out.innerHTML = `
+        <div class="ai-result">
+          <div class="ai-prompt-box">
+            <div class="prompt-label">English mirror ${data.syllablesMatched ? "<span class='ok'>· syllables matched</span>" : ""}</div>
+            <pre class="prompt struct">${escapeHtml(data.english)}</pre>
+            <button class="copy" data-prompt="${escapeAttr(data.english)}">Copy English</button>
+          </div>
+          ${data.rhymeNotes ? `<div class="ai-atmo"><strong>Rhyme notes:</strong> ${escapeHtml(data.rhymeNotes)}</div>` : ""}
+        </div>`;
+      wireCopyButtons(out);
+    } catch (err) {
+      out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+    } finally { transBtn.disabled = false; }
+  });
+}
+
 /* ---------- Init (after all declarations) ---------- */
 if (localStorage.getItem(GATE_KEY)) showApp();

@@ -12,6 +12,8 @@ import {
 import { aiEnabled, activeProvider, aiArtistCard, aiPromptFromAnalysis } from "./lib/aiProvider.js";
 import { extractAudioMeta, promptFromMeta, closestFromMeta } from "./lib/audioAnalyzer.js";
 import { buildSongStructure, aiSongStructure, buildLyricSkeleton, aiLyrics } from "./lib/songTools.js";
+import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt } from "./lib/aiFeatures.js";
+import { aiRateLimit } from "./lib/rateLimit.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
@@ -197,6 +199,55 @@ app.post("/api/analyze", upload.single("file"), async (req, res) => {
 
 // --- Cover concept ---
 app.post("/api/cover", (req, res) => res.json(buildCoverConcept(req.body || {})));
+
+// ─── Wave 1 AI Lab endpoints ──────────────────────────────────────────────
+// All gated by aiRateLimit: 3 free/24h per IP, X-Unlock-Token bypasses.
+
+app.post("/api/ai/translate-lyrics", aiRateLimit, async (req, res) => {
+  const text = String(req.body?.text || "").trim();
+  if (!text) return res.status(400).json({ ok: false, error: "Empty text" });
+  if (text.length > 4000) return res.status(400).json({ ok: false, error: "Text too long (max 4000 chars)" });
+  try {
+    const result = await translateLyricsRuToEn(text);
+    res.json(result);
+  } catch (err) {
+    console.error("[translate]", err.message);
+    res.status(500).json({ ok: false, error: "Translation failed" });
+  }
+});
+
+app.post("/api/ai/scene-to-score", aiRateLimit, async (req, res) => {
+  const scene = String(req.body?.scene || "").trim();
+  const lang = req.body?.lang === "ru" ? "ru" : "en";
+  if (!scene) return res.status(400).json({ ok: false, error: "Empty scene" });
+  if (scene.length > 2000) return res.status(400).json({ ok: false, error: "Scene too long (max 2000 chars)" });
+  try {
+    const result = await sceneToScore(scene, { lang });
+    res.json(result);
+  } catch (err) {
+    console.error("[scene]", err.message);
+    res.status(500).json({ ok: false, error: "Scoring failed" });
+  }
+});
+
+app.post("/api/ai/mood-from-image", aiRateLimit, upload.single("image"), async (req, res) => {
+  if (!req.file?.buffer) return res.status(400).json({ ok: false, error: "No image uploaded" });
+  const mt = req.file.mimetype || "image/jpeg";
+  if (!/^image\/(jpe?g|png|webp|gif)$/i.test(mt)) {
+    return res.status(400).json({ ok: false, error: "Unsupported image type" });
+  }
+  if (req.file.size > 5 * 1024 * 1024) {
+    return res.status(400).json({ ok: false, error: "Image too large (max 5MB)" });
+  }
+  try {
+    const b64 = req.file.buffer.toString("base64");
+    const result = await imageToMoodPrompt(b64, mt);
+    res.json(result);
+  } catch (err) {
+    console.error("[mood-image]", err.message);
+    res.status(500).json({ ok: false, error: "Image analysis failed" });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`SiliconSense clone running at http://localhost:${PORT}`);
