@@ -8,6 +8,7 @@ const SAVED_KEY = "siliconsense_saved";
 
 const state = { language: "", era: "", genre: "", mood: "", q: "", free: false, isNew: false, page: 1 };
 let facets = null;
+let canGenerate = false; // set from /api/status
 
 /* ---------- Access gate ---------- */
 function showApp() {
@@ -43,6 +44,7 @@ async function loadStatus() {
     if (s.ai) { pill.textContent = `● AI: ${s.provider}`; pill.classList.add("live"); $("#foot-engine").textContent = `${s.provider} AI engine`; }
     else { pill.textContent = "○ template engine"; $("#foot-engine").textContent = "template engine"; }
     $("#foot-count").textContent = s.catalogSize;
+    canGenerate = !!s.generate;
   } catch { /* non-critical */ }
 }
 
@@ -148,7 +150,10 @@ function wrapCard(card, badgesHTML, metaLine, prompt, locked, subgenre) {
     ? `<div class="prompt">${"locked ".repeat(14)}</div>
        <div class="lock-overlay"><span class="lk">🔒</span><b>ЗАБЛОКИРОВАНО</b><small>Unlock all to reveal this prompt</small></div>`
     : `<div class="prompt">${escapeHtml(prompt)}</div>
-       <button class="copy" data-prompt="${escapeAttr(prompt)}" style="margin-top:12px">Copy prompt</button>`;
+       <div class="card-actions">
+         <button class="copy" data-prompt="${escapeAttr(prompt)}">Copy prompt</button>
+         ${(!locked && canGenerate) ? `<button class="gen-track-btn" data-prompt="${escapeAttr(prompt)}" data-name="${escapeAttr(card.name)}" title="Сгенерировать трек в Suno">🎵 Создать трек</button>` : ""}
+       </div>`;
   return `
     <div class="card ${locked ? "locked" : ""}">
       ${badgesHTML}
@@ -171,6 +176,98 @@ function wireCards(root) {
     toggleSave({ id: btn.dataset.id, name: btn.dataset.name, prompt: btn.dataset.prompt, genre: btn.dataset.genre });
     btn.classList.toggle("on");
   }));
+  root.querySelectorAll(".gen-track-btn").forEach((btn) => btn.addEventListener("click", () => {
+    openGenModal(btn.dataset.prompt, btn.dataset.name);
+  }));
+}
+
+/* ---------- Generate-track modal ---------- */
+function openGenModal(prompt, name) {
+  let modal = $("#gen-modal");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "gen-modal";
+    modal.className = "gen-modal";
+    modal.innerHTML = `
+      <div class="gen-modal-box">
+        <button class="gen-modal-close" id="gen-modal-close">✕</button>
+        <h2>🎵 Создать трек</h2>
+        <div class="gen-modal-name" id="gen-modal-name"></div>
+        <div class="gen-modal-prompt" id="gen-modal-prompt"></div>
+        <div class="gen-opts" style="margin-top:12px">
+          <label>Модель<select id="gm-mv"><option value="chirp-v5">v5</option><option value="chirp-v5-5">v5.5</option><option value="chirp-v4-5+">v4.5+</option></select></label>
+          <label>Вокал<select id="gm-vocal"><option value="">любой</option><option value="Female">женский</option><option value="Male">мужской</option></select></label>
+          <label class="check"><input id="gm-instr" type="checkbox" /> Инструментал</label>
+        </div>
+        <button id="gen-modal-btn" class="primary" style="margin-top:14px;width:100%">🎵 Сгенерировать (≈6 quota)</button>
+        <div id="gen-modal-out" class="output"></div>
+      </div>`;
+    document.body.appendChild(modal);
+    $("#gen-modal-close").addEventListener("click", () => modal.classList.remove("open"));
+    modal.addEventListener("click", (e) => { if (e.target === modal) modal.classList.remove("open"); });
+  }
+  $("#gen-modal-name").textContent = name || "";
+  $("#gen-modal-prompt").textContent = prompt || "";
+  $("#gen-modal-out").innerHTML = "";
+  $("#gen-modal-btn").disabled = false;
+  modal.classList.add("open");
+
+  // wire button (remove previous listener)
+  const newBtn = $("#gen-modal-btn").cloneNode(true);
+  $("#gen-modal-btn").replaceWith(newBtn);
+  newBtn.addEventListener("click", async () => {
+    newBtn.disabled = true;
+    const out = $("#gen-modal-out");
+    out.innerHTML = `<div class="spinner">Отправляю в Suno…</div>`;
+    try {
+      const data = await aiCall("/api/ai/generate-track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tags: prompt,
+          mv: $("#gm-mv").value,
+          vocalGender: $("#gm-vocal").value || undefined,
+          instrumental: $("#gm-instr").checked
+        })
+      });
+      if (!data.ok) throw new Error(data.error);
+      pollModalTrack(data.jobId, out, newBtn);
+    } catch (err) {
+      out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+      newBtn.disabled = false;
+    }
+  });
+}
+
+function pollModalTrack(jobId, out, btn) {
+  out.innerHTML = `<div class="spinner">Suno генерирует… <span id="gm-prog">0%</span> <span class="muted">(30–90 сек)</span></div>`;
+  let elapsed = 0;
+  const iv = setInterval(async () => {
+    elapsed += 5;
+    try {
+      const job = await api(`/api/ai/track-status?jobId=${encodeURIComponent(jobId)}`);
+      const p = out.querySelector("#gm-prog"); if (p && job.progress) p.textContent = job.progress;
+      if (job.status === "SUCCESS" && job.musics?.length) {
+        clearInterval(iv); btn.disabled = false;
+        out.innerHTML = `<div class="ai-result">${job.musics.map((m) => `
+          <div class="track-card">
+            ${m.imageUrl ? `<img class="track-art" src="${escapeAttr(m.imageUrl)}" alt="art"/>` : ""}
+            <div class="track-info">
+              <div class="track-title">${escapeHtml(m.title || "Untitled")}</div>
+              <div class="track-tags muted">${escapeHtml(m.tags || "")}${m.duration ? ` · ${Math.round(m.duration)}s` : ""}</div>
+              <audio controls src="${escapeAttr(m.audioUrl)}"></audio>
+              <div class="track-actions"><a href="${escapeAttr(m.audioUrl)}" download>⭳ MP3</a>${m.videoUrl ? `<a href="${escapeAttr(m.videoUrl)}" target="_blank">▦ Video</a>` : ""}</div>
+            </div>
+          </div>`).join("")}</div>`;
+      } else if (job.status === "FAILED") {
+        clearInterval(iv); btn.disabled = false;
+        out.innerHTML = `<div class="error">Suno вернул ошибку</div>`;
+      } else if (elapsed > 240) {
+        clearInterval(iv); btn.disabled = false;
+        out.innerHTML = `<div class="error">Слишком долго — попробуй ещё раз</div>`;
+      }
+    } catch (err) { clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`; }
+  }, 5000);
 }
 
 function qs() {
