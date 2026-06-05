@@ -240,12 +240,18 @@ app.post("/api/ai/generate-track", aiRateLimit, async (req, res) => {
   const tags = String(req.body?.tags || req.body?.prompt || "").trim();
   if (!tags) return res.status(400).json({ ok: false, error: "Empty prompt/tags" });
   try {
+    const lyrics = req.body?.lyrics ? String(req.body.lyrics).trim() : "";
+    const instrumental = !!req.body?.instrumental;
+    // TTAPI requires `prompt` (lyrics) when custom=true && !instrumental.
+    // Without lyrics → use inspiration mode (custom=false, gpt_description_prompt).
+    const useCustom = instrumental || lyrics.length > 0;
     const { jobId } = await submitMusic({
       tags,
       title: req.body?.title ? String(req.body.title).slice(0, 80) : undefined,
-      prompt: req.body?.lyrics ? String(req.body.lyrics) : undefined,
-      instrumental: !!req.body?.instrumental,
-      custom: true,
+      prompt: lyrics || undefined,
+      descriptionPrompt: !useCustom ? tags : undefined,
+      instrumental,
+      custom: useCustom,
       mv: req.body?.mv || undefined,
       vocalGender: req.body?.vocalGender || undefined
     });
