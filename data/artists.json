@@ -19420,5 +19420,1757 @@
     ],
     "free": false,
     "isNew": true
+  },
+  {
+    "id": "de-bach",
+    "name": "Johann Sebastian Bach",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Classical",
+    "subgenre": "Baroque / polyphony",
+    "era": "1700s",
+    "mood": [
+      "intricate",
+      "sacred"
+    ],
+    "bpm": 120,
+    "key": "D minor",
+    "vocals": "no vocals — harpsichord and Baroque orchestra",
+    "prompt": "1700s Baroque orchestral (classical), harpsichord continuo, Baroque violin ensemble, counterpoint fugue structure, complex interweaving voices, intricate and sacred mood, fits a focused study playlist, 120 BPM, D minor",
+    "tags": [
+      "classical",
+      "Baroque",
+      "1700s",
+      "intricate",
+      "sacred",
+      "polyphony"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "de-beethoven",
+    "name": "Ludwig van Beethoven",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Classical",
+    "subgenre": "Classical / Romantic symphony",
+    "era": "1800s",
+    "mood": [
+      "heroic",
+      "dramatic"
+    ],
+    "bpm": 120,
+    "key": "C minor",
+    "vocals": "no vocals — full symphony orchestra",
+    "prompt": "1800s Classical-Romantic orchestral (classical), full symphony orchestra, dramatic dynamic contrasts from pianissimo to fortissimo, heroic development sections, powerful and epic mood, fits a cinematic score playlist, 120 BPM, C minor",
+    "tags": [
+      "classical",
+      "symphony",
+      "1800s",
+      "heroic",
+      "dramatic",
+      "Beethoven"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "de-handel",
+    "name": "Georg Friedrich Händel",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Classical",
+    "subgenre": "Baroque / opera / oratorio",
+    "era": "1700s",
+    "mood": [
+      "majestic",
+      "ceremonial"
+    ],
+    "bpm": 116,
+    "key": "D major",
+    "vocals": "operatic choir and soloists",
+    "prompt": "1700s Baroque oratorio (classical), operatic choir, Baroque trumpet fanfares, strings and basso continuo, majestic ceremonial mood, fits a grand occasion playlist, 116 BPM, D major",
+    "tags": [
+      "classical",
+      "Baroque",
+      "oratorio",
+      "1700s",
+      "majestic",
+      "ceremonial"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "de-brahms",
+    "name": "Johannes Brahms",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Classical",
+    "subgenre": "Romantic / symphony / chamber",
+    "era": "1800s",
+    "mood": [
+      "autumnal",
+      "serious"
+    ],
+    "bpm": 108,
+    "key": "F major",
+    "vocals": "no vocals — symphonic orchestra",
+    "prompt": "1800s Romantic orchestral (classical), full orchestra with rich brass and woodwinds, warm autumnal harmonics, dense development sections, serious and profound mood, fits a rainy afternoon playlist, 108 BPM, F major",
+    "tags": [
+      "classical",
+      "Romantic",
+      "symphony",
+      "1800s",
+      "autumnal",
+      "serious"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "de-wagner",
+    "name": "Richard Wagner",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Classical",
+    "subgenre": "Romantic opera / music drama",
+    "era": "1800s",
+    "mood": [
+      "epic",
+      "mythological"
+    ],
+    "bpm": 84,
+    "key": "E-flat major",
+    "vocals": "dramatic operatic tenor and soprano with orchestra",
+    "prompt": "1800s Romantic opera (classical), leitmotif-driven orchestration, massive brass section, dramatic Wagnerian soprano and tenor, mythological and epic mood, fits an epic cinematic playlist, 84 BPM, E-flat major",
+    "tags": [
+      "classical",
+      "opera",
+      "1800s",
+      "epic",
+      "mythological",
+      "leitmotif"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "de-schumann",
+    "name": "Robert Schumann",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Classical",
+    "subgenre": "Romantic / piano / lieder",
+    "era": "1800s",
+    "mood": [
+      "lyrical",
+      "intimate"
+    ],
+    "bpm": 72,
+    "key": "A major",
+    "vocals": "lyrical piano or intimate vocal lieder",
+    "prompt": "1800s Romantic piano (classical), singing lyrical piano melody, intimate chamber setting, poetic and heartfelt delivery, lyrical and intimate mood, fits a candlelit evening playlist, 72 BPM, A major",
+    "tags": [
+      "classical",
+      "Romantic",
+      "piano",
+      "1800s",
+      "lyrical",
+      "intimate"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "de-richard-strauss",
+    "name": "Richard Strauss",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Classical",
+    "subgenre": "Late Romantic / tone poem / opera",
+    "era": "1900s",
+    "mood": [
+      "lush",
+      "complex"
+    ],
+    "bpm": 116,
+    "key": "E-flat major",
+    "vocals": "dramatic soprano over massive orchestra",
+    "prompt": "1900s Late Romantic orchestral (classical), massive orchestra with shimmering strings, complex chromatic harmonies, dramatic soprano, lush and complex mood, fits a dramatic cinematic playlist, 116 BPM, E-flat major",
+    "tags": [
+      "classical",
+      "Late Romantic",
+      "tone poem",
+      "1900s",
+      "lush",
+      "complex"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "de-mahler",
+    "name": "Gustav Mahler",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Classical",
+    "subgenre": "Late Romantic / symphony",
+    "era": "1900s",
+    "mood": [
+      "transcendent",
+      "vast"
+    ],
+    "bpm": 60,
+    "key": "C major",
+    "vocals": "massive orchestra with occasional soprano and choir",
+    "prompt": "1900s Late Romantic symphony (classical), vast orchestral forces, philosophical depth, alternating tender and explosive passages, transcendent and vast mood, fits a meditation playlist, 60 BPM, C major",
+    "tags": [
+      "classical",
+      "Late Romantic",
+      "symphony",
+      "1900s",
+      "transcendent",
+      "vast"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "de-telemann",
+    "name": "Georg Philipp Telemann",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Classical",
+    "subgenre": "Baroque / chamber",
+    "era": "1700s",
+    "mood": [
+      "elegant",
+      "courtly"
+    ],
+    "bpm": 132,
+    "key": "G major",
+    "vocals": "no vocals — Baroque chamber ensemble",
+    "prompt": "1700s Baroque chamber (classical), oboe d'amore, Baroque flute, strings and continuo, elegant courtly dance rhythms, bright and elegant mood, fits a Baroque dinner playlist, 132 BPM, G major",
+    "tags": [
+      "classical",
+      "Baroque",
+      "chamber",
+      "1700s",
+      "elegant",
+      "courtly"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "de-bruckner",
+    "name": "Anton Bruckner",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Classical",
+    "subgenre": "Romantic / cathedral symphony",
+    "era": "1800s",
+    "mood": [
+      "sacred",
+      "vast"
+    ],
+    "bpm": 72,
+    "key": "D minor",
+    "vocals": "no vocals — massive pipe-organ-like orchestra",
+    "prompt": "1800s Romantic symphony (classical), massive orchestral waves like a cathedral organ, grand brass chorale, sacred and vast mood, fits a spiritual contemplation playlist, 72 BPM, D minor",
+    "tags": [
+      "classical",
+      "Romantic",
+      "symphony",
+      "1800s",
+      "sacred",
+      "vast"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "at-mozart",
+    "name": "Wolfgang Amadeus Mozart",
+    "language": "at",
+    "languageLabel": "Австрийские",
+    "genre": "Classical",
+    "subgenre": "Classical / symphony / opera",
+    "era": "1700s",
+    "mood": [
+      "elegant",
+      "radiant"
+    ],
+    "bpm": 132,
+    "key": "G major",
+    "vocals": "no vocals — classical orchestra with crystalline clarity",
+    "prompt": "1700s Classical orchestral (classical), crystalline clarity, graceful melodic lines, balanced classical orchestra with elegant woodwinds, radiant and elegant mood, fits a sophisticated dinner playlist, 132 BPM, G major",
+    "tags": [
+      "classical",
+      "Classical era",
+      "symphony",
+      "1700s",
+      "elegant",
+      "radiant"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "at-schubert",
+    "name": "Franz Schubert",
+    "language": "at",
+    "languageLabel": "Австрийские",
+    "genre": "Classical",
+    "subgenre": "Romantic / lieder / piano",
+    "era": "1800s",
+    "mood": [
+      "wandering",
+      "tender"
+    ],
+    "bpm": 80,
+    "key": "B minor",
+    "vocals": "lyrical tenor voice over piano — lieder style",
+    "prompt": "1800s Romantic lieder (classical), lyrical tenor over intimate piano, tender and wandering melodic lines, poetic German text setting, sad and tender mood, fits a solitary walk playlist, 80 BPM, B minor",
+    "tags": [
+      "classical",
+      "Romantic",
+      "lieder",
+      "1800s",
+      "wandering",
+      "tender"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "at-haydn",
+    "name": "Franz Joseph Haydn",
+    "language": "at",
+    "languageLabel": "Австрийские",
+    "genre": "Classical",
+    "subgenre": "Classical / symphony / string quartet",
+    "era": "1700s",
+    "mood": [
+      "witty",
+      "balanced"
+    ],
+    "bpm": 120,
+    "key": "D major",
+    "vocals": "no vocals — classical orchestra with playful wit",
+    "prompt": "1700s Classical orchestral (classical), balanced four-part writing, playful wit and surprising dynamic shifts, elegant string quartet texture, cheerful and balanced mood, fits a classical radio playlist, 120 BPM, D major",
+    "tags": [
+      "classical",
+      "Classical era",
+      "symphony",
+      "1700s",
+      "witty",
+      "balanced"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "at-strauss-jr",
+    "name": "Johann Strauss II",
+    "language": "at",
+    "languageLabel": "Австрийские",
+    "genre": "Classical",
+    "subgenre": "Romantic / waltz / operetta",
+    "era": "1800s",
+    "mood": [
+      "festive",
+      "waltzing"
+    ],
+    "bpm": 180,
+    "key": "A major",
+    "vocals": "no vocals — Viennese waltz orchestra",
+    "prompt": "1800s Viennese waltz (classical), lilting 3/4 rhythm, sparkling strings, Viennese operetta orchestra, festive and waltzing mood, fits a New Year ballroom playlist, 180 BPM, A major",
+    "tags": [
+      "classical",
+      "waltz",
+      "operetta",
+      "1800s",
+      "festive",
+      "waltzing"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "it-vivaldi",
+    "name": "Antonio Vivaldi",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Classical",
+    "subgenre": "Baroque / concerto grosso",
+    "era": "1700s",
+    "mood": [
+      "energetic",
+      "vivid"
+    ],
+    "bpm": 160,
+    "key": "E major",
+    "vocals": "no vocals — Baroque string concerto",
+    "prompt": "1700s Baroque concerto (classical), virtuosic solo violin over Baroque string orchestra, rapid sixteenth-note passages, vivid seasonal imagery, energetic and vivid mood, fits a drive playlist, 160 BPM, E major",
+    "tags": [
+      "classical",
+      "Baroque",
+      "concerto",
+      "1700s",
+      "energetic",
+      "vivid"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "it-verdi",
+    "name": "Giuseppe Verdi",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Classical",
+    "subgenre": "Romantic opera / grand opera",
+    "era": "1800s",
+    "mood": [
+      "passionate",
+      "theatrical"
+    ],
+    "bpm": 92,
+    "key": "E-flat major",
+    "vocals": "dramatic Italian operatic baritone and soprano",
+    "prompt": "1800s Italian Romantic opera (classical), full operatic cast with baritone and soprano, rich orchestral accompaniment, passionate theatrical Italian delivery, dramatic mood, fits an opera night playlist, 92 BPM, E-flat major",
+    "tags": [
+      "classical",
+      "opera",
+      "Italian opera",
+      "1800s",
+      "passionate",
+      "theatrical"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "it-puccini",
+    "name": "Giacomo Puccini",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Classical",
+    "subgenre": "Romantic opera / verismo",
+    "era": "1900s",
+    "mood": [
+      "heartbreak",
+      "lush"
+    ],
+    "bpm": 76,
+    "key": "E major",
+    "vocals": "soaring Italian lyric soprano over lush orchestra",
+    "prompt": "1900s verismo opera (classical), soaring lyric soprano, lush late-Romantic orchestration, verismo emotional realism, heartbreaking and passionate mood, fits a tearjerker playlist, 76 BPM, E major",
+    "tags": [
+      "classical",
+      "opera",
+      "verismo",
+      "1900s",
+      "heartbreak",
+      "lush"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "it-rossini",
+    "name": "Gioachino Rossini",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Classical",
+    "subgenre": "Bel canto opera / comic opera",
+    "era": "1800s",
+    "mood": [
+      "sparkling",
+      "comic"
+    ],
+    "bpm": 168,
+    "key": "C major",
+    "vocals": "virtuosic coloratura soprano or comic baritone",
+    "prompt": "1800s bel canto opera (classical), sparkling coloratura soprano, racing orchestral crescendo, comic buffa energy, virtuosic and sparkling mood, fits an opera buffa playlist, 168 BPM, C major",
+    "tags": [
+      "classical",
+      "opera",
+      "bel canto",
+      "1800s",
+      "sparkling",
+      "comic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "it-paganini",
+    "name": "Niccolò Paganini",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Classical",
+    "subgenre": "Romantic / virtuoso violin concerto",
+    "era": "1800s",
+    "mood": [
+      "diabolical",
+      "virtuosic"
+    ],
+    "bpm": 184,
+    "key": "B minor",
+    "vocals": "no vocals — virtuoso solo violin with orchestra",
+    "prompt": "1800s Romantic violin concerto (classical), demonic virtuoso solo violin, rapid arpeggios and harmonics, dramatic Romantic orchestra support, diabolical and virtuosic mood, fits a showstopper playlist, 184 BPM, B minor",
+    "tags": [
+      "classical",
+      "concerto",
+      "violin",
+      "1800s",
+      "diabolical",
+      "virtuosic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "it-monteverdi",
+    "name": "Claudio Monteverdi",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Classical",
+    "subgenre": "Early Baroque / opera (inventor)",
+    "era": "1600s",
+    "mood": [
+      "revolutionary",
+      "expressive"
+    ],
+    "bpm": 72,
+    "key": "D minor",
+    "vocals": "early operatic tenor with lute and viols",
+    "prompt": "1600s Early Baroque opera (classical), Renaissance-to-Baroque transition, lute continuo, viols, first operatic expressive recitative, revolutionary and expressive mood, fits an early music playlist, 72 BPM, D minor",
+    "tags": [
+      "classical",
+      "Early Baroque",
+      "opera",
+      "1600s",
+      "revolutionary",
+      "expressive"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-donizetti",
+    "name": "Gaetano Donizetti",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Classical",
+    "subgenre": "Bel canto opera",
+    "era": "1800s",
+    "mood": [
+      "flowing",
+      "romantic"
+    ],
+    "bpm": 88,
+    "key": "E-flat major",
+    "vocals": "lyrical Italian tenor and soprano — bel canto",
+    "prompt": "1800s bel canto opera (classical), flowing lyrical Italian tenor, elegant vocal ornamentation, romantic Donizettian lyricism, flowing and romantic mood, fits a bel canto playlist, 88 BPM, E-flat major",
+    "tags": [
+      "classical",
+      "opera",
+      "bel canto",
+      "1800s",
+      "flowing",
+      "romantic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-bellini",
+    "name": "Vincenzo Bellini",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Classical",
+    "subgenre": "Bel canto opera / vocal",
+    "era": "1800s",
+    "mood": [
+      "melancholic",
+      "pure"
+    ],
+    "bpm": 72,
+    "key": "F major",
+    "vocals": "pure lyric soprano with simple orchestral support",
+    "prompt": "1800s bel canto opera (classical), pure lyric soprano, long-breathed cantabile lines, simple but expressive orchestra, melancholic and pure mood, fits a moonlit aria playlist, 72 BPM, F major",
+    "tags": [
+      "classical",
+      "opera",
+      "bel canto",
+      "1800s",
+      "melancholic",
+      "pure"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-corelli",
+    "name": "Arcangelo Corelli",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Classical",
+    "subgenre": "Baroque / sonata / concerto grosso",
+    "era": "1600s",
+    "mood": [
+      "graceful",
+      "polished"
+    ],
+    "bpm": 112,
+    "key": "D major",
+    "vocals": "no vocals — Baroque string ensemble concerto grosso",
+    "prompt": "1600s Baroque concerto grosso (classical), alternating concertino and ripieno strings, graceful melodic sequences, polished Baroque counterpoint, graceful mood, fits a Baroque salon playlist, 112 BPM, D major",
+    "tags": [
+      "classical",
+      "Baroque",
+      "concerto grosso",
+      "1600s",
+      "graceful",
+      "polished"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-leoncavallo",
+    "name": "Ruggero Leoncavallo",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Classical",
+    "subgenre": "Verismo opera",
+    "era": "1900s",
+    "mood": [
+      "raw",
+      "tragic"
+    ],
+    "bpm": 88,
+    "key": "D minor",
+    "vocals": "tragic verismo tenor with passionate delivery",
+    "prompt": "1900s verismo opera (classical), raw tragic tenor, intense dramatic realism, verismo orchestra swell, passionate and tragic mood, fits a tragic opera playlist, 88 BPM, D minor",
+    "tags": [
+      "classical",
+      "opera",
+      "verismo",
+      "1900s",
+      "raw",
+      "tragic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-einaudi",
+    "name": "Ludovico Einaudi",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Classical",
+    "subgenre": "Neo-classical / minimalist piano",
+    "era": "2000s",
+    "mood": [
+      "meditative",
+      "cinematic"
+    ],
+    "bpm": 72,
+    "key": "D minor",
+    "vocals": "solo piano with ambient string accents",
+    "prompt": "2000s neo-classical minimalist (classical), solo piano with slow harmonic rhythm, sparse ambient strings, cinematic emotional arc, meditative and cinematic mood, fits a meditation playlist, 72 BPM, D minor",
+    "tags": [
+      "classical",
+      "neo-classical",
+      "minimalist",
+      "2000s",
+      "meditative",
+      "cinematic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "ru-tchaikovsky",
+    "name": "Пётр Чайковский",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Classical",
+    "subgenre": "Romantic / ballet / symphony",
+    "era": "1800s",
+    "mood": [
+      "passionate",
+      "melodic"
+    ],
+    "bpm": 120,
+    "key": "B minor",
+    "vocals": "no vocals — Romantic orchestral with sweeping strings",
+    "prompt": "1800s Russian Romantic orchestra (classical), sweeping lyrical strings, rich woodwind melodies, passionate climaxes, emotional and melodic mood, fits a ballet score playlist, 120 BPM, B minor",
+    "tags": [
+      "classical",
+      "Romantic",
+      "ballet",
+      "symphony",
+      "1800s",
+      "passionate",
+      "melodic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "ru-rachmaninoff",
+    "name": "Сергей Рахманинов",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Classical",
+    "subgenre": "Romantic / piano concerto",
+    "era": "1900s",
+    "mood": [
+      "nostalgic",
+      "lush"
+    ],
+    "bpm": 84,
+    "key": "C-sharp minor",
+    "vocals": "no vocals — solo piano with lush Romantic orchestra",
+    "prompt": "1900s Russian Romantic piano concerto (classical), sweeping piano arpeggios, lush late-Romantic orchestration, nostalgic Russian soul, melancholic and lush mood, fits a rainy evening playlist, 84 BPM, C-sharp minor",
+    "tags": [
+      "classical",
+      "Romantic",
+      "piano concerto",
+      "1900s",
+      "nostalgic",
+      "lush"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "ru-prokofiev",
+    "name": "Сергей Прокофьев",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Classical",
+    "subgenre": "Modern / ballet / symphony",
+    "era": "1900s",
+    "mood": [
+      "sardonic",
+      "dynamic"
+    ],
+    "bpm": 152,
+    "key": "D major",
+    "vocals": "no vocals — modern orchestra with percussive piano",
+    "prompt": "1900s Soviet modern orchestra (classical), percussive piano, acerbic harmonies, dynamic rhythmic energy, sardonic and dynamic mood, fits a modern classical playlist, 152 BPM, D major",
+    "tags": [
+      "classical",
+      "modern classical",
+      "ballet",
+      "1900s",
+      "sardonic",
+      "dynamic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ru-shostakovich",
+    "name": "Дмитрий Шостакович",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Classical",
+    "subgenre": "Modern / symphony / string quartet",
+    "era": "1900s",
+    "mood": [
+      "tragic",
+      "satirical"
+    ],
+    "bpm": 108,
+    "key": "D minor",
+    "vocals": "no vocals — Soviet symphony orchestra",
+    "prompt": "1900s Soviet modern symphony (classical), dark satirical undertones, shattering fortissimo outbursts contrasted with quiet sardonic passages, tragic and complex mood, fits a dark classical playlist, 108 BPM, D minor",
+    "tags": [
+      "classical",
+      "modern classical",
+      "symphony",
+      "1900s",
+      "tragic",
+      "satirical"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "ru-rimsky-korsakov",
+    "name": "Николай Римский-Корсаков",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Classical",
+    "subgenre": "Romantic / orchestral fantasy",
+    "era": "1800s",
+    "mood": [
+      "exotic",
+      "colorful"
+    ],
+    "bpm": 132,
+    "key": "E major",
+    "vocals": "no vocals — coloristic Russian Romantic orchestra",
+    "prompt": "1800s Russian Romantic orchestral (classical), brilliant orchestral colors, exotic Eastern scales, shimmering string textures, colorful and vivid mood, fits an exotic journey playlist, 132 BPM, E major",
+    "tags": [
+      "classical",
+      "Romantic",
+      "orchestral",
+      "1800s",
+      "exotic",
+      "colorful"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ru-mussorgsky",
+    "name": "Модест Мусоргский",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Classical",
+    "subgenre": "Romantic / nationalistic / opera",
+    "era": "1800s",
+    "mood": [
+      "dark",
+      "nationalistic"
+    ],
+    "bpm": 80,
+    "key": "B minor",
+    "vocals": "dramatic Russian bass over nationalistic orchestra",
+    "prompt": "1800s Russian nationalistic opera (classical), powerful Russian bass, bold nationalistic harmonies, dramatic choral scenes, dark and epic mood, fits a Russian epic playlist, 80 BPM, B minor",
+    "tags": [
+      "classical",
+      "Romantic",
+      "opera",
+      "1800s",
+      "dark",
+      "nationalistic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ru-scriabin",
+    "name": "Александр Скрябин",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Classical",
+    "subgenre": "Late Romantic / mystical piano",
+    "era": "1900s",
+    "mood": [
+      "mystical",
+      "ecstatic"
+    ],
+    "bpm": 100,
+    "key": "F-sharp major",
+    "vocals": "no vocals — mystical solo piano or large orchestra",
+    "prompt": "1900s Late Romantic mystical piano (classical), complex chromatic harmonies, tone clusters, mystical atmosphere, ecstatic climaxes, fits a trance meditation playlist, 100 BPM, F-sharp major",
+    "tags": [
+      "classical",
+      "Late Romantic",
+      "piano",
+      "1900s",
+      "mystical",
+      "ecstatic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ru-glinka",
+    "name": "Михаил Глинка",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Classical",
+    "subgenre": "Romantic / Russian opera (founder)",
+    "era": "1800s",
+    "mood": [
+      "heroic",
+      "folk-inflected"
+    ],
+    "bpm": 116,
+    "key": "E major",
+    "vocals": "Russian lyric tenor over nationalistic orchestra",
+    "prompt": "1800s Russian nationalistic opera (classical), Russian folk melody influence, lyric tenor, founding father of Russian classical school, heroic and folk-inflected mood, fits a Russian heritage playlist, 116 BPM, E major",
+    "tags": [
+      "classical",
+      "Romantic",
+      "opera",
+      "1800s",
+      "heroic",
+      "folk-inflected"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "ru-stravinsky",
+    "name": "Игорь Стравинский",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Classical",
+    "subgenre": "Modern / ballet / neoclassical",
+    "era": "1900s",
+    "mood": [
+      "revolutionary",
+      "rhythmic"
+    ],
+    "bpm": 160,
+    "key": "C major",
+    "vocals": "no vocals — revolutionary modern orchestra",
+    "prompt": "1900s Modern orchestral (classical), radical polyrhythm, percussive ostinatos, pagan energy, neoclassical wit, revolutionary and rhythmic mood, fits a modern dance playlist, 160 BPM, C major",
+    "tags": [
+      "classical",
+      "modern classical",
+      "ballet",
+      "1900s",
+      "revolutionary",
+      "rhythmic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "ru-borodin",
+    "name": "Александр Бородин",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Classical",
+    "subgenre": "Romantic / orientalist / symphony",
+    "era": "1800s",
+    "mood": [
+      "exotic",
+      "heroic"
+    ],
+    "bpm": 96,
+    "key": "D major",
+    "vocals": "no vocals — lush Romantic orchestra with Eastern color",
+    "prompt": "1800s Russian orientalist orchestral (classical), lush Romantic harmonies, exotic Eastern scales, expansive Central Asian steppes imagery, heroic and exotic mood, fits a cinematic Russian epic playlist, 96 BPM, D major",
+    "tags": [
+      "classical",
+      "Romantic",
+      "symphony",
+      "1800s",
+      "exotic",
+      "heroic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "fr-debussy",
+    "name": "Claude Debussy",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Classical",
+    "subgenre": "Impressionist / piano / orchestral",
+    "era": "1900s",
+    "mood": [
+      "shimmering",
+      "atmospheric"
+    ],
+    "bpm": 60,
+    "key": "D-flat major",
+    "vocals": "no vocals — shimmering impressionist orchestra or piano",
+    "prompt": "1900s French Impressionist (classical), shimmering parallel chords, whole-tone and pentatonic scales, blurred edges of tonality, watercolor orchestral textures, atmospheric and dreamlike mood, fits a sunset playlist, 60 BPM, D-flat major",
+    "tags": [
+      "classical",
+      "Impressionist",
+      "1900s",
+      "shimmering",
+      "atmospheric"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "fr-ravel",
+    "name": "Maurice Ravel",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Classical",
+    "subgenre": "Impressionist / orchestral / ballet",
+    "era": "1900s",
+    "mood": [
+      "precise",
+      "colorful"
+    ],
+    "bpm": 120,
+    "key": "C major",
+    "vocals": "no vocals — brilliantly orchestrated French ensemble",
+    "prompt": "1900s French Impressionist orchestral (classical), precise and transparent orchestration, brilliant instrumental colors, Spanish influences, meticulous craftsmanship, colorful mood, fits a sophisticated playlist, 120 BPM, C major",
+    "tags": [
+      "classical",
+      "Impressionist",
+      "orchestral",
+      "1900s",
+      "precise",
+      "colorful"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "fr-berlioz",
+    "name": "Hector Berlioz",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Classical",
+    "subgenre": "Romantic / programme symphony",
+    "era": "1800s",
+    "mood": [
+      "visionary",
+      "dramatic"
+    ],
+    "bpm": 120,
+    "key": "C major",
+    "vocals": "no vocals — revolutionary Romantic large orchestra",
+    "prompt": "1800s French Romantic programmatic symphony (classical), idée fixe leitmotif, revolutionary orchestration innovations, idiomatic writing for each instrument, visionary and dramatic mood, fits a dramatic cinematic playlist, 120 BPM, C major",
+    "tags": [
+      "classical",
+      "Romantic",
+      "symphony",
+      "1800s",
+      "visionary",
+      "dramatic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "fr-bizet",
+    "name": "Georges Bizet",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Classical",
+    "subgenre": "Romantic / French opera / Carmen",
+    "era": "1800s",
+    "mood": [
+      "fiery",
+      "Spanish-tinged"
+    ],
+    "bpm": 140,
+    "key": "D minor",
+    "vocals": "dramatic mezzo-soprano with colorful French orchestra",
+    "prompt": "1800s French opera (classical), fiery Spanish-tinged drama, rich mezzo-soprano, vivid orchestral color, passionate and fiery mood, fits a flamenco-opera playlist, 140 BPM, D minor",
+    "tags": [
+      "classical",
+      "opera",
+      "French opera",
+      "1800s",
+      "fiery",
+      "Spanish-tinged"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "fr-saint-saens",
+    "name": "Camille Saint-Saëns",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Classical",
+    "subgenre": "Romantic / concerto / orchestral fantasy",
+    "era": "1800s",
+    "mood": [
+      "elegant",
+      "witty"
+    ],
+    "bpm": 120,
+    "key": "G minor",
+    "vocals": "no vocals — elegant French Romantic orchestra",
+    "prompt": "1800s French Romantic orchestral (classical), elegant melodic clarity, witty animal portraits, virtuosic concerto writing, elegant and witty mood, fits a refined playlist, 120 BPM, G minor",
+    "tags": [
+      "classical",
+      "Romantic",
+      "concerto",
+      "1800s",
+      "elegant",
+      "witty"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "fr-offenbach",
+    "name": "Jacques Offenbach",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Classical",
+    "subgenre": "Operetta / comic opera",
+    "era": "1800s",
+    "mood": [
+      "sparkling",
+      "satirical"
+    ],
+    "bpm": 176,
+    "key": "F major",
+    "vocals": "vivacious soprano and comic baritone — French operetta",
+    "prompt": "1800s French operetta (classical), can-can rhythms, sparkling comic soprano, satirical wit, Parisian entertainment spirit, vivacious and satirical mood, fits a cabaret playlist, 176 BPM, F major",
+    "tags": [
+      "classical",
+      "operetta",
+      "1800s",
+      "sparkling",
+      "satirical"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "fr-faure",
+    "name": "Gabriel Fauré",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Classical",
+    "subgenre": "Romantic / sacred / chamber",
+    "era": "1800s",
+    "mood": [
+      "serene",
+      "ethereal"
+    ],
+    "bpm": 60,
+    "key": "D minor",
+    "vocals": "gentle baritone or soprano over intimate chamber ensemble",
+    "prompt": "1800s French Romantic sacred (classical), gentle ethereal harmonies, serene and consoling, intimate chamber or organ setting, ethereal and serene mood, fits a contemplative playlist, 60 BPM, D minor",
+    "tags": [
+      "classical",
+      "Romantic",
+      "sacred",
+      "1800s",
+      "serene",
+      "ethereal"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "fr-satie",
+    "name": "Erik Satie",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Classical",
+    "subgenre": "Avant-garde / minimalist piano",
+    "era": "1900s",
+    "mood": [
+      "eccentric",
+      "minimal"
+    ],
+    "bpm": 48,
+    "key": "G major",
+    "vocals": "no vocals — simple repeated piano figures, gymnopédie style",
+    "prompt": "1900s French minimalist (classical), slow simple piano, open harmonies with spacious silence, eccentric quiet simplicity, minimal and eccentric mood, fits a café-alone playlist, 48 BPM, G major",
+    "tags": [
+      "classical",
+      "minimalist",
+      "avant-garde",
+      "1900s",
+      "eccentric",
+      "minimal"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "fr-massenet",
+    "name": "Jules Massenet",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Classical",
+    "subgenre": "Romantic / French opera / melodious",
+    "era": "1800s",
+    "mood": [
+      "lyrical",
+      "sentimental"
+    ],
+    "bpm": 84,
+    "key": "F major",
+    "vocals": "lyrical French soprano over tender orchestration",
+    "prompt": "1800s French Romantic opera (classical), tender lyric soprano, sentimental melodic lines, elegant French orchestration, lyrical and sentimental mood, fits a French romantic playlist, 84 BPM, F major",
+    "tags": [
+      "classical",
+      "opera",
+      "French opera",
+      "1800s",
+      "lyrical",
+      "sentimental"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pl-chopin",
+    "name": "Frédéric Chopin",
+    "language": "pl",
+    "languageLabel": "Польские",
+    "genre": "Classical",
+    "subgenre": "Romantic / piano",
+    "era": "1800s",
+    "mood": [
+      "poetic",
+      "passionate"
+    ],
+    "bpm": 80,
+    "key": "C-sharp minor",
+    "vocals": "no vocals — solo piano, intimate Romantic style",
+    "prompt": "1800s Romantic solo piano (classical), singing piano cantabile, rubato freedom of tempo, nocturne atmosphere to mazurka dance, poetic and passionate mood, fits a midnight piano playlist, 80 BPM, C-sharp minor",
+    "tags": [
+      "classical",
+      "Romantic",
+      "piano",
+      "1800s",
+      "poetic",
+      "passionate"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "no-grieg",
+    "name": "Edvard Grieg",
+    "language": "no",
+    "languageLabel": "Норвежские",
+    "genre": "Classical",
+    "subgenre": "Romantic / nationalistic / piano concerto",
+    "era": "1800s",
+    "mood": [
+      "Nordic",
+      "lyrical"
+    ],
+    "bpm": 96,
+    "key": "A minor",
+    "vocals": "no vocals — Nordic Romantic piano and orchestra",
+    "prompt": "1800s Norwegian Romantic (classical), fjord-evoking melodic lines, folk-inflected harmonies, lyrical piano concerto style, Nordic freshness, lyrical and Nordic mood, fits a Scandinavian nature playlist, 96 BPM, A minor",
+    "tags": [
+      "classical",
+      "Romantic",
+      "piano concerto",
+      "1800s",
+      "Nordic",
+      "lyrical"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "cs-dvorak",
+    "name": "Antonín Dvořák",
+    "language": "cs",
+    "languageLabel": "Чешские",
+    "genre": "Classical",
+    "subgenre": "Romantic / symphony / American period",
+    "era": "1800s",
+    "mood": [
+      "folk-inflected",
+      "nostalgic"
+    ],
+    "bpm": 116,
+    "key": "E minor",
+    "vocals": "no vocals — Romantic orchestra with folk melody influence",
+    "prompt": "1800s Czech Romantic orchestral (classical), Bohemian folk melody influence, New World spiritual elements, singing English horn solos, nostalgic and folk-inflected mood, fits a homeland nostalgia playlist, 116 BPM, E minor",
+    "tags": [
+      "classical",
+      "Romantic",
+      "symphony",
+      "1800s",
+      "folk-inflected",
+      "nostalgic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "cs-smetana",
+    "name": "Bedřich Smetana",
+    "language": "cs",
+    "languageLabel": "Чешские",
+    "genre": "Classical",
+    "subgenre": "Romantic / symphonic poem / nationalistic",
+    "era": "1800s",
+    "mood": [
+      "patriotic",
+      "flowing"
+    ],
+    "bpm": 88,
+    "key": "E minor",
+    "vocals": "no vocals — Czech nationalistic Romantic orchestra",
+    "prompt": "1800s Czech nationalistic orchestral (classical), flowing river imagery, Bohemian landscapes, patriotic folk-based themes, flowing and patriotic mood, fits a Czech heritage playlist, 88 BPM, E minor",
+    "tags": [
+      "classical",
+      "Romantic",
+      "symphonic poem",
+      "1800s",
+      "patriotic",
+      "flowing"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "cs-janacek",
+    "name": "Leoš Janáček",
+    "language": "cs",
+    "languageLabel": "Чешские",
+    "genre": "Classical",
+    "subgenre": "Modern / opera / speech melody",
+    "era": "1900s",
+    "mood": [
+      "raw",
+      "Moravian"
+    ],
+    "bpm": 120,
+    "key": "D minor",
+    "vocals": "dramatic soprano with asymmetric speech-rhythm orchestra",
+    "prompt": "1900s Moravian modern opera (classical), speech-rhythm melodic cells, raw Moravian folk idioms, intense dramatic soprano, raw and expressive mood, fits a Slavic modern classical playlist, 120 BPM, D minor",
+    "tags": [
+      "classical",
+      "modern classical",
+      "opera",
+      "1900s",
+      "raw",
+      "Moravian"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "hu-liszt",
+    "name": "Franz Liszt",
+    "language": "hu",
+    "languageLabel": "Венгерские",
+    "genre": "Classical",
+    "subgenre": "Romantic / virtuoso piano / symphonic poem",
+    "era": "1800s",
+    "mood": [
+      "flamboyant",
+      "virtuosic"
+    ],
+    "bpm": 152,
+    "key": "F-sharp minor",
+    "vocals": "no vocals — virtuoso solo piano or Romantic orchestra",
+    "prompt": "1800s Romantic virtuoso piano (classical), transcendental piano technique, Hungarian rhapsody rhythms, demonic showmanship, flamboyant and virtuosic mood, fits a piano showpiece playlist, 152 BPM, F-sharp minor",
+    "tags": [
+      "classical",
+      "Romantic",
+      "piano",
+      "symphonic poem",
+      "1800s",
+      "flamboyant",
+      "virtuosic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "hu-bartok",
+    "name": "Béla Bartók",
+    "language": "hu",
+    "languageLabel": "Венгерские",
+    "genre": "Classical",
+    "subgenre": "Modern / folk research / percussive",
+    "era": "1900s",
+    "mood": [
+      "percussive",
+      "folk-fusion"
+    ],
+    "bpm": 132,
+    "key": "C major",
+    "vocals": "no vocals — percussive modern orchestra with folk elements",
+    "prompt": "1900s Hungarian modern (classical), Balkan-folk irregular rhythms, percussive piano writing, folk modal scales, complex polyrhythm, percussive and ethnic mood, fits a world modern classical playlist, 132 BPM, C major",
+    "tags": [
+      "classical",
+      "modern classical",
+      "1900s",
+      "percussive",
+      "folk-fusion"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "hu-kodaly",
+    "name": "Zoltán Kodály",
+    "language": "hu",
+    "languageLabel": "Венгерские",
+    "genre": "Classical",
+    "subgenre": "Modern / choral / Hungarian folk",
+    "era": "1900s",
+    "mood": [
+      "folk-saturated",
+      "choral"
+    ],
+    "bpm": 96,
+    "key": "D minor",
+    "vocals": "rich Hungarian folk-infused choir",
+    "prompt": "1900s Hungarian choral (classical), rich unison folk-melody choir, pentatonic Hungarian scales, vibrant choral textures, folk-saturated mood, fits a Hungarian folk choral playlist, 96 BPM, D minor",
+    "tags": [
+      "classical",
+      "choral",
+      "1900s",
+      "folk-saturated",
+      "choral"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "fi-sibelius",
+    "name": "Jean Sibelius",
+    "language": "fi",
+    "languageLabel": "Финские",
+    "genre": "Classical",
+    "subgenre": "Romantic / Nordic / symphony",
+    "era": "1900s",
+    "mood": [
+      "Nordic",
+      "epic"
+    ],
+    "bpm": 88,
+    "key": "D minor",
+    "vocals": "no vocals — Nordic symphonic orchestra with vast landscape imagery",
+    "prompt": "1900s Nordic Romantic symphony (classical), vast frozen landscape textures, dark Nordic harmonics, brass and woodwind nature imagery, epic and Nordic mood, fits a Northern wilderness playlist, 88 BPM, D minor",
+    "tags": [
+      "classical",
+      "Romantic",
+      "symphony",
+      "1900s",
+      "Nordic",
+      "epic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "et-part",
+    "name": "Arvo Pärt",
+    "language": "et",
+    "languageLabel": "Эстонские",
+    "genre": "Classical",
+    "subgenre": "Contemporary / minimalist / tintinnabuli",
+    "era": "1970s",
+    "mood": [
+      "sacred",
+      "crystalline"
+    ],
+    "bpm": 40,
+    "key": "D minor",
+    "vocals": "no vocals or pure choir — crystalline silence and single notes",
+    "prompt": "1970s Estonian tintinnabuli minimalism (classical), pure consonant triadic harmony, sacred silence between notes, crystalline transparency, slowly unfolding timelessness, sacred and crystalline mood, fits a deep meditation playlist, 40 BPM, D minor",
+    "tags": [
+      "classical",
+      "minimalist",
+      "contemporary",
+      "1970s",
+      "sacred",
+      "crystalline"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "en-purcell",
+    "name": "Henry Purcell",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Classical",
+    "subgenre": "Baroque / English opera / anthem",
+    "era": "1600s",
+    "mood": [
+      "courtly",
+      "expressive"
+    ],
+    "bpm": 96,
+    "key": "D minor",
+    "vocals": "countertenor or soprano over English Baroque consort",
+    "prompt": "1600s English Baroque opera (classical), countertenor and soprano, English Baroque consort, ground bass, expressive chromatic lament, courtly and expressive mood, fits a Baroque England playlist, 96 BPM, D minor",
+    "tags": [
+      "classical",
+      "Baroque",
+      "English",
+      "1600s",
+      "courtly",
+      "expressive"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "en-elgar",
+    "name": "Edward Elgar",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Classical",
+    "subgenre": "Late Romantic / English / ceremonial",
+    "era": "1900s",
+    "mood": [
+      "noble",
+      "English"
+    ],
+    "bpm": 96,
+    "key": "E-flat major",
+    "vocals": "no vocals — noble English Romantic large orchestra",
+    "prompt": "1900s English Late Romantic (classical), noble English Romantic style, sweeping cello melodies, ceremonial pomp, rich harmonics, noble and English mood, fits a British heritage playlist, 96 BPM, E-flat major",
+    "tags": [
+      "classical",
+      "Late Romantic",
+      "English",
+      "1900s",
+      "noble",
+      "English"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "en-holst",
+    "name": "Gustav Holst",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Classical",
+    "subgenre": "Modern / orchestral suite / cosmic",
+    "era": "1900s",
+    "mood": [
+      "cosmic",
+      "powerful"
+    ],
+    "bpm": 160,
+    "key": "C major",
+    "vocals": "no vocals — massive cosmic orchestra",
+    "prompt": "1900s British modern orchestral (classical), planetary imagery, massive orchestral forces, Mars-to-Neptune journey, cosmic and powerful mood, fits a space epic playlist, 160 BPM, C major",
+    "tags": [
+      "classical",
+      "modern classical",
+      "orchestral",
+      "1900s",
+      "cosmic",
+      "powerful"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "en-britten",
+    "name": "Benjamin Britten",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Classical",
+    "subgenre": "Modern / English opera / chamber",
+    "era": "1900s",
+    "mood": [
+      "lyrical",
+      "theatrical"
+    ],
+    "bpm": 96,
+    "key": "C major",
+    "vocals": "lyrical English tenor in intimate opera setting",
+    "prompt": "1900s British modern opera (classical), lyrical English tenor, chamber-scale orchestra, theatrical storytelling, lyrical and theatrical mood, fits a modern British opera playlist, 96 BPM, C major",
+    "tags": [
+      "classical",
+      "modern classical",
+      "opera",
+      "1900s",
+      "lyrical",
+      "theatrical"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "en-nyman",
+    "name": "Michael Nyman",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Classical",
+    "subgenre": "Minimalist / film score / post-modern",
+    "era": "1980s",
+    "mood": [
+      "propulsive",
+      "cinematic"
+    ],
+    "bpm": 138,
+    "key": "D minor",
+    "vocals": "no vocals — minimalist ensemble with driving energy",
+    "prompt": "1980s British minimalist (classical), propulsive repeated figures, amplified ensemble, piano-driven, post-modern cinematic style, propulsive and cinematic mood, fits a thriller score playlist, 138 BPM, D minor",
+    "tags": [
+      "classical",
+      "minimalist",
+      "film score",
+      "1980s",
+      "propulsive",
+      "cinematic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "en-glass",
+    "name": "Philip Glass",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Classical",
+    "subgenre": "Minimalist / hypnotic / film score",
+    "era": "1970s",
+    "mood": [
+      "hypnotic",
+      "meditative"
+    ],
+    "bpm": 120,
+    "key": "E minor",
+    "vocals": "no vocals — cycling arpeggio ensemble",
+    "prompt": "1970s American minimalist (classical), cycling arpeggiated figures, subtle harmonic shifts, hypnotic trance-like repetition, sparse texture, meditative and hypnotic mood, fits a focus playlist, 120 BPM, E minor",
+    "tags": [
+      "classical",
+      "minimalist",
+      "1970s",
+      "hypnotic",
+      "meditative"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "es-albeniz",
+    "name": "Isaac Albéniz",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Classical",
+    "subgenre": "Romantic / Spanish piano / nationalistic",
+    "era": "1800s",
+    "mood": [
+      "flamenco-tinged",
+      "vibrant"
+    ],
+    "bpm": 140,
+    "key": "E Phrygian",
+    "vocals": "no vocals — piano with Spanish folk colors",
+    "prompt": "1800s Spanish Romantic piano (classical), flamenco-influenced harmonics, guitar-like piano textures, Andalusian scales, vibrant Spanish dance spirit, flamenco-tinged and vibrant mood, fits a Spanish piano playlist, 140 BPM, E Phrygian",
+    "tags": [
+      "classical",
+      "Romantic",
+      "Spanish piano",
+      "1800s",
+      "flamenco-tinged",
+      "vibrant"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "es-de-falla",
+    "name": "Manuel de Falla",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Classical",
+    "subgenre": "Modern / Spanish / flamenco-infused",
+    "era": "1900s",
+    "mood": [
+      "earthy",
+      "dramatic"
+    ],
+    "bpm": 132,
+    "key": "D Phrygian",
+    "vocals": "no vocals — Spanish modern orchestra with flamenco edge",
+    "prompt": "1900s Spanish modern orchestral (classical), Andalusian cante jondo influence, flamenco-infused harmonics, dramatic castanets, earthy and dramatic mood, fits a Spanish national music playlist, 132 BPM, D Phrygian",
+    "tags": [
+      "classical",
+      "modern classical",
+      "Spanish",
+      "1900s",
+      "earthy",
+      "dramatic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "el-xenakis",
+    "name": "Iannis Xenakis",
+    "language": "el",
+    "languageLabel": "Греческие",
+    "genre": "Classical",
+    "subgenre": "Avant-garde / stochastic music",
+    "era": "1950s",
+    "mood": [
+      "mathematical",
+      "dense"
+    ],
+    "bpm": 120,
+    "key": "N/A",
+    "vocals": "no vocals — dense stochastic orchestral textures",
+    "prompt": "1950s avant-garde stochastic (classical), mass events of sound based on probability theory, dense orchestral clouds, mathematical composition, extreme and fascinating mood, fits an experimental playlist, 120 BPM, N/A",
+    "tags": [
+      "classical",
+      "avant-garde",
+      "contemporary",
+      "1950s",
+      "mathematical",
+      "dense"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-br-piazzolla",
+    "name": "Astor Piazzolla",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Classical",
+    "subgenre": "Tango / nuevo tango / chamber",
+    "era": "1900s",
+    "mood": [
+      "passionate",
+      "melancholic"
+    ],
+    "bpm": 112,
+    "key": "D minor",
+    "vocals": "no vocals — bandoneón with chamber tango orchestra",
+    "prompt": "1900s Buenos Aires nuevo tango (classical), habanera-inflected bandoneón, tango violins, complex polyrhythm, passionate and melancholic mood, fits a Buenos Aires midnight playlist, 112 BPM, D minor",
+    "tags": [
+      "classical",
+      "tango",
+      "nuevo tango",
+      "1900s",
+      "passionate",
+      "melancholic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "br-villa-lobos",
+    "name": "Heitor Villa-Lobos",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Classical",
+    "subgenre": "Modern / Brazilian national / guitar",
+    "era": "1900s",
+    "mood": [
+      "lush",
+      "tropical"
+    ],
+    "bpm": 96,
+    "key": "E major",
+    "vocals": "no vocals — Brazilian modern orchestra with guitar",
+    "prompt": "1900s Brazilian nationalistic modern (classical), choro-meets-Romantic-orchestration, Brazilian folk and indigenous melody, lush tropical harmonics, lush and tropical mood, fits a Brazilian classical playlist, 96 BPM, E major",
+    "tags": [
+      "classical",
+      "modern classical",
+      "Brazilian",
+      "1900s",
+      "lush",
+      "tropical"
+    ],
+    "free": false,
+    "isNew": true
   }
 ]
