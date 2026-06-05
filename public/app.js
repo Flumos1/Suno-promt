@@ -360,6 +360,114 @@ function download(name, text) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 
+/* ---------- AI Lab — Voice Memo ---------- */
+(function () {
+  const recordBtn = $("#voice-record-btn");
+  const sendBtn = $("#voice-send-btn");
+  const redoBtn = $("#voice-redo-btn");
+  const timerEl = $("#voice-timer");
+  const secEl = $("#voice-sec");
+  const waveEl = $("#voice-wave");
+  const playbackEl = $("#voice-playback");
+  const audioEl = $("#voice-audio");
+  const out = $("#voice-out");
+  if (!recordBtn) return;
+
+  let mediaRecorder = null;
+  let chunks = [];
+  let timerInterval = null;
+  let seconds = 0;
+  let recordedBlob = null;
+
+  function startTimer() {
+    seconds = 0; secEl.textContent = 0;
+    timerInterval = setInterval(() => { secEl.textContent = ++seconds; }, 1000);
+  }
+  function stopTimer() { clearInterval(timerInterval); }
+
+  function resetUI() {
+    playbackEl.classList.add("hidden");
+    timerEl.classList.add("hidden");
+    waveEl.classList.add("hidden");
+    out.innerHTML = "";
+    recordedBlob = null;
+    recordBtn.textContent = "🎙 Начать запись";
+    recordBtn.classList.remove("recording");
+    sendBtn.disabled = false;
+  }
+
+  recordBtn.addEventListener("click", async () => {
+    if (mediaRecorder && mediaRecorder.state === "recording") {
+      mediaRecorder.stop();
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      chunks = [];
+      // prefer webm/opus, fallback to whatever browser supports
+      const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+        ? "audio/webm;codecs=opus"
+        : MediaRecorder.isTypeSupported("audio/webm") ? "audio/webm"
+        : "audio/ogg";
+      mediaRecorder = new MediaRecorder(stream, { mimeType });
+      mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
+      mediaRecorder.onstop = () => {
+        stream.getTracks().forEach((t) => t.stop());
+        stopTimer();
+        waveEl.classList.add("hidden");
+        timerEl.classList.add("hidden");
+        recordedBlob = new Blob(chunks, { type: mimeType });
+        audioEl.src = URL.createObjectURL(recordedBlob);
+        playbackEl.classList.remove("hidden");
+        recordBtn.textContent = "🎙 Начать запись";
+        recordBtn.classList.remove("recording");
+      };
+      mediaRecorder.start(100);
+      recordBtn.textContent = "⏹ Стоп";
+      recordBtn.classList.add("recording");
+      timerEl.classList.remove("hidden");
+      waveEl.classList.remove("hidden");
+      startTimer();
+    } catch (err) {
+      out.innerHTML = `<div class="error">Нет доступа к микрофону: ${escapeHtml(err.message)}</div>`;
+    }
+  });
+
+  redoBtn?.addEventListener("click", resetUI);
+
+  sendBtn?.addEventListener("click", async () => {
+    if (!recordedBlob) return;
+    out.innerHTML = `<div class="spinner">Whisper слушает… затем AI строит промпт…</div>`;
+    sendBtn.disabled = true;
+    try {
+      const fd = new FormData();
+      fd.append("audio", recordedBlob, "memo.webm");
+      const data = await aiCall("/api/ai/voice-memo", { method: "POST", body: fd });
+      if (!data.ok) throw new Error(data.error);
+      out.innerHTML = `
+        <div class="ai-result">
+          <div class="ai-atmo"><strong>Я услышал:</strong> ${escapeHtml(data.transcript)}</div>
+          <div class="ai-prompt-box">
+            <div class="prompt-label">Suno-промпт</div>
+            <div class="prompt">${escapeHtml(data.prompt)}</div>
+            <button class="copy" data-prompt="${escapeAttr(data.prompt)}">Copy</button>
+          </div>
+          <div class="ai-meta">
+            ${data.bpm ? `<span class="tag">${data.bpm} BPM</span>` : ""}
+            ${data.key ? `<span class="tag">${escapeHtml(data.key)}</span>` : ""}
+            ${data.era ? `<span class="tag">${escapeHtml(data.era)}</span>` : ""}
+            ${data.vocals ? `<span class="tag">vocal: ${escapeHtml(data.vocals)}</span>` : ""}
+            ${(data.mood || []).map((m) => `<span class="tag mood">${escapeHtml(m)}</span>`).join("")}
+            ${(data.instruments || []).map((i) => `<span class="tag inst">${escapeHtml(i)}</span>`).join("")}
+          </div>
+        </div>`;
+      wireCopyButtons(out);
+    } catch (err) {
+      out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+    } finally { sendBtn.disabled = false; }
+  });
+})();
+
 /* ---------- AI Lab ---------- */
 function unlockHeader() {
   const tok = localStorage.getItem(UNLOCK_KEY);

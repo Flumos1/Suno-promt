@@ -12,7 +12,7 @@ import {
 import { aiEnabled, activeProvider, aiArtistCard, aiPromptFromAnalysis } from "./lib/aiProvider.js";
 import { extractAudioMeta, promptFromMeta, closestFromMeta } from "./lib/audioAnalyzer.js";
 import { buildSongStructure, aiSongStructure, buildLyricSkeleton, aiLyrics } from "./lib/songTools.js";
-import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt } from "./lib/aiFeatures.js";
+import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt } from "./lib/aiFeatures.js";
 import { aiRateLimit } from "./lib/rateLimit.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -227,6 +227,21 @@ app.post("/api/ai/scene-to-score", aiRateLimit, async (req, res) => {
   } catch (err) {
     console.error("[scene]", err.message);
     res.status(500).json({ ok: false, error: "Scoring failed" });
+  }
+});
+
+app.post("/api/ai/voice-memo", aiRateLimit, upload.single("audio"), async (req, res) => {
+  if (!req.file?.buffer) return res.status(400).json({ ok: false, error: "No audio uploaded" });
+  const mt = req.file.mimetype || "audio/webm";
+  if (req.file.size > 25 * 1024 * 1024) {
+    return res.status(400).json({ ok: false, error: "Audio too large (max 25MB)" });
+  }
+  try {
+    const result = await voiceMemoToPrompt(req.file.buffer, mt, req.file.originalname);
+    res.json(result);
+  } catch (err) {
+    console.error("[voice-memo]", err.message);
+    res.status(500).json({ ok: false, error: "Voice processing failed" });
   }
 });
 

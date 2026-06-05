@@ -242,6 +242,37 @@ button.small { padding: 8px 14px; font-size: 13px; }
 .foot { margin-top: 54px; text-align: center; color: var(--muted); font-size: 12px; }
 .foot span { color: var(--neon2); }
 
+/* ── Voice Memo ─────────────────────────────────────────────────────── */
+.voice-controls { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 14px 0; }
+.voice-btn {
+  padding: 12px 24px; border-radius: 999px; border: 2px solid var(--neon2);
+  background: transparent; color: var(--neon2); font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+.voice-btn:hover { background: rgba(255,184,108,0.12); }
+.voice-btn.recording {
+  background: rgba(255,80,80,0.15); border-color: #ff5555; color: #ff5555;
+  animation: pulse-border 1s infinite;
+}
+@keyframes pulse-border {
+  0%,100% { box-shadow: 0 0 0 0 rgba(255,85,85,0.4); }
+  50%      { box-shadow: 0 0 0 6px rgba(255,85,85,0); }
+}
+.voice-timer { color: #ff5555; font-size: 14px; font-weight: 600; }
+.voice-wave { display: flex; align-items: center; gap: 3px; height: 24px; }
+.voice-wave span {
+  display: block; width: 4px; background: var(--neon2); border-radius: 2px;
+  animation: wave-bar 0.6s ease-in-out infinite alternate;
+}
+.voice-wave span:nth-child(1) { animation-delay: 0s;   height: 8px; }
+.voice-wave span:nth-child(2) { animation-delay: 0.1s; height: 18px; }
+.voice-wave span:nth-child(3) { animation-delay: 0.2s; height: 12px; }
+.voice-wave span:nth-child(4) { animation-delay: 0.3s; height: 20px; }
+.voice-wave span:nth-child(5) { animation-delay: 0.4s; height: 10px; }
+@keyframes wave-bar { from { transform: scaleY(0.4); } to { transform: scaleY(1); } }
+.voice-actions { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+#voice-audio { width: 100%; border-radius: 8px; margin-top: 10px; }
+
 /* ── AI Lab ─────────────────────────────────────────────────────────── */
 .ai-card {
   background: rgba(255,255,255,0.02);

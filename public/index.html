@@ -161,6 +161,26 @@
       <p class="sub">Three AI-powered tools. Free tier — 3 запроса в сутки на IP. Unlock-код снимает лимит.</p>
       <div id="ailab-quota" class="quota-pill"></div>
 
+      <div class="ai-card" id="voice-card">
+        <h2>🎙 Voice Memo → Prompt</h2>
+        <p class="sub">Говори — получай промпт. Опиши голосом что хочешь создать: жанр, настроение, инструменты, эпоха. Whisper + AI соберут Suno-промпт за секунды.</p>
+        <div class="voice-controls">
+          <button id="voice-record-btn" class="voice-btn">🎙 Начать запись</button>
+          <div id="voice-timer" class="voice-timer hidden">⏺ <span id="voice-sec">0</span>s</div>
+          <div id="voice-wave" class="voice-wave hidden">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div id="voice-playback" class="hidden">
+          <audio id="voice-audio" controls></audio>
+          <div class="voice-actions">
+            <button id="voice-send-btn" class="primary">✨ Создать промпт</button>
+            <button id="voice-redo-btn" class="ghost">🔄 Перезаписать</button>
+          </div>
+        </div>
+        <div id="voice-out" class="output"></div>
+      </div>
+
       <div class="ai-card">
         <h2>🎭 Mood from Image</h2>
         <p class="sub">Brosь картинку, мем или скрин из фильма — Claude Vision расскажет как это звучит.</p>
