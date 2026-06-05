@@ -551,9 +551,9 @@ function download(name, text) {
   if (!btn) return;
 
   let selectedEra = "";
-  document.querySelectorAll(".tm-era").forEach((chip) => {
+  document.querySelectorAll(".era-chip").forEach((chip) => {
     chip.addEventListener("click", () => {
-      document.querySelectorAll(".tm-era").forEach((c) => c.classList.remove("active"));
+      document.querySelectorAll(".era-chip").forEach((c) => c.classList.remove("active"));
       chip.classList.add("active");
       selectedEra = chip.dataset.era;
     });

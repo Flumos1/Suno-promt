@@ -296,6 +296,13 @@ button.small { padding: 8px 14px; font-size: 13px; }
 .tm-inputs input[type=text] { width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.3); color: #e8e8e8; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px; font-family: inherit; font-size: 14px; }
 .tm-eras { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .tm-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.era-chip {
+  padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.04);
+  color: #ccc; cursor: pointer; transition: all 0.15s;
+}
+.era-chip:hover { border-color: var(--neon2); color: var(--neon2); }
+.era-chip.active { background: var(--neon2); color: #1a1a2e; border-color: var(--neon2); }
 .tm-headline { font-size: 18px; font-weight: 700; color: var(--neon2); margin-bottom: 8px; }
 .tm-split { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 4px; }
 @media (max-width: 520px) { .tm-split { grid-template-columns: 1fr; } }
