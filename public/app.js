@@ -542,6 +542,125 @@ function download(name, text) {
   }
 })();
 
+/* ---------- AI Lab — Style Time Machine ---------- */
+(function () {
+  const artistInput = $("#tm-artist");
+  const noteInput = $("#tm-note");
+  const btn = $("#tm-btn");
+  const out = $("#tm-out");
+  if (!btn) return;
+
+  let selectedEra = "";
+  document.querySelectorAll(".tm-era").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      document.querySelectorAll(".tm-era").forEach((c) => c.classList.remove("active"));
+      chip.classList.add("active");
+      selectedEra = chip.dataset.era;
+    });
+  });
+
+  btn.addEventListener("click", async () => {
+    const artist = artistInput.value.trim();
+    if (!artist) { out.innerHTML = `<div class="error">Введи имя артиста</div>`; return; }
+    if (!selectedEra) { out.innerHTML = `<div class="error">Выбери эпоху</div>`; return; }
+    out.innerHTML = `<div class="spinner">Машина времени запущена… Claude переносит ${escapeHtml(artist)} в ${escapeHtml(selectedEra)}…</div>`;
+    btn.disabled = true;
+    try {
+      const data = await aiCall("/api/ai/time-machine", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ artist, era: selectedEra, note: noteInput.value.trim() || undefined })
+      });
+      if (!data.ok) throw new Error(data.error);
+      out.innerHTML = renderTimeMachine(data);
+      wireCopyButtons(out);
+      out.querySelectorAll(".gen-track-btn").forEach((b) =>
+        b.addEventListener("click", () => openGenModal(b.dataset.prompt, b.dataset.name)));
+    } catch (err) {
+      out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+    } finally { btn.disabled = false; }
+  });
+
+  function renderTimeMachine(d) {
+    return `<div class="ai-result">
+      <div class="tm-headline">${escapeHtml(d.artist)} × ${escapeHtml(d.targetEra)}</div>
+      <div class="ai-atmo"><strong>Концепция:</strong> ${escapeHtml(d.concept)}</div>
+      <div class="ai-prompt-box">
+        <div class="prompt-label">Suno-промпт</div>
+        <div class="prompt">${escapeHtml(d.prompt)}</div>
+        <div class="card-actions">
+          <button class="copy" data-prompt="${escapeAttr(d.prompt)}">Copy</button>
+          ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(d.prompt)}" data-name="${escapeAttr(d.artist + " × " + d.targetEra)}">🎵 Создать трек</button>` : ""}
+        </div>
+      </div>
+      <div class="tm-split">
+        <div>
+          <div class="prompt-label">Из эпохи ${escapeHtml(d.targetEra)}</div>
+          ${d.eraInstruments.map((i) => `<span class="tag inst">${escapeHtml(i)}</span>`).join(" ")}
+          ${d.eraProduction ? `<div class="muted" style="font-size:12px;margin-top:6px">${escapeHtml(d.eraProduction)}</div>` : ""}
+        </div>
+        <div>
+          <div class="prompt-label">Сохранено от ${escapeHtml(d.artist)}</div>
+          ${d.retainedFromArtist.map((r) => `<span class="tag mood">${escapeHtml(r)}</span>`).join(" ")}
+        </div>
+      </div>
+      <div class="ai-meta">
+        ${d.bpm ? `<span class="tag">${d.bpm} BPM</span>` : ""}
+        ${d.key ? `<span class="tag">${escapeHtml(d.key)}</span>` : ""}
+        ${d.mood.map((m) => `<span class="tag mood">${escapeHtml(m)}</span>`).join("")}
+      </div>
+    </div>`;
+  }
+})();
+
+/* ---------- AI Lab — Lyrics Sync Conductor ---------- */
+(function () {
+  const lyricsInput = $("#ls-lyrics");
+  const styleInput = $("#ls-style");
+  const btn = $("#ls-btn");
+  const out = $("#ls-out");
+  if (!btn) return;
+
+  btn.addEventListener("click", async () => {
+    const lyrics = lyricsInput.value.trim();
+    if (!lyrics) { out.innerHTML = `<div class="error">Вставь лирику</div>`; return; }
+    out.innerHTML = `<div class="spinner">Дирижирую эмоциональным арком…</div>`;
+    btn.disabled = true;
+    try {
+      const data = await aiCall("/api/ai/lyrics-sync", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ lyrics, style: styleInput.value.trim() || undefined })
+      });
+      if (!data.ok) throw new Error(data.error);
+      out.innerHTML = renderLyricsSync(data);
+      wireCopyButtons(out);
+    } catch (err) {
+      out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+    } finally { btn.disabled = false; }
+  });
+
+  function renderLyricsSync(d) {
+    return `<div class="ai-result">
+      <div class="ai-prompt-box">
+        <div class="prompt-label">Лирика с тегами <span class="ok">· ${d.tagsAdded.length} тегов добавлено</span></div>
+        <pre class="prompt struct">${escapeHtml(d.tagged)}</pre>
+        <button class="copy" data-prompt="${escapeAttr(d.tagged)}">Copy в Suno</button>
+      </div>
+      ${d.tagsAdded.length ? `
+      <div class="ls-tags-list">
+        <div class="prompt-label">Что и почему</div>
+        ${d.tagsAdded.map((t) => `
+          <div class="ls-tag-row">
+            <code class="ls-tag-name">${escapeHtml(t.tag)}</code>
+            <span class="ls-tag-why">${escapeHtml(t.why || "")}</span>
+          </div>`).join("")}
+      </div>` : ""}
+      ${d.tip ? `<div class="dna-note">💡 ${escapeHtml(d.tip)}</div>` : ""}
+    </div>`;
+  }
+})();
+
 /* ---------- AI Lab — Track DNA Decoder ---------- */
 (function () {
   const dz = $("#dna-dropzone");

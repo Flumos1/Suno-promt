@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SiliconSense — Suno AI Prompt Catalog</title>
-  <link rel="stylesheet" href="styles.css?v=9" />
+  <link rel="stylesheet" href="styles.css?v=10" />
 </head>
 <body>
   <div class="bg-grid"></div>
@@ -210,6 +210,39 @@
         <div id="voice-out" class="output"></div>
       </div>
 
+      <div class="ai-card" id="tm-card">
+        <h2>🕰 Style Time Machine</h2>
+        <p class="sub">Как звучал бы [артист] в [эпоху]? Drake в 1975? Кино в эпоху витч-хауса? Сигнатура артиста × продакшн другого времени.</p>
+        <div class="tm-inputs">
+          <input id="tm-artist" type="text" placeholder="Артист: Drake, Кино, Nirvana, Алла Пугачёва…" />
+          <div class="tm-eras">
+            <span class="tm-label">Эпоха:</span>
+            <div class="chiprow" id="tm-era-chips">
+              <button class="fchip tm-era" data-era="1950s">1950s</button>
+              <button class="fchip tm-era" data-era="1960s">1960s</button>
+              <button class="fchip tm-era" data-era="1970s">1970s</button>
+              <button class="fchip tm-era" data-era="1980s">1980s</button>
+              <button class="fchip tm-era" data-era="1990s">1990s</button>
+              <button class="fchip tm-era" data-era="2000s">2000s</button>
+              <button class="fchip tm-era" data-era="2010s">2010s</button>
+              <button class="fchip tm-era" data-era="2020s">2020s</button>
+            </div>
+          </div>
+          <input id="tm-note" type="text" placeholder="Доп. контекст (опционально): dark ambient, lo-fi, USSR…" />
+        </div>
+        <button id="tm-btn" class="primary">🕰 Перенести в эпоху</button>
+        <div id="tm-out" class="output"></div>
+      </div>
+
+      <div class="ai-card" id="ls-card">
+        <h2>🎼 Lyrics Sync Conductor</h2>
+        <p class="sub">Вставь лирику — AI расставит Suno inline-теги <code>[High Energy]</code> <code>[Vocal: raspy]</code> <code>[Drop]</code> в нужных местах по эмоциональному арку. Inline-теги работают в 10× сильнее style-поля.</p>
+        <input id="ls-style" type="text" placeholder="Жанр / стиль (опционально): dark pop, Russian rock, trap…" />
+        <textarea id="ls-lyrics" rows="8" placeholder="[Verse 1]&#10;Вставь сюда лирику с секциями...&#10;&#10;[Chorus]&#10;..."></textarea>
+        <button id="ls-btn" class="primary">🎼 Расставить теги</button>
+        <div id="ls-out" class="output"></div>
+      </div>
+
       <div class="ai-card" id="dna-card">
         <h2>🔬 Track DNA Decoder</h2>
         <p class="sub">Загрузи любой MP3/WAV — Whisper расшифрует лирику, AI определит эру, жанр, инструменты, продакшн и найдёт 3 ближайших артиста из 747 в каталоге. Плюс готовый Suno-промпт.</p>
@@ -287,6 +320,6 @@
     <footer class="foot">SiliconSense-style demo · <span id="foot-engine">template engine</span> · catalog of <span id="foot-count">…</span> styles</footer>
   </main>
 
-  <script src="app.js?v=9"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>

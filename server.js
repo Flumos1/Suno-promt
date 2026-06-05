@@ -12,7 +12,7 @@ import {
 import { aiEnabled, activeProvider, aiArtistCard, aiPromptFromAnalysis } from "./lib/aiProvider.js";
 import { extractAudioMeta, promptFromMeta, closestFromMeta } from "./lib/audioAnalyzer.js";
 import { buildSongStructure, aiSongStructure, buildLyricSkeleton, aiLyrics } from "./lib/songTools.js";
-import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite, decodeDNA, transcribeAudio } from "./lib/aiFeatures.js";
+import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite, decodeDNA, transcribeAudio, styleTimeMachine, lyricsSyncConduct } from "./lib/aiFeatures.js";
 import { aiRateLimit } from "./lib/rateLimit.js";
 import { ttapiEnabled, submitMusic, fetchJob } from "./lib/ttapi.js";
 
@@ -234,6 +234,33 @@ app.post("/api/ai/scene-to-score", aiRateLimit, async (req, res) => {
 // ─── Real Suno track generation (TTAPI) ──────────────────────────────────
 // Submit returns a jobId; the client polls /api/ai/track-status. We keep the
 // HTTP requests short (no long-held connection) since Render may time out.
+
+app.post("/api/ai/time-machine", aiRateLimit, async (req, res) => {
+  const artist = String(req.body?.artist || "").trim();
+  const era = String(req.body?.era || "").trim();
+  if (!artist || !era) return res.status(400).json({ ok: false, error: "artist and era required" });
+  try {
+    const result = await styleTimeMachine(artist, era, { note: req.body?.note });
+    res.json(result);
+  } catch (err) {
+    console.error("[time-machine]", err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+app.post("/api/ai/lyrics-sync", aiRateLimit, async (req, res) => {
+  const lyrics = String(req.body?.lyrics || "").trim();
+  const style = String(req.body?.style || "").trim();
+  if (!lyrics) return res.status(400).json({ ok: false, error: "lyrics required" });
+  if (lyrics.length > 5000) return res.status(400).json({ ok: false, error: "lyrics too long (max 5000)" });
+  try {
+    const result = await lyricsSyncConduct(lyrics, style);
+    res.json(result);
+  } catch (err) {
+    console.error("[lyrics-sync]", err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
 
 // Track DNA Decoder — full analysis: metadata + Whisper + Claude report + catalog match
 app.post("/api/ai/dna-decode", aiRateLimit, upload.single("file"), async (req, res) => {
