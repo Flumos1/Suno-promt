@@ -5484,5 +5484,3879 @@
     ],
     "free": false,
     "isNew": false
+  },
+  {
+    "id": "en-ed-sheeran",
+    "name": "Ed Sheeran",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Pop",
+    "subgenre": "pop folk / acoustic pop",
+    "era": "2010s",
+    "mood": [
+      "warm",
+      "heartfelt"
+    ],
+    "bpm": 87,
+    "key": "G major",
+    "vocals": "intimate tenor with loop-station delivery",
+    "prompt": "2010s pop folk (pop), intimate tenor with loop-station delivery, English-language vocals, acoustic guitar, light percussion, warm production, heartfelt mood, fits a wedding playlist, 87 BPM, G major",
+    "tags": [
+      "pop",
+      "pop folk",
+      "2010s",
+      "warm",
+      "heartfelt"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "en-elton-john",
+    "name": "Elton John",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Pop",
+    "subgenre": "glam pop / piano rock",
+    "era": "1970s",
+    "mood": [
+      "flamboyant",
+      "sentimental"
+    ],
+    "bpm": 120,
+    "key": "B-flat major",
+    "vocals": "theatrical high tenor",
+    "prompt": "1970s glam pop (pop), theatrical high tenor, English-language vocals, grand piano, orchestral strings, gospel choir, lush production, flamboyant and sentimental mood, fits a classics playlist, 120 BPM, B-flat major",
+    "tags": [
+      "pop",
+      "glam pop",
+      "1970s",
+      "flamboyant",
+      "sentimental"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "en-frank-sinatra",
+    "name": "Frank Sinatra",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Jazz",
+    "subgenre": "traditional pop / swing",
+    "era": "1950s",
+    "mood": [
+      "smooth",
+      "nostalgic"
+    ],
+    "bpm": 126,
+    "key": "C major",
+    "vocals": "velvety baritone crooner",
+    "prompt": "1950s traditional pop (jazz), velvety baritone crooner, English-language vocals, big band brass, lush string arrangements, brushed snare, warm tape compression, smooth and nostalgic mood, fits a lounge playlist, 126 BPM, C major",
+    "tags": [
+      "jazz",
+      "traditional pop",
+      "1950s",
+      "smooth",
+      "nostalgic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "en-imagine-dragons",
+    "name": "Imagine Dragons",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Rock",
+    "subgenre": "arena pop-rock",
+    "era": "2010s",
+    "mood": [
+      "epic",
+      "anthemic"
+    ],
+    "bpm": 120,
+    "key": "C major",
+    "vocals": "gravelly pop tenor",
+    "prompt": "2010s arena pop-rock (rock), gravelly pop tenor, English-language vocals, electronic drum machines, massive walls of synth, heavy low-end, epic and anthemic mood, fits a cinematic trailer playlist, 120 BPM, C major",
+    "tags": [
+      "rock",
+      "arena pop-rock",
+      "2010s",
+      "epic",
+      "anthemic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "en-linkin-park",
+    "name": "Linkin Park",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Rock",
+    "subgenre": "nu-metal / alternative rock",
+    "era": "2000s",
+    "mood": [
+      "angst",
+      "intense"
+    ],
+    "bpm": 144,
+    "key": "D minor",
+    "vocals": "dual vocal (rap + singing)",
+    "prompt": "2000s nu-metal (rock), dual vocal (rap + singing), English-language vocals, down-tuned guitars, electronic elements, heavy drop beats, emotional and intense mood, fits a gym playlist, 144 BPM, D minor",
+    "tags": [
+      "rock",
+      "nu-metal",
+      "2000s",
+      "angst",
+      "intense"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "en-travis-scott",
+    "name": "Travis Scott",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Hip-hop",
+    "subgenre": "trap / psychedelic rap",
+    "era": "2010s",
+    "mood": [
+      "hazy",
+      "hypnotic"
+    ],
+    "bpm": 140,
+    "key": "F minor",
+    "vocals": "auto-tuned melodic rapper",
+    "prompt": "2010s trap (hip-hop), auto-tuned melodic rapper, English-language vocals, ominous 808 slides, hi-hat rolls, atmospheric synth pads, hazy and hypnotic mood, fits a late-night trap playlist, 140 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "trap",
+      "2010s",
+      "hazy",
+      "hypnotic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "en-post-malone",
+    "name": "Post Malone",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Hip-hop",
+    "subgenre": "emo rap / pop rap",
+    "era": "2010s",
+    "mood": [
+      "melancholic",
+      "laid-back"
+    ],
+    "bpm": 145,
+    "key": "G minor",
+    "vocals": "melodic tattooed rock-rapper",
+    "prompt": "2010s emo rap (hip-hop), melodic tattooed rock-rapper, English-language vocals, trap hi-hats, distorted guitar samples, watery reverb, melancholic and laid-back mood, fits a chill trap playlist, 145 BPM, G minor",
+    "tags": [
+      "hip-hop",
+      "emo rap",
+      "2010s",
+      "melancholic",
+      "laid-back"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "en-drake",
+    "name": "Drake",
+    "language": "en",
+    "languageLabel": "Зарубежные",
+    "genre": "Hip-hop",
+    "subgenre": "rap / melodic hip-hop",
+    "era": "2010s",
+    "mood": [
+      "introspective",
+      "smooth"
+    ],
+    "bpm": 140,
+    "key": "A minor",
+    "vocals": "half-sung half-rapped tenor",
+    "prompt": "2010s melodic hip-hop (hip-hop), half-sung half-rapped tenor, English-language vocals, sample-heavy beats, lush 808s, atmospheric pads, introspective and smooth mood, fits a late-night playlist, 140 BPM, A minor",
+    "tags": [
+      "hip-hop",
+      "melodic hip-hop",
+      "2010s",
+      "introspective",
+      "smooth"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ru-face",
+    "name": "FACE",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Hip-hop",
+    "subgenre": "трэп / эмо-рэп",
+    "era": "2010s",
+    "mood": [
+      "melancholic",
+      "underground"
+    ],
+    "bpm": 140,
+    "key": "C minor",
+    "vocals": "монотонный трэп-рэпер",
+    "prompt": "2010s Russian emo trap (hip-hop), monotone trap rapper, Russian-language vocals, dark 808s, lo-fi samples, melancholic mood, fits an underground Russian hip-hop playlist, 140 BPM, C minor",
+    "tags": [
+      "hip-hop",
+      "трэп",
+      "2010s",
+      "melancholic",
+      "underground"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ru-shaman",
+    "name": "SHAMAN",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Pop",
+    "subgenre": "патриотичный поп-рок",
+    "era": "2020s",
+    "mood": [
+      "epic",
+      "patriotic"
+    ],
+    "bpm": 118,
+    "key": "B-flat major",
+    "vocals": "драматичный тенор",
+    "prompt": "2020s patriotic pop-rock (pop), dramatic tenor, Russian-language vocals, soaring strings, anthemic guitars, stadium production, epic and patriotic mood, fits an inspirational Russian playlist, 118 BPM, B-flat major",
+    "tags": [
+      "pop",
+      "патриотичный",
+      "2020s",
+      "epic",
+      "patriotic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ru-nautilus",
+    "name": "Nautilus Pompilius",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Rock",
+    "subgenre": "арт-рок / советский рок",
+    "era": "1980s",
+    "mood": [
+      "existential",
+      "gloomy"
+    ],
+    "bpm": 108,
+    "key": "E minor",
+    "vocals": "низкий интеллектуальный баритон",
+    "prompt": "1980s Soviet art-rock (rock), low intellectual baritone, Russian-language vocals, dark synths, jangly guitar, minimalist production, existential and gloomy mood, fits a philosophical rock playlist, 108 BPM, E minor",
+    "tags": [
+      "rock",
+      "арт-рок",
+      "1980s",
+      "existential",
+      "gloomy"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ru-alisher",
+    "name": "Alisher",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Hip-hop",
+    "subgenre": "меланхоличный рэп",
+    "era": "2010s",
+    "mood": [
+      "melancholic",
+      "intimate"
+    ],
+    "bpm": 92,
+    "key": "A minor",
+    "vocals": "мягкий задумчивый рэп-тенор",
+    "prompt": "2010s melancholic rap (hip-hop), soft pensive rap tenor, Russian-language vocals, jazz piano loops, slow trap drums, intimate mood, fits a sad boy playlist, 92 BPM, A minor",
+    "tags": [
+      "hip-hop",
+      "меланхоличный рэп",
+      "2010s",
+      "melancholic",
+      "intimate"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ru-lyube",
+    "name": "Любэ",
+    "language": "ru",
+    "languageLabel": "Русские",
+    "genre": "Rock",
+    "subgenre": "русский рок / шансон-рок",
+    "era": "1990s",
+    "mood": [
+      "patriotic",
+      "nostalgic"
+    ],
+    "bpm": 118,
+    "key": "G major",
+    "vocals": "хриплый народный тенор",
+    "prompt": "1990s Russian rock (rock), rough folk-inflected tenor, Russian-language vocals, accordion elements, electric guitar, marching drums, patriotic and nostalgic mood, fits a Russian folk-rock playlist, 118 BPM, G major",
+    "tags": [
+      "rock",
+      "шансон-рок",
+      "1990s",
+      "patriotic",
+      "nostalgic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-fairuz",
+    "name": "Fairuz",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Classical",
+    "subgenre": "Arabic classical / maqam",
+    "era": "1950s",
+    "mood": [
+      "ethereal",
+      "sorrowful"
+    ],
+    "bpm": 80,
+    "key": "Maqam Rast",
+    "vocals": "angelic crystalline soprano",
+    "prompt": "1950s Arabic classical (classical), angelic crystalline soprano, Arabic-language vocals, oud, qanun, Arabic percussion (tabla), lush orchestral strings, ethereal and sorrowful mood, fits a Middle Eastern classics playlist, 80 BPM, Maqam Rast",
+    "tags": [
+      "classical",
+      "Arabic classical",
+      "1950s",
+      "ethereal",
+      "sorrowful"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "ar-amr-diab",
+    "name": "Amr Diab",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Pop",
+    "subgenre": "Mediterranean pop / shaabi",
+    "era": "1990s",
+    "mood": [
+      "romantic",
+      "summery"
+    ],
+    "bpm": 118,
+    "key": "Maqam Bayati",
+    "vocals": "smooth romantic tenor",
+    "prompt": "1990s Mediterranean pop (pop), smooth romantic tenor, Arabic-language vocals, electric bouzouki, synth pads, light percussion, romantic and summery mood, fits a beach playlist, 118 BPM, Maqam Bayati",
+    "tags": [
+      "pop",
+      "Mediterranean pop",
+      "1990s",
+      "romantic",
+      "summery"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "ar-nancy-ajram",
+    "name": "Nancy Ajram",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Pop",
+    "subgenre": "Arabic pop",
+    "era": "2000s",
+    "mood": [
+      "playful",
+      "sensual"
+    ],
+    "bpm": 122,
+    "key": "Maqam Hijaz",
+    "vocals": "bright bubbly soprano",
+    "prompt": "2000s Arabic pop (pop), bright bubbly soprano, Arabic-language vocals, digital tabla, synth bass, catchy hooks, playful and sensual mood, fits an Arabic pop playlist, 122 BPM, Maqam Hijaz",
+    "tags": [
+      "pop",
+      "Arabic pop",
+      "2000s",
+      "playful",
+      "sensual"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-elissa",
+    "name": "Elissa",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Pop",
+    "subgenre": "Lebanese pop",
+    "era": "2000s",
+    "mood": [
+      "emotional",
+      "romantic"
+    ],
+    "bpm": 100,
+    "key": "Maqam Kurd",
+    "vocals": "tender emotional soprano",
+    "prompt": "2000s Lebanese pop (pop), tender emotional soprano, Arabic-language vocals, orchestral strings, piano, light electronic beats, emotional and romantic mood, fits a sad Arabic playlist, 100 BPM, Maqam Kurd",
+    "tags": [
+      "pop",
+      "Lebanese pop",
+      "2000s",
+      "emotional",
+      "romantic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-umm-kulthum",
+    "name": "Umm Kulthum",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Classical",
+    "subgenre": "Egyptian classical / tarab",
+    "era": "1940s",
+    "mood": [
+      "transcendent",
+      "mournful"
+    ],
+    "bpm": 60,
+    "key": "Maqam Sikah",
+    "vocals": "legendary contralto with microtonal ornaments",
+    "prompt": "1940s Egyptian classical (classical), legendary contralto with microtonal ornaments, Arabic-language vocals, orchestral takht ensemble, long improvised phrases, transcendent and mournful mood, fits a tarab meditation playlist, 60 BPM, Maqam Sikah",
+    "tags": [
+      "classical",
+      "Egyptian classical",
+      "1940s",
+      "transcendent",
+      "mournful"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "ar-kadim-al-saher",
+    "name": "Kadim Al Saher",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Pop",
+    "subgenre": "Iraqi classical pop",
+    "era": "1990s",
+    "mood": [
+      "romantic",
+      "grand"
+    ],
+    "bpm": 90,
+    "key": "Maqam Rast",
+    "vocals": "theatrical lyrical tenor",
+    "prompt": "1990s Iraqi classical pop (pop), theatrical lyrical tenor, Arabic-language vocals, symphonic orchestra, poetic lyrics delivery, romantic and grand mood, fits an Arabic classics playlist, 90 BPM, Maqam Rast",
+    "tags": [
+      "pop",
+      "Iraqi classical pop",
+      "1990s",
+      "romantic",
+      "grand"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-fadel-shaker",
+    "name": "Fadel Shaker",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Pop",
+    "subgenre": "Lebanese pop / tarab",
+    "era": "2000s",
+    "mood": [
+      "emotive",
+      "melancholic"
+    ],
+    "bpm": 95,
+    "key": "Maqam Hijaz",
+    "vocals": "silky emotional tenor",
+    "prompt": "2000s Lebanese pop (pop), silky emotional tenor, Arabic-language vocals, violin-heavy orchestration, light synth, melancholic mood, fits a romantic Arabic playlist, 95 BPM, Maqam Hijaz",
+    "tags": [
+      "pop",
+      "Lebanese pop",
+      "2000s",
+      "emotive",
+      "melancholic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-tamer-hosny",
+    "name": "Tamer Hosny",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Pop",
+    "subgenre": "Egyptian pop / R&B",
+    "era": "2000s",
+    "mood": [
+      "smooth",
+      "youthful"
+    ],
+    "bpm": 108,
+    "key": "Maqam Bayati",
+    "vocals": "smooth youthful tenor",
+    "prompt": "2000s Egyptian pop (pop), smooth youthful tenor, Arabic-language vocals, pop production with Arabic scales, R&B beats, smooth mood, fits a youth Arabic playlist, 108 BPM, Maqam Bayati",
+    "tags": [
+      "pop",
+      "Egyptian pop",
+      "2000s",
+      "smooth",
+      "youthful"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-majida-el-roumi",
+    "name": "Majida El Roumi",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Classical",
+    "subgenre": "Arabic art song",
+    "era": "1980s",
+    "mood": [
+      "majestic",
+      "lyrical"
+    ],
+    "bpm": 75,
+    "key": "Maqam Nahawand",
+    "vocals": "majestic lyric soprano",
+    "prompt": "1980s Arabic art song (classical), majestic lyric soprano, Arabic-language vocals, full orchestra, poetry settings, majestic and lyrical mood, fits a literary Arabic playlist, 75 BPM, Maqam Nahawand",
+    "tags": [
+      "classical",
+      "Arabic art song",
+      "1980s",
+      "majestic",
+      "lyrical"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-ragheb-alama",
+    "name": "Ragheb Alama",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Pop",
+    "subgenre": "Lebanese pop",
+    "era": "1990s",
+    "mood": [
+      "festive",
+      "charming"
+    ],
+    "bpm": 120,
+    "key": "Maqam Ajam",
+    "vocals": "charming baritone with Lebanese flair",
+    "prompt": "1990s Lebanese pop (pop), charming baritone with Lebanese flair, Arabic-language vocals, dabke-influenced rhythms, festive production, fits a wedding playlist, 120 BPM, Maqam Ajam",
+    "tags": [
+      "pop",
+      "Lebanese pop",
+      "1990s",
+      "festive",
+      "charming"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-sabah-fakhri",
+    "name": "Sabah Fakhri",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Classical",
+    "subgenre": "Syrian muwashshah / tarab",
+    "era": "1960s",
+    "mood": [
+      "ecstatic",
+      "ornate"
+    ],
+    "bpm": 70,
+    "key": "Maqam Bayati",
+    "vocals": "ornate maqam tenor with waslah delivery",
+    "prompt": "1960s Syrian classical (classical), ornate maqam tenor, Arabic-language vocals, Arabic ensemble, complex rhythmic cycles, ecstatic and ornate mood, fits a Sufi-leaning playlist, 70 BPM, Maqam Bayati",
+    "tags": [
+      "classical",
+      "muwashshah",
+      "1960s",
+      "ecstatic",
+      "ornate"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-balqees",
+    "name": "Balqees",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Pop",
+    "subgenre": "Gulf pop / khaleeji",
+    "era": "2010s",
+    "mood": [
+      "empowering",
+      "modern"
+    ],
+    "bpm": 115,
+    "key": "Maqam Rast",
+    "vocals": "confident modern soprano",
+    "prompt": "2010s Gulf pop (pop), confident modern soprano, Arabic-language vocals, khaleeji rhythms, modern production, empowering mood, fits a contemporary Arabic playlist, 115 BPM, Maqam Rast",
+    "tags": [
+      "pop",
+      "khaleeji",
+      "2010s",
+      "empowering",
+      "modern"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-hussein-al-jasmi",
+    "name": "Hussein Al Jasmi",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Pop",
+    "subgenre": "Emirati pop / khaleeji",
+    "era": "2000s",
+    "mood": [
+      "warm",
+      "patriotic"
+    ],
+    "bpm": 110,
+    "key": "Maqam Hijaz",
+    "vocals": "warm khaleeji baritone",
+    "prompt": "2000s Emirati pop (pop), warm khaleeji baritone, Arabic-language vocals, tabl drums, khaleeji guitar patterns, warm and patriotic mood, fits a Gulf playlist, 110 BPM, Maqam Hijaz",
+    "tags": [
+      "pop",
+      "khaleeji",
+      "2000s",
+      "warm",
+      "patriotic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-wael-kfoury",
+    "name": "Wael Kfoury",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Pop",
+    "subgenre": "Lebanese romantic pop",
+    "era": "2000s",
+    "mood": [
+      "heartbreak",
+      "smooth"
+    ],
+    "bpm": 88,
+    "key": "Maqam Kurd",
+    "vocals": "smooth baritone romantic",
+    "prompt": "2000s Lebanese romantic pop (pop), smooth baritone, Arabic-language vocals, piano-led ballads, orchestral touches, heartbreak mood, fits a sad Arabic playlist, 88 BPM, Maqam Kurd",
+    "tags": [
+      "pop",
+      "Lebanese pop",
+      "2000s",
+      "heartbreak",
+      "smooth"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-assala",
+    "name": "Assala Nasri",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Pop",
+    "subgenre": "Syrian pop",
+    "era": "2000s",
+    "mood": [
+      "soulful",
+      "vivacious"
+    ],
+    "bpm": 112,
+    "key": "Maqam Bayati",
+    "vocals": "vivacious mezzo-soprano",
+    "prompt": "2000s Syrian pop (pop), vivacious mezzo-soprano, Arabic-language vocals, pop orchestration, soulful delivery, fits a lively Arabic playlist, 112 BPM, Maqam Bayati",
+    "tags": [
+      "pop",
+      "Syrian pop",
+      "2000s",
+      "soulful",
+      "vivacious"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-maher-zain",
+    "name": "Maher Zain",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Pop",
+    "subgenre": "Islamic nasheed pop",
+    "era": "2000s",
+    "mood": [
+      "spiritual",
+      "uplifting"
+    ],
+    "bpm": 100,
+    "key": "Maqam Rast",
+    "vocals": "pure clear tenor",
+    "prompt": "2000s nasheed pop (pop), pure clear tenor, multilingual vocals, acoustic guitars, light orchestration, spiritual and uplifting mood, fits a devotional playlist, 100 BPM, Maqam Rast",
+    "tags": [
+      "pop",
+      "nasheed",
+      "2000s",
+      "spiritual",
+      "uplifting"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-diana-haddad",
+    "name": "Diana Haddad",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Pop",
+    "subgenre": "Gulf pop",
+    "era": "2000s",
+    "mood": [
+      "energetic",
+      "danceable"
+    ],
+    "bpm": 126,
+    "key": "Maqam Ajam",
+    "vocals": "energetic soprano with khaleeji flair",
+    "prompt": "2000s Gulf pop (pop), energetic soprano, Arabic-language vocals, khaleeji dance beats, danceable mood, fits an Arabic party playlist, 126 BPM, Maqam Ajam",
+    "tags": [
+      "pop",
+      "Gulf pop",
+      "2000s",
+      "energetic",
+      "danceable"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-ali-deek",
+    "name": "Ali Deek",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Folk",
+    "subgenre": "Syrian folk / mawwal",
+    "era": "1980s",
+    "mood": [
+      "rustic",
+      "nostalgic"
+    ],
+    "bpm": 90,
+    "key": "Maqam Hijaz",
+    "vocals": "rustic mawwal baritone",
+    "prompt": "1980s Syrian folk (folk), rustic mawwal baritone, Arabic-language vocals, folk instruments, nostalgic rural mood, fits a Syrian heritage playlist, 90 BPM, Maqam Hijaz",
+    "tags": [
+      "folk",
+      "Syrian folk",
+      "1980s",
+      "rustic",
+      "nostalgic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-hamid-al-shaeri",
+    "name": "Hamid Al Shaeri",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Pop",
+    "subgenre": "Egyptian pop / shaabi",
+    "era": "1990s",
+    "mood": [
+      "groovy",
+      "urban"
+    ],
+    "bpm": 125,
+    "key": "Maqam Rast",
+    "vocals": "catchy urban tenor",
+    "prompt": "1990s Egyptian pop (pop), catchy urban tenor, Arabic-language vocals, shaabi percussion, synth bass, groovy and urban mood, fits a street Arabic playlist, 125 BPM, Maqam Rast",
+    "tags": [
+      "pop",
+      "shaabi",
+      "1990s",
+      "groovy",
+      "urban"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ar-kazem-al-saher-2",
+    "name": "Mohammed Abdo",
+    "language": "ar",
+    "languageLabel": "Арабские",
+    "genre": "Classical",
+    "subgenre": "Saudi classical / jeel",
+    "era": "1970s",
+    "mood": [
+      "stately",
+      "lyrical"
+    ],
+    "bpm": 80,
+    "key": "Maqam Rast",
+    "vocals": "stately lyric tenor",
+    "prompt": "1970s Saudi classical (classical), stately lyric tenor, Arabic-language vocals, oud, orchestral arrangement, stately and lyrical mood, fits a Gulf classics playlist, 80 BPM, Maqam Rast",
+    "tags": [
+      "classical",
+      "Saudi classical",
+      "1970s",
+      "stately",
+      "lyrical"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-jay-chou",
+    "name": "Jay Chou",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "mandopop / R&B",
+    "era": "2000s",
+    "mood": [
+      "romantic",
+      "creative"
+    ],
+    "bpm": 88,
+    "key": "G major",
+    "vocals": "smooth mid-range Mandarin tenor",
+    "prompt": "2000s mandopop (pop), smooth mid-range Mandarin tenor, Chinese-language vocals, piano, acoustic guitar, light R&B beats, creative and romantic mood, fits a Chinese pop classics playlist, 88 BPM, G major",
+    "tags": [
+      "pop",
+      "mandopop",
+      "2000s",
+      "romantic",
+      "creative"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "zh-teresa-teng",
+    "name": "Teresa Teng",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "classic mandopop",
+    "era": "1970s",
+    "mood": [
+      "gentle",
+      "nostalgic"
+    ],
+    "bpm": 88,
+    "key": "C major",
+    "vocals": "sweet crystalline soprano",
+    "prompt": "1970s classic mandopop (pop), sweet crystalline soprano, Chinese-language vocals, traditional Chinese instruments, orchestral strings, gentle and nostalgic mood, fits a vintage Chinese pop playlist, 88 BPM, C major",
+    "tags": [
+      "pop",
+      "classic mandopop",
+      "1970s",
+      "gentle",
+      "nostalgic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "zh-gem",
+    "name": "G.E.M.",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "pop rock / mandopop",
+    "era": "2010s",
+    "mood": [
+      "powerful",
+      "passionate"
+    ],
+    "bpm": 130,
+    "key": "A minor",
+    "vocals": "powerful rock soprano with emotional range",
+    "prompt": "2010s pop rock (pop), powerful rock soprano, Chinese-language vocals, electric guitar, driving drums, passionate mood, fits a Chinese rock playlist, 130 BPM, A minor",
+    "tags": [
+      "pop",
+      "pop rock",
+      "2010s",
+      "powerful",
+      "passionate"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-eason-chan",
+    "name": "Eason Chan",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "cantopop / mandopop",
+    "era": "2000s",
+    "mood": [
+      "versatile",
+      "melancholic"
+    ],
+    "bpm": 95,
+    "key": "E minor",
+    "vocals": "expressive baritone with wide range",
+    "prompt": "2000s cantopop (pop), expressive baritone, Cantonese/Mandarin vocals, piano ballads, R&B elements, versatile and melancholic mood, fits a HK pop playlist, 95 BPM, E minor",
+    "tags": [
+      "pop",
+      "cantopop",
+      "2000s",
+      "versatile",
+      "melancholic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "zh-faye-wong",
+    "name": "Faye Wong",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "dream pop / cantopop",
+    "era": "1990s",
+    "mood": [
+      "ethereal",
+      "indie"
+    ],
+    "bpm": 105,
+    "key": "D major",
+    "vocals": "dreamy atmospheric soprano",
+    "prompt": "1990s dream pop (pop), dreamy atmospheric soprano, Chinese-language vocals, alternative guitar textures, Cocteau Twins-influenced soundscapes, ethereal mood, fits a dream pop playlist, 105 BPM, D major",
+    "tags": [
+      "pop",
+      "dream pop",
+      "1990s",
+      "ethereal",
+      "indie"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-jacky-cheung",
+    "name": "Jacky Cheung",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "cantopop / ballad",
+    "era": "1990s",
+    "mood": [
+      "romantic",
+      "soulful"
+    ],
+    "bpm": 80,
+    "key": "F major",
+    "vocals": "golden age Canto baritone",
+    "prompt": "1990s cantopop (pop), golden age Canto baritone, Cantonese vocals, lush orchestration, sentimental ballads, romantic and soulful mood, fits a HK classics playlist, 80 BPM, F major",
+    "tags": [
+      "pop",
+      "cantopop",
+      "1990s",
+      "romantic",
+      "soulful"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-stefanie-sun",
+    "name": "Stefanie Sun",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "mandopop / folk pop",
+    "era": "2000s",
+    "mood": [
+      "warm",
+      "sincere"
+    ],
+    "bpm": 92,
+    "key": "C major",
+    "vocals": "warm girl-next-door soprano",
+    "prompt": "2000s mandopop (pop), warm sincere soprano, Chinese-language vocals, acoustic guitar, breezy production, fits a feel-good Chinese playlist, 92 BPM, C major",
+    "tags": [
+      "pop",
+      "mandopop",
+      "2000s",
+      "warm",
+      "sincere"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-a-mei",
+    "name": "A-Mei",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "mandopop / R&B soul",
+    "era": "2000s",
+    "mood": [
+      "powerful",
+      "tribal"
+    ],
+    "bpm": 118,
+    "key": "G minor",
+    "vocals": "powerful tribal-influenced belter",
+    "prompt": "2000s mandopop R&B (pop), powerful tribal-influenced belter, Chinese-language vocals, Aboriginal Taiwan influences, R&B production, powerful mood, fits a Chinese soul playlist, 118 BPM, G minor",
+    "tags": [
+      "pop",
+      "mandopop",
+      "2000s",
+      "powerful",
+      "tribal"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-jay-lin",
+    "name": "Hins Cheung",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "cantopop / R&B",
+    "era": "2000s",
+    "mood": [
+      "suave",
+      "urban"
+    ],
+    "bpm": 108,
+    "key": "A major",
+    "vocals": "suave urban cantopop tenor",
+    "prompt": "2000s cantopop (pop), suave urban tenor, Cantonese vocals, R&B production, smooth groove, fits a modern HK playlist, 108 BPM, A major",
+    "tags": [
+      "pop",
+      "cantopop",
+      "2000s",
+      "suave",
+      "urban"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-wang-fei",
+    "name": "Xu Wei",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Rock",
+    "subgenre": "Chinese indie rock",
+    "era": "1990s",
+    "mood": [
+      "raw",
+      "poetic"
+    ],
+    "bpm": 112,
+    "key": "E minor",
+    "vocals": "raw guitar poet baritone",
+    "prompt": "1990s Chinese indie rock (rock), raw guitar poet baritone, Chinese-language vocals, distorted guitar, emotional delivery, raw and poetic mood, fits a Chinese rock playlist, 112 BPM, E minor",
+    "tags": [
+      "rock",
+      "Chinese indie rock",
+      "1990s",
+      "raw",
+      "poetic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-cui-jian",
+    "name": "Cui Jian",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Rock",
+    "subgenre": "Chinese rock / new wave",
+    "era": "1980s",
+    "mood": [
+      "rebellious",
+      "pioneer"
+    ],
+    "bpm": 128,
+    "key": "D major",
+    "vocals": "gravelly rock pioneer baritone",
+    "prompt": "1980s Chinese rock (rock), gravelly rock pioneer baritone, Chinese-language vocals, electric guitar, new wave production, rebellious mood, fits a Chinese rock origins playlist, 128 BPM, D major",
+    "tags": [
+      "rock",
+      "Chinese rock",
+      "1980s",
+      "rebellious",
+      "pioneer"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "zh-mayday",
+    "name": "Mayday",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Rock",
+    "subgenre": "Taiwanese rock / alternative",
+    "era": "2000s",
+    "mood": [
+      "anthemic",
+      "youthful"
+    ],
+    "bpm": 135,
+    "key": "G major",
+    "vocals": "soaring youthful tenor",
+    "prompt": "2000s Taiwanese rock (rock), soaring youthful tenor, Chinese-language vocals, electric guitar wall of sound, anthemic production, fits a stadium rock playlist, 135 BPM, G major",
+    "tags": [
+      "rock",
+      "Taiwanese rock",
+      "2000s",
+      "anthemic",
+      "youthful"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-jj-lin",
+    "name": "JJ Lin",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "mandopop / neo soul",
+    "era": "2000s",
+    "mood": [
+      "versatile",
+      "charismatic"
+    ],
+    "bpm": 105,
+    "key": "B-flat major",
+    "vocals": "versatile charismatic tenor",
+    "prompt": "2000s mandopop (pop), versatile charismatic tenor, Chinese-language vocals, neo soul production, jazz harmonics, fits a sophisticated pop playlist, 105 BPM, B-flat major",
+    "tags": [
+      "pop",
+      "mandopop",
+      "2000s",
+      "versatile",
+      "charismatic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-yoga-lin",
+    "name": "Yoga Lin",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "indie pop / alternative",
+    "era": "2010s",
+    "mood": [
+      "introspective",
+      "artsy"
+    ],
+    "bpm": 98,
+    "key": "C minor",
+    "vocals": "introspective alternative tenor",
+    "prompt": "2010s indie pop (pop), introspective alternative tenor, Chinese-language vocals, indie production, artsy mood, fits a Taiwanese indie playlist, 98 BPM, C minor",
+    "tags": [
+      "pop",
+      "indie pop",
+      "2010s",
+      "introspective",
+      "artsy"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-fish-leong",
+    "name": "Fish Leong",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "mandopop ballad",
+    "era": "2000s",
+    "mood": [
+      "heartfelt",
+      "tearful"
+    ],
+    "bpm": 78,
+    "key": "E major",
+    "vocals": "tender emotional soprano",
+    "prompt": "2000s mandopop (pop), tender emotional soprano, Chinese-language vocals, piano ballad, strings, heartfelt and tearful mood, fits a Chinese breakup playlist, 78 BPM, E major",
+    "tags": [
+      "pop",
+      "mandopop",
+      "2000s",
+      "heartfelt",
+      "tearful"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-wilber-pan",
+    "name": "Wilber Pan",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "mandopop / dance",
+    "era": "2000s",
+    "mood": [
+      "funky",
+      "energetic"
+    ],
+    "bpm": 125,
+    "key": "F major",
+    "vocals": "funky dance pop tenor",
+    "prompt": "2000s mandopop (pop), funky dance pop tenor, Chinese-language vocals, R&B beats, energetic production, fits a Chinese dance playlist, 125 BPM, F major",
+    "tags": [
+      "pop",
+      "mandopop",
+      "2000s",
+      "funky",
+      "energetic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-sun-yan-zi",
+    "name": "Sun Yan-Zi",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "Singapore mandopop",
+    "era": "2000s",
+    "mood": [
+      "sweet",
+      "uplifting"
+    ],
+    "bpm": 105,
+    "key": "D major",
+    "vocals": "sweet Singaporean soprano",
+    "prompt": "2000s Singapore mandopop (pop), sweet soprano, Chinese-language vocals, pop rock production, uplifting mood, fits a family-friendly playlist, 105 BPM, D major",
+    "tags": [
+      "pop",
+      "mandopop",
+      "2000s",
+      "sweet",
+      "uplifting"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-wang-leehom",
+    "name": "Wang Leehom",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "chinked-out / fusion",
+    "era": "2000s",
+    "mood": [
+      "creative",
+      "patriotic"
+    ],
+    "bpm": 120,
+    "key": "A major",
+    "vocals": "creative fusion tenor",
+    "prompt": "2000s chinked-out (pop), creative fusion tenor, Chinese-language vocals, erhu meets hip-hop, pipa samples, patriotic and creative mood, fits a cultural fusion playlist, 120 BPM, A major",
+    "tags": [
+      "pop",
+      "fusion",
+      "2000s",
+      "creative",
+      "patriotic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-elva-hsiao",
+    "name": "Elva Hsiao",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "electropop / dance",
+    "era": "2000s",
+    "mood": [
+      "energetic",
+      "cute"
+    ],
+    "bpm": 130,
+    "key": "G major",
+    "vocals": "bright energetic soprano",
+    "prompt": "2000s electropop (pop), bright energetic soprano, Chinese-language vocals, synth dance beats, cute and energetic mood, fits a Taiwanese dance playlist, 130 BPM, G major",
+    "tags": [
+      "pop",
+      "electropop",
+      "2000s",
+      "energetic",
+      "cute"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "zh-luhan",
+    "name": "Luhan",
+    "language": "zh",
+    "languageLabel": "Китайские",
+    "genre": "Pop",
+    "subgenre": "C-pop / EXO alumni",
+    "era": "2010s",
+    "mood": [
+      "youthful",
+      "polished"
+    ],
+    "bpm": 128,
+    "key": "F minor",
+    "vocals": "polished idol tenor",
+    "prompt": "2010s C-pop (pop), polished idol tenor, Chinese-language vocals, K-pop-influenced production, youthful mood, fits a modern C-pop playlist, 128 BPM, F minor",
+    "tags": [
+      "pop",
+      "C-pop",
+      "2010s",
+      "youthful",
+      "polished"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "af-burna-boy",
+    "name": "Burna Boy",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Afrobeats",
+    "subgenre": "afrofusion",
+    "era": "2010s",
+    "mood": [
+      "confident",
+      "infectious"
+    ],
+    "bpm": 100,
+    "key": "D minor",
+    "vocals": "raspy Nigerian baritone",
+    "prompt": "2010s afrofusion (afrobeats), raspy Nigerian baritone, English/Pidgin vocals, live percussion, dancehall influences, brass accents, confident and infectious mood, fits an Afrobeats playlist, 100 BPM, D minor",
+    "tags": [
+      "afrobeats",
+      "afrofusion",
+      "2010s",
+      "confident",
+      "infectious"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "af-wizkid",
+    "name": "Wizkid",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Afrobeats",
+    "subgenre": "afropop",
+    "era": "2010s",
+    "mood": [
+      "smooth",
+      "groovy"
+    ],
+    "bpm": 106,
+    "key": "G major",
+    "vocals": "smooth Nigerian tenor",
+    "prompt": "2010s afropop (afrobeats), smooth Nigerian tenor, English/Yoruba vocals, Afrobeats groove, shekere, dancehall riddims, smooth and groovy mood, fits a tropical playlist, 106 BPM, G major",
+    "tags": [
+      "afrobeats",
+      "afropop",
+      "2010s",
+      "smooth",
+      "groovy"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "af-davido",
+    "name": "Davido",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Afrobeats",
+    "subgenre": "afropop",
+    "era": "2010s",
+    "mood": [
+      "vibrant",
+      "celebratory"
+    ],
+    "bpm": 108,
+    "key": "A major",
+    "vocals": "vibrant melodic Nigerian tenor",
+    "prompt": "2010s afropop (afrobeats), vibrant melodic tenor, English/Yoruba vocals, Afrobeats drums, celebratory mood, fits a party playlist, 108 BPM, A major",
+    "tags": [
+      "afrobeats",
+      "afropop",
+      "2010s",
+      "vibrant",
+      "celebratory"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "af-fela-kuti",
+    "name": "Fela Kuti",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Afrobeats",
+    "subgenre": "afrobeat (classic)",
+    "era": "1970s",
+    "mood": [
+      "political",
+      "hypnotic"
+    ],
+    "bpm": 105,
+    "key": "F minor",
+    "vocals": "preaching baritone bandleader",
+    "prompt": "1970s classic afrobeat (afrobeats), preaching baritone bandleader, Yoruba/Pidgin vocals, 30-piece live band, Yoruba percussion, brass section, political and hypnotic mood, fits an afrobeat originals playlist, 105 BPM, F minor",
+    "tags": [
+      "afrobeats",
+      "classic afrobeat",
+      "1970s",
+      "political",
+      "hypnotic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "af-miriam-makeba",
+    "name": "Miriam Makeba",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "World",
+    "subgenre": "South African folk / jazz",
+    "era": "1960s",
+    "mood": [
+      "dignified",
+      "sorrowful"
+    ],
+    "bpm": 110,
+    "key": "D major",
+    "vocals": "powerful South African alto",
+    "prompt": "1960s South African folk (world), powerful South African alto, Zulu/Xhosa vocals, mbaqanga rhythms, jazz harmonics, dignified and sorrowful mood, fits a world music playlist, 110 BPM, D major",
+    "tags": [
+      "world",
+      "South African folk",
+      "1960s",
+      "dignified",
+      "sorrowful"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "af-youssou-ndour",
+    "name": "Youssou N'Dour",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "World",
+    "subgenre": "mbalax",
+    "era": "1980s",
+    "mood": [
+      "joyful",
+      "energetic"
+    ],
+    "bpm": 130,
+    "key": "G major",
+    "vocals": "soaring Senegambian tenor",
+    "prompt": "1980s mbalax (world), soaring Senegambian tenor, Wolof vocals, sabar percussion, talking drum, mbalax rhythms, joyful and energetic mood, fits a Senegalese dance playlist, 130 BPM, G major",
+    "tags": [
+      "world",
+      "mbalax",
+      "1980s",
+      "joyful",
+      "energetic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "af-tiwa-savage",
+    "name": "Tiwa Savage",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Afrobeats",
+    "subgenre": "afropop",
+    "era": "2010s",
+    "mood": [
+      "fierce",
+      "sensual"
+    ],
+    "bpm": 104,
+    "key": "C major",
+    "vocals": "fierce Nigerian soprano",
+    "prompt": "2010s afropop (afrobeats), fierce Nigerian soprano, English/Yoruba vocals, Afrobeats production, dancehall flavor, fierce and sensual mood, fits a Queens of Afrobeats playlist, 104 BPM, C major",
+    "tags": [
+      "afrobeats",
+      "afropop",
+      "2010s",
+      "fierce",
+      "sensual"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "af-angelique-kidjo",
+    "name": "Angélique Kidjo",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "World",
+    "subgenre": "Afro-world fusion",
+    "era": "1990s",
+    "mood": [
+      "powerful",
+      "celebratory"
+    ],
+    "bpm": 118,
+    "key": "E major",
+    "vocals": "exuberant Beninese soprano",
+    "prompt": "1990s Afro-world (world), exuberant Beninese soprano, Yoruba/French vocals, brass, West African percussion, danceable groove, powerful and celebratory mood, fits a world fusion playlist, 118 BPM, E major",
+    "tags": [
+      "world",
+      "Afro-world",
+      "1990s",
+      "powerful",
+      "celebratory"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "af-king-sunny-ade",
+    "name": "King Sunny Ade",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "World",
+    "subgenre": "jùjú music",
+    "era": "1980s",
+    "mood": [
+      "flowing",
+      "spiritual"
+    ],
+    "bpm": 96,
+    "key": "D major",
+    "vocals": "smooth Yoruba tenor",
+    "prompt": "1980s jùjú music (world), smooth Yoruba tenor, Yoruba vocals, talking drum, pedal steel guitar, dense percussion grid, flowing and spiritual mood, fits a Nigerian heritage playlist, 96 BPM, D major",
+    "tags": [
+      "world",
+      "jùjú",
+      "1980s",
+      "flowing",
+      "spiritual"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "af-dbanj",
+    "name": "D'banj",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Afrobeats",
+    "subgenre": "afropop / dancehall",
+    "era": "2000s",
+    "mood": [
+      "fun",
+      "party"
+    ],
+    "bpm": 112,
+    "key": "G minor",
+    "vocals": "energetic harmonica-playing Nigerian",
+    "prompt": "2000s afropop (afrobeats), energetic showman tenor, English/Pidgin vocals, harmonica hooks, dancehall beats, fun and party mood, fits an old-school Afrobeats playlist, 112 BPM, G minor",
+    "tags": [
+      "afrobeats",
+      "afropop",
+      "2000s",
+      "fun",
+      "party"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "af-asa",
+    "name": "Asa",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Soul",
+    "subgenre": "neo-soul / Afro-folk",
+    "era": "2000s",
+    "mood": [
+      "soulful",
+      "contemplative"
+    ],
+    "bpm": 80,
+    "key": "E minor",
+    "vocals": "warm soulful Nigerian alto",
+    "prompt": "2000s Afro-folk (soul), warm soulful Nigerian alto, French/English vocals, acoustic guitar, light percussion, soulful and contemplative mood, fits a quiet Sunday playlist, 80 BPM, E minor",
+    "tags": [
+      "soul",
+      "Afro-folk",
+      "2000s",
+      "soulful",
+      "contemplative"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "af-olamide",
+    "name": "Olamide",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Hip-hop",
+    "subgenre": "afro-hip-hop",
+    "era": "2010s",
+    "mood": [
+      "street",
+      "vigorous"
+    ],
+    "bpm": 140,
+    "key": "C minor",
+    "vocals": "raw street Yoruba rapper",
+    "prompt": "2010s Afro-hip-hop (hip-hop), raw street Yoruba rapper, Yoruba/Pidgin vocals, trap beats with African percussion, street and vigorous mood, fits a Lagos street playlist, 140 BPM, C minor",
+    "tags": [
+      "hip-hop",
+      "afro-hip-hop",
+      "2010s",
+      "street",
+      "vigorous"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "af-sauti-sol",
+    "name": "Sauti Sol",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Afropop",
+    "subgenre": "Kenyan afropop",
+    "era": "2010s",
+    "mood": [
+      "uplifting",
+      "harmonious"
+    ],
+    "bpm": 102,
+    "key": "F major",
+    "vocals": "four-part male harmony group",
+    "prompt": "2010s Kenyan afropop (afropop), rich male harmonies, Swahili/English vocals, acoustic guitar, African percussion, uplifting mood, fits an East African playlist, 102 BPM, F major",
+    "tags": [
+      "afropop",
+      "Kenyan",
+      "2010s",
+      "uplifting",
+      "harmonious"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "af-2face-idibia",
+    "name": "2face Idibia",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Afrobeats",
+    "subgenre": "afropop",
+    "era": "2000s",
+    "mood": [
+      "smooth",
+      "optimistic"
+    ],
+    "bpm": 98,
+    "key": "D major",
+    "vocals": "smooth Nigerian tenor pioneer",
+    "prompt": "2000s afropop (afrobeats), smooth Nigerian tenor, English/Pidgin vocals, R&B-influenced production, optimistic mood, fits a classic Afrobeats playlist, 98 BPM, D major",
+    "tags": [
+      "afrobeats",
+      "afropop",
+      "2000s",
+      "smooth",
+      "optimistic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "af-simi",
+    "name": "Simi",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Afropop",
+    "subgenre": "afro-soul",
+    "era": "2010s",
+    "mood": [
+      "tender",
+      "acoustic"
+    ],
+    "bpm": 88,
+    "key": "G major",
+    "vocals": "tender acoustic Nigerian soprano",
+    "prompt": "2010s afro-soul (afropop), tender acoustic soprano, English/Yoruba vocals, guitar-led sound, intimate mood, fits a chill Afropop playlist, 88 BPM, G major",
+    "tags": [
+      "afropop",
+      "afro-soul",
+      "2010s",
+      "tender",
+      "acoustic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "af-rema",
+    "name": "Rema",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Afrobeats",
+    "subgenre": "afrorave",
+    "era": "2010s",
+    "mood": [
+      "youthful",
+      "hypnotic"
+    ],
+    "bpm": 107,
+    "key": "A minor",
+    "vocals": "hypnotic Gen-Z Afrorave tenor",
+    "prompt": "2010s afrorave (afrobeats), hypnotic Gen-Z tenor, English/Yoruba vocals, dark melodic trap-meets-Afrobeats, youthful mood, fits a new-wave Afrobeats playlist, 107 BPM, A minor",
+    "tags": [
+      "afrobeats",
+      "afrorave",
+      "2010s",
+      "youthful",
+      "hypnotic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "af-tems",
+    "name": "Tems",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Afropop",
+    "subgenre": "afro-soul",
+    "era": "2010s",
+    "mood": [
+      "ethereal",
+      "powerful"
+    ],
+    "bpm": 90,
+    "key": "C major",
+    "vocals": "ethereal powerful Nigerian alto",
+    "prompt": "2010s afro-soul (afropop), ethereal powerful alto, English vocals, atmospheric production, retro influences, ethereal mood, fits a soulful Afropop playlist, 90 BPM, C major",
+    "tags": [
+      "afropop",
+      "afro-soul",
+      "2010s",
+      "ethereal",
+      "powerful"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "af-kizz-daniel",
+    "name": "Kizz Daniel",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Afrobeats",
+    "subgenre": "afropop",
+    "era": "2010s",
+    "mood": [
+      "sensual",
+      "smooth"
+    ],
+    "bpm": 100,
+    "key": "E major",
+    "vocals": "sensual smooth Nigerian tenor",
+    "prompt": "2010s afropop (afrobeats), sensual smooth tenor, English/Yoruba vocals, Afrobeats groove, sensual mood, fits a vibe playlist, 100 BPM, E major",
+    "tags": [
+      "afrobeats",
+      "afropop",
+      "2010s",
+      "sensual",
+      "smooth"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "af-lucky-dube",
+    "name": "Lucky Dube",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Reggae",
+    "subgenre": "South African reggae",
+    "era": "1980s",
+    "mood": [
+      "inspiring",
+      "spiritual"
+    ],
+    "bpm": 88,
+    "key": "D major",
+    "vocals": "deep South African reggae baritone",
+    "prompt": "1980s South African reggae (reggae), deep baritone, Zulu/English vocals, roots reggae rhythm, spiritual and inspiring mood, fits a reggae classics playlist, 88 BPM, D major",
+    "tags": [
+      "reggae",
+      "South African",
+      "1980s",
+      "inspiring",
+      "spiritual"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "af-yvonne-chaka-chaka",
+    "name": "Yvonne Chaka Chaka",
+    "language": "af",
+    "languageLabel": "Африканские",
+    "genre": "Afropop",
+    "subgenre": "bubblegum / township pop",
+    "era": "1980s",
+    "mood": [
+      "sunny",
+      "danceable"
+    ],
+    "bpm": 126,
+    "key": "G major",
+    "vocals": "bright South African soprano",
+    "prompt": "1980s bubblegum pop (afropop), bright South African soprano, Zulu/English vocals, township beats, sunny and danceable mood, fits a South African hits playlist, 126 BPM, G major",
+    "tags": [
+      "afropop",
+      "bubblegum",
+      "1980s",
+      "sunny",
+      "danceable"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-andrea-bocelli",
+    "name": "Andrea Bocelli",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Classical",
+    "subgenre": "operatic pop / classical crossover",
+    "era": "1990s",
+    "mood": [
+      "majestic",
+      "romantic"
+    ],
+    "bpm": 72,
+    "key": "D major",
+    "vocals": "blind tenor with operatic timbre",
+    "prompt": "1990s operatic pop (classical), blind tenor with operatic timbre, Italian-language vocals, full orchestral accompaniment, soaring legato phrases, majestic and romantic mood, fits a classical crossover playlist, 72 BPM, D major",
+    "tags": [
+      "classical",
+      "operatic pop",
+      "1990s",
+      "majestic",
+      "romantic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "it-lucio-battisti",
+    "name": "Lucio Battisti",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Pop",
+    "subgenre": "Italian pop / progressive",
+    "era": "1970s",
+    "mood": [
+      "innovative",
+      "melancholic"
+    ],
+    "bpm": 110,
+    "key": "A minor",
+    "vocals": "unique expressive Italian tenor",
+    "prompt": "1970s Italian pop (pop), unique expressive Italian tenor, Italian-language vocals, acoustic guitar, innovative production, melancholic mood, fits an Italian classics playlist, 110 BPM, A minor",
+    "tags": [
+      "pop",
+      "Italian pop",
+      "1970s",
+      "innovative",
+      "melancholic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "it-zucchero",
+    "name": "Zucchero",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Rock",
+    "subgenre": "blues rock / Italian soul",
+    "era": "1980s",
+    "mood": [
+      "gritty",
+      "soulful"
+    ],
+    "bpm": 112,
+    "key": "E minor",
+    "vocals": "gritty Italian blues-rock baritone",
+    "prompt": "1980s blues rock (rock), gritty Italian blues baritone, Italian-language vocals, blues guitar, Hammond organ, soulful mood, fits an Italian rock playlist, 112 BPM, E minor",
+    "tags": [
+      "rock",
+      "blues rock",
+      "1980s",
+      "gritty",
+      "soulful"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-vasco-rossi",
+    "name": "Vasco Rossi",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Rock",
+    "subgenre": "Italian rock",
+    "era": "1980s",
+    "mood": [
+      "rebellious",
+      "raw"
+    ],
+    "bpm": 128,
+    "key": "G minor",
+    "vocals": "rebellious hoarse rock baritone",
+    "prompt": "1980s Italian rock (rock), rebellious hoarse baritone, Italian-language vocals, hard rock guitars, arena rock production, rebellious mood, fits an Italian rock heroes playlist, 128 BPM, G minor",
+    "tags": [
+      "rock",
+      "Italian rock",
+      "1980s",
+      "rebellious",
+      "raw"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "it-laura-pausini",
+    "name": "Laura Pausini",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Pop",
+    "subgenre": "Italian pop",
+    "era": "1990s",
+    "mood": [
+      "heartfelt",
+      "soaring"
+    ],
+    "bpm": 96,
+    "key": "C major",
+    "vocals": "soaring heartfelt Italian soprano",
+    "prompt": "1990s Italian pop (pop), soaring soprano, Italian/Spanish vocals, piano ballads, lush production, heartfelt mood, fits an Italian romantic playlist, 96 BPM, C major",
+    "tags": [
+      "pop",
+      "Italian pop",
+      "1990s",
+      "heartfelt",
+      "soaring"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-eros-ramazzotti",
+    "name": "Eros Ramazzotti",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Pop",
+    "subgenre": "Italian pop rock",
+    "era": "1990s",
+    "mood": [
+      "passionate",
+      "romantic"
+    ],
+    "bpm": 118,
+    "key": "D major",
+    "vocals": "passionate Italian tenor",
+    "prompt": "1990s Italian pop rock (pop), passionate tenor, Italian-language vocals, guitars and orchestration, romantic mood, fits an Italian love song playlist, 118 BPM, D major",
+    "tags": [
+      "pop",
+      "Italian pop rock",
+      "1990s",
+      "passionate",
+      "romantic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-mina",
+    "name": "Mina",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Pop",
+    "subgenre": "Italian pop / jazz",
+    "era": "1960s",
+    "mood": [
+      "dramatic",
+      "sensual"
+    ],
+    "bpm": 100,
+    "key": "F major",
+    "vocals": "legendary dramatic Italian soprano",
+    "prompt": "1960s Italian pop (pop), legendary dramatic soprano, Italian-language vocals, big band, theatrical production, dramatic and sensual mood, fits a vintage Italian playlist, 100 BPM, F major",
+    "tags": [
+      "pop",
+      "Italian pop",
+      "1960s",
+      "dramatic",
+      "sensual"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "it-adriano-celentano",
+    "name": "Adriano Celentano",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Pop",
+    "subgenre": "Italian pop / rockabilly",
+    "era": "1960s",
+    "mood": [
+      "charismatic",
+      "quirky"
+    ],
+    "bpm": 140,
+    "key": "A major",
+    "vocals": "charismatic Italian rock baritone",
+    "prompt": "1960s Italian rockabilly (pop), charismatic baritone, Italian-language vocals, rock guitar, quirky delivery, charismatic mood, fits an Italian vintage rock playlist, 140 BPM, A major",
+    "tags": [
+      "pop",
+      "Italian rockabilly",
+      "1960s",
+      "charismatic",
+      "quirky"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "it-lucio-dalla",
+    "name": "Lucio Dalla",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Pop",
+    "subgenre": "Italian singer-songwriter",
+    "era": "1970s",
+    "mood": [
+      "poetic",
+      "bittersweet"
+    ],
+    "bpm": 94,
+    "key": "E minor",
+    "vocals": "warm poetic baritone",
+    "prompt": "1970s Italian singer-songwriter (pop), warm poetic baritone, Italian-language vocals, piano, gentle production, bittersweet mood, fits a Sunday morning playlist, 94 BPM, E minor",
+    "tags": [
+      "pop",
+      "cantautore",
+      "1970s",
+      "poetic",
+      "bittersweet"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-giorgia",
+    "name": "Giorgia",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Pop",
+    "subgenre": "Italian pop / soul",
+    "era": "1990s",
+    "mood": [
+      "powerful",
+      "emotional"
+    ],
+    "bpm": 88,
+    "key": "B minor",
+    "vocals": "powerhouse Italian soprano",
+    "prompt": "1990s Italian pop soul (pop), powerhouse soprano, Italian-language vocals, R&B-influenced production, emotional mood, fits a diva playlist, 88 BPM, B minor",
+    "tags": [
+      "pop",
+      "Italian pop",
+      "1990s",
+      "powerful",
+      "emotional"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-franco-battiato",
+    "name": "Franco Battiato",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Pop",
+    "subgenre": "art pop / avant-garde",
+    "era": "1980s",
+    "mood": [
+      "mystical",
+      "experimental"
+    ],
+    "bpm": 108,
+    "key": "D minor",
+    "vocals": "cool mystical Italian baritone",
+    "prompt": "1980s art pop (pop), cool mystical baritone, Italian-language vocals, minimalist synths, Eastern scales, experimental production, fits an art-pop playlist, 108 BPM, D minor",
+    "tags": [
+      "pop",
+      "art pop",
+      "1980s",
+      "mystical",
+      "experimental"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-tiziano-ferro",
+    "name": "Tiziano Ferro",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Pop",
+    "subgenre": "Italian pop / R&B",
+    "era": "2000s",
+    "mood": [
+      "passionate",
+      "vulnerable"
+    ],
+    "bpm": 98,
+    "key": "G minor",
+    "vocals": "passionate R&B-inflected tenor",
+    "prompt": "2000s Italian pop R&B (pop), passionate tenor, Italian/Spanish vocals, pop production with R&B feel, vulnerable mood, fits a heartbreak playlist, 98 BPM, G minor",
+    "tags": [
+      "pop",
+      "Italian pop",
+      "2000s",
+      "passionate",
+      "vulnerable"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-elisa",
+    "name": "Elisa",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Pop",
+    "subgenre": "indie pop / Italian pop",
+    "era": "2000s",
+    "mood": [
+      "crystalline",
+      "dreamy"
+    ],
+    "bpm": 92,
+    "key": "C major",
+    "vocals": "crystalline indie soprano",
+    "prompt": "2000s Italian indie pop (pop), crystalline indie soprano, Italian/English vocals, acoustic guitar, atmospheric production, dreamy mood, fits an introspective playlist, 92 BPM, C major",
+    "tags": [
+      "pop",
+      "indie pop",
+      "2000s",
+      "crystalline",
+      "dreamy"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-mahmood",
+    "name": "Mahmood",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Pop",
+    "subgenre": "Italian pop / R&B / Middle East fusion",
+    "era": "2010s",
+    "mood": [
+      "soulful",
+      "modern"
+    ],
+    "bpm": 102,
+    "key": "A minor",
+    "vocals": "soulful Mediterranean-pop tenor",
+    "prompt": "2010s Italian pop fusion (pop), soulful modern tenor, Italian-language vocals, R&B beats with Middle Eastern scales, innovative mood, fits a contemporary Italian playlist, 102 BPM, A minor",
+    "tags": [
+      "pop",
+      "Italian pop",
+      "2010s",
+      "soulful",
+      "modern"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "it-pino-daniele",
+    "name": "Pino Daniele",
+    "language": "it",
+    "languageLabel": "Итальянские",
+    "genre": "Rock",
+    "subgenre": "Neapolitan blues / Mediterranean",
+    "era": "1980s",
+    "mood": [
+      "warm",
+      "nostalgic"
+    ],
+    "bpm": 96,
+    "key": "E major",
+    "vocals": "warm Neapolitan guitar-singer baritone",
+    "prompt": "1980s Neapolitan blues (rock), warm Neapolitan baritone, Neapolitan dialect vocals, fingerstyle guitar, Mediterranean grooves, warm and nostalgic mood, fits a Naples heritage playlist, 96 BPM, E major",
+    "tags": [
+      "rock",
+      "Neapolitan blues",
+      "1980s",
+      "warm",
+      "nostalgic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "pl-czeslaw-niemen",
+    "name": "Czesław Niemen",
+    "language": "pl",
+    "languageLabel": "Польские",
+    "genre": "Rock",
+    "subgenre": "psychedelic rock / art rock",
+    "era": "1960s",
+    "mood": [
+      "avant-garde",
+      "visionary"
+    ],
+    "bpm": 110,
+    "key": "D minor",
+    "vocals": "theatrical visionary baritone",
+    "prompt": "1960s psychedelic rock (rock), theatrical visionary baritone, Polish-language vocals, vintage organ, fuzz guitar, experimental production, avant-garde mood, fits a Polish rock legends playlist, 110 BPM, D minor",
+    "tags": [
+      "rock",
+      "psychedelic rock",
+      "1960s",
+      "avant-garde",
+      "visionary"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "pl-kayah",
+    "name": "Kayah",
+    "language": "pl",
+    "languageLabel": "Польские",
+    "genre": "Pop",
+    "subgenre": "Polish pop / jazz",
+    "era": "1990s",
+    "mood": [
+      "sultry",
+      "jazz-inflected"
+    ],
+    "bpm": 105,
+    "key": "F minor",
+    "vocals": "sultry jazz-inflected mezzo",
+    "prompt": "1990s Polish pop jazz (pop), sultry jazz mezzo, Polish-language vocals, piano, brass, intimate production, fits a Polish jazz-pop playlist, 105 BPM, F minor",
+    "tags": [
+      "pop",
+      "Polish pop",
+      "1990s",
+      "sultry",
+      "jazz-inflected"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pl-ania-dabrowska",
+    "name": "Ania Dąbrowska",
+    "language": "pl",
+    "languageLabel": "Польские",
+    "genre": "Pop",
+    "subgenre": "Polish singer-songwriter",
+    "era": "2000s",
+    "mood": [
+      "heartfelt",
+      "acoustic"
+    ],
+    "bpm": 88,
+    "key": "G major",
+    "vocals": "heartfelt Polish soprano singer-songwriter",
+    "prompt": "2000s Polish pop (pop), heartfelt soprano, Polish-language vocals, acoustic guitar, piano, sincere mood, fits a Polish love playlist, 88 BPM, G major",
+    "tags": [
+      "pop",
+      "singer-songwriter",
+      "2000s",
+      "heartfelt",
+      "acoustic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pl-maryla-rodowicz",
+    "name": "Maryla Rodowicz",
+    "language": "pl",
+    "languageLabel": "Польские",
+    "genre": "Pop",
+    "subgenre": "Polish folk-pop",
+    "era": "1970s",
+    "mood": [
+      "vivacious",
+      "nostalgic"
+    ],
+    "bpm": 120,
+    "key": "C major",
+    "vocals": "vivacious folk-pop soprano",
+    "prompt": "1970s Polish folk-pop (pop), vivacious soprano, Polish-language vocals, folk instruments, cheerful production, nostalgic mood, fits a Polish classics playlist, 120 BPM, C major",
+    "tags": [
+      "pop",
+      "Polish folk-pop",
+      "1970s",
+      "vivacious",
+      "nostalgic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "pl-feel",
+    "name": "Feel",
+    "language": "pl",
+    "languageLabel": "Польские",
+    "genre": "Pop",
+    "subgenre": "Polish pop rock",
+    "era": "2000s",
+    "mood": [
+      "melodic",
+      "youthful"
+    ],
+    "bpm": 125,
+    "key": "A major",
+    "vocals": "melodic Polish pop-rock tenor",
+    "prompt": "2000s Polish pop rock (pop), melodic tenor, Polish-language vocals, electric guitar, polished production, youthful mood, fits a Polish radio playlist, 125 BPM, A major",
+    "tags": [
+      "pop",
+      "Polish pop rock",
+      "2000s",
+      "melodic",
+      "youthful"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pl-peja",
+    "name": "Peja",
+    "language": "pl",
+    "languageLabel": "Польские",
+    "genre": "Hip-hop",
+    "subgenre": "Polish hip-hop",
+    "era": "2000s",
+    "mood": [
+      "street",
+      "intense"
+    ],
+    "bpm": 95,
+    "key": "D minor",
+    "vocals": "intense Polish street rapper",
+    "prompt": "2000s Polish hip-hop (hip-hop), intense street baritone, Polish-language vocals, boom-bap production, street mood, fits a Polish rap playlist, 95 BPM, D minor",
+    "tags": [
+      "hip-hop",
+      "Polish hip-hop",
+      "2000s",
+      "street",
+      "intense"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pl-goran-bregovic",
+    "name": "Republika",
+    "language": "pl",
+    "languageLabel": "Польские",
+    "genre": "Rock",
+    "subgenre": "Polish new wave / post-punk",
+    "era": "1980s",
+    "mood": [
+      "cold",
+      "poetic"
+    ],
+    "bpm": 118,
+    "key": "E minor",
+    "vocals": "cold poetic new-wave baritone",
+    "prompt": "1980s Polish new wave (rock), cold poetic baritone, Polish-language vocals, dark synths, angular guitar, post-punk production, fits a Polish rock classics playlist, 118 BPM, E minor",
+    "tags": [
+      "rock",
+      "new wave",
+      "1980s",
+      "cold",
+      "poetic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pl-ewa-demarczyk",
+    "name": "Ewa Demarczyk",
+    "language": "pl",
+    "languageLabel": "Польские",
+    "genre": "Classical",
+    "subgenre": "Polish cabaret / art song",
+    "era": "1960s",
+    "mood": [
+      "dramatic",
+      "intense"
+    ],
+    "bpm": 85,
+    "key": "C minor",
+    "vocals": "dramatic intense dramatic mezzo",
+    "prompt": "1960s Polish cabaret (classical), dramatic intense mezzo, Polish-language vocals, chamber ensemble, poetic texts, dramatic mood, fits a Polish art song playlist, 85 BPM, C minor",
+    "tags": [
+      "classical",
+      "cabaret",
+      "1960s",
+      "dramatic",
+      "intense"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "pl-sanah",
+    "name": "Sanah",
+    "language": "pl",
+    "languageLabel": "Польские",
+    "genre": "Pop",
+    "subgenre": "Polish indie pop",
+    "era": "2010s",
+    "mood": [
+      "dreamy",
+      "romantic"
+    ],
+    "bpm": 92,
+    "key": "D major",
+    "vocals": "dreamy romantic soprano",
+    "prompt": "2010s Polish indie pop (pop), dreamy romantic soprano, Polish-language vocals, piano, string quartet, romantic mood, fits a Polish indie playlist, 92 BPM, D major",
+    "tags": [
+      "pop",
+      "indie pop",
+      "2010s",
+      "dreamy",
+      "romantic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pl-happysad",
+    "name": "Happysad",
+    "language": "pl",
+    "languageLabel": "Польские",
+    "genre": "Rock",
+    "subgenre": "Polish acoustic rock",
+    "era": "2000s",
+    "mood": [
+      "melancholic",
+      "sincere"
+    ],
+    "bpm": 104,
+    "key": "G minor",
+    "vocals": "sincere melancholic baritone",
+    "prompt": "2000s Polish acoustic rock (rock), sincere melancholic baritone, Polish-language vocals, acoustic guitar, emotional delivery, fits a Polish introspective playlist, 104 BPM, G minor",
+    "tags": [
+      "rock",
+      "acoustic rock",
+      "2000s",
+      "melancholic",
+      "sincere"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pl-taco-hemingway",
+    "name": "Taco Hemingway",
+    "language": "pl",
+    "languageLabel": "Польские",
+    "genre": "Hip-hop",
+    "subgenre": "Polish alternative hip-hop",
+    "era": "2010s",
+    "mood": [
+      "ironic",
+      "literary"
+    ],
+    "bpm": 92,
+    "key": "F minor",
+    "vocals": "ironic literary rapper",
+    "prompt": "2010s Polish alt hip-hop (hip-hop), ironic literary rapper, Polish-language vocals, jazz samples, indie production, ironic and literary mood, fits a Polish intellectual playlist, 92 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "Polish hip-hop",
+      "2010s",
+      "ironic",
+      "literary"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pl-doda",
+    "name": "Doda",
+    "language": "pl",
+    "languageLabel": "Польские",
+    "genre": "Pop",
+    "subgenre": "Polish pop rock",
+    "era": "2000s",
+    "mood": [
+      "provocative",
+      "energetic"
+    ],
+    "bpm": 132,
+    "key": "A minor",
+    "vocals": "provocative pop-rock soprano",
+    "prompt": "2000s Polish pop rock (pop), provocative energetic soprano, Polish-language vocals, rock guitars, pop production, fits a guilty pleasure playlist, 132 BPM, A minor",
+    "tags": [
+      "pop",
+      "pop rock",
+      "2000s",
+      "provocative",
+      "energetic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ko-shinee",
+    "name": "SHINee",
+    "language": "ko",
+    "languageLabel": "K-Pop",
+    "genre": "Pop",
+    "subgenre": "K-pop / funk",
+    "era": "2000s",
+    "mood": [
+      "stylish",
+      "sophisticated"
+    ],
+    "bpm": 128,
+    "key": "F minor",
+    "vocals": "five-member sophisticated vocal group",
+    "prompt": "2000s K-pop funk (pop), sophisticated vocal group, Korean-language vocals, neo-soul funk production, stylish mood, fits a K-pop classics playlist, 128 BPM, F minor",
+    "tags": [
+      "pop",
+      "K-pop",
+      "2000s",
+      "stylish",
+      "sophisticated"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ko-nct127",
+    "name": "NCT 127",
+    "language": "ko",
+    "languageLabel": "K-Pop",
+    "genre": "Pop",
+    "subgenre": "K-pop / neo-soul",
+    "era": "2010s",
+    "mood": [
+      "experimental",
+      "edgy"
+    ],
+    "bpm": 136,
+    "key": "C minor",
+    "vocals": "multi-national experimental K-pop group",
+    "prompt": "2010s experimental K-pop (pop), multi-national group, Korean/English vocals, genre-blending production, edgy mood, fits an alternative K-pop playlist, 136 BPM, C minor",
+    "tags": [
+      "pop",
+      "K-pop",
+      "2010s",
+      "experimental",
+      "edgy"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ko-seventeen",
+    "name": "SEVENTEEN",
+    "language": "ko",
+    "languageLabel": "K-Pop",
+    "genre": "Pop",
+    "subgenre": "K-pop / self-producing",
+    "era": "2010s",
+    "mood": [
+      "upbeat",
+      "self-made"
+    ],
+    "bpm": 148,
+    "key": "D major",
+    "vocals": "13-member self-producing group",
+    "prompt": "2010s K-pop (pop), 13-member self-producing group, Korean vocals, performance unit/vocal/hip-hop sub-units, upbeat mood, fits a K-pop show playlist, 148 BPM, D major",
+    "tags": [
+      "pop",
+      "K-pop",
+      "2010s",
+      "upbeat",
+      "self-made"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ko-got7",
+    "name": "GOT7",
+    "language": "ko",
+    "languageLabel": "K-Pop",
+    "genre": "Pop",
+    "subgenre": "K-pop / martial arts",
+    "era": "2010s",
+    "mood": [
+      "charismatic",
+      "upbeat"
+    ],
+    "bpm": 135,
+    "key": "A major",
+    "vocals": "seven-member performance-focused group",
+    "prompt": "2010s K-pop (pop), charismatic seven-member group, Korean/English vocals, martial arts influence, upbeat mood, fits a K-pop dance playlist, 135 BPM, A major",
+    "tags": [
+      "pop",
+      "K-pop",
+      "2010s",
+      "charismatic",
+      "upbeat"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ja-aimyon",
+    "name": "Aimyon",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Pop",
+    "subgenre": "J-pop / folk pop",
+    "era": "2010s",
+    "mood": [
+      "nostalgic",
+      "honest"
+    ],
+    "bpm": 95,
+    "key": "G major",
+    "vocals": "relatable acoustic soprano",
+    "prompt": "2010s J-pop folk (pop), relatable acoustic soprano, Japanese-language vocals, acoustic guitar, honest delivery, nostalgic mood, fits a Japanese café playlist, 95 BPM, G major",
+    "tags": [
+      "pop",
+      "J-pop",
+      "2010s",
+      "nostalgic",
+      "honest"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ja-buck-tick",
+    "name": "BUCK-TICK",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Rock",
+    "subgenre": "visual kei / gothic rock",
+    "era": "1980s",
+    "mood": [
+      "dark",
+      "theatrical"
+    ],
+    "bpm": 118,
+    "key": "C minor",
+    "vocals": "dramatic gothic baritone",
+    "prompt": "1980s visual kei (rock), dramatic gothic baritone, Japanese vocals, dark guitar riffs, theatrical production, dark mood, fits a Japanese gothic playlist, 118 BPM, C minor",
+    "tags": [
+      "rock",
+      "visual kei",
+      "1980s",
+      "dark",
+      "theatrical"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ja-king-gnu",
+    "name": "King Gnu",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Pop",
+    "subgenre": "J-pop / art rock",
+    "era": "2010s",
+    "mood": [
+      "complex",
+      "eclectic"
+    ],
+    "bpm": 132,
+    "key": "F minor",
+    "vocals": "dual vocal art-rock group",
+    "prompt": "2010s J-pop art rock (pop), dual vocals (high/low contrast), Japanese vocals, jazz-influenced rhythms, complex production, fits an alternative J-pop playlist, 132 BPM, F minor",
+    "tags": [
+      "pop",
+      "J-pop",
+      "2010s",
+      "complex",
+      "eclectic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ja-fujii-kaze",
+    "name": "Fujii Kaze",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Pop",
+    "subgenre": "J-pop / soul",
+    "era": "2010s",
+    "mood": [
+      "soulful",
+      "laid-back"
+    ],
+    "bpm": 100,
+    "key": "E-flat major",
+    "vocals": "soulful laid-back baritone",
+    "prompt": "2010s J-pop soul (pop), soulful laid-back baritone, Japanese-language vocals, piano, gospel influences, soulful mood, fits a feel-good J-pop playlist, 100 BPM, E-flat major",
+    "tags": [
+      "pop",
+      "J-pop",
+      "2010s",
+      "soulful",
+      "laid-back"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "ja-eve",
+    "name": "Eve",
+    "language": "ja",
+    "languageLabel": "Японские",
+    "genre": "Pop",
+    "subgenre": "J-pop / vocaloid aesthetic",
+    "era": "2010s",
+    "mood": [
+      "atmospheric",
+      "indie"
+    ],
+    "bpm": 118,
+    "key": "D minor",
+    "vocals": "atmospheric indie-net tenor",
+    "prompt": "2010s J-pop indie net (pop), atmospheric indie tenor, Japanese vocals, dark synth textures, vocaloid-era aesthetic, fits a Japanese underground playlist, 118 BPM, D minor",
+    "tags": [
+      "pop",
+      "J-pop",
+      "2010s",
+      "atmospheric",
+      "indie"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "es-j-balvin",
+    "name": "J Balvin",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Hip-hop",
+    "subgenre": "reggaeton / urban Latino",
+    "era": "2010s",
+    "mood": [
+      "smooth",
+      "danceable"
+    ],
+    "bpm": 98,
+    "key": "G minor",
+    "vocals": "smooth Colombian reggaeton tenor",
+    "prompt": "2010s reggaeton (hip-hop), smooth Colombian tenor, Spanish-language vocals, dembow, electronic textures, smooth and danceable mood, fits a Latin dance playlist, 98 BPM, G minor",
+    "tags": [
+      "hip-hop",
+      "reggaeton",
+      "2010s",
+      "smooth",
+      "danceable"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "es-maluma",
+    "name": "Maluma",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Hip-hop",
+    "subgenre": "reggaeton / urban",
+    "era": "2010s",
+    "mood": [
+      "suave",
+      "party"
+    ],
+    "bpm": 96,
+    "key": "C minor",
+    "vocals": "suave Colombian baritone",
+    "prompt": "2010s reggaeton (hip-hop), suave Colombian baritone, Spanish-language vocals, urban beats, party mood, fits a Latin hits playlist, 96 BPM, C minor",
+    "tags": [
+      "hip-hop",
+      "reggaeton",
+      "2010s",
+      "suave",
+      "party"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "es-ozuna",
+    "name": "Ozuna",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Hip-hop",
+    "subgenre": "reggaeton / Latin trap",
+    "era": "2010s",
+    "mood": [
+      "melodic",
+      "romantic"
+    ],
+    "bpm": 94,
+    "key": "F minor",
+    "vocals": "melodic reggaeton baritone",
+    "prompt": "2010s reggaeton trap (hip-hop), melodic baritone, Spanish vocals, dembow, romantic mood, fits a Latin nights playlist, 94 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "reggaeton",
+      "2010s",
+      "melodic",
+      "romantic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "es-celia-cruz",
+    "name": "Celia Cruz",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Salsa",
+    "subgenre": "Cuban salsa / tropical",
+    "era": "1960s",
+    "mood": [
+      "joyful",
+      "vivacious"
+    ],
+    "bpm": 196,
+    "key": "C major",
+    "vocals": "the Queen of Salsa — powerful alto shout",
+    "prompt": "1960s Cuban salsa (salsa), powerful alto shout, Spanish vocals, live brass, Cuban percussion, conga, timbales, joyful and vivacious mood, fits a salsa dance playlist, 196 BPM, C major",
+    "tags": [
+      "salsa",
+      "Cuban",
+      "1960s",
+      "joyful",
+      "vivacious"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "es-juanes",
+    "name": "Juanes",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Rock",
+    "subgenre": "Latin rock",
+    "era": "2000s",
+    "mood": [
+      "passionate",
+      "political"
+    ],
+    "bpm": 120,
+    "key": "A minor",
+    "vocals": "passionate Colombian rock tenor",
+    "prompt": "2000s Latin rock (rock), passionate rock tenor, Spanish vocals, electric guitar, political lyrics, passionate mood, fits a Latin rock playlist, 120 BPM, A minor",
+    "tags": [
+      "rock",
+      "Latin rock",
+      "2000s",
+      "passionate",
+      "political"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "es-marc-anthony",
+    "name": "Marc Anthony",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Salsa",
+    "subgenre": "salsa / tropical",
+    "era": "1990s",
+    "mood": [
+      "passionate",
+      "powerful"
+    ],
+    "bpm": 112,
+    "key": "D minor",
+    "vocals": "New York salsa powerhouse tenor",
+    "prompt": "1990s salsa (salsa), powerful New York tenor, Spanish vocals, live horns, timbales, passionate mood, fits a tropical salsa playlist, 112 BPM, D minor",
+    "tags": [
+      "salsa",
+      "tropical",
+      "1990s",
+      "passionate",
+      "powerful"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "es-pablo-alboran",
+    "name": "Pablo Alborán",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Pop",
+    "subgenre": "Spanish pop",
+    "era": "2010s",
+    "mood": [
+      "tender",
+      "artistic"
+    ],
+    "bpm": 90,
+    "key": "E minor",
+    "vocals": "tender Málaga tenor singer-songwriter",
+    "prompt": "2010s Spanish pop (pop), tender tenor, Spanish vocals, guitar and piano, artistic mood, fits a Spanish romantic playlist, 90 BPM, E minor",
+    "tags": [
+      "pop",
+      "Spanish pop",
+      "2010s",
+      "tender",
+      "artistic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "es-residente",
+    "name": "Residente",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Hip-hop",
+    "subgenre": "Latin hip-hop / art rap",
+    "era": "2000s",
+    "mood": [
+      "intellectual",
+      "rebellious"
+    ],
+    "bpm": 90,
+    "key": "G minor",
+    "vocals": "cerebral Puerto Rican rapper",
+    "prompt": "2000s Latin hip-hop (hip-hop), cerebral Puerto Rican rapper, Spanish vocals, experimental production, intellectual and rebellious mood, fits a Latin alternative playlist, 90 BPM, G minor",
+    "tags": [
+      "hip-hop",
+      "Latin hip-hop",
+      "2000s",
+      "intellectual",
+      "rebellious"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "es-bunbury",
+    "name": "Enrique Bunbury",
+    "language": "es",
+    "languageLabel": "Испанские",
+    "genre": "Rock",
+    "subgenre": "Spanish rock / post-punk",
+    "era": "1990s",
+    "mood": [
+      "charismatic",
+      "dark"
+    ],
+    "bpm": 120,
+    "key": "E minor",
+    "vocals": "charismatic Spanish dark-rock baritone",
+    "prompt": "1990s Spanish rock (rock), charismatic dark baritone, Spanish vocals, post-punk energy, theatrical delivery, dark mood, fits a Spanish alt-rock playlist, 120 BPM, E minor",
+    "tags": [
+      "rock",
+      "Spanish rock",
+      "1990s",
+      "charismatic",
+      "dark"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pt-mc-hariel",
+    "name": "MC Hariel",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Hip-hop",
+    "subgenre": "Brazilian funk / trap",
+    "era": "2010s",
+    "mood": [
+      "street",
+      "intense"
+    ],
+    "bpm": 140,
+    "key": "C minor",
+    "vocals": "intense Brazilian trap rapper",
+    "prompt": "2010s Brazilian trap (hip-hop), intense Brazilian rapper, Portuguese vocals, 808s, funk carioca elements, street mood, fits a Brazilian hip-hop playlist, 140 BPM, C minor",
+    "tags": [
+      "hip-hop",
+      "Brazilian funk",
+      "2010s",
+      "street",
+      "intense"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pt-ludmilla",
+    "name": "Ludmilla",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Pop",
+    "subgenre": "funk carioca / pagode baiano",
+    "era": "2010s",
+    "mood": [
+      "powerful",
+      "danceable"
+    ],
+    "bpm": 132,
+    "key": "A minor",
+    "vocals": "powerful Brazilian diva soprano",
+    "prompt": "2010s funk carioca (pop), powerful soprano, Portuguese vocals, intense bass, Brazilian beat, danceable mood, fits a favela funk playlist, 132 BPM, A minor",
+    "tags": [
+      "pop",
+      "funk carioca",
+      "2010s",
+      "powerful",
+      "danceable"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pt-ivete-sangalo",
+    "name": "Ivete Sangalo",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Pop",
+    "subgenre": "axé / MPB",
+    "era": "1990s",
+    "mood": [
+      "exuberant",
+      "festive"
+    ],
+    "bpm": 148,
+    "key": "D major",
+    "vocals": "exuberant Bahian carnival soprano",
+    "prompt": "1990s axé (pop), exuberant Bahian soprano, Portuguese vocals, percussive axé rhythm, brass, festive mood, fits a carnival playlist, 148 BPM, D major",
+    "tags": [
+      "pop",
+      "axé",
+      "1990s",
+      "exuberant",
+      "festive"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pt-elis-regina",
+    "name": "Elis Regina",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Pop",
+    "subgenre": "MPB / jazz",
+    "era": "1960s",
+    "mood": [
+      "intense",
+      "interpretive"
+    ],
+    "bpm": 102,
+    "key": "F minor",
+    "vocals": "legendary interpretive MPB alto",
+    "prompt": "1960s MPB (pop), legendary interpretive alto, Portuguese vocals, jazz piano, live band, intense and expressive mood, fits a Brazilian jazz playlist, 102 BPM, F minor",
+    "tags": [
+      "pop",
+      "MPB",
+      "1960s",
+      "intense",
+      "interpretive"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "pt-ze-ramalho",
+    "name": "Zé Ramalho",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Rock",
+    "subgenre": "Brazilian rock / northeastern",
+    "era": "1970s",
+    "mood": [
+      "poetic",
+      "mystical"
+    ],
+    "bpm": 104,
+    "key": "E minor",
+    "vocals": "mystical northeastern rock baritone",
+    "prompt": "1970s Brazilian rock (rock), mystical baritone, Portuguese vocals, electric guitar, northeastern folk elements, poetic mood, fits a Brazilian alternative playlist, 104 BPM, E minor",
+    "tags": [
+      "rock",
+      "Brazilian rock",
+      "1970s",
+      "poetic",
+      "mystical"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "pt-sandy",
+    "name": "Sandy",
+    "language": "pt",
+    "languageLabel": "Португальские",
+    "genre": "Pop",
+    "subgenre": "Brazilian pop",
+    "era": "2000s",
+    "mood": [
+      "sweet",
+      "sincere"
+    ],
+    "bpm": 105,
+    "key": "C major",
+    "vocals": "sweet sincere Brazilian soprano",
+    "prompt": "2000s Brazilian pop (pop), sweet sincere soprano, Portuguese vocals, pop production, warm mood, fits a Brazilian family playlist, 105 BPM, C major",
+    "tags": [
+      "pop",
+      "Brazilian pop",
+      "2000s",
+      "sweet",
+      "sincere"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "fr-aya-nakamura",
+    "name": "Aya Nakamura",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Pop",
+    "subgenre": "afropop / dancehall French",
+    "era": "2010s",
+    "mood": [
+      "catchy",
+      "danceable"
+    ],
+    "bpm": 108,
+    "key": "G minor",
+    "vocals": "catchy French-afropop soprano",
+    "prompt": "2010s afropop French (pop), catchy soprano, French vocals, dancehall beat, Afropop production, fits a French urban playlist, 108 BPM, G minor",
+    "tags": [
+      "pop",
+      "afropop",
+      "2010s",
+      "catchy",
+      "danceable"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "fr-indochine",
+    "name": "Indochine",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Rock",
+    "subgenre": "French new wave / synth-pop",
+    "era": "1980s",
+    "mood": [
+      "melancholic",
+      "romantic"
+    ],
+    "bpm": 130,
+    "key": "C minor",
+    "vocals": "dramatic new-wave baritone",
+    "prompt": "1980s French new wave (rock), dramatic baritone, French vocals, synth-driven guitars, romantic and melancholic mood, fits a French 80s playlist, 130 BPM, C minor",
+    "tags": [
+      "rock",
+      "new wave",
+      "1980s",
+      "melancholic",
+      "romantic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "fr-nekfeu",
+    "name": "Nekfeu",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Hip-hop",
+    "subgenre": "French hip-hop / cloud rap",
+    "era": "2010s",
+    "mood": [
+      "introspective",
+      "lyrical"
+    ],
+    "bpm": 92,
+    "key": "F minor",
+    "vocals": "introspective lyrical French rapper",
+    "prompt": "2010s French hip-hop (hip-hop), introspective lyrical rapper, French vocals, atmospheric beats, introspective mood, fits a French rap playlist, 92 BPM, F minor",
+    "tags": [
+      "hip-hop",
+      "French hip-hop",
+      "2010s",
+      "introspective",
+      "lyrical"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "fr-orelsan",
+    "name": "Orelsan",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Hip-hop",
+    "subgenre": "French rap / slam",
+    "era": "2000s",
+    "mood": [
+      "street",
+      "ironic"
+    ],
+    "bpm": 88,
+    "key": "G minor",
+    "vocals": "street-ironic French rapper",
+    "prompt": "2000s French rap (hip-hop), street ironic baritone, French vocals, minimalist beats, ironic delivery, fits a French underground playlist, 88 BPM, G minor",
+    "tags": [
+      "hip-hop",
+      "French rap",
+      "2000s",
+      "street",
+      "ironic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "fr-louane",
+    "name": "Louane",
+    "language": "fr",
+    "languageLabel": "Французские",
+    "genre": "Pop",
+    "subgenre": "French pop",
+    "era": "2010s",
+    "mood": [
+      "tender",
+      "youthful"
+    ],
+    "bpm": 95,
+    "key": "E major",
+    "vocals": "tender youthful soprano",
+    "prompt": "2010s French pop (pop), tender soprano, French vocals, piano, light production, youthful and touching mood, fits a French indie playlist, 95 BPM, E major",
+    "tags": [
+      "pop",
+      "French pop",
+      "2010s",
+      "tender",
+      "youthful"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "de-xavier-naidoo",
+    "name": "Xavier Naidoo",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Soul",
+    "subgenre": "German soul / R&B",
+    "era": "1990s",
+    "mood": [
+      "soulful",
+      "spiritual"
+    ],
+    "bpm": 92,
+    "key": "D minor",
+    "vocals": "soulful German gospel-soul baritone",
+    "prompt": "1990s German soul (soul), soulful gospel baritone, German vocals, R&B production, spiritual and warm mood, fits a German soul playlist, 92 BPM, D minor",
+    "tags": [
+      "soul",
+      "German soul",
+      "1990s",
+      "soulful",
+      "spiritual"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "de-peter-maffay",
+    "name": "Peter Maffay",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Rock",
+    "subgenre": "German rock",
+    "era": "1970s",
+    "mood": [
+      "strong",
+      "classic"
+    ],
+    "bpm": 118,
+    "key": "A major",
+    "vocals": "strong classic German rock baritone",
+    "prompt": "1970s German rock (rock), strong rock baritone, German vocals, rock guitar, classic mood, fits a German rock playlist, 118 BPM, A major",
+    "tags": [
+      "rock",
+      "German rock",
+      "1970s",
+      "strong",
+      "classic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "de-mark-forster",
+    "name": "Mark Forster",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Pop",
+    "subgenre": "German indie pop",
+    "era": "2010s",
+    "mood": [
+      "catchy",
+      "feel-good"
+    ],
+    "bpm": 120,
+    "key": "C major",
+    "vocals": "catchy indie pop tenor",
+    "prompt": "2010s German indie pop (pop), catchy tenor, German vocals, indie production, feel-good mood, fits a German radio playlist, 120 BPM, C major",
+    "tags": [
+      "pop",
+      "indie pop",
+      "2010s",
+      "catchy",
+      "feel-good"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "de-namika",
+    "name": "Namika",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Pop",
+    "subgenre": "German pop / French-Arabic fusion",
+    "era": "2010s",
+    "mood": [
+      "warm",
+      "urban"
+    ],
+    "bpm": 108,
+    "key": "E minor",
+    "vocals": "warm multicultural German soprano",
+    "prompt": "2010s German pop (pop), warm multicultural soprano, German/French vocals, acoustic pop, urban mood, fits a German modern pop playlist, 108 BPM, E minor",
+    "tags": [
+      "pop",
+      "German pop",
+      "2010s",
+      "warm",
+      "urban"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "de-been-stallone",
+    "name": "Capital Bra",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Hip-hop",
+    "subgenre": "German trap / drill",
+    "era": "2010s",
+    "mood": [
+      "street",
+      "catchy"
+    ],
+    "bpm": 140,
+    "key": "C minor",
+    "vocals": "prolific German trap rapper",
+    "prompt": "2010s German trap (hip-hop), prolific trap rapper, German vocals, trap beats, street catchy mood, fits a German street playlist, 140 BPM, C minor",
+    "tags": [
+      "hip-hop",
+      "German trap",
+      "2010s",
+      "street",
+      "catchy"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "de-sarah-connor",
+    "name": "Sarah Connor",
+    "language": "de",
+    "languageLabel": "Немецкие",
+    "genre": "Pop",
+    "subgenre": "German R&B pop",
+    "era": "2000s",
+    "mood": [
+      "soulful",
+      "emotional"
+    ],
+    "bpm": 98,
+    "key": "G minor",
+    "vocals": "soulful emotional German soprano",
+    "prompt": "2000s German R&B pop (pop), soulful soprano, German/English vocals, R&B production, emotional mood, fits a German pop hits playlist, 98 BPM, G minor",
+    "tags": [
+      "pop",
+      "German pop",
+      "2000s",
+      "soulful",
+      "emotional"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "tr-duman",
+    "name": "Duman",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Rock",
+    "subgenre": "Turkish rock / alternative",
+    "era": "2000s",
+    "mood": [
+      "melancholic",
+      "edgy"
+    ],
+    "bpm": 120,
+    "key": "A minor",
+    "vocals": "melancholic Turkish rock baritone",
+    "prompt": "2000s Turkish rock (rock), melancholic baritone, Turkish vocals, alternative guitar, edgy mood, fits a Turkish alt-rock playlist, 120 BPM, A minor",
+    "tags": [
+      "rock",
+      "Turkish rock",
+      "2000s",
+      "melancholic",
+      "edgy"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "tr-sagopa-kajmer",
+    "name": "Sagopa Kajmer",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Hip-hop",
+    "subgenre": "Turkish hip-hop / lyrical",
+    "era": "2000s",
+    "mood": [
+      "introspective",
+      "poetic"
+    ],
+    "bpm": 90,
+    "key": "D minor",
+    "vocals": "introspective Turkish lyrical rapper",
+    "prompt": "2000s Turkish hip-hop (hip-hop), introspective lyrical rapper, Turkish vocals, soul samples, poetic mood, fits a Turkish rap playlist, 90 BPM, D minor",
+    "tags": [
+      "hip-hop",
+      "Turkish hip-hop",
+      "2000s",
+      "introspective",
+      "poetic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "tr-gulsen",
+    "name": "Gülşen",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Pop",
+    "subgenre": "Turkish pop",
+    "era": "2000s",
+    "mood": [
+      "energetic",
+      "glamorous"
+    ],
+    "bpm": 120,
+    "key": "F major",
+    "vocals": "energetic glamorous Turkish soprano",
+    "prompt": "2000s Turkish pop (pop), energetic soprano, Turkish vocals, pop production, glamorous mood, fits a Turkish hits playlist, 120 BPM, F major",
+    "tags": [
+      "pop",
+      "Turkish pop",
+      "2000s",
+      "energetic",
+      "glamorous"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "tr-ceza",
+    "name": "Ceza",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Hip-hop",
+    "subgenre": "Turkish hip-hop / speed rap",
+    "era": "2000s",
+    "mood": [
+      "rapid-fire",
+      "intense"
+    ],
+    "bpm": 148,
+    "key": "C minor",
+    "vocals": "fastest Turkish rapper baritone",
+    "prompt": "2000s Turkish hip-hop (hip-hop), rapid-fire baritone, Turkish vocals, intense beats, intense mood, fits a Turkish battle rap playlist, 148 BPM, C minor",
+    "tags": [
+      "hip-hop",
+      "Turkish hip-hop",
+      "2000s",
+      "rapid-fire",
+      "intense"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "tr-haluk-levent",
+    "name": "Haluk Levent",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Rock",
+    "subgenre": "Turkish rock / folk rock",
+    "era": "1990s",
+    "mood": [
+      "sincere",
+      "raw"
+    ],
+    "bpm": 114,
+    "key": "E major",
+    "vocals": "sincere folk-rock baritone",
+    "prompt": "1990s Turkish folk rock (rock), sincere baritone, Turkish vocals, folk and electric guitar, raw mood, fits a Turkish folk-rock playlist, 114 BPM, E major",
+    "tags": [
+      "rock",
+      "Turkish folk rock",
+      "1990s",
+      "sincere",
+      "raw"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "tr-izel",
+    "name": "İzel",
+    "language": "tr",
+    "languageLabel": "Турецкие",
+    "genre": "Pop",
+    "subgenre": "Turkish pop",
+    "era": "1990s",
+    "mood": [
+      "sweet",
+      "nostalgic"
+    ],
+    "bpm": 112,
+    "key": "D major",
+    "vocals": "sweet nostalgic Turkish soprano",
+    "prompt": "1990s Turkish pop (pop), sweet soprano, Turkish vocals, pop production, nostalgic mood, fits a 90s Turkish playlist, 112 BPM, D major",
+    "tags": [
+      "pop",
+      "Turkish pop",
+      "1990s",
+      "sweet",
+      "nostalgic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "uk-dakh-daughters",
+    "name": "Dakh Daughters",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Experimental",
+    "subgenre": "Ukrainian avant-garde / cabaret",
+    "era": "2010s",
+    "mood": [
+      "provocative",
+      "theatrical"
+    ],
+    "bpm": 90,
+    "key": "D minor",
+    "vocals": "multi-voice theatrical collective",
+    "prompt": "2010s Ukrainian avant-garde (experimental), theatrical multi-voice, Ukrainian vocals, cabaret styling, dark and provocative mood, fits an experimental European playlist, 90 BPM, D minor",
+    "tags": [
+      "experimental",
+      "avant-garde",
+      "2010s",
+      "provocative",
+      "theatrical"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "uk-jamala",
+    "name": "Джамала",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Pop",
+    "subgenre": "Ukrainian pop / soul",
+    "era": "2010s",
+    "mood": [
+      "powerful",
+      "emotional"
+    ],
+    "bpm": 90,
+    "key": "D minor",
+    "vocals": "powerful Ukrainian soprano with Crimean Tatar roots",
+    "prompt": "2010s Ukrainian pop soul (pop), powerful soprano, Ukrainian/Crimean Tatar vocals, emotional and political delivery, fits an Eastern European playlist, 90 BPM, D minor",
+    "tags": [
+      "pop",
+      "Ukrainian pop",
+      "2010s",
+      "powerful",
+      "emotional"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "uk-bez-obmezhen",
+    "name": "Без Обмежень",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Pop",
+    "subgenre": "Ukrainian pop / dance",
+    "era": "2000s",
+    "mood": [
+      "danceable",
+      "urban"
+    ],
+    "bpm": 128,
+    "key": "F major",
+    "vocals": "danceable urban Ukrainian pop",
+    "prompt": "2000s Ukrainian dance pop (pop), urban pop, Ukrainian vocals, electronic beats, danceable mood, fits a Ukrainian club playlist, 128 BPM, F major",
+    "tags": [
+      "pop",
+      "Ukrainian pop",
+      "2000s",
+      "danceable",
+      "urban"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "uk-kalush",
+    "name": "Kalush Orchestra",
+    "language": "uk",
+    "languageLabel": "Украинские",
+    "genre": "Hip-hop",
+    "subgenre": "Ukrainian hip-hop / folk",
+    "era": "2020s",
+    "mood": [
+      "innovative",
+      "ethnic"
+    ],
+    "bpm": 140,
+    "key": "G minor",
+    "vocals": "hip-hop group blending Ukrainian folk flute",
+    "prompt": "2020s Ukrainian folk hip-hop (hip-hop), innovative ethnic rap, Ukrainian vocals, sopilka flute, hip-hop beats, ethnic and innovative mood, fits a Eurovision culture playlist, 140 BPM, G minor",
+    "tags": [
+      "hip-hop",
+      "Ukrainian folk",
+      "2020s",
+      "innovative",
+      "ethnic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "in-ar-rahman",
+    "name": "A.R. Rahman",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Soundtrack",
+    "subgenre": "Indian film score / fusion",
+    "era": "1990s",
+    "mood": [
+      "spiritual",
+      "cinematic"
+    ],
+    "bpm": 104,
+    "key": "Raag Bhairavi",
+    "vocals": "transcendent Sufi-film composer",
+    "prompt": "1990s Indian film score (soundtrack), transcendent composer vocals / chorus, Hindi vocals, orchestral Indian fusion, qawwali influence, spiritual and cinematic mood, fits a Bollywood epic playlist, 104 BPM, Raag Bhairavi",
+    "tags": [
+      "soundtrack",
+      "Indian film",
+      "1990s",
+      "spiritual",
+      "cinematic"
+    ],
+    "free": true,
+    "isNew": true
+  },
+  {
+    "id": "in-zakir-hussain",
+    "name": "Zakir Hussain",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Classical",
+    "subgenre": "Hindustani classical / tabla",
+    "era": "1970s",
+    "mood": [
+      "meditative",
+      "virtuosic"
+    ],
+    "bpm": 90,
+    "key": "Teentaal",
+    "vocals": "tabla virtuoso — percussive maestro",
+    "prompt": "1970s Hindustani classical (classical), tabla-led instrumental, no vocals, intricate Hindustani percussion, meditative and virtuosic mood, fits a world classical playlist, 90 BPM, Teentaal",
+    "tags": [
+      "classical",
+      "Hindustani",
+      "1970s",
+      "meditative",
+      "virtuosic"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "in-sunidhi-chauhan",
+    "name": "Sunidhi Chauhan",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Pop",
+    "subgenre": "contemporary Bollywood",
+    "era": "2000s",
+    "mood": [
+      "powerful",
+      "upbeat"
+    ],
+    "bpm": 120,
+    "key": "F major",
+    "vocals": "powerful upbeat Bollywood soprano",
+    "prompt": "2000s contemporary Bollywood (pop), powerful soprano, Hindi vocals, electronic Bollywood production, upbeat mood, fits a Bollywood dance playlist, 120 BPM, F major",
+    "tags": [
+      "pop",
+      "Bollywood",
+      "2000s",
+      "powerful",
+      "upbeat"
+    ],
+    "free": false,
+    "isNew": true
+  },
+  {
+    "id": "in-ap-dhillon",
+    "name": "AP Dhillon",
+    "language": "in",
+    "languageLabel": "Индийские",
+    "genre": "Pop",
+    "subgenre": "Punjabi pop / R&B",
+    "era": "2020s",
+    "mood": [
+      "cool",
+      "romantic"
+    ],
+    "bpm": 94,
+    "key": "D minor",
+    "vocals": "cool Punjabi R&B baritone",
+    "prompt": "2020s Punjabi R&B (pop), cool romantic baritone, Punjabi/English vocals, western R&B production with Punjabi flair, fits a global Punjabi playlist, 94 BPM, D minor",
+    "tags": [
+      "pop",
+      "Punjabi pop",
+      "2020s",
+      "cool",
+      "romantic"
+    ],
+    "free": false,
+    "isNew": true
   }
 ]
