@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SiliconSense — Suno AI Prompt Catalog</title>
-  <link rel="stylesheet" href="styles.css?v=6" />
+  <link rel="stylesheet" href="styles.css?v=7" />
 </head>
 <body>
   <div class="bg-grid"></div>
@@ -161,6 +161,35 @@
       <p class="sub">Three AI-powered tools. Free tier — 3 запроса в сутки на IP. Unlock-код снимает лимит.</p>
       <div id="ailab-quota" class="quota-pill"></div>
 
+      <div class="ai-card flagship" id="gen-card">
+        <h2>🎵 Создать трек <span class="badge-new">Suno live</span></h2>
+        <p class="sub">Вставь промпт — получи настоящий трек от Suno прямо здесь. Это та же модель, что на suno.com, через API.</p>
+        <div id="gen-disabled" class="gen-disabled hidden">⚠ Генерация ещё не подключена (нет TTAPI-ключа на сервере).</div>
+        <textarea id="gen-input" rows="3" placeholder="Стиль/промпт: synthwave, female vocal, cinematic, 120 BPM, A minor"></textarea>
+        <textarea id="gen-lyrics" rows="3" placeholder="Лирика (опционально, с тегами [Verse] [Chorus]). Пусто = Suno напишет сам."></textarea>
+        <input id="gen-title" type="text" placeholder="Название трека (опционально)" />
+        <div class="gen-opts">
+          <label>Модель
+            <select id="gen-mv">
+              <option value="chirp-v5">v5</option>
+              <option value="chirp-v5-5">v5.5</option>
+              <option value="chirp-v4-5+">v4.5+</option>
+              <option value="chirp-v4">v4</option>
+            </select>
+          </label>
+          <label>Вокал
+            <select id="gen-vocal">
+              <option value="">любой</option>
+              <option value="Female">женский</option>
+              <option value="Male">мужской</option>
+            </select>
+          </label>
+          <label class="check"><input id="gen-instr" type="checkbox" /> Инструментал</label>
+        </div>
+        <button id="gen-btn" class="primary">🎵 Сгенерировать (≈6 quota)</button>
+        <div id="gen-out" class="output"></div>
+      </div>
+
       <div class="ai-card" id="voice-card">
         <h2>🎙 Voice Memo → Prompt</h2>
         <p class="sub">Говори — получай промпт. Опиши голосом что хочешь создать: жанр, настроение, инструменты, эпоха. Whisper + AI соберут Suno-промпт за секунды.</p>
@@ -245,6 +274,6 @@
     <footer class="foot">SiliconSense-style demo · <span id="foot-engine">template engine</span> · catalog of <span id="foot-count">…</span> styles</footer>
   </main>
 
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>

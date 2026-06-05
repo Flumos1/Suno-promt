@@ -14,6 +14,7 @@ import { extractAudioMeta, promptFromMeta, closestFromMeta } from "./lib/audioAn
 import { buildSongStructure, aiSongStructure, buildLyricSkeleton, aiLyrics } from "./lib/songTools.js";
 import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite } from "./lib/aiFeatures.js";
 import { aiRateLimit } from "./lib/rateLimit.js";
+import { ttapiEnabled, submitMusic, fetchJob } from "./lib/ttapi.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
@@ -57,7 +58,7 @@ function publicEntry(c, unlocked) {
 
 // --- Status ---
 app.get("/api/status", (req, res) => {
-  res.json({ ai: aiEnabled(), provider: activeProvider(), catalogSize: catalog.length });
+  res.json({ ai: aiEnabled(), provider: activeProvider(), catalogSize: catalog.length, generate: ttapiEnabled() });
 });
 
 // --- Facets (counts for the filter UI) ---
@@ -227,6 +228,45 @@ app.post("/api/ai/scene-to-score", aiRateLimit, async (req, res) => {
   } catch (err) {
     console.error("[scene]", err.message);
     res.status(500).json({ ok: false, error: "Scoring failed" });
+  }
+});
+
+// ─── Real Suno track generation (TTAPI) ──────────────────────────────────
+// Submit returns a jobId; the client polls /api/ai/track-status. We keep the
+// HTTP requests short (no long-held connection) since Render may time out.
+
+app.post("/api/ai/generate-track", aiRateLimit, async (req, res) => {
+  if (!ttapiEnabled()) return res.status(503).json({ ok: false, error: "Track generation not configured (TTAPI_KEY missing)" });
+  const tags = String(req.body?.tags || req.body?.prompt || "").trim();
+  if (!tags) return res.status(400).json({ ok: false, error: "Empty prompt/tags" });
+  try {
+    const { jobId } = await submitMusic({
+      tags,
+      title: req.body?.title ? String(req.body.title).slice(0, 80) : undefined,
+      prompt: req.body?.lyrics ? String(req.body.lyrics) : undefined,
+      instrumental: !!req.body?.instrumental,
+      custom: true,
+      mv: req.body?.mv || undefined,
+      vocalGender: req.body?.vocalGender || undefined
+    });
+    if (!jobId) throw new Error("No jobId returned");
+    res.json({ ok: true, jobId });
+  } catch (err) {
+    console.error("[generate-track]", err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+app.get("/api/ai/track-status", async (req, res) => {
+  if (!ttapiEnabled()) return res.status(503).json({ ok: false, error: "Not configured" });
+  const jobId = String(req.query.jobId || "").trim();
+  if (!jobId) return res.status(400).json({ ok: false, error: "Missing jobId" });
+  try {
+    const job = await fetchJob(jobId);
+    res.json({ ok: true, ...job });
+  } catch (err) {
+    console.error("[track-status]", err.message);
+    res.status(500).json({ ok: false, error: err.message });
   }
 });
 

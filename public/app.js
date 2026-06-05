@@ -360,6 +360,91 @@ function download(name, text) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 
+/* ---------- AI Lab — Generate Track (TTAPI) ---------- */
+(function () {
+  const btn = $("#gen-btn");
+  const input = $("#gen-input");
+  const out = $("#gen-out");
+  const disabledMsg = $("#gen-disabled");
+  if (!btn) return;
+
+  // Reveal "not configured" notice based on /api/status.generate
+  api("/api/status").then((s) => {
+    if (!s.generate) { disabledMsg.classList.remove("hidden"); btn.disabled = true; }
+  }).catch(() => {});
+
+  let polling = null;
+  function stopPoll() { if (polling) { clearInterval(polling); polling = null; } }
+
+  btn.addEventListener("click", async () => {
+    const tags = input.value.trim();
+    if (!tags) { out.innerHTML = `<div class="error">Вставь промпт</div>`; return; }
+    stopPoll();
+    out.innerHTML = `<div class="spinner">Отправляю в Suno…</div>`;
+    btn.disabled = true;
+    try {
+      const data = await aiCall("/api/ai/generate-track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tags,
+          lyrics: $("#gen-lyrics").value.trim() || undefined,
+          title: $("#gen-title").value.trim() || undefined,
+          mv: $("#gen-mv").value,
+          vocalGender: $("#gen-vocal").value || undefined,
+          instrumental: $("#gen-instr").checked
+        })
+      });
+      if (!data.ok) throw new Error(data.error);
+      pollTrack(data.jobId);
+    } catch (err) {
+      out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+      btn.disabled = false;
+    }
+  });
+
+  function pollTrack(jobId) {
+    let elapsed = 0;
+    out.innerHTML = `<div class="spinner">Suno генерирует трек… <span id="gen-prog">0%</span> <span class="muted">(обычно 30–90 сек)</span></div>`;
+    polling = setInterval(async () => {
+      elapsed += 5;
+      try {
+        const job = await api(`/api/ai/track-status?jobId=${encodeURIComponent(jobId)}`);
+        if (job.progress) { const p = $("#gen-prog"); if (p) p.textContent = job.progress; }
+        if (job.status === "SUCCESS" && job.musics?.length) {
+          stopPoll(); btn.disabled = false;
+          out.innerHTML = `<div class="ai-result">${job.musics.map(renderTrack).join("")}</div>`;
+        } else if (job.status === "FAILED") {
+          stopPoll(); btn.disabled = false;
+          out.innerHTML = `<div class="error">Suno вернул ошибку генерации</div>`;
+        } else if (elapsed > 240) {
+          stopPoll(); btn.disabled = false;
+          out.innerHTML = `<div class="error">Слишком долго — попробуй ещё раз</div>`;
+        }
+      } catch (err) {
+        stopPoll(); btn.disabled = false;
+        out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+      }
+    }, 5000);
+  }
+
+  function renderTrack(m) {
+    return `
+      <div class="track-card">
+        ${m.imageUrl ? `<img class="track-art" src="${escapeAttr(m.imageUrl)}" alt="art" />` : ""}
+        <div class="track-info">
+          <div class="track-title">${escapeHtml(m.title || "Untitled")}</div>
+          <div class="track-tags muted">${escapeHtml(m.tags || "")}${m.duration ? ` · ${Math.round(m.duration)}s` : ""}</div>
+          <audio controls src="${escapeAttr(m.audioUrl)}"></audio>
+          <div class="track-actions">
+            <a class="small" href="${escapeAttr(m.audioUrl)}" download>⭳ MP3</a>
+            ${m.videoUrl ? `<a class="small" href="${escapeAttr(m.videoUrl)}" target="_blank">▦ Video</a>` : ""}
+          </div>
+        </div>
+      </div>`;
+  }
+})();
+
 /* ---------- AI Lab — Anti-Slop scorer (client-side, instant) ---------- */
 const SLOP_WEAK = [
   "beautiful","epic","cool","vibey","amazing","awesome","nice","great","good",

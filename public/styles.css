@@ -242,6 +242,29 @@ button.small { padding: 8px 14px; font-size: 13px; }
 .foot { margin-top: 54px; text-align: center; color: var(--muted); font-size: 12px; }
 .foot span { color: var(--neon2); }
 
+/* ── Generate Track ─────────────────────────────────────────────────── */
+.ai-card.flagship { border-color: rgba(255,184,108,0.4); background: rgba(255,184,108,0.04); }
+.badge-new {
+  font-size: 11px; padding: 2px 8px; border-radius: 999px;
+  background: var(--neon2); color: #1a1a1a; font-weight: 700; vertical-align: middle; margin-left: 6px;
+}
+.gen-disabled { color: #ffb86c; background: rgba(255,184,108,0.1); padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 13px; }
+#gen-card textarea, #gen-card input[type=text] { margin-bottom: 8px; width: 100%; box-sizing: border-box;
+  background: rgba(0,0,0,0.3); color: #e8e8e8; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 10px; font-family: inherit; font-size: 14px; }
+.gen-opts { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+.gen-opts label { font-size: 13px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
+.gen-opts label.check { flex-direction: row; align-items: center; gap: 6px; }
+.gen-opts select { background: rgba(0,0,0,0.3); color: #e8e8e8; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 6px; }
+.track-card { display: flex; gap: 14px; background: rgba(0,0,0,0.35); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+.track-art { width: 96px; height: 96px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
+.track-info { flex: 1; min-width: 0; }
+.track-title { font-weight: 600; font-size: 16px; margin-bottom: 2px; }
+.track-tags { font-size: 12px; margin-bottom: 8px; }
+.track-info audio { width: 100%; margin-bottom: 8px; }
+.track-actions { display: flex; gap: 12px; }
+.track-actions a { color: var(--neon2); text-decoration: none; }
+
 /* ── Anti-Slop ──────────────────────────────────────────────────────── */
 .slop-meter { display: flex; gap: 16px; align-items: center; margin: 14px 0; }
 .slop-score-ring {
