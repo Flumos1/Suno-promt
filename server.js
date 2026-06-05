@@ -12,7 +12,7 @@ import {
 import { aiEnabled, activeProvider, aiArtistCard, aiPromptFromAnalysis } from "./lib/aiProvider.js";
 import { extractAudioMeta, promptFromMeta, closestFromMeta } from "./lib/audioAnalyzer.js";
 import { buildSongStructure, aiSongStructure, buildLyricSkeleton, aiLyrics } from "./lib/songTools.js";
-import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite } from "./lib/aiFeatures.js";
+import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite, decodeDNA, transcribeAudio } from "./lib/aiFeatures.js";
 import { aiRateLimit } from "./lib/rateLimit.js";
 import { ttapiEnabled, submitMusic, fetchJob } from "./lib/ttapi.js";
 
@@ -234,6 +234,56 @@ app.post("/api/ai/scene-to-score", aiRateLimit, async (req, res) => {
 // ─── Real Suno track generation (TTAPI) ──────────────────────────────────
 // Submit returns a jobId; the client polls /api/ai/track-status. We keep the
 // HTTP requests short (no long-held connection) since Render may time out.
+
+// Track DNA Decoder — full analysis: metadata + Whisper + Claude report + catalog match
+app.post("/api/ai/dna-decode", aiRateLimit, upload.single("file"), async (req, res) => {
+  if (!req.file?.buffer) return res.status(400).json({ ok: false, error: "No audio file uploaded" });
+  if (req.file.size > 25 * 1024 * 1024) return res.status(400).json({ ok: false, error: "File too large (max 25MB)" });
+  try {
+    const buf = req.file.buffer;
+    const mime = req.file.mimetype || "audio/mpeg";
+    const name = req.file.originalname || "track";
+
+    // Step 1: extract metadata (existing, fast)
+    const { extractAudioMeta } = await import("./lib/audioAnalyzer.js");
+    const meta = await extractAudioMeta(buf, name);
+
+    // Step 2: Whisper transcription (parallel-friendly, may be empty for instrumentals)
+    const { transcript } = await transcribeAudio(buf, mime);
+
+    // Step 3: Claude producer report + catalog match
+    const catalogNames = catalog.slice(0, 300).map((a) => a.name); // top 300 by catalog order
+    const dna = await decodeDNA(meta, transcript, catalogNames);
+    if (!dna.ok) return res.status(500).json(dna);
+
+    // Enrich closest[] with full catalog entries
+    const closest = (dna.closest || []).map((c) => {
+      const found = catalog.find((a) => a.name.toLowerCase() === c.name.toLowerCase());
+      return found ? { ...c, id: found.id, genre: found.genre, prompt: found.prompt, bpm: found.bpm, key: found.key } : c;
+    });
+
+    res.json({
+      ok: true,
+      meta: {
+        filename: meta.filename, duration: meta.durationSec, bitrate: meta.bitrate,
+        sampleRate: meta.sampleRate, codec: meta.codec, tagBpm: meta.tagBpm,
+        tagGenre: meta.tagGenre, tagArtist: meta.tagArtist, tagTitle: meta.tagTitle
+      },
+      transcript: transcript || null,
+      analysis: {
+        era: dna.era, genre: dna.genre, subgenre: dna.subgenre,
+        mood: dna.mood, bpm: dna.bpm_estimate, key: dna.key_estimate,
+        instruments: dna.instruments, vocals: dna.vocals, production: dna.production,
+        producerNote: dna.producer_note
+      },
+      sunoPrompt: dna.suno_prompt,
+      closest
+    });
+  } catch (err) {
+    console.error("[dna-decode]", err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
 
 app.post("/api/ai/generate-track", aiRateLimit, async (req, res) => {
   if (!ttapiEnabled()) return res.status(503).json({ ok: false, error: "Track generation not configured (TTAPI_KEY missing)" });

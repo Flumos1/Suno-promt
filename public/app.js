@@ -542,6 +542,136 @@ function download(name, text) {
   }
 })();
 
+/* ---------- AI Lab — Track DNA Decoder ---------- */
+(function () {
+  const dz = $("#dna-dropzone");
+  const fileInput = $("#dna-file");
+  const btn = $("#dna-btn");
+  const out = $("#dna-out");
+  if (!dz) return;
+
+  dz.addEventListener("click", () => fileInput.click());
+  dz.addEventListener("dragover", (e) => { e.preventDefault(); dz.classList.add("drag"); });
+  dz.addEventListener("dragleave", () => dz.classList.remove("drag"));
+  dz.addEventListener("drop", (e) => {
+    e.preventDefault(); dz.classList.remove("drag");
+    if (e.dataTransfer.files[0]) { fileInput.files = e.dataTransfer.files; fileInput.dispatchEvent(new Event("change")); }
+  });
+  fileInput.addEventListener("change", () => {
+    const f = fileInput.files[0]; if (!f) return;
+    $("#dna-filename").textContent = f.name;
+    btn.disabled = false;
+  });
+
+  btn.addEventListener("click", async () => {
+    const f = fileInput.files[0]; if (!f) return;
+    out.innerHTML = `<div class="dna-steps">
+      <div class="dna-step active" id="ds1">📦 Читаю метаданные…</div>
+      <div class="dna-step" id="ds2">🎤 Whisper слушает лирику…</div>
+      <div class="dna-step" id="ds3">🧠 Claude строит ДНК-отчёт…</div>
+    </div>`;
+    btn.disabled = true;
+
+    // Animate steps — they're sequential on server so simulate timing
+    const steps = [1, 2, 3];
+    let si = 0;
+    const stepIv = setInterval(() => {
+      if (si < steps.length) {
+        const prev = out.querySelector(`#ds${steps[si]}`);
+        if (prev) prev.classList.add("done");
+        si++;
+        const cur = out.querySelector(`#ds${steps[si]}`);
+        if (cur) cur.classList.add("active");
+      }
+    }, 4000);
+
+    try {
+      const fd = new FormData();
+      fd.append("file", f);
+      const data = await aiCall("/api/ai/dna-decode", { method: "POST", body: fd });
+      clearInterval(stepIv);
+      if (!data.ok) throw new Error(data.error);
+      out.innerHTML = renderDNA(data);
+      wireCopyButtons(out);
+      // Wire generate buttons inside DNA result
+      out.querySelectorAll(".gen-track-btn").forEach((b) => {
+        b.addEventListener("click", () => openGenModal(b.dataset.prompt, b.dataset.name));
+      });
+    } catch (err) {
+      clearInterval(stepIv);
+      out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+    } finally { btn.disabled = false; }
+  });
+
+  function renderDNA(d) {
+    const a = d.analysis || {};
+    const tags = [
+      a.era && `<span class="tag">${escapeHtml(a.era)}</span>`,
+      a.genre && `<span class="tag">${escapeHtml(a.genre)}</span>`,
+      a.subgenre && `<span class="tag">${escapeHtml(a.subgenre)}</span>`,
+      a.bpm && `<span class="tag">${a.bpm} BPM</span>`,
+      a.key && `<span class="tag">${escapeHtml(a.key)}</span>`,
+      ...(a.mood || []).map((m) => `<span class="tag mood">${escapeHtml(m)}</span>`),
+      ...(a.instruments || []).slice(0, 4).map((i) => `<span class="tag inst">${escapeHtml(i)}</span>`)
+    ].filter(Boolean).join("");
+
+    const closestHTML = (d.closest || []).map((c) => `
+      <div class="dna-match">
+        <div class="dna-match-name">${escapeHtml(c.name)}</div>
+        <div class="dna-match-reason muted">${escapeHtml(c.reason || "")}</div>
+        ${c.prompt ? `
+          <div class="dna-match-prompt">${escapeHtml(c.prompt)}</div>
+          <div class="dna-match-actions">
+            <button class="copy" data-prompt="${escapeAttr(c.prompt)}">Copy prompt</button>
+            ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(c.prompt)}" data-name="${escapeAttr(c.name)}">🎵 Создать трек</button>` : ""}
+          </div>` : ""}
+      </div>`).join("");
+
+    const meta = d.meta || {};
+    const metaLine = [
+      meta.codec && escapeHtml(meta.codec),
+      meta.bitrate && `${Math.round(meta.bitrate / 1000)}kbps`,
+      meta.sampleRate && `${meta.sampleRate / 1000}kHz`,
+      meta.duration && `${Math.floor(meta.duration / 60)}:${String(meta.duration % 60).padStart(2, "0")}`
+    ].filter(Boolean).join(" · ");
+
+    return `<div class="ai-result dna-result">
+
+      <div class="dna-section">
+        <div class="prompt-label">Технические данные</div>
+        <div class="muted" style="font-size:12px">${metaLine || "—"}</div>
+      </div>
+
+      <div class="dna-section">
+        <div class="prompt-label">Анализ трека</div>
+        <div class="ai-meta">${tags}</div>
+        ${a.vocals ? `<div style="margin-top:8px;font-size:13px"><b>Вокал:</b> ${escapeHtml(a.vocals)}</div>` : ""}
+        ${a.production ? `<div style="font-size:13px"><b>Продакшн:</b> ${escapeHtml(a.production)}</div>` : ""}
+        ${a.producerNote ? `<div class="dna-note">💬 ${escapeHtml(a.producerNote)}</div>` : ""}
+      </div>
+
+      ${d.transcript ? `<div class="dna-section">
+        <div class="prompt-label">Лирика (Whisper)</div>
+        <div class="dna-lyrics">${escapeHtml(d.transcript.slice(0, 400))}${d.transcript.length > 400 ? "…" : ""}</div>
+      </div>` : ""}
+
+      <div class="ai-prompt-box">
+        <div class="prompt-label">Готовый Suno-промпт</div>
+        <div class="prompt">${escapeHtml(d.sunoPrompt)}</div>
+        <div class="card-actions">
+          <button class="copy" data-prompt="${escapeAttr(d.sunoPrompt)}">Copy</button>
+          ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(d.sunoPrompt)}" data-name="DNA Decode">🎵 Создать трек</button>` : ""}
+        </div>
+      </div>
+
+      <div class="dna-section">
+        <div class="prompt-label">🎯 Ближайшие артисты в каталоге</div>
+        <div class="dna-matches">${closestHTML}</div>
+      </div>
+    </div>`;
+  }
+})();
+
 /* ---------- AI Lab — Anti-Slop scorer (client-side, instant) ---------- */
 const SLOP_WEAK = [
   "beautiful","epic","cool","vibey","amazing","awesome","nice","great","good",
