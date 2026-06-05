@@ -360,6 +360,112 @@ function download(name, text) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 
+/* ---------- AI Lab — Anti-Slop scorer (client-side, instant) ---------- */
+const SLOP_WEAK = [
+  "beautiful","epic","cool","vibey","amazing","awesome","nice","great","good",
+  "powerful drums","powerful","emotional","catchy","banger","fire","vibe","energy",
+  "cinematic","orchestral","melodic","atmospheric","ethereal","dreamy","chill",
+  "sad","happy","dark","heavy","intense","smooth","groovy","fresh","modern"
+];
+const SLOP_CLICHE_COMBOS = [
+  ["epic","cinematic"], ["cinematic","orchestral"], ["epic","orchestral"],
+  ["sad","piano"], ["melancholic","piano"], ["emotional","piano"],
+  ["dark","trap"], ["melodic","trap"], ["hard","808"],
+  ["beautiful","emotional"], ["powerful","emotional"],
+];
+function scorePrompt(text) {
+  const t = text.toLowerCase();
+  const tokens = t.split(/[,;.\n]+/).map((s) => s.trim()).filter(Boolean);
+  const words = t.split(/\s+/);
+  let score = 100;
+  const flags = [];
+
+  // weak/vague tokens
+  for (const w of SLOP_WEAK) {
+    const re = new RegExp(`(^|[\\s,])${w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}([\\s,]|$)`, "i");
+    if (re.test(t)) { score -= 6; flags.push({ token: w, type: "weak" }); }
+  }
+  // cliché combos
+  for (const [a, b] of SLOP_CLICHE_COMBOS) {
+    if (t.includes(a) && t.includes(b)) { score -= 10; flags.push({ token: `${a} + ${b}`, type: "cliche" }); }
+  }
+  // structural bonuses
+  const hasBpm = /\b\d{2,3}\s?bpm\b/i.test(t);
+  const hasKey = /\b[a-g](\s?(#|sharp|flat|b))?\s?(major|minor|maj|min)\b/i.test(t) || /maqam|raag/i.test(t);
+  const tokenCount = tokens.length;
+  if (!hasBpm) { score -= 12; flags.push({ token: "нет BPM", type: "missing" }); }
+  if (!hasKey) { score -= 10; flags.push({ token: "нет тональности", type: "missing" }); }
+  if (tokenCount < 4) { score -= 10; flags.push({ token: `мало токенов (${tokenCount})`, type: "structure" }); }
+  if (tokenCount > 14) { score -= 8; flags.push({ token: `перегруз (${tokenCount} токенов)`, type: "structure" }); }
+  if (words.length > 90) { score -= 6; flags.push({ token: "слишком длинный", type: "structure" }); }
+
+  score = Math.max(0, Math.min(100, score));
+  return { score, flags, hasBpm, hasKey, tokenCount };
+}
+(function () {
+  const input = $("#slop-input");
+  const meter = $("#slop-meter");
+  const scoreEl = $("#slop-score");
+  const bar = $("#slop-bar");
+  const flagsEl = $("#slop-flags");
+  const btn = $("#slop-btn");
+  const out = $("#slop-out");
+  if (!input) return;
+
+  function color(score) {
+    if (score >= 75) return "#50fa7b";
+    if (score >= 50) return "#ffb86c";
+    return "#ff6b6b";
+  }
+  function update() {
+    const text = input.value.trim();
+    if (!text) { meter.classList.add("hidden"); btn.disabled = true; return; }
+    meter.classList.remove("hidden");
+    btn.disabled = false;
+    const { score, flags } = scorePrompt(text);
+    scoreEl.textContent = score;
+    scoreEl.style.color = color(score);
+    bar.style.width = score + "%";
+    bar.style.background = color(score);
+    flagsEl.innerHTML = flags.length
+      ? flags.map((f) => `<span class="slop-flag ${f.type}">${escapeHtml(f.token)}</span>`).join("")
+      : `<span class="slop-flag ok">✓ чисто, штампов не найдено</span>`;
+  }
+  input.addEventListener("input", update);
+
+  btn.addEventListener("click", async () => {
+    const prompt = input.value.trim();
+    if (!prompt) return;
+    const { flags } = scorePrompt(prompt);
+    out.innerHTML = `<div class="spinner">AI переписывает штампы в конкретику…</div>`;
+    btn.disabled = true;
+    try {
+      const data = await aiCall("/api/ai/anti-slop", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt, flagged: flags.map((f) => f.token) })
+      });
+      if (!data.ok) throw new Error(data.error);
+      const newScore = scorePrompt(data.rewritten).score;
+      out.innerHTML = `
+        <div class="ai-result">
+          <div class="ai-prompt-box">
+            <div class="prompt-label">Починенный промпт <span class="ok">· ${newScore}/100</span></div>
+            <div class="prompt">${escapeHtml(data.rewritten)}</div>
+            <button class="copy" data-prompt="${escapeAttr(data.rewritten)}">Copy</button>
+          </div>
+          ${data.changes.length ? `<div class="slop-changes">
+            <div class="prompt-label">Что заменено</div>
+            ${data.changes.map((c) => `<div class="slop-change"><s>${escapeHtml(c.from)}</s> → <b>${escapeHtml(c.to)}</b><span class="why">${escapeHtml(c.why || "")}</span></div>`).join("")}
+          </div>` : ""}
+        </div>`;
+      wireCopyButtons(out);
+    } catch (err) {
+      out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+    } finally { btn.disabled = false; }
+  });
+})();
+
 /* ---------- AI Lab — Voice Memo ---------- */
 (function () {
   const recordBtn = $("#voice-record-btn");

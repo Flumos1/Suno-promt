@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SiliconSense — Suno AI Prompt Catalog</title>
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="styles.css?v=6" />
 </head>
 <body>
   <div class="bg-grid"></div>
@@ -181,6 +181,21 @@
         <div id="voice-out" class="output"></div>
       </div>
 
+      <div class="ai-card" id="slop-card">
+        <h2>🛡 Anti-Slop Filter</h2>
+        <p class="sub">Вставь промпт — мгновенный балл силы 0–100 и подсветка штампов. Кнопка «Починить» переписывает банальные токены в конкретные. Мы не штампы — мы антиштампы.</p>
+        <textarea id="slop-input" rows="4" placeholder="Вставь Suno-промпт: epic cinematic orchestral, beautiful emotional, powerful drums…"></textarea>
+        <div id="slop-meter" class="slop-meter hidden">
+          <div class="slop-score-ring"><span id="slop-score">0</span></div>
+          <div class="slop-details">
+            <div id="slop-bar-wrap" class="slop-bar-wrap"><div id="slop-bar" class="slop-bar"></div></div>
+            <div id="slop-flags" class="slop-flags"></div>
+          </div>
+        </div>
+        <button id="slop-btn" class="primary" disabled>🛡 Починить штампы</button>
+        <div id="slop-out" class="output"></div>
+      </div>
+
       <div class="ai-card">
         <h2>🎭 Mood from Image</h2>
         <p class="sub">Brosь картинку, мем или скрин из фильма — Claude Vision расскажет как это звучит.</p>
@@ -230,6 +245,6 @@
     <footer class="foot">SiliconSense-style demo · <span id="foot-engine">template engine</span> · catalog of <span id="foot-count">…</span> styles</footer>
   </main>
 
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>

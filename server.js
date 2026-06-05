@@ -12,7 +12,7 @@ import {
 import { aiEnabled, activeProvider, aiArtistCard, aiPromptFromAnalysis } from "./lib/aiProvider.js";
 import { extractAudioMeta, promptFromMeta, closestFromMeta } from "./lib/audioAnalyzer.js";
 import { buildSongStructure, aiSongStructure, buildLyricSkeleton, aiLyrics } from "./lib/songTools.js";
-import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt } from "./lib/aiFeatures.js";
+import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite } from "./lib/aiFeatures.js";
 import { aiRateLimit } from "./lib/rateLimit.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -227,6 +227,20 @@ app.post("/api/ai/scene-to-score", aiRateLimit, async (req, res) => {
   } catch (err) {
     console.error("[scene]", err.message);
     res.status(500).json({ ok: false, error: "Scoring failed" });
+  }
+});
+
+app.post("/api/ai/anti-slop", aiRateLimit, async (req, res) => {
+  const prompt = String(req.body?.prompt || "").trim();
+  const flagged = Array.isArray(req.body?.flagged) ? req.body.flagged.slice(0, 30) : [];
+  if (!prompt) return res.status(400).json({ ok: false, error: "Empty prompt" });
+  if (prompt.length > 2000) return res.status(400).json({ ok: false, error: "Prompt too long" });
+  try {
+    const result = await antiSlopRewrite(prompt, flagged);
+    res.json(result);
+  } catch (err) {
+    console.error("[anti-slop]", err.message);
+    res.status(500).json({ ok: false, error: "Rewrite failed" });
   }
 });
 

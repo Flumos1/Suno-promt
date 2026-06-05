@@ -242,6 +242,30 @@ button.small { padding: 8px 14px; font-size: 13px; }
 .foot { margin-top: 54px; text-align: center; color: var(--muted); font-size: 12px; }
 .foot span { color: var(--neon2); }
 
+/* ── Anti-Slop ──────────────────────────────────────────────────────── */
+.slop-meter { display: flex; gap: 16px; align-items: center; margin: 14px 0; }
+.slop-score-ring {
+  flex-shrink: 0; width: 64px; height: 64px; border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 700;
+}
+.slop-details { flex: 1; }
+.slop-bar-wrap { height: 8px; background: rgba(255,255,255,0.08); border-radius: 999px; overflow: hidden; margin-bottom: 10px; }
+.slop-bar { height: 100%; width: 0; border-radius: 999px; transition: width 0.3s, background 0.3s; }
+.slop-flags { display: flex; flex-wrap: wrap; gap: 6px; }
+.slop-flag { font-size: 11px; padding: 3px 8px; border-radius: 999px; background: rgba(255,255,255,0.06); }
+.slop-flag.weak { color: #ffb86c; border: 1px solid rgba(255,184,108,0.3); }
+.slop-flag.cliche { color: #ff6b6b; border: 1px solid rgba(255,107,107,0.3); }
+.slop-flag.missing { color: #ff5555; border: 1px solid rgba(255,85,85,0.4); }
+.slop-flag.structure { color: #8be9fd; border: 1px solid rgba(139,233,253,0.3); }
+.slop-flag.ok { color: #50fa7b; border: 1px solid rgba(80,250,123,0.3); }
+.slop-changes { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 14px; }
+.slop-change { padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; }
+.slop-change s { color: #ff6b6b; opacity: 0.7; }
+.slop-change b { color: #50fa7b; }
+.slop-change .why { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+
 /* ── Voice Memo ─────────────────────────────────────────────────────── */
 .voice-controls { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 14px 0; }
 .voice-btn {
