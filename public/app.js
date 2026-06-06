@@ -467,32 +467,120 @@ function download(name, text) {
   const weightInput = $("#ref-weight");
   const weightVal = $("#ref-weight-val");
   const disabledMsg = $("#ref-disabled");
-  if (!dz) return;
+  if (!btn) return;
 
   api("/api/status").then((s) => {
     if (!s.generate) { disabledMsg?.classList.remove("hidden"); }
   }).catch(() => {});
 
-  // drag & drop
-  dz.addEventListener("click", () => fileInput.click());
-  dz.addEventListener("dragover", (e) => { e.preventDefault(); dz.classList.add("drag"); });
-  dz.addEventListener("dragleave", () => dz.classList.remove("drag"));
-  dz.addEventListener("drop", (e) => {
+  // ── Mode tabs ──
+  let activeMode = "file";
+  document.querySelectorAll(".ref-tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".ref-tab").forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      activeMode = tab.dataset.mode;
+      $("#ref-file-mode")?.classList.toggle("hidden", activeMode !== "file");
+      $("#ref-mic-mode")?.classList.toggle("hidden", activeMode !== "mic");
+    });
+  });
+
+  // ── File upload ──
+  dz?.addEventListener("click", () => fileInput.click());
+  dz?.addEventListener("dragover", (e) => { e.preventDefault(); dz.classList.add("drag"); });
+  dz?.addEventListener("dragleave", () => dz.classList.remove("drag"));
+  dz?.addEventListener("drop", (e) => {
     e.preventDefault(); dz.classList.remove("drag");
     if (e.dataTransfer.files[0]) { fileInput.files = e.dataTransfer.files; fileInput.dispatchEvent(new Event("change")); }
   });
-  fileInput.addEventListener("change", () => {
+  fileInput?.addEventListener("change", () => {
     const f = fileInput.files[0]; if (!f) return;
     $("#ref-filename").textContent = f.name;
     options?.classList.remove("hidden");
-    // Auto-set end time based on reasonable default
     const endInput = $("#ref-end");
     if (endInput) endInput.value = 30;
   });
   weightInput?.addEventListener("input", () => { if (weightVal) weightVal.textContent = weightInput.value; });
 
+  // ── Mic recording ──
+  let micRecorder = null, micChunks = [], micBlob = null, micTimerIv = null;
+  const micBtn = $("#ref-mic-btn");
+  const micTimer = $("#ref-mic-timer");
+  const micSec = $("#ref-mic-sec");
+  const micWave = $("#ref-mic-wave");
+  const micPlayback = $("#ref-mic-playback");
+  const micAudio = $("#ref-mic-audio");
+  const micUseBtn = $("#ref-mic-use-btn");
+  const micRedoBtn = $("#ref-mic-redo-btn");
+  const micName = $("#ref-mic-name");
+
+  function resetMic() {
+    micBlob = null; micChunks = [];
+    micPlayback?.classList.add("hidden");
+    micBtn?.classList.remove("hidden");
+    micTimer?.classList.add("hidden");
+    micWave?.classList.add("hidden");
+    if (micName) micName.textContent = "";
+    options?.classList.add("hidden");
+  }
+
+  micBtn?.addEventListener("click", async () => {
+    if (micRecorder?.state === "recording") {
+      micRecorder.stop();
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      micChunks = [];
+      micRecorder = new MediaRecorder(stream);
+      micRecorder.ondataavailable = (e) => { if (e.data.size) micChunks.push(e.data); };
+      micRecorder.onstop = () => {
+        stream.getTracks().forEach((t) => t.stop());
+        micBlob = new Blob(micChunks, { type: "audio/webm" });
+        micAudio.src = URL.createObjectURL(micBlob);
+        micPlayback?.classList.remove("hidden");
+        micBtn?.classList.add("hidden");
+        micTimer?.classList.add("hidden");
+        micWave?.classList.add("hidden");
+        clearInterval(micTimerIv);
+        if (micName) micName.textContent = `Запись: ${Math.round(micBlob.size / 1024)} KB`;
+      };
+      micRecorder.start();
+      micBtn.textContent = "⏹ Стоп";
+      micTimer?.classList.remove("hidden");
+      micWave?.classList.remove("hidden");
+      let secs = 0;
+      if (micSec) micSec.textContent = 0;
+      micTimerIv = setInterval(() => { secs++; if (micSec) micSec.textContent = secs; if (secs >= 120) micRecorder.stop(); }, 1000);
+    } catch (e) {
+      out.innerHTML = `<div class="error">Нет доступа к микрофону: ${escapeHtml(e.message)}</div>`;
+    }
+  });
+
+  micUseBtn?.addEventListener("click", () => {
+    if (!micBlob) return;
+    options?.classList.remove("hidden");
+    const endInput = $("#ref-end");
+    if (endInput) endInput.value = 30;
+    if (micName) micName.textContent += " · готово к отправке ✓";
+  });
+
+  micRedoBtn?.addEventListener("click", () => {
+    micBtn.textContent = "🎙 Начать запись";
+    resetMic();
+  });
+
+  // ── Submit ──
   btn?.addEventListener("click", async () => {
-    const f = fileInput.files[0]; if (!f) return;
+    let f = null;
+    if (activeMode === "file") {
+      f = fileInput?.files[0];
+      if (!f) { out.innerHTML = `<div class="error">Загрузи аудио-файл</div>`; return; }
+    } else {
+      if (!micBlob) { out.innerHTML = `<div class="error">Сначала запиши референс с микрофона и нажми «Использовать»</div>`; return; }
+      f = new File([micBlob], "mic-reference.webm", { type: micBlob.type });
+    }
+    if (!f) return;
     out.innerHTML = `<div class="spinner">Загружаю референс в Suno… <span class="muted">(шаг 1 из 2)</span></div>`;
     btn.disabled = true;
     try {

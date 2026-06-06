@@ -456,6 +456,17 @@ code { font-family: ui-monospace, monospace; }
 .spinner { color: var(--muted); padding: 12px 0; font-style: italic; }
 .error { color: #ff6b6b; padding: 12px; background: rgba(255,107,107,0.08); border-radius: 8px; white-space: pre-wrap; }
 
+/* Reference → Track mode tabs */
+.ref-mode-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+.ref-tab {
+  flex: 1; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border);
+  background: transparent; color: var(--muted); cursor: pointer; font-size: 13px;
+  transition: all .15s;
+}
+.ref-tab:hover { border-color: var(--neon2); color: var(--neon2); }
+.ref-tab.active { background: var(--neon2); color: #1a1a2e; border-color: var(--neon2); font-weight: 600; }
+.ref-mic-ui { display: flex; align-items: center; gap: 12px; padding: 16px 0; }
+
 /* Style Genome */
 .genome-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
 .genome-row .genome-name { flex: 1; }

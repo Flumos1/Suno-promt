@@ -192,13 +192,36 @@
 
       <div class="ai-card flagship" id="ref-card">
         <h2>🎵 Референс → Трек <span class="badge-new">новинка</span></h2>
-        <p class="sub">Загрузи любой MP3 как референс — Suno сгенерирует новый трек в его стиле. Выбери фрагмент (начало/конец), добавь описание или лирику.</p>
+        <p class="sub">Загрузи MP3 или запиши мелодию с микрофона — Suno сгенерирует новый трек в том же стиле.</p>
         <div id="ref-disabled" class="gen-disabled hidden">⚠ Генерация не подключена (нет TTAPI_KEY).</div>
-        <div class="dropzone" id="ref-dropzone">
-          <input id="ref-file" type="file" accept="audio/*" hidden />
-          <div class="dz-icon">♫</div>
-          <p>Click или drop референсный MP3 / WAV (до 25MB)</p>
-          <span id="ref-filename" class="muted"></span>
+        <div class="ref-mode-tabs">
+          <button class="ref-tab active" data-mode="file">📁 Загрузить файл</button>
+          <button class="ref-tab" data-mode="mic">🎙 Записать с микрофона</button>
+        </div>
+        <div id="ref-file-mode">
+          <div class="dropzone" id="ref-dropzone">
+            <input id="ref-file" type="file" accept="audio/*" hidden />
+            <div class="dz-icon">♫</div>
+            <p>Click или drop референсный MP3 / WAV (до 25MB)</p>
+            <span id="ref-filename" class="muted"></span>
+          </div>
+        </div>
+        <div id="ref-mic-mode" class="hidden">
+          <div class="ref-mic-ui">
+            <button id="ref-mic-btn" class="voice-btn">🎙 Начать запись</button>
+            <div id="ref-mic-timer" class="voice-timer hidden">⏺ <span id="ref-mic-sec">0</span>s</div>
+            <div id="ref-mic-wave" class="voice-wave hidden">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div id="ref-mic-playback" class="hidden">
+            <audio id="ref-mic-audio" controls></audio>
+            <div class="voice-actions">
+              <button id="ref-mic-use-btn" class="primary small">✓ Использовать как референс</button>
+              <button id="ref-mic-redo-btn" class="ghost small">🔄 Перезаписать</button>
+            </div>
+            <span id="ref-mic-name" class="muted" style="font-size:12px"></span>
+          </div>
         </div>
         <div id="ref-options" class="ref-options hidden">
           <div class="ref-time-row">
