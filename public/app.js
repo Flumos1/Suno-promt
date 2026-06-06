@@ -457,6 +457,101 @@ function download(name, text) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 
+/* ---------- AI Lab — Reference → Track (TTAPI Sample) ---------- */
+(function () {
+  const dz = $("#ref-dropzone");
+  const fileInput = $("#ref-file");
+  const options = $("#ref-options");
+  const btn = $("#ref-btn");
+  const out = $("#ref-out");
+  const weightInput = $("#ref-weight");
+  const weightVal = $("#ref-weight-val");
+  const disabledMsg = $("#ref-disabled");
+  if (!dz) return;
+
+  api("/api/status").then((s) => {
+    if (!s.generate) { disabledMsg?.classList.remove("hidden"); }
+  }).catch(() => {});
+
+  // drag & drop
+  dz.addEventListener("click", () => fileInput.click());
+  dz.addEventListener("dragover", (e) => { e.preventDefault(); dz.classList.add("drag"); });
+  dz.addEventListener("dragleave", () => dz.classList.remove("drag"));
+  dz.addEventListener("drop", (e) => {
+    e.preventDefault(); dz.classList.remove("drag");
+    if (e.dataTransfer.files[0]) { fileInput.files = e.dataTransfer.files; fileInput.dispatchEvent(new Event("change")); }
+  });
+  fileInput.addEventListener("change", () => {
+    const f = fileInput.files[0]; if (!f) return;
+    $("#ref-filename").textContent = f.name;
+    options?.classList.remove("hidden");
+    // Auto-set end time based on reasonable default
+    const endInput = $("#ref-end");
+    if (endInput) endInput.value = 30;
+  });
+  weightInput?.addEventListener("input", () => { if (weightVal) weightVal.textContent = weightInput.value; });
+
+  btn?.addEventListener("click", async () => {
+    const f = fileInput.files[0]; if (!f) return;
+    out.innerHTML = `<div class="spinner">Загружаю референс в Suno… <span class="muted">(шаг 1 из 2)</span></div>`;
+    btn.disabled = true;
+    try {
+      const fd = new FormData();
+      fd.append("audio", f);
+      fd.append("startSec", $("#ref-start")?.value || "0");
+      fd.append("endSec", $("#ref-end")?.value || "30");
+      fd.append("audioWeight", weightInput?.value || "0.7");
+      fd.append("mv", $("#ref-mv")?.value || "chirp-v5");
+      const vocal = $("#ref-vocal")?.value;
+      if (vocal) fd.append("vocalGender", vocal);
+      if ($("#ref-instr")?.checked) fd.append("instrumental", "true");
+      const desc = $("#ref-desc")?.value?.trim();
+      if (desc) fd.append("description", desc);
+
+      const data = await aiCall("/api/ai/reference-generate", { method: "POST", body: fd });
+      if (!data.ok) throw new Error(data.error);
+      out.innerHTML = `<div class="spinner">Референс загружен, Suno генерирует трек… <span id="ref-prog">0%</span> <span class="muted">(30–90 сек)</span></div>`;
+      pollRef(data.jobId);
+    } catch (err) {
+      out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+      btn.disabled = false;
+    }
+  });
+
+  function pollRef(jobId) {
+    let elapsed = 0;
+    const iv = setInterval(async () => {
+      elapsed += 5;
+      try {
+        const job = await api(`/api/ai/track-status?jobId=${encodeURIComponent(jobId)}`);
+        const p = $("#ref-prog"); if (p && job.progress) p.textContent = job.progress;
+        if (job.status === "SUCCESS" && job.musics?.length) {
+          clearInterval(iv); btn.disabled = false;
+          out.innerHTML = `<div class="ai-result">${job.musics.map((m) => `
+            <div class="track-card">
+              ${m.imageUrl ? `<img class="track-art" src="${escapeAttr(m.imageUrl)}" alt="art"/>` : ""}
+              <div class="track-info">
+                <div class="track-title">${escapeHtml(m.title || "Reference Track")}</div>
+                <div class="track-tags muted">${escapeHtml(m.tags || "")}${m.duration ? ` · ${Math.round(m.duration)}s` : ""}</div>
+                <audio controls src="${escapeAttr(m.audioUrl)}"></audio>
+                <div class="track-actions">
+                  <a href="${escapeAttr(m.audioUrl)}" download>⭳ MP3</a>
+                  ${m.videoUrl ? `<a href="${escapeAttr(m.videoUrl)}" target="_blank">▦ Video</a>` : ""}
+                </div>
+              </div>
+            </div>`).join("")}</div>`;
+        } else if (job.status === "FAILED") {
+          clearInterval(iv); btn.disabled = false;
+          out.innerHTML = `<div class="error">Ошибка генерации</div>`;
+        } else if (elapsed > 300) {
+          clearInterval(iv); btn.disabled = false;
+          out.innerHTML = `<div class="error">Слишком долго — попробуй ещё раз</div>`;
+        }
+      } catch (e) { clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`; }
+    }, 5000);
+  }
+})();
+
 /* ---------- AI Lab — Generate Track (TTAPI) ---------- */
 (function () {
   const btn = $("#gen-btn");

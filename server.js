@@ -14,7 +14,18 @@ import { extractAudioMeta, promptFromMeta, closestFromMeta } from "./lib/audioAn
 import { buildSongStructure, aiSongStructure, buildLyricSkeleton, aiLyrics } from "./lib/songTools.js";
 import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite, decodeDNA, transcribeAudio, styleTimeMachine, lyricsSyncConduct } from "./lib/aiFeatures.js";
 import { aiRateLimit } from "./lib/rateLimit.js";
-import { ttapiEnabled, submitMusic, fetchJob } from "./lib/ttapi.js";
+import { ttapiEnabled, submitMusic, fetchJob, submitSampleFromBuffer } from "./lib/ttapi.js";
+
+// Temporary file store for reference audio (TTAPI upload needs a public URL).
+// Files live max 5 min; cleaned up after TTAPI fetches them.
+const tempFiles = new Map();
+setInterval(() => {
+  const now = Date.now();
+  for (const [k, v] of tempFiles) if (v.expires < now) tempFiles.delete(k);
+}, 60_000).unref();
+
+// Public URL base — used when uploading to TTAPI
+const PUBLIC_BASE = process.env.PUBLIC_URL || "https://siliconsense.onrender.com";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
@@ -228,6 +239,45 @@ app.post("/api/ai/scene-to-score", aiRateLimit, async (req, res) => {
   } catch (err) {
     console.error("[scene]", err.message);
     res.status(500).json({ ok: false, error: "Scoring failed" });
+  }
+});
+
+// ── Temp file serving (for TTAPI upload reference) ──────────────────────
+app.get("/api/tmp/:id", (req, res) => {
+  const f = tempFiles.get(req.params.id);
+  if (!f || Date.now() > f.expires) return res.status(404).send("expired");
+  res.setHeader("Content-Type", f.mime || "audio/mpeg");
+  res.setHeader("Content-Length", f.buffer.length);
+  res.end(f.buffer);
+});
+
+// ── Reference → Generate (TTAPI sample-to-song) ──────────────────────────
+app.post("/api/ai/reference-generate", aiRateLimit, upload.single("audio"), async (req, res) => {
+  if (!ttapiEnabled()) return res.status(503).json({ ok: false, error: "Track generation not configured (TTAPI_KEY missing)" });
+  if (!req.file?.buffer) return res.status(400).json({ ok: false, error: "No audio file uploaded" });
+  if (req.file.size > 25 * 1024 * 1024) return res.status(400).json({ ok: false, error: "File too large (max 25MB)" });
+  try {
+    const { jobId } = await submitSampleFromBuffer(
+      req.file.buffer,
+      req.file.mimetype || "audio/mpeg",
+      tempFiles,
+      PUBLIC_BASE,
+      {
+        startSec: Number(req.body?.startSec ?? 0),
+        endSec: Number(req.body?.endSec ?? 30),
+        tags: req.body?.tags || undefined,
+        lyrics: req.body?.lyrics || undefined,
+        descriptionPrompt: req.body?.description || undefined,
+        instrumental: req.body?.instrumental === "true" || req.body?.instrumental === true,
+        mv: req.body?.mv || undefined,
+        vocalGender: req.body?.vocalGender || undefined,
+        audioWeight: req.body?.audioWeight !== undefined ? Number(req.body.audioWeight) : 0.7
+      }
+    );
+    res.json({ ok: true, jobId });
+  } catch (err) {
+    console.error("[reference-generate]", err.message);
+    res.status(500).json({ ok: false, error: err.message });
   }
 });
 

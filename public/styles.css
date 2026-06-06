@@ -242,6 +242,15 @@ button.small { padding: 8px 14px; font-size: 13px; }
 .foot { margin-top: 54px; text-align: center; color: var(--muted); font-size: 12px; }
 .foot span { color: var(--neon2); }
 
+/* ── Reference → Track ──────────────────────────────────────────────── */
+.ref-options { margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
+.ref-time-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.ref-time-row label { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.ref-time-row input[type=number] { width: 64px; background: rgba(0,0,0,0.3); color: #e8e8e8; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 6px; text-align: center; }
+.ref-weight-label { flex: 1; display: flex; align-items: center; gap: 8px; min-width: 180px; }
+.ref-weight-label input[type=range] { flex: 1; accent-color: var(--neon2); }
+#ref-card input[type=text] { width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.3); color: #e8e8e8; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px; font-family: inherit; font-size: 14px; }
+
 /* ── Generate Track — card button + modal ───────────────────────────── */
 .card-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
 .gen-track-btn {
