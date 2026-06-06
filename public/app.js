@@ -497,10 +497,146 @@ function download(name, text) {
     const f = fileInput.files[0]; if (!f) return;
     $("#ref-filename").textContent = f.name;
     options?.classList.remove("hidden");
-    const endInput = $("#ref-end");
-    if (endInput) endInput.value = 30;
+    loadRefAudio(f);
   });
   weightInput?.addEventListener("input", () => { if (weightVal) weightVal.textContent = weightInput.value; });
+
+  // ── Waveform ──
+  let audioDuration = 0;
+  let wfDragging = null; // "l" | "r"
+  const wfCanvas = $("#ref-waveform");
+  const wfSel = $("#ref-wf-sel");
+  const wfHandleL = $("#ref-wf-l");
+  const wfHandleR = $("#ref-wf-r");
+  const wfCursor = $("#ref-wf-cursor");
+  const wfWrap = $("#ref-waveform-wrap");
+  const audioPlayer = $("#ref-audio-player");
+  const startInput = $("#ref-start");
+  const endInput = $("#ref-end");
+
+  function secToFrac(s) { return audioDuration > 0 ? Math.max(0, Math.min(1, s / audioDuration)) : 0; }
+  function fracToSec(f) { return Math.round(f * audioDuration * 10) / 10; }
+
+  function updateHandlePositions() {
+    if (!wfWrap || !audioDuration) return;
+    const W = wfWrap.offsetWidth;
+    const lFrac = secToFrac(Number(startInput?.value || 0));
+    const rFrac = secToFrac(Number(endInput?.value || 30));
+    if (wfHandleL) wfHandleL.style.left = (lFrac * 100) + "%";
+    if (wfHandleR) wfHandleR.style.left = (rFrac * 100) + "%";
+    if (wfSel) {
+      wfSel.style.left = (lFrac * 100) + "%";
+      wfSel.style.width = ((rFrac - lFrac) * 100) + "%";
+    }
+    if ($("#ref-wf-l-label")) $("#ref-wf-l-label").textContent = Math.round(Number(startInput?.value || 0)) + "s";
+    if ($("#ref-wf-r-label")) $("#ref-wf-r-label").textContent = Math.round(Number(endInput?.value || 30)) + "s";
+  }
+
+  function drawWaveform(audioBuffer) {
+    if (!wfCanvas) return;
+    const W = wfWrap?.offsetWidth || 600;
+    wfCanvas.width = W;
+    const H = wfCanvas.height;
+    const ctx = wfCanvas.getContext("2d");
+    const raw = audioBuffer.getChannelData(0);
+    const step = Math.max(1, Math.floor(raw.length / W));
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "rgba(20,21,38,0.8)";
+    ctx.fillRect(0, 0, W, H);
+    for (let i = 0; i < W; i++) {
+      let mn = 0, mx = 0;
+      for (let j = 0; j < step; j++) {
+        const v = raw[i * step + j] || 0;
+        if (v < mn) mn = v; if (v > mx) mx = v;
+      }
+      const top = H / 2 - mx * (H / 2 - 4);
+      const bot = H / 2 - mn * (H / 2 - 4);
+      const h = Math.max(1, bot - top);
+      const alpha = 0.4 + Math.abs(mx - mn) * 0.6;
+      ctx.fillStyle = `rgba(124,140,255,${alpha})`;
+      ctx.fillRect(i, top, 1, h);
+    }
+  }
+
+  async function loadRefAudio(file) {
+    const url = URL.createObjectURL(file);
+    if (audioPlayer) { audioPlayer.src = url; audioPlayer.load(); }
+    try {
+      const arrayBuf = await file.arrayBuffer();
+      const actx = new (window.AudioContext || window.webkitAudioContext)();
+      const audioBuffer = await actx.decodeAudioData(arrayBuf);
+      audioDuration = audioBuffer.duration;
+      if (endInput) endInput.value = Math.min(30, Math.round(audioDuration));
+      if (startInput) startInput.value = 0;
+      drawWaveform(audioBuffer);
+      updateHandlePositions();
+      if (wfWrap) wfWrap.classList.remove("hidden");
+    } catch (e) {
+      console.warn("Waveform decode failed:", e.message);
+      if (endInput) endInput.value = 30;
+      if (startInput) startInput.value = 0;
+    }
+  }
+
+  // Drag handles
+  function onWfMouseDown(e, side) {
+    wfDragging = side; e.preventDefault();
+  }
+  wfHandleL?.addEventListener("mousedown", (e) => onWfMouseDown(e, "l"));
+  wfHandleR?.addEventListener("mousedown", (e) => onWfMouseDown(e, "r"));
+  wfHandleL?.addEventListener("touchstart", (e) => { wfDragging = "l"; }, { passive: true });
+  wfHandleR?.addEventListener("touchstart", (e) => { wfDragging = "r"; }, { passive: true });
+
+  function getWfFrac(e) {
+    const rect = wfWrap.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    return Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+  }
+
+  function onWfMove(e) {
+    if (!wfDragging || !audioDuration) return;
+    const frac = getWfFrac(e);
+    const sec = fracToSec(frac);
+    const lSec = Number(startInput?.value || 0);
+    const rSec = Number(endInput?.value || 30);
+    if (wfDragging === "l") {
+      if (sec < rSec - 1 && startInput) { startInput.value = sec; }
+    } else {
+      if (sec > lSec + 1 && sec <= audioDuration && endInput) { endInput.value = sec; }
+    }
+    updateHandlePositions();
+  }
+  document.addEventListener("mousemove", onWfMove);
+  document.addEventListener("touchmove", onWfMove, { passive: true });
+  document.addEventListener("mouseup", () => { wfDragging = null; });
+  document.addEventListener("touchend", () => { wfDragging = null; });
+
+  // Click on wrap → move nearest handle
+  wfWrap?.addEventListener("click", (e) => {
+    if (!audioDuration || wfDragging) return;
+    const frac = getWfFrac(e);
+    const sec = fracToSec(frac);
+    const lSec = Number(startInput?.value || 0);
+    const rSec = Number(endInput?.value || 30);
+    if (Math.abs(sec - lSec) < Math.abs(sec - rSec)) {
+      if (sec < rSec - 1 && startInput) startInput.value = sec;
+    } else {
+      if (sec > lSec + 1 && endInput) endInput.value = sec;
+    }
+    updateHandlePositions();
+  });
+
+  // Manual input changes sync → waveform
+  startInput?.addEventListener("input", updateHandlePositions);
+  endInput?.addEventListener("input", updateHandlePositions);
+
+  // Playback cursor
+  audioPlayer?.addEventListener("timeupdate", () => {
+    if (!audioDuration || !wfCursor || !wfWrap) return;
+    const frac = audioPlayer.currentTime / audioDuration;
+    wfCursor.style.left = (frac * 100) + "%";
+    wfCursor.style.display = "block";
+  });
 
   // ── Mic recording ──
   let micRecorder = null, micChunks = [], micBlob = null, micTimerIv = null;
@@ -560,8 +696,8 @@ function download(name, text) {
   micUseBtn?.addEventListener("click", () => {
     if (!micBlob) return;
     options?.classList.remove("hidden");
-    const endInput = $("#ref-end");
-    if (endInput) endInput.value = 30;
+    const f = new File([micBlob], "mic-reference.webm", { type: micBlob.type });
+    loadRefAudio(f);
     if (micName) micName.textContent += " · готово к отправке ✓";
   });
 

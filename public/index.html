@@ -224,6 +224,14 @@
           </div>
         </div>
         <div id="ref-options" class="ref-options hidden">
+          <audio id="ref-audio-player" controls></audio>
+          <div class="waveform-wrap" id="ref-waveform-wrap">
+            <canvas id="ref-waveform" height="72"></canvas>
+            <div class="wf-sel" id="ref-wf-sel"></div>
+            <div class="wf-handle wf-handle-l" id="ref-wf-l"><span class="wf-handle-label" id="ref-wf-l-label">0s</span></div>
+            <div class="wf-handle wf-handle-r" id="ref-wf-r"><span class="wf-handle-label" id="ref-wf-r-label">30s</span></div>
+            <div class="wf-cursor" id="ref-wf-cursor"></div>
+          </div>
           <div class="ref-time-row">
             <label>Фрагмент с <input id="ref-start" type="number" min="0" value="0" />с</label>
             <label>по <input id="ref-end" type="number" min="1" value="30" />с</label>

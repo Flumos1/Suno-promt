@@ -456,6 +456,41 @@ code { font-family: ui-monospace, monospace; }
 .spinner { color: var(--muted); padding: 12px 0; font-style: italic; }
 .error { color: #ff6b6b; padding: 12px; background: rgba(255,107,107,0.08); border-radius: 8px; white-space: pre-wrap; }
 
+/* Waveform */
+#ref-audio-player { width: 100%; margin-bottom: 10px; border-radius: 8px; }
+.waveform-wrap {
+  position: relative; width: 100%; height: 72px; border-radius: 8px;
+  overflow: visible; margin-bottom: 10px; cursor: crosshair; user-select: none;
+  border: 1px solid var(--border); background: rgba(20,21,38,0.8);
+}
+#ref-waveform { display: block; width: 100%; height: 72px; border-radius: 8px; }
+.wf-sel {
+  position: absolute; top: 0; bottom: 0; background: rgba(124,140,255,0.18);
+  border-top: 2px solid rgba(124,140,255,0.5); border-bottom: 2px solid rgba(124,140,255,0.5);
+  pointer-events: none;
+}
+.wf-handle {
+  position: absolute; top: 0; bottom: 0; width: 3px;
+  background: var(--neon2); cursor: ew-resize; z-index: 4;
+  transform: translateX(-50%);
+}
+.wf-handle::before {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px; height: 24px; background: var(--neon2);
+  border-radius: 4px; opacity: 0.9;
+}
+.wf-handle-label {
+  position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+  font-size: 10px; color: var(--neon2); white-space: nowrap; pointer-events: none;
+  background: var(--panel-solid); padding: 1px 4px; border-radius: 3px;
+}
+.wf-cursor {
+  position: absolute; top: 0; bottom: 0; width: 2px;
+  background: #ff79c6; opacity: 0.8; pointer-events: none; display: none; z-index: 5;
+  transform: translateX(-50%);
+}
+
 /* Reference → Track mode tabs */
 .ref-mode-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
 .ref-tab {
