@@ -1268,5 +1268,104 @@ if (transBtn) {
   });
 }
 
+/* ---------- AI Lab — Style Genome ---------- */
+(function () {
+  const container = document.getElementById("genome-artists");
+  const addBtn = document.getElementById("genome-add");
+  const totalEl = document.getElementById("genome-total");
+  const btn = document.getElementById("genome-btn");
+  const out = document.getElementById("genome-out");
+  if (!btn) return;
+
+  function updateTotal() {
+    const weights = [...container.querySelectorAll(".genome-weight")].map((i) => Number(i.value) || 0);
+    const sum = weights.reduce((a, b) => a + b, 0);
+    totalEl.textContent = sum + "%";
+    totalEl.className = "genome-total" + (sum === 100 ? " ok" : sum > 100 ? " over" : "");
+  }
+
+  container.addEventListener("input", updateTotal);
+
+  addBtn.addEventListener("click", () => {
+    if (container.querySelectorAll(".genome-row").length >= 3) return;
+    const row = document.createElement("div");
+    row.className = "genome-row";
+    row.dataset.idx = "2";
+    row.innerHTML = `
+      <input class="genome-name" type="text" placeholder="Артист 3: финальный флейвор…" />
+      <input class="genome-weight" type="number" min="1" max="99" value="10" />
+      <span class="genome-pct">%</span>
+      <button class="genome-remove ghost small">✕</button>`;
+    row.querySelector(".genome-remove").addEventListener("click", () => {
+      row.remove();
+      addBtn.classList.remove("hidden");
+      updateTotal();
+    });
+    container.appendChild(row);
+    addBtn.classList.add("hidden");
+    updateTotal();
+  });
+
+  btn.addEventListener("click", async () => {
+    const rows = [...container.querySelectorAll(".genome-row")];
+    const artists = rows.map((r) => ({
+      name: r.querySelector(".genome-name").value.trim(),
+      weight: Number(r.querySelector(".genome-weight").value) || 0
+    })).filter((a) => a.name && a.weight > 0);
+
+    if (artists.length < 2) { out.innerHTML = `<div class="error">Введи хотя бы 2 артиста с именем и весом</div>`; return; }
+
+    out.innerHTML = `<div class="spinner">Скрещиваем ДНК: ${artists.map((a) => a.name).join(" × ")}…</div>`;
+    btn.disabled = true;
+    try {
+      const data = await aiCall("/api/ai/style-genome", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ artists })
+      });
+      if (!data.ok) throw new Error(data.error);
+      out.innerHTML = renderGenome(data, artists);
+      wireCopyButtons(out);
+      out.querySelectorAll(".gen-track-btn").forEach((b) =>
+        b.addEventListener("click", () => openGenModal(b.dataset.prompt, b.dataset.name)));
+    } catch (err) {
+      out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+    } finally { btn.disabled = false; }
+  });
+
+  function renderGenome(d, artists) {
+    const title = artists.map((a) => a.name).join(" × ");
+    return `<div class="ai-result">
+      <div class="tm-headline">${escapeHtml(title)}</div>
+      <div class="ai-atmo"><strong>Концепция:</strong> ${escapeHtml(d.concept)}</div>
+      <div class="ai-prompt-box">
+        <div class="prompt-label">Suno-промпт</div>
+        <div class="prompt">${escapeHtml(d.prompt)}</div>
+        <div class="card-actions">
+          <button class="copy" data-prompt="${escapeAttr(d.prompt)}">Copy</button>
+          ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(d.prompt)}" data-name="${escapeAttr(title)}">🎵 Создать трек</button>` : ""}
+        </div>
+      </div>
+      ${d.dnaBreakdown.length ? `
+      <div class="prompt-label" style="margin-top:12px">ДНК по артистам</div>
+      ${d.dnaBreakdown.map((b) => `
+        <div class="genome-dna-row">
+          <span class="genome-dna-name">${escapeHtml(b.artist)}</span>
+          <span class="genome-dna-bar" style="width:${b.weight}%"></span>
+          <span class="genome-dna-pct">${b.weight}%</span>
+          <span class="genome-dna-contrib muted">${escapeHtml(b.contribution)}</span>
+        </div>`).join("")}` : ""}
+      <div class="ai-meta">
+        ${d.bpm ? `<span class="tag">${d.bpm} BPM</span>` : ""}
+        ${d.key ? `<span class="tag">${escapeHtml(d.key)}</span>` : ""}
+        ${d.genre ? `<span class="tag">${escapeHtml(d.genre)}</span>` : ""}
+        ${d.mood.map((m) => `<span class="tag mood">${escapeHtml(m)}</span>`).join("")}
+        ${d.instruments.map((i) => `<span class="tag inst">${escapeHtml(i)}</span>`).join("")}
+        ${d.vocals ? `<span class="tag">${escapeHtml(d.vocals)}</span>` : ""}
+      </div>
+    </div>`;
+  }
+})();
+
 /* ---------- Init (after all declarations) ---------- */
 if (localStorage.getItem(GATE_KEY)) showApp();

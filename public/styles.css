@@ -456,6 +456,21 @@ code { font-family: ui-monospace, monospace; }
 .spinner { color: var(--muted); padding: 12px 0; font-style: italic; }
 .error { color: #ff6b6b; padding: 12px; background: rgba(255,107,107,0.08); border-radius: 8px; white-space: pre-wrap; }
 
+/* Style Genome */
+.genome-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.genome-row .genome-name { flex: 1; }
+.genome-row .genome-weight { width: 60px; text-align: center; }
+.genome-pct { color: var(--muted); font-size: 13px; }
+.genome-controls { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.genome-total { font-size: 13px; font-weight: 700; color: var(--muted); }
+.genome-total.ok { color: #50fa7b; }
+.genome-total.over { color: #ff6b6b; }
+.genome-dna-row { display: flex; align-items: center; gap: 8px; margin: 6px 0; font-size: 13px; }
+.genome-dna-name { min-width: 90px; font-weight: 600; color: var(--neon2); }
+.genome-dna-bar { height: 6px; background: var(--neon2); border-radius: 3px; opacity: 0.6; min-width: 4px; }
+.genome-dna-pct { min-width: 36px; color: var(--muted); }
+.genome-dna-contrib { flex: 1; }
+
 @media (max-width: 520px) {
   .gate-card { padding: 30px; }
   h1 { font-size: 23px; }

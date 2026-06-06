@@ -240,6 +240,29 @@
         <div id="voice-out" class="output"></div>
       </div>
 
+      <div class="ai-card" id="genome-card">
+        <h2>🧬 Style Genome</h2>
+        <p class="sub">Скрести 2–3 артиста по весу → получи гибридный Suno-промпт. Доминирующий задаёт скелет, остальные добавляют ДНК пропорционально.</p>
+        <div id="genome-artists">
+          <div class="genome-row" data-idx="0">
+            <input class="genome-name" type="text" placeholder="Артист 1 (доминирующий): Drake, Radiohead…" />
+            <input class="genome-weight" type="number" min="1" max="99" value="60" />
+            <span class="genome-pct">%</span>
+          </div>
+          <div class="genome-row" data-idx="1">
+            <input class="genome-name" type="text" placeholder="Артист 2: добавляет флейвор…" />
+            <input class="genome-weight" type="number" min="1" max="99" value="40" />
+            <span class="genome-pct">%</span>
+          </div>
+        </div>
+        <div class="genome-controls">
+          <button id="genome-add" class="ghost small">+ Артист 3</button>
+          <span id="genome-total" class="genome-total">100%</span>
+        </div>
+        <button id="genome-btn" class="primary">🧬 Скрестить стили</button>
+        <div id="genome-out" class="output"></div>
+      </div>
+
       <div class="ai-card" id="tm-card">
         <h2>🕰 Style Time Machine</h2>
         <p class="sub">Как звучал бы [артист] в [эпоху]? Drake в 1975? Кино в эпоху витч-хауса? Сигнатура артиста × продакшн другого времени.</p>

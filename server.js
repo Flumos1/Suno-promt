@@ -12,7 +12,7 @@ import {
 import { aiEnabled, activeProvider, aiArtistCard, aiPromptFromAnalysis } from "./lib/aiProvider.js";
 import { extractAudioMeta, promptFromMeta, closestFromMeta } from "./lib/audioAnalyzer.js";
 import { buildSongStructure, aiSongStructure, buildLyricSkeleton, aiLyrics } from "./lib/songTools.js";
-import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite, decodeDNA, transcribeAudio, styleTimeMachine, lyricsSyncConduct } from "./lib/aiFeatures.js";
+import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite, decodeDNA, transcribeAudio, styleTimeMachine, lyricsSyncConduct, styleGenome } from "./lib/aiFeatures.js";
 import { aiRateLimit } from "./lib/rateLimit.js";
 import { ttapiEnabled, submitMusic, fetchJob, submitSampleFromBuffer } from "./lib/ttapi.js";
 
@@ -448,6 +448,28 @@ app.post("/api/ai/mood-from-image", aiRateLimit, upload.single("image"), async (
   } catch (err) {
     console.error("[mood-image]", err.message);
     res.status(500).json({ ok: false, error: "Image analysis failed" });
+  }
+});
+
+app.post("/api/ai/style-genome", aiRateLimit, async (req, res) => {
+  const artists = req.body?.artists;
+  if (!Array.isArray(artists) || artists.length < 2) {
+    return res.status(400).json({ ok: false, error: "Need at least 2 artists" });
+  }
+  if (artists.length > 3) {
+    return res.status(400).json({ ok: false, error: "Max 3 artists" });
+  }
+  for (const a of artists) {
+    if (!a.name || typeof a.weight !== "number" || a.weight <= 0) {
+      return res.status(400).json({ ok: false, error: "Each artist needs name and weight > 0" });
+    }
+  }
+  try {
+    const result = await styleGenome(artists);
+    res.json(result);
+  } catch (err) {
+    console.error("[style-genome]", err.message);
+    res.status(500).json({ ok: false, error: err.message });
   }
 });
 
