@@ -44,6 +44,7 @@
       <button class="tab" data-tab="cover">▦ Cover Art</button>
       <button class="tab" data-tab="structure">⊞ Structure</button>
       <button class="tab" data-tab="lyrics">✎ Lyrics</button>
+      <button class="tab" data-tab="constructor">🎛 Constructor</button>
       <button class="tab" data-tab="ailab">🧪 AI Lab</button>
       <button class="tab" data-tab="saved">★ Saved</button>
     </nav>
@@ -153,6 +154,221 @@
       </div>
       <button id="lyrics-btn" class="primary">Write Lyrics</button>
       <div id="lyrics-out" class="output"></div>
+    </section>
+
+    <!-- Constructor -->
+    <section class="panel" id="tab-constructor">
+      <div class="ctor-wrap">
+        <div class="ctor-left">
+          <h1>🎛 Конструктор промптов <span class="badge-v">v5.5</span></h1>
+          <p class="sub">Собери идеальный Suno-промпт. Правильный порядок слов — автоматически. Референс + Generate — прямо здесь.</p>
+
+          <!-- Era -->
+          <div class="ctor-section" id="cs-era">
+            <div class="ctor-label">ЭПОХА</div>
+            <div class="ctor-chips" data-key="era" data-multi="0"></div>
+          </div>
+
+          <!-- Genre -->
+          <div class="ctor-section" id="cs-genre">
+            <div class="ctor-label">ЖАНР</div>
+            <select id="ctor-genre" class="ctor-select">
+              <option value="">— выбери —</option>
+              <optgroup label="Electronic">
+                <option>synthwave</option><option>darkwave</option><option>electropop</option>
+                <option>house</option><option>deep house</option><option>techno</option>
+                <option>trance</option><option>drum and bass</option><option>dubstep</option>
+                <option>future bass</option><option>chillwave</option><option>vaporwave</option>
+                <option>lo-fi hip-hop</option><option>ambient techno</option><option>EBM</option><option>IDM</option>
+              </optgroup>
+              <optgroup label="Rock">
+                <option>indie rock</option><option>alternative rock</option><option>garage rock</option>
+                <option>psychedelic rock</option><option>shoegaze</option><option>post-rock</option>
+                <option>hard rock</option><option>classic rock</option><option>punk</option>
+                <option>pop-punk</option><option>grunge</option><option>emo</option>
+                <option>math rock</option><option>post-punk</option><option>art rock</option>
+              </optgroup>
+              <optgroup label="Hip-Hop / R&B">
+                <option>hip-hop</option><option>boom-bap</option><option>trap</option>
+                <option>drill</option><option>phonk</option><option>cloud rap</option>
+                <option>R&B</option><option>neo-soul</option><option>contemporary R&B</option>
+                <option>afrobeats</option><option>reggaeton</option>
+              </optgroup>
+              <optgroup label="Pop">
+                <option>dream pop</option><option>synth-pop</option><option>indie pop</option>
+                <option>art pop</option><option>chamber pop</option><option>baroque pop</option>
+                <option>dark pop</option><option>hyperpop</option><option>K-pop influenced</option>
+              </optgroup>
+              <optgroup label="Jazz / Soul / Funk">
+                <option>jazz</option><option>bebop</option><option>jazz fusion</option>
+                <option>nu-jazz</option><option>soul</option><option>Motown</option>
+                <option>funk</option><option>gospel</option><option>blues</option><option>smooth jazz</option>
+              </optgroup>
+              <optgroup label="Folk / Acoustic">
+                <option>folk</option><option>indie folk</option><option>singer-songwriter</option>
+                <option>Americana</option><option>bluegrass</option><option>country</option>
+                <option>Celtic folk</option><option>acoustic pop</option>
+              </optgroup>
+              <optgroup label="Metal">
+                <option>heavy metal</option><option>doom metal</option><option>black metal</option>
+                <option>post-metal</option><option>prog metal</option><option>thrash metal</option>
+                <option>nu-metal</option><option>metalcore</option>
+              </optgroup>
+              <optgroup label="Classical / Orchestral">
+                <option>orchestral</option><option>neoclassical</option><option>film score</option>
+                <option>chamber music</option><option>opera</option><option>minimalist classical</option>
+                <option>contemporary classical</option>
+              </optgroup>
+              <optgroup label="World / Ethnic">
+                <option>bossa nova</option><option>flamenco</option><option>reggae</option>
+                <option>afrobeat</option><option>cumbia</option><option>samba</option>
+                <option>fado</option><option>Celtic</option><option>Indian classical</option>
+              </optgroup>
+              <optgroup label="Experimental">
+                <option>noise</option><option>glitch</option><option>ambient</option>
+                <option>dark ambient</option><option>industrial</option><option>drone</option>
+                <option>avant-garde</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <!-- Mood -->
+          <div class="ctor-section" id="cs-mood">
+            <div class="ctor-label">НАСТРОЕНИЕ <span class="ctor-hint">2–3</span></div>
+            <div class="ctor-chips" data-key="mood" data-multi="3"></div>
+          </div>
+
+          <!-- Vocal gender -->
+          <div class="ctor-section" id="cs-vgender">
+            <div class="ctor-label">ВОКАЛ — ПОЛ</div>
+            <div class="ctor-chips" data-key="vocalGender" data-multi="0"></div>
+          </div>
+
+          <!-- Vocal timbre -->
+          <div class="ctor-section" id="cs-vtimbre">
+            <div class="ctor-label">ВОКАЛ — ТЕМБР <span class="ctor-hint">до 3</span></div>
+            <div class="ctor-chips" data-key="vocalTimbre" data-multi="3"></div>
+          </div>
+
+          <!-- Vocal delivery -->
+          <div class="ctor-section" id="cs-vdelivery">
+            <div class="ctor-label">ВОКАЛ — ПОДАЧА</div>
+            <div class="ctor-chips" data-key="vocalDelivery" data-multi="0"></div>
+          </div>
+
+          <!-- Vocal FX -->
+          <div class="ctor-section" id="cs-vfx">
+            <div class="ctor-label">ВОКАЛ — ЭФФЕКТЫ <span class="ctor-hint">опц., до 2</span></div>
+            <div class="ctor-chips" data-key="vocalFx" data-multi="2"></div>
+          </div>
+
+          <!-- Instruments -->
+          <div class="ctor-section" id="cs-instruments">
+            <div class="ctor-label">ИНСТРУМЕНТЫ <span class="ctor-hint">2–5</span> <span id="ctor-inst-count" class="ctor-sel-count"></span></div>
+            <div class="ctor-inst-tabs" id="ctor-inst-tabs"></div>
+            <div class="ctor-chips ctor-inst-panel" id="ctor-inst-chips"></div>
+          </div>
+
+          <!-- Production -->
+          <div class="ctor-section" id="cs-production">
+            <div class="ctor-label">ПРОДАКШН <span class="ctor-hint">опц., до 3</span></div>
+            <div class="ctor-chips" data-key="production" data-multi="3"></div>
+          </div>
+
+          <!-- BPM -->
+          <div class="ctor-section" id="cs-bpm">
+            <div class="ctor-label">ТЕМП <span id="ctor-bpm-display" class="neon-val"></span></div>
+            <div class="ctor-bpm-presets">
+              <button class="ctor-preset" data-bpm="0">Авто</button>
+              <button class="ctor-preset" data-bpm="70">Slow 70</button>
+              <button class="ctor-preset" data-bpm="90">Mid 90</button>
+              <button class="ctor-preset" data-bpm="110">Pop 110</button>
+              <button class="ctor-preset" data-bpm="128">Club 128</button>
+              <button class="ctor-preset" data-bpm="140">Fast 140</button>
+              <button class="ctor-preset" data-bpm="170">DnB 170</button>
+            </div>
+            <input id="ctor-bpm-slider" type="range" min="40" max="200" value="120" class="ctor-bpm-slider" />
+            <div class="ctor-bpm-scale"><span>40</span><span>80</span><span>120</span><span>160</span><span>200</span></div>
+          </div>
+
+          <!-- Key -->
+          <div class="ctor-section" id="cs-key">
+            <div class="ctor-label">ТОНАЛЬНОСТЬ <span class="ctor-hint">опц.</span></div>
+            <div class="ctor-chips" data-key="keyNote" data-multi="0"></div>
+            <div class="ctor-chips ctor-key-mode" data-key="keyMode" data-multi="0"></div>
+          </div>
+
+          <!-- Use case -->
+          <div class="ctor-section" id="cs-usecase">
+            <div class="ctor-label">USE CASE <span class="ctor-hint">опц.</span></div>
+            <div class="ctor-chips" data-key="useCase" data-multi="0"></div>
+          </div>
+
+          <!-- Theme -->
+          <div class="ctor-section">
+            <div class="ctor-label">ТЕМАТИКА ЛИРИКИ <span class="ctor-hint">опц.</span></div>
+            <input id="ctor-theme" type="text" placeholder="love and longing / midnight city / inner conflict…" />
+          </div>
+        </div>
+
+        <!-- Sticky output panel -->
+        <div class="ctor-right">
+          <div class="ctor-output-card" id="ctor-output-card">
+            <div class="ctor-out-hdr">
+              <span class="ctor-out-label">SUNO v5.5 · STYLE</span>
+              <span id="ctor-wc" class="ctor-wc">0 слов</span>
+            </div>
+            <div id="ctor-preview" class="ctor-preview" contenteditable="true" spellcheck="false"></div>
+            <div class="ctor-bar-row">
+              <div class="ctor-bar-wrap"><div id="ctor-bar" class="ctor-bar"></div></div>
+              <span id="ctor-chars" class="ctor-chars">0 / 1000</span>
+            </div>
+            <div id="ctor-quality" class="ctor-quality"></div>
+            <div class="ctor-btns">
+              <button id="ctor-copy-btn" class="primary">Скопировать</button>
+              <button id="ctor-reset-btn" class="ghost">Сбросить</button>
+            </div>
+
+            <!-- Reference section -->
+            <div class="ctor-ref-divider">
+              <span>— или сгенерировать с референсом —</span>
+            </div>
+            <div class="ctor-ref-mode-tabs">
+              <button class="ctor-ref-tab active" data-rmode="none">Без референса</button>
+              <button class="ctor-ref-tab" data-rmode="file">📁 Файл</button>
+              <button class="ctor-ref-tab" data-rmode="mic">🎙 Микрофон</button>
+            </div>
+            <div id="ctor-ref-file-zone" class="hidden">
+              <div class="dropzone ctor-dz" id="ctor-dz">
+                <input id="ctor-ref-file" type="file" accept="audio/*" hidden />
+                <div class="dz-icon" style="font-size:20px">♫</div>
+                <p style="font-size:12px;margin:4px 0">MP3 / WAV до 25MB</p>
+                <span id="ctor-ref-fname" class="muted" style="font-size:11px"></span>
+              </div>
+              <audio id="ctor-ref-audio" controls class="hidden"></audio>
+            </div>
+            <div id="ctor-ref-mic-zone" class="hidden">
+              <div class="ref-mic-ui">
+                <button id="ctor-mic-btn" class="voice-btn small">🎙 Запись</button>
+                <div id="ctor-mic-timer" class="voice-timer hidden">⏺ <span id="ctor-mic-sec">0</span>s</div>
+                <div id="ctor-mic-wave" class="voice-wave hidden"><span></span><span></span><span></span><span></span><span></span></div>
+              </div>
+              <div id="ctor-mic-ready" class="hidden">
+                <audio id="ctor-mic-audio" controls></audio>
+                <button id="ctor-mic-redo" class="ghost small" style="margin-top:6px">🔄 Перезаписать</button>
+              </div>
+            </div>
+            <div id="ctor-ref-weight-row" class="hidden">
+              <label class="ctor-weight-label">Влияние референса
+                <input id="ctor-ref-weight" type="range" min="0.1" max="1" step="0.1" value="0.7" />
+                <span id="ctor-ref-weight-val">0.7</span>
+              </label>
+            </div>
+            <button id="ctor-gen-btn" class="primary ctor-gen-btn">🎵 Создать трек</button>
+            <div id="ctor-gen-out" class="output"></div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- AI Lab -->

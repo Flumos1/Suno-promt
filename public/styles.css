@@ -522,3 +522,157 @@ code { font-family: ui-monospace, monospace; }
   h1 { font-size: 23px; }
   .logo { font-size: 24px; }
 }
+
+/* ═══════════════════════════════════════════════════════
+   CONSTRUCTOR
+═══════════════════════════════════════════════════════ */
+.badge-v {
+  font-size: 11px; font-weight: 700; background: var(--neon2); color: #1a1a2e;
+  padding: 2px 7px; border-radius: 4px; vertical-align: middle; margin-left: 6px;
+}
+.ctor-wrap {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 24px;
+  align-items: start;
+}
+.ctor-left { min-width: 0; }
+.ctor-right { position: sticky; top: 16px; }
+
+/* Section */
+.ctor-section { margin-bottom: 20px; }
+.ctor-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  color: var(--muted); text-transform: uppercase; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.ctor-hint { font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 10px; }
+.ctor-sel-count {
+  font-size: 10px; background: var(--neon2); color: #1a1a2e;
+  padding: 1px 6px; border-radius: 999px; font-weight: 700;
+}
+.neon-val { color: var(--neon2); font-size: 13px; font-weight: 700; letter-spacing: 0; text-transform: none; }
+
+/* Chips */
+.ctor-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ctor-chip {
+  padding: 5px 12px; border-radius: 999px; font-size: 12px; cursor: pointer;
+  border: 1px solid var(--border); background: transparent; color: #ccc;
+  transition: all .12s; white-space: nowrap;
+}
+.ctor-chip:hover { border-color: var(--neon2); color: var(--neon2); }
+.ctor-chip.active {
+  background: var(--neon2); color: #1a1a2e; border-color: var(--neon2);
+  font-weight: 600;
+}
+.ctor-key-mode { margin-top: 6px; }
+
+/* Genre select */
+.ctor-select {
+  width: 100%; padding: 9px 12px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--panel-solid);
+  color: #fff; font-size: 13px; cursor: pointer;
+}
+.ctor-select:focus { outline: none; border-color: var(--neon2); }
+
+/* Instrument tabs */
+.ctor-inst-tabs {
+  display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;
+}
+.ctor-itab {
+  padding: 4px 10px; border-radius: 6px; font-size: 11px; cursor: pointer;
+  border: 1px solid var(--border); background: transparent; color: var(--muted);
+  transition: all .12s; white-space: nowrap;
+}
+.ctor-itab:hover { border-color: var(--neon2); color: var(--neon2); }
+.ctor-itab.active { background: rgba(124,140,255,.15); border-color: var(--neon2); color: var(--neon2); font-weight: 600; }
+.ctor-inst-panel { min-height: 60px; }
+
+/* BPM */
+.ctor-bpm-presets { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+.ctor-preset {
+  padding: 4px 10px; border-radius: 6px; font-size: 11px; cursor: pointer;
+  border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all .12s;
+}
+.ctor-preset:hover { border-color: var(--neon2); color: var(--neon2); }
+.ctor-preset.active { background: rgba(124,140,255,.15); border-color: var(--neon2); color: var(--neon2); font-weight: 700; }
+.ctor-bpm-slider { width: 100%; margin: 4px 0; accent-color: var(--neon2); }
+.ctor-bpm-scale {
+  display: flex; justify-content: space-between;
+  font-size: 10px; color: var(--muted); margin-top: 2px;
+}
+
+/* Output card */
+.ctor-output-card {
+  background: var(--panel-solid); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px;
+}
+.ctor-out-hdr {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 10px; letter-spacing: .08em; color: var(--muted);
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.ctor-wc { font-weight: 700; }
+.ctor-wc.ok { color: #50fa7b; }
+.ctor-wc.warn { color: #ffb86c; }
+.ctor-wc.over { color: #ff6b6b; }
+.ctor-wc.muted { color: var(--muted); }
+
+.ctor-preview {
+  min-height: 80px; padding: 10px 12px; border-radius: 8px;
+  border: 1px solid var(--border); background: rgba(0,0,0,.3);
+  color: var(--neon2); font-size: 13px; line-height: 1.6;
+  word-break: break-word; outline: none; cursor: text;
+  font-family: ui-monospace, monospace;
+}
+.ctor-preview:focus { border-color: var(--neon2); }
+.ctor-preview:empty::before { content: "Выбирай чипы слева — промпт появится здесь…"; color: var(--muted); pointer-events: none; }
+
+.ctor-bar-row { display: flex; align-items: center; gap: 8px; margin: 8px 0 4px; }
+.ctor-bar-wrap { flex: 1; height: 4px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; }
+.ctor-bar { height: 100%; background: #50fa7b; border-radius: 2px; transition: width .3s, background .3s; }
+.ctor-bar.warn { background: #ffb86c; }
+.ctor-bar.danger { background: #ff6b6b; }
+.ctor-chars { font-size: 10px; color: var(--muted); white-space: nowrap; }
+.ctor-chars.warn { color: #ffb86c; }
+.ctor-chars.danger { color: #ff6b6b; }
+
+.ctor-quality { font-size: 11px; margin-bottom: 10px; }
+.ctor-hint-line { color: #ffb86c; margin: 3px 0; }
+
+.ctor-btns { display: flex; gap: 8px; margin-bottom: 14px; }
+.ctor-btns .primary { flex: 1; }
+.ctor-btns .ghost { flex: 0; padding: 8px 14px; }
+
+/* Reference section inside output card */
+.ctor-ref-divider {
+  text-align: center; font-size: 10px; color: var(--muted);
+  border-top: 1px solid var(--border); padding-top: 12px; margin-bottom: 10px;
+}
+.ctor-ref-mode-tabs { display: flex; gap: 4px; margin-bottom: 10px; }
+.ctor-ref-tab {
+  flex: 1; padding: 6px 4px; border-radius: 6px; font-size: 11px; cursor: pointer;
+  border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all .12s;
+}
+.ctor-ref-tab:hover { border-color: var(--neon2); color: var(--neon2); }
+.ctor-ref-tab.active { background: rgba(124,140,255,.15); border-color: var(--neon2); color: var(--neon2); font-weight: 600; }
+
+.ctor-dz {
+  padding: 14px; min-height: auto; margin-bottom: 8px;
+  border-radius: 8px; border: 1px dashed var(--border);
+  text-align: center; cursor: pointer; transition: border-color .15s;
+}
+.ctor-dz:hover { border-color: var(--neon2); }
+#ctor-ref-audio { width: 100%; margin-bottom: 8px; border-radius: 6px; }
+.ctor-weight-label {
+  display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted);
+  margin: 6px 0 10px;
+}
+.ctor-weight-label input[type=range] { flex: 1; accent-color: var(--neon2); }
+.ctor-gen-btn { width: 100%; margin-top: 4px; }
+.disabled-gen { opacity: .5; cursor: not-allowed; }
+
+@media (max-width: 900px) {
+  .ctor-wrap { grid-template-columns: 1fr; }
+  .ctor-right { position: static; order: -1; }
+}

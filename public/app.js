@@ -1591,5 +1591,400 @@ if (transBtn) {
   }
 })();
 
+/* ---------- Constructor ---------- */
+(function () {
+  const panel = document.getElementById("tab-constructor");
+  if (!panel) return;
+
+  // ── Data ──────────────────────────────────────────────────────────────
+  const CHIPS = {
+    era: ["—", "1930–50s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s", "2020s", "Futuristic"],
+    mood: ["euphoric", "melancholic", "dreamy", "dark", "anthemic", "intimate", "restless", "peaceful",
+      "triumphant", "nostalgic", "hypnotic", "raw", "eerie", "playful", "aggressive", "seductive",
+      "introspective", "cinematic", "cathartic", "ethereal", "bittersweet", "urgent", "wistful", "haunting", "joyful", "tense"],
+    vocalGender: ["—", "female", "male", "androgynous", "instrumental"],
+    vocalTimbre: ["breathy", "raspy", "silky", "warm", "dark", "gritty", "bright", "ethereal",
+      "gravelly", "sultry", "powerful", "nasal", "operatic", "metallic", "crystalline", "husky", "velvety", "hollow"],
+    vocalDelivery: ["—", "intimate", "belted", "whispered", "spoken word", "soaring", "conversational",
+      "commanding", "falsetto", "melodic rap", "aggressive rap", "crooned", "chanted", "lyrical", "deadpan"],
+    vocalFx: ["dry close-mic", "reverb-drenched", "auto-tuned", "heavily processed", "tape-saturated",
+      "doubled & layered", "lo-fi compressed", "wide stereo", "vocoded", "bit-crushed"],
+    production: ["lo-fi", "polished mix", "bedroom pop", "studio quality", "raw live", "layered",
+      "sparse", "cinematic", "gated reverb snare", "sidechain pump", "tape saturation", "plate reverb",
+      "lo-fi 4-track", "heavy fuzz", "slapback delay", "pitch-shifted", "glitched", "punchy mix",
+      "warm mastering", "broadcast-quality", "4-on-the-floor", "half-time drums"],
+    keyNote: ["—", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"],
+    keyMode: ["major", "minor"],
+    useCase: ["—", "full song", "short-form video", "study/focus", "workout", "podcast intro",
+      "club night", "romantic", "trailer", "lo-fi chill", "meditation", "background", "cinematic score", "game OST"]
+  };
+
+  const INST_CATS = {
+    "🎸 Guitar/Bass": ["acoustic guitar", "electric guitar", "jangly guitar", "fingerpicked guitar",
+      "slide guitar", "12-string guitar", "nylon-string guitar", "lap steel guitar",
+      "bass guitar", "slap bass", "fretless bass", "walking bass", "double bass"],
+    "🎹 Keys/Piano": ["grand piano", "upright piano", "Rhodes electric piano", "Wurlitzer EP-200",
+      "Hammond organ", "harpsichord", "celesta", "clavinet", "toy piano", "tack piano"],
+    "🎛 Synths": ["Minimoog", "Roland Juno-60", "Roland Jupiter-8", "Oberheim OB-Xa", "Prophet-5",
+      "Korg M1", "ARP string machine", "modular synth", "analog pads", "FM bass",
+      "supersaw chords", "arpeggiator", "lo-fi synth", "TB-303 acid", "Yamaha DX7"],
+    "🎺 Brass/Wind": ["saxophone", "alto saxophone", "tenor saxophone", "trumpet", "French horn",
+      "trombone", "flugelhorn", "flute", "clarinet", "oboe", "brass section", "horn section",
+      "woodwind ensemble", "bagpipes"],
+    "🥁 Drums/Perc": ["acoustic drums", "live drums", "TR-808", "TR-909", "LinnDrum LM-1", "Akai MPC60",
+      "trap drums", "boom-bap drums", "breakbeat", "programmed drums", "tambourine", "shaker",
+      "bongos", "taiko drums", "tabla", "congas", "handpan", "dembow rhythm", "brushed drums"],
+    "🎻 Strings": ["violin", "cello", "viola", "orchestral strings", "string quartet",
+      "symphonic strings", "pizzicato strings", "harp", "mellotron strings", "string ensemble"],
+    "🌍 World": ["banjo", "mandolin", "ukulele", "sitar", "koto", "erhu", "mbira", "oud",
+      "balalaika", "hurdy-gurdy", "duduk", "steel drum", "marimba", "vibraphone",
+      "accordion", "pedal steel", "dulcimer", "jaw harp"],
+    "🌫 Textures": ["vinyl crackle", "tape hiss", "field recordings", "ambient noise", "vinyl samples",
+      "church bells", "static", "crowd noise", "rain sounds", "granular texture", "sub-bass drone", "noise floor"]
+  };
+
+  // ── State ──────────────────────────────────────────────────────────────
+  const state = {
+    era: null, genre: "",
+    mood: new Set(), vocalGender: null,
+    vocalTimbre: new Set(), vocalDelivery: null,
+    vocalFx: new Set(), instruments: new Set(),
+    production: new Set(), bpm: 0,
+    keyNote: null, keyMode: "major",
+    useCase: null, theme: ""
+  };
+
+  let activeInstCat = Object.keys(INST_CATS)[0];
+  let refMode = "none";
+  let refBlob = null;
+  let micRecorder = null, micChunks = [], micTimerIv = null;
+
+  // ── Chip logic ─────────────────────────────────────────────────────────
+  function isActive(key, chip) {
+    if (chip === "—") return false;
+    return state[key] instanceof Set ? state[key].has(chip) : state[key] === chip;
+  }
+
+  function toggleChip(key, chip, multiMax) {
+    if (chip === "—") {
+      if (state[key] instanceof Set) state[key].clear(); else state[key] = null;
+      return;
+    }
+    if (state[key] instanceof Set) {
+      if (state[key].has(chip)) { state[key].delete(chip); return; }
+      if (multiMax > 0 && state[key].size >= multiMax) {
+        state[key].delete([...state[key]][0]);
+      }
+      state[key].add(chip);
+    } else {
+      state[key] = state[key] === chip ? null : chip;
+    }
+  }
+
+  function renderChipRow(container, key, chips, multiMax) {
+    container.innerHTML = "";
+    chips.forEach(chip => {
+      const b = document.createElement("button");
+      b.className = "ctor-chip" + (isActive(key, chip) ? " active" : "");
+      b.textContent = chip;
+      b.addEventListener("click", () => { toggleChip(key, chip, multiMax); refreshChips(); updatePreview(); });
+      container.appendChild(b);
+    });
+  }
+
+  function renderInstChips() {
+    const c = document.getElementById("ctor-inst-chips"); if (!c) return;
+    const chips = INST_CATS[activeInstCat] || [];
+    c.innerHTML = "";
+    chips.forEach(chip => {
+      const b = document.createElement("button");
+      b.className = "ctor-chip" + (state.instruments.has(chip) ? " active" : "");
+      b.textContent = chip;
+      b.addEventListener("click", () => {
+        state.instruments.has(chip) ? state.instruments.delete(chip) : state.instruments.add(chip);
+        renderInstChips();
+        const cnt = state.instruments.size;
+        const el = document.getElementById("ctor-inst-count");
+        if (el) el.textContent = cnt > 0 ? cnt + " выбр." : "";
+        updatePreview();
+      });
+      c.appendChild(b);
+    });
+  }
+
+  function renderInstTabs() {
+    const bar = document.getElementById("ctor-inst-tabs"); if (!bar) return;
+    bar.innerHTML = "";
+    Object.keys(INST_CATS).forEach(cat => {
+      const b = document.createElement("button");
+      b.className = "ctor-itab" + (cat === activeInstCat ? " active" : "");
+      b.textContent = cat;
+      b.addEventListener("click", () => {
+        activeInstCat = cat;
+        bar.querySelectorAll(".ctor-itab").forEach(t => t.classList.remove("active"));
+        b.classList.add("active");
+        renderInstChips();
+      });
+      bar.appendChild(b);
+    });
+  }
+
+  function refreshChips() {
+    panel.querySelectorAll(".ctor-chips[data-key]").forEach(row => {
+      const key = row.dataset.key, multi = parseInt(row.dataset.multi, 10);
+      if (CHIPS[key]) renderChipRow(row, key, CHIPS[key], multi);
+    });
+    renderInstChips();
+    const el = document.getElementById("ctor-inst-count");
+    if (el) el.textContent = state.instruments.size > 0 ? state.instruments.size + " выбр." : "";
+  }
+
+  // ── Prompt builder ─────────────────────────────────────────────────────
+  function buildPrompt() {
+    const parts = [];
+    const isInstr = state.vocalGender === "instrumental";
+    if (!isInstr) {
+      const vp = [];
+      if (state.vocalGender && state.vocalGender !== "—") vp.push(state.vocalGender + " vocals");
+      if (state.vocalTimbre.size) vp.push([...state.vocalTimbre].join(" "));
+      if (state.vocalDelivery && state.vocalDelivery !== "—") vp.push(state.vocalDelivery + " delivery");
+      if (state.vocalFx.size) vp.push([...state.vocalFx].join(", "));
+      if (vp.length) parts.push(vp.join(", "));
+    }
+    if (state.genre) parts.push(state.genre);
+    if (state.era && state.era !== "—") parts.push(state.era + " production");
+    if (state.mood.size) parts.push([...state.mood].join(" and "));
+    if (state.instruments.size) parts.push([...state.instruments].join(", "));
+    if (state.production.size) parts.push([...state.production].join(", "));
+    if (state.bpm > 0) parts.push(state.bpm + " BPM");
+    if (state.keyNote && state.keyNote !== "—") parts.push(state.keyNote + " " + state.keyMode);
+    if (isInstr) parts.push("instrumental"); // MUST be last per v5.5 rules
+    return parts.join(", ");
+  }
+
+  // ── Preview ────────────────────────────────────────────────────────────
+  function updatePreview() {
+    const prompt = buildPrompt();
+    const preview = document.getElementById("ctor-preview");
+    if (preview && document.activeElement !== preview) preview.textContent = prompt;
+
+    const words = prompt.trim() ? prompt.trim().split(/[\s,]+/).filter(Boolean).length : 0;
+    const chars = prompt.length;
+
+    const wcEl = document.getElementById("ctor-wc");
+    if (wcEl) {
+      let cls = "ctor-wc", label = words + " слов";
+      if (!words) cls += " muted";
+      else if (words < 8) { cls += " warn"; label += " · мало"; }
+      else if (words <= 30) { cls += " ok"; label += " · оптимально ✓"; }
+      else if (words <= 40) { cls += " warn"; label += " · много"; }
+      else { cls += " over"; label += " · риск конфликтов"; }
+      wcEl.className = cls; wcEl.textContent = label;
+    }
+
+    const bar = document.getElementById("ctor-bar");
+    const charsEl = document.getElementById("ctor-chars");
+    if (bar) {
+      const pct = Math.min(100, (chars / 1000) * 100);
+      bar.style.width = pct + "%";
+      bar.className = "ctor-bar" + (pct > 95 ? " danger" : pct > 75 ? " warn" : "");
+    }
+    if (charsEl) {
+      charsEl.textContent = chars + " / 1000";
+      charsEl.className = "ctor-chars" + (chars > 950 ? " danger" : chars > 800 ? " warn" : "");
+    }
+
+    const quality = document.getElementById("ctor-quality");
+    if (quality) {
+      const hints = [];
+      if (!state.vocalGender && words > 0) hints.push("💡 Укажи вокал — без пола Suno выбирает случайно");
+      if (words > 0 && words < 8) hints.push("💡 Добавь жанр, настроение, инструменты (цель 15–30 слов)");
+      if (words > 40) hints.push("⚠ Более 40 слов — риск противоречий");
+      if (chars > 950) hints.push("⚠ Лимит 1000 символов — Suno обрежет молча");
+      quality.innerHTML = hints.map(h => `<div class="ctor-hint-line">${h}</div>`).join("");
+    }
+  }
+
+  // ── BPM ────────────────────────────────────────────────────────────────
+  const bpmSlider = document.getElementById("ctor-bpm-slider");
+  const bpmDisplay = document.getElementById("ctor-bpm-display");
+
+  function setBpm(val) {
+    state.bpm = val;
+    if (bpmSlider) bpmSlider.value = val > 0 ? val : 120;
+    if (bpmDisplay) bpmDisplay.textContent = val > 0 ? val + " BPM" : "Авто";
+    document.querySelectorAll(".ctor-preset").forEach(b =>
+      b.classList.toggle("active", parseInt(b.dataset.bpm, 10) === val));
+    updatePreview();
+  }
+
+  bpmSlider?.addEventListener("input", () => setBpm(parseInt(bpmSlider.value, 10)));
+  document.querySelectorAll(".ctor-preset").forEach(b =>
+    b.addEventListener("click", () => setBpm(parseInt(b.dataset.bpm, 10))));
+
+  // ── Copy & Reset ───────────────────────────────────────────────────────
+  document.getElementById("ctor-copy-btn")?.addEventListener("click", () => {
+    const preview = document.getElementById("ctor-preview");
+    const text = (preview?.textContent || buildPrompt()).trim();
+    if (!text) return;
+    navigator.clipboard.writeText(text).catch(() => {});
+    const btn = document.getElementById("ctor-copy-btn");
+    if (btn) { const orig = btn.textContent; btn.textContent = "✓ Скопировано!"; setTimeout(() => btn.textContent = orig, 1500); }
+  });
+
+  document.getElementById("ctor-reset-btn")?.addEventListener("click", () => {
+    Object.assign(state, { era: null, genre: "", mood: new Set(), vocalGender: null,
+      vocalTimbre: new Set(), vocalDelivery: null, vocalFx: new Set(), instruments: new Set(),
+      production: new Set(), bpm: 0, keyNote: null, keyMode: "major", useCase: null, theme: "" });
+    const g = document.getElementById("ctor-genre"); if (g) g.value = "";
+    const t = document.getElementById("ctor-theme"); if (t) t.value = "";
+    setBpm(0); refreshChips(); updatePreview();
+  });
+
+  document.getElementById("ctor-genre")?.addEventListener("change", e => { state.genre = e.target.value; updatePreview(); });
+  document.getElementById("ctor-theme")?.addEventListener("input", e => { state.theme = e.target.value.trim(); });
+
+  // ── Reference ──────────────────────────────────────────────────────────
+  function setRefMode(mode) {
+    refMode = mode;
+    document.querySelectorAll(".ctor-ref-tab").forEach(t => t.classList.toggle("active", t.dataset.rmode === mode));
+    document.getElementById("ctor-ref-file-zone")?.classList.toggle("hidden", mode !== "file");
+    document.getElementById("ctor-ref-mic-zone")?.classList.toggle("hidden", mode !== "mic");
+    document.getElementById("ctor-ref-weight-row")?.classList.toggle("hidden", mode === "none");
+  }
+
+  document.querySelectorAll(".ctor-ref-tab").forEach(t => t.addEventListener("click", () => setRefMode(t.dataset.rmode)));
+
+  const ctorDz = document.getElementById("ctor-dz");
+  const ctorRefFile = document.getElementById("ctor-ref-file");
+  ctorDz?.addEventListener("click", () => ctorRefFile?.click());
+  ctorDz?.addEventListener("dragover", e => { e.preventDefault(); ctorDz.classList.add("drag"); });
+  ctorDz?.addEventListener("dragleave", () => ctorDz.classList.remove("drag"));
+  ctorDz?.addEventListener("drop", e => {
+    e.preventDefault(); ctorDz.classList.remove("drag");
+    if (e.dataTransfer.files[0]) { ctorRefFile.files = e.dataTransfer.files; ctorRefFile.dispatchEvent(new Event("change")); }
+  });
+  ctorRefFile?.addEventListener("change", () => {
+    const f = ctorRefFile.files[0]; if (!f) return;
+    refBlob = f;
+    const fname = document.getElementById("ctor-ref-fname"); if (fname) fname.textContent = f.name;
+    const player = document.getElementById("ctor-ref-audio");
+    if (player) { player.src = URL.createObjectURL(f); player.classList.remove("hidden"); }
+  });
+  document.getElementById("ctor-ref-weight")?.addEventListener("input", e => {
+    const el = document.getElementById("ctor-ref-weight-val"); if (el) el.textContent = e.target.value;
+  });
+
+  const ctorMicBtn = document.getElementById("ctor-mic-btn");
+  ctorMicBtn?.addEventListener("click", async () => {
+    if (micRecorder?.state === "recording") { micRecorder.stop(); return; }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      micChunks = [];
+      micRecorder = new MediaRecorder(stream);
+      micRecorder.ondataavailable = e => { if (e.data.size) micChunks.push(e.data); };
+      micRecorder.onstop = () => {
+        stream.getTracks().forEach(t => t.stop());
+        refBlob = new Blob(micChunks, { type: "audio/webm" });
+        const ma = document.getElementById("ctor-mic-audio"); if (ma) ma.src = URL.createObjectURL(refBlob);
+        document.getElementById("ctor-mic-ready")?.classList.remove("hidden");
+        ctorMicBtn.textContent = "🎙 Запись";
+        document.getElementById("ctor-mic-timer")?.classList.add("hidden");
+        document.getElementById("ctor-mic-wave")?.classList.add("hidden");
+        clearInterval(micTimerIv);
+      };
+      micRecorder.start();
+      ctorMicBtn.textContent = "⏹ Стоп";
+      document.getElementById("ctor-mic-timer")?.classList.remove("hidden");
+      document.getElementById("ctor-mic-wave")?.classList.remove("hidden");
+      let secs = 0; const secEl = document.getElementById("ctor-mic-sec");
+      micTimerIv = setInterval(() => { secs++; if (secEl) secEl.textContent = secs; if (secs >= 120) micRecorder.stop(); }, 1000);
+    } catch(e) {
+      const out = document.getElementById("ctor-gen-out");
+      if (out) out.innerHTML = `<div class="error">Нет доступа к микрофону: ${escapeHtml(e.message)}</div>`;
+    }
+  });
+  document.getElementById("ctor-mic-redo")?.addEventListener("click", () => {
+    refBlob = null;
+    document.getElementById("ctor-mic-ready")?.classList.add("hidden");
+    if (ctorMicBtn) ctorMicBtn.textContent = "🎙 Запись";
+  });
+
+  // ── Generate ───────────────────────────────────────────────────────────
+  document.getElementById("ctor-gen-btn")?.addEventListener("click", async () => {
+    const preview = document.getElementById("ctor-preview");
+    const tags = (preview?.textContent || buildPrompt()).trim();
+    const out = document.getElementById("ctor-gen-out");
+    const btn = document.getElementById("ctor-gen-btn");
+    if (!tags) { out.innerHTML = `<div class="error">Собери промпт — добавь жанр, настроение или инструменты</div>`; return; }
+    btn.disabled = true;
+    out.innerHTML = `<div class="spinner">Отправляю в Suno…</div>`;
+    try {
+      let jobId;
+      if (refMode !== "none" && refBlob) {
+        const fd = new FormData();
+        fd.append("audio", refBlob instanceof File ? refBlob : new File([refBlob], "ref.webm", { type: refBlob.type }));
+        fd.append("tags", tags);
+        fd.append("startSec", "0"); fd.append("endSec", "30");
+        fd.append("audioWeight", document.getElementById("ctor-ref-weight")?.value || "0.7");
+        fd.append("mv", "chirp-v5-5");
+        const data = await aiCall("/api/ai/reference-generate", { method: "POST", body: fd });
+        if (!data.ok) throw new Error(data.error);
+        jobId = data.jobId;
+        out.innerHTML = `<div class="spinner">Референс загружен, генерирую… <span id="ctor-prog">0%</span></div>`;
+      } else {
+        const data = await aiCall("/api/ai/generate-track", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tags, mv: "chirp-v5-5" })
+        });
+        if (!data.ok) throw new Error(data.error);
+        jobId = data.jobId;
+        out.innerHTML = `<div class="spinner">Suno генерирует… <span id="ctor-prog">0%</span> <span class="muted">(30–90 сек)</span></div>`;
+      }
+      let elapsed = 0;
+      const iv = setInterval(async () => {
+        elapsed += 5;
+        try {
+          const job = await api(`/api/ai/track-status?jobId=${encodeURIComponent(jobId)}`);
+          const p = document.getElementById("ctor-prog"); if (p && job.progress) p.textContent = job.progress;
+          if (job.status === "SUCCESS" && job.musics?.length) {
+            clearInterval(iv); btn.disabled = false;
+            out.innerHTML = `<div class="ai-result">${job.musics.map(m => `
+              <div class="track-card">
+                ${m.imageUrl ? `<img class="track-art" src="${escapeAttr(m.imageUrl)}" alt="art"/>` : ""}
+                <div class="track-info">
+                  <div class="track-title">${escapeHtml(m.title || "Generated Track")}</div>
+                  <div class="track-tags muted">${escapeHtml(m.tags || "")}${m.duration ? ` · ${Math.round(m.duration)}s` : ""}</div>
+                  <audio controls src="${escapeAttr(m.audioUrl)}"></audio>
+                  <div class="track-actions"><a href="${escapeAttr(m.audioUrl)}" download>⭳ MP3</a></div>
+                </div>
+              </div>`).join("")}</div>`;
+          } else if (job.status === "FAILED") {
+            clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">Ошибка генерации</div>`;
+          } else if (elapsed > 300) {
+            clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">Таймаут — попробуй ещё раз</div>`;
+          }
+        } catch(e) { clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`; }
+      }, 5000);
+    } catch(err) { out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`; btn.disabled = false; }
+  });
+
+  // ── Init ───────────────────────────────────────────────────────────────
+  panel.querySelectorAll(".ctor-chips[data-key]").forEach(row => {
+    const key = row.dataset.key, multi = parseInt(row.dataset.multi, 10);
+    if (CHIPS[key]) renderChipRow(row, key, CHIPS[key], multi);
+  });
+  renderInstTabs();
+  renderInstChips();
+  setBpm(0);
+  updatePreview();
+  api("/api/status").then(s => {
+    if (!s.generate) {
+      const btn = document.getElementById("ctor-gen-btn");
+      if (btn) btn.title = "TTAPI_KEY не настроен на сервере";
+    }
+  }).catch(() => {});
+})();
+
 /* ---------- Init (after all declarations) ---------- */
 if (localStorage.getItem(GATE_KEY)) showApp();
