@@ -648,6 +648,24 @@
         <div id="trans-out" class="output"></div>
       </div>
 
+      <div class="ai-card" id="master-card">
+        <h2 data-i18n="master.title">🎚 Мастеринг трека</h2>
+        <p class="sub" data-i18n="master.sub">Улучши качество Suno-трека через Dolby.io: шумоподавление, выравнивание частот, нормализация громкости. Бесплатно 200 мин/мес.</p>
+        <div id="master-disabled" class="gen-disabled hidden">⚠ Мастеринг не настроен (нет DOLBY_API_KEY на сервере).</div>
+        <input id="master-url" type="url" data-i18n-ph="master.url.ph" placeholder="URL MP3-файла (напр. из результата генерации)" />
+        <div class="row2">
+          <label><span data-i18n="master.loudness">Громкость</span>:
+            <select id="master-loudness">
+              <option value="streaming" selected>Streaming −14 LUFS</option>
+              <option value="club">Club −9 LUFS</option>
+              <option value="broadcast">Broadcast −23 LUFS</option>
+            </select>
+          </label>
+          <button id="master-btn" class="primary" data-i18n="master.btn">🎚 Мастеровать</button>
+        </div>
+        <div id="master-out" class="output"></div>
+      </div>
+
       <div class="ai-card">
         <h2 data-i18n="playlist.title">🎵 Плейлист-билдер</h2>
         <p class="sub" data-i18n="playlist.sub">Задай стиль — получи 8 связных треков с единой концепцией альбома. Разные настроения, одно звучание.</p>

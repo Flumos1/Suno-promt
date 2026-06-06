@@ -433,6 +433,16 @@ code { font-family: ui-monospace, monospace; }
 }
 #ailab-unlock-msg { font-size: 12px; }
 
+/* Mastering card */
+.master-result { gap: 10px; }
+.master-done { font-weight: 600; color: var(--good); font-size: 15px; }
+.master-inline-btn {
+  padding: 5px 10px; border-radius: 6px; font-size: 12px; cursor: pointer;
+  background: rgba(124,58,237,0.12); border: 1px solid rgba(124,58,237,0.4);
+  color: var(--neon2); transition: background 0.2s;
+}
+.master-inline-btn:hover { background: rgba(124,58,237,0.25); }
+
 /* Playlist Builder */
 .playlist-tracks { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
 .playlist-track {

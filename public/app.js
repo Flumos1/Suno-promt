@@ -137,6 +137,11 @@ const LANG = {
     "playlist.title":"🎵 Playlist Builder","playlist.sub":"Set a style — get 8 coherent tracks with a shared album concept.",
     "playlist.style.ph":"Style: dark synthwave, female vocal, 80s production…","playlist.theme.ph":"Album theme (opt.): neon city, solitude…",
     "playlist.tracks":"Tracks","playlist.btn":"🎵 Build Playlist","playlist.loading":"AI is building your album…","playlist.copy.all":"Copy all prompts",
+    "master.title":"🎚 Track Mastering","master.sub":"Improve Suno track quality via Dolby.io: noise cleanup, EQ balance, loudness normalization. 200 min/month free.",
+    "master.url.ph":"MP3 file URL (e.g. from generated track result)","master.loudness":"Loudness",
+    "master.btn":"🎚 Master","master.loading":"Dolby.io is mastering…","master.progress":"Mastering… {p}%",
+    "master.done":"🎚 Mastering complete","master.download":"⭳ Download mastered MP3","master.fail":"Mastering failed",
+    "master.btn.inline":"🎚 Master this track",
   },
   ru: {
     "nav.catalog":"⌕ Каталог","nav.anchor":"🎙 Вокал","nav.reference":"♪ Референс",
@@ -261,6 +266,11 @@ const LANG = {
     "playlist.title":"🎵 Плейлист-билдер","playlist.sub":"Задай стиль — получи 8 связных треков с единой концепцией альбома.",
     "playlist.style.ph":"Стиль: dark synthwave, female vocal, 80s production…","playlist.theme.ph":"Тема альбома (опц.): ночной город, одиночество…",
     "playlist.tracks":"Треков","playlist.btn":"🎵 Собрать плейлист","playlist.loading":"AI собирает альбом…","playlist.copy.all":"Скопировать все промпты",
+    "master.title":"🎚 Мастеринг трека","master.sub":"Улучши качество Suno-трека через Dolby.io: шумоподавление, EQ, нормализация громкости. Бесплатно 200 мин/мес.",
+    "master.url.ph":"URL MP3-файла (напр. из результата генерации)","master.loudness":"Громкость",
+    "master.btn":"🎚 Мастеровать","master.loading":"Dolby.io обрабатывает…","master.progress":"Мастеринг… {p}%",
+    "master.done":"🎚 Мастеринг завершён","master.download":"⭳ Скачать мастер MP3","master.fail":"Ошибка мастеринга",
+    "master.btn.inline":"🎚 Мастеровать трек",
   }
 };
 
@@ -541,7 +551,7 @@ function pollModalTrack(jobId, out, btn) {
               <div class="track-title">${escapeHtml(m.title || "Untitled")}</div>
               <div class="track-tags muted">${escapeHtml(m.tags || "")}${m.duration ? ` · ${Math.round(m.duration)}s` : ""}</div>
               <audio controls src="${escapeAttr(m.audioUrl)}"></audio>
-              <div class="track-actions"><a href="${escapeAttr(m.audioUrl)}" download>⭳ MP3</a>${m.videoUrl ? `<a href="${escapeAttr(m.videoUrl)}" target="_blank">▦ Video</a>` : ""}</div>
+              <div class="track-actions"><a href="${escapeAttr(m.audioUrl)}" download>⭳ MP3</a>${m.videoUrl ? `<a href="${escapeAttr(m.videoUrl)}" target="_blank">▦ Video</a>` : ""}${canMaster ? `<button class="master-inline-btn" onclick="window._startMastering('${escapeAttr(m.audioUrl)}')">${t("master.btn.inline")}</button>` : ""}</div>
             </div>
           </div>`).join("")}</div>`;
       } else if (job.status === "FAILED") {
@@ -2492,6 +2502,84 @@ document.getElementById("lang-toggle")?.addEventListener("click", () => {
       </div>`;
   }
 })();
+
+/* ---------- AI Lab — Mastering (Dolby.io) ---------- */
+let canMaster = false;
+api("/api/status").then(s => {
+  canMaster = !!s.master;
+  const dis = $("#master-disabled");
+  const btn = $("#master-btn");
+  if (dis && !canMaster) { dis.classList.remove("hidden"); if (btn) btn.disabled = true; }
+}).catch(() => {});
+
+(function () {
+  const btn = $("#master-btn");
+  const out = $("#master-out");
+  if (!btn) return;
+
+  btn.addEventListener("click", () => startMastering($("#master-url").value.trim(), $("#master-loudness").value, out, btn));
+})();
+
+function startMastering(audioUrl, loudness, out, btn) {
+  if (!audioUrl) { out.innerHTML = `<div class="error">Вставь URL MP3</div>`; return; }
+  out.innerHTML = `<div class="spinner">${t("master.loading")}</div>`;
+  if (btn) btn.disabled = true;
+
+  aiCall("/api/ai/master-track", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ audioUrl, loudness })
+  }).then(data => {
+    if (!data.ok) throw new Error(data.error);
+    pollMasterJob(data.jobId, out, btn);
+  }).catch(err => {
+    out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+    if (btn) btn.disabled = false;
+  });
+}
+
+function pollMasterJob(jobId, out, btn) {
+  let elapsed = 0;
+  const iv = setInterval(async () => {
+    elapsed += 4;
+    try {
+      const job = await api(`/api/ai/master-status?jobId=${encodeURIComponent(jobId)}`);
+      const prog = job.progress ?? 0;
+      if (job.status === "Success" && job.downloadUrl) {
+        clearInterval(iv);
+        if (btn) btn.disabled = false;
+        out.innerHTML = `
+          <div class="ai-result master-result">
+            <div class="master-done">${t("master.done")}</div>
+            <audio controls src="${escapeAttr(job.downloadUrl)}" style="width:100%;margin:10px 0"></audio>
+            <a class="primary small" href="${escapeAttr(job.downloadUrl)}" download="mastered.mp3">${t("master.download")}</a>
+          </div>`;
+      } else if (job.status !== "Pending" && job.status !== "Running") {
+        clearInterval(iv);
+        if (btn) btn.disabled = false;
+        out.innerHTML = `<div class="error">${t("master.fail")}: ${escapeHtml(job.status || "")}</div>`;
+      } else {
+        out.innerHTML = `<div class="spinner">${t("master.progress").replace("{p}", prog)}</div>`;
+      }
+      if (elapsed > 300) { clearInterval(iv); if (btn) btn.disabled = false; out.innerHTML = `<div class="error">Timeout</div>`; }
+    } catch (err) {
+      clearInterval(iv);
+      if (btn) btn.disabled = false;
+      out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+    }
+  }, 4000);
+}
+
+// Expose for inline "Master this track" buttons in track results
+window._startMastering = (audioUrl) => {
+  const card = $("#master-card");
+  const urlInput = $("#master-url");
+  if (urlInput) urlInput.value = audioUrl;
+  if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
+  const out = $("#master-out");
+  const btn = $("#master-btn");
+  if (out && btn) startMastering(audioUrl, $("#master-loudness")?.value || "streaming", out, btn);
+};
 
 /* ---------- Init (after all declarations) ---------- */
 setTheme(localStorage.getItem("ss_theme") || "dark");
