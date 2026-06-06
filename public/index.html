@@ -415,6 +415,11 @@
       <h1 data-i18n="ailab.title">🧪 AI Lab</h1>
       <p class="sub" data-i18n="ailab.sub">AI-инструменты. Бесплатно — 3 запроса в сутки на IP. Unlock-код снимает лимит.</p>
       <div id="ailab-quota" class="quota-pill"></div>
+      <div class="ailab-unlock-row" id="ailab-unlock-row">
+        <input id="ailab-unlock-input" type="text" data-i18n-ph="unlock.ph" placeholder="Unlock-код" autocomplete="off" />
+        <button id="ailab-unlock-btn" class="small" data-i18n="unlock.btn">🔓 Разблокировать</button>
+        <span id="ailab-unlock-msg" class="muted"></span>
+      </div>
 
       <div class="ai-card flagship" id="gen-card">
         <h2><span data-i18n="gen.title">🎵 Создать трек</span> <span class="badge-new" data-i18n="gen.badge">Suno live</span></h2>
@@ -641,6 +646,18 @@
         <textarea id="trans-input" rows="6" data-i18n-ph="mirror.ph" placeholder="Вставь русскую лирику с тегами [Verse] [Chorus]…"></textarea>
         <button id="trans-btn" class="primary" data-i18n="mirror.btn">Зеркалировать в EN</button>
         <div id="trans-out" class="output"></div>
+      </div>
+
+      <div class="ai-card">
+        <h2 data-i18n="playlist.title">🎵 Плейлист-билдер</h2>
+        <p class="sub" data-i18n="playlist.sub">Задай стиль — получи 8 связных треков с единой концепцией альбома. Разные настроения, одно звучание.</p>
+        <textarea id="playlist-style" rows="2" data-i18n-ph="playlist.style.ph" placeholder="Стиль: dark synthwave, female vocal, 80s production…"></textarea>
+        <input id="playlist-theme" type="text" data-i18n-ph="playlist.theme.ph" placeholder="Тема альбома (опц.): ночной город, одиночество…" />
+        <div class="row2">
+          <label><span data-i18n="playlist.tracks">Треков</span>: <select id="playlist-count"><option value="5">5</option><option value="8" selected>8</option><option value="10">10</option></select></label>
+          <button id="playlist-btn" class="primary" data-i18n="playlist.btn">🎵 Собрать плейлист</button>
+        </div>
+        <div id="playlist-out" class="output"></div>
       </div>
     </section>
 

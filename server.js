@@ -12,7 +12,7 @@ import {
 import { aiEnabled, activeProvider, aiArtistCard, aiPromptFromAnalysis } from "./lib/aiProvider.js";
 import { extractAudioMeta, promptFromMeta, closestFromMeta } from "./lib/audioAnalyzer.js";
 import { buildSongStructure, aiSongStructure, buildLyricSkeleton, aiLyrics } from "./lib/songTools.js";
-import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite, decodeDNA, transcribeAudio, styleTimeMachine, lyricsSyncConduct, styleGenome } from "./lib/aiFeatures.js";
+import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite, decodeDNA, transcribeAudio, styleTimeMachine, lyricsSyncConduct, styleGenome, buildPlaylist } from "./lib/aiFeatures.js";
 import { aiRateLimit } from "./lib/rateLimit.js";
 import { ttapiEnabled, submitMusic, fetchJob, submitSampleFromBuffer } from "./lib/ttapi.js";
 
@@ -470,6 +470,21 @@ app.post("/api/ai/style-genome", aiRateLimit, async (req, res) => {
   } catch (err) {
     console.error("[style-genome]", err.message);
     res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+app.post("/api/ai/playlist-build", aiRateLimit, async (req, res) => {
+  const style = String(req.body?.style || "").trim();
+  const theme = String(req.body?.theme || "").trim();
+  const count = Math.min(Math.max(Number(req.body?.count) || 8, 3), 12);
+  if (!style) return res.status(400).json({ ok: false, error: "Style required" });
+  if (style.length > 500) return res.status(400).json({ ok: false, error: "Style too long (max 500)" });
+  try {
+    const result = await buildPlaylist(style, theme, count);
+    res.json(result);
+  } catch (err) {
+    console.error("[playlist]", err.message);
+    res.status(500).json({ ok: false, error: "Playlist generation failed" });
   }
 });
 

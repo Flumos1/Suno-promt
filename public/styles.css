@@ -423,6 +423,31 @@ code { font-family: ui-monospace, monospace; }
   font-size: 12px; font-weight: 500; margin: 8px 0;
 }
 .quota-pill.unlocked { background: rgba(80,250,123,0.12); color: #50fa7b; }
+.ailab-unlock-row {
+  display: flex; align-items: center; gap: 8px; margin: 4px 0 16px;
+}
+.ailab-unlock-row input {
+  flex: 1; max-width: 260px; padding: 7px 12px; font-size: 13px;
+  background: var(--panel); border: 1px solid var(--border-bright);
+  border-radius: 8px; color: var(--text); font-family: monospace; letter-spacing: .05em;
+}
+#ailab-unlock-msg { font-size: 12px; }
+
+/* Playlist Builder */
+.playlist-tracks { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.playlist-track {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 12px;
+}
+.pl-num {
+  font-size: 20px; font-weight: 700; color: var(--neon); opacity: .5;
+  min-width: 28px; text-align: center; padding-top: 2px;
+}
+.pl-body { flex: 1; min-width: 0; }
+.pl-title { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+.pl-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 6px; }
+.pl-prompt { font-size: 12px; line-height: 1.5; color: var(--muted); }
+.pl-actions { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
 
 .img-preview {
   display: block; max-width: 280px; max-height: 200px;

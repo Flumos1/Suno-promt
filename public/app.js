@@ -131,6 +131,12 @@ const LANG = {
     "quota.unlock.cta":"Enter an unlock code to continue.","ai.gen.btn":"🎵 Generate in Suno",
     "gen.modal.sending":"Sending to Suno…","gen.modal.gen":"Suno is generating… {p}","gen.modal.time":"(30–90 sec)",
     "gen.modal.fail":"Suno returned an error","gen.modal.timeout":"Timeout — try again",
+    "voice.record.start":"🎙 Start recording","voice.record.stop":"⏹ Stop",
+    "voice.mic.error":"No microphone access: ","voice.loading":"Whisper is listening… then AI builds the prompt…","voice.heard":"I heard:",
+    "unlock.ph":"Unlock code","unlock.btn":"🔓 Unlock","unlock.success":"✓ Unlocked!","unlock.invalid":"Invalid code",
+    "playlist.title":"🎵 Playlist Builder","playlist.sub":"Set a style — get 8 coherent tracks with a shared album concept.",
+    "playlist.style.ph":"Style: dark synthwave, female vocal, 80s production…","playlist.theme.ph":"Album theme (opt.): neon city, solitude…",
+    "playlist.tracks":"Tracks","playlist.btn":"🎵 Build Playlist","playlist.loading":"AI is building your album…","playlist.copy.all":"Copy all prompts",
   },
   ru: {
     "nav.catalog":"⌕ Каталог","nav.anchor":"🎙 Вокал","nav.reference":"♪ Референс",
@@ -249,6 +255,12 @@ const LANG = {
     "quota.unlock.cta":"Введи unlock-код чтобы продолжить.","ai.gen.btn":"🎵 Сгенерировать в Suno",
     "gen.modal.sending":"Отправляю в Suno…","gen.modal.gen":"Suno генерирует… {p}","gen.modal.time":"(30–90 сек)",
     "gen.modal.fail":"Suno вернул ошибку","gen.modal.timeout":"Слишком долго — попробуй ещё раз",
+    "voice.record.start":"🎙 Начать запись","voice.record.stop":"⏹ Стоп",
+    "voice.mic.error":"Нет доступа к микрофону: ","voice.loading":"Whisper слушает… затем AI строит промпт…","voice.heard":"Я услышал:",
+    "unlock.ph":"Unlock-код","unlock.btn":"🔓 Разблокировать","unlock.success":"✓ Разблокировано!","unlock.invalid":"Неверный код",
+    "playlist.title":"🎵 Плейлист-билдер","playlist.sub":"Задай стиль — получи 8 связных треков с единой концепцией альбома.",
+    "playlist.style.ph":"Стиль: dark synthwave, female vocal, 80s production…","playlist.theme.ph":"Тема альбома (опц.): ночной город, одиночество…",
+    "playlist.tracks":"Треков","playlist.btn":"🎵 Собрать плейлист","playlist.loading":"AI собирает альбом…","playlist.copy.all":"Скопировать все промпты",
   }
 };
 
@@ -1520,7 +1532,7 @@ function scorePrompt(text) {
     waveEl.classList.add("hidden");
     out.innerHTML = "";
     recordedBlob = null;
-    recordBtn.textContent = "🎙 Начать запись";
+    recordBtn.textContent = t("voice.record.start");
     recordBtn.classList.remove("recording");
     sendBtn.disabled = false;
   }
@@ -1533,7 +1545,6 @@ function scorePrompt(text) {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       chunks = [];
-      // prefer webm/opus, fallback to whatever browser supports
       const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
         ? "audio/webm;codecs=opus"
         : MediaRecorder.isTypeSupported("audio/webm") ? "audio/webm"
@@ -1548,17 +1559,17 @@ function scorePrompt(text) {
         recordedBlob = new Blob(chunks, { type: mimeType });
         audioEl.src = URL.createObjectURL(recordedBlob);
         playbackEl.classList.remove("hidden");
-        recordBtn.textContent = "🎙 Начать запись";
+        recordBtn.textContent = t("voice.record.start");
         recordBtn.classList.remove("recording");
       };
       mediaRecorder.start(100);
-      recordBtn.textContent = "⏹ Стоп";
+      recordBtn.textContent = t("voice.record.stop");
       recordBtn.classList.add("recording");
       timerEl.classList.remove("hidden");
       waveEl.classList.remove("hidden");
       startTimer();
     } catch (err) {
-      out.innerHTML = `<div class="error">Нет доступа к микрофону: ${escapeHtml(err.message)}</div>`;
+      out.innerHTML = `<div class="error">${t("voice.mic.error")}${escapeHtml(err.message)}</div>`;
     }
   });
 
@@ -1566,7 +1577,7 @@ function scorePrompt(text) {
 
   sendBtn?.addEventListener("click", async () => {
     if (!recordedBlob) return;
-    out.innerHTML = `<div class="spinner">Whisper слушает… затем AI строит промпт…</div>`;
+    out.innerHTML = `<div class="spinner">${t("voice.loading")}</div>`;
     sendBtn.disabled = true;
     try {
       const fd = new FormData();
@@ -1575,11 +1586,12 @@ function scorePrompt(text) {
       if (!data.ok) throw new Error(data.error);
       out.innerHTML = `
         <div class="ai-result">
-          <div class="ai-atmo"><strong>Я услышал:</strong> ${escapeHtml(data.transcript)}</div>
+          <div class="ai-atmo"><strong>${t("voice.heard")}</strong> ${escapeHtml(data.transcript)}</div>
           <div class="ai-prompt-box">
-            <div class="prompt-label">Suno-промпт</div>
+            <div class="prompt-label">${t("ai.prompt.label")}</div>
             <div class="prompt">${escapeHtml(data.prompt)}</div>
             <button class="copy" data-prompt="${escapeAttr(data.prompt)}">Copy</button>
+            ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(data.prompt)}" data-name="Voice Memo">${t("ai.gen.btn")}</button>` : ""}
           </div>
           <div class="ai-meta">
             ${data.bpm ? `<span class="tag">${data.bpm} BPM</span>` : ""}
@@ -1591,6 +1603,7 @@ function scorePrompt(text) {
           </div>
         </div>`;
       wireCopyButtons(out);
+      out.querySelectorAll(".gen-track-btn").forEach((b) => b.addEventListener("click", () => openGenModal(b.dataset.prompt, b.dataset.name)));
     } catch (err) {
       out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
     } finally { sendBtn.disabled = false; }
@@ -2382,6 +2395,103 @@ document.getElementById("theme-toggle")?.addEventListener("click", () => {
 document.getElementById("lang-toggle")?.addEventListener("click", () => {
   applyLang(currentLang === "ru" ? "en" : "ru");
 });
+
+/* ---------- AI Lab — Unlock Row ---------- */
+(function () {
+  const input = $("#ailab-unlock-input");
+  const btn = $("#ailab-unlock-btn");
+  const msg = $("#ailab-unlock-msg");
+  if (!btn) return;
+
+  async function doUnlock() {
+    const code = input.value.trim();
+    if (!code) return;
+    btn.disabled = true;
+    msg.textContent = "…";
+    try {
+      const data = await api("/api/unlock", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code })
+      });
+      if (data.ok) {
+        localStorage.setItem(UNLOCK_KEY, data.token);
+        msg.textContent = t("unlock.success");
+        msg.style.color = "var(--good)";
+        input.value = "";
+        renderUnlockPill();
+      } else {
+        msg.textContent = t("unlock.invalid");
+        msg.style.color = "var(--bad)";
+      }
+    } catch {
+      msg.textContent = "Error";
+      msg.style.color = "var(--bad)";
+    } finally { btn.disabled = false; }
+  }
+
+  btn.addEventListener("click", doUnlock);
+  input.addEventListener("keydown", (e) => { if (e.key === "Enter") doUnlock(); });
+})();
+
+/* ---------- AI Lab — Playlist Builder ---------- */
+(function () {
+  const btn = $("#playlist-btn");
+  const out = $("#playlist-out");
+  if (!btn) return;
+
+  btn.addEventListener("click", async () => {
+    const style = $("#playlist-style").value.trim();
+    const theme = $("#playlist-theme").value.trim();
+    const count = Number($("#playlist-count").value) || 8;
+    if (!style) { out.innerHTML = `<div class="error">Введи стиль</div>`; return; }
+    out.innerHTML = `<div class="spinner">${t("playlist.loading")}</div>`;
+    btn.disabled = true;
+    try {
+      const data = await aiCall("/api/ai/playlist-build", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ style, theme, count })
+      });
+      if (!data.ok) throw new Error(data.error);
+      out.innerHTML = renderPlaylist(data);
+      wireCopyButtons(out);
+      out.querySelectorAll(".gen-track-btn").forEach((b) =>
+        b.addEventListener("click", () => openGenModal(b.dataset.prompt, b.dataset.name)));
+    } catch (err) {
+      out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+    } finally { btn.disabled = false; }
+  });
+
+  function renderPlaylist(d) {
+    const allPrompts = (d.tracks || []).map((tr) => `${tr.number}. ${tr.title}\n${tr.prompt}`).join("\n\n");
+    return `
+      <div class="ai-result">
+        <div class="ai-atmo"><strong>${escapeHtml(d.albumTitle || "")}</strong>${d.concept ? ` — ${escapeHtml(d.concept)}` : ""}</div>
+        <div class="playlist-tracks">
+          ${(d.tracks || []).map((tr) => `
+            <div class="playlist-track">
+              <div class="pl-num">${tr.number}</div>
+              <div class="pl-body">
+                <div class="pl-title">${escapeHtml(tr.title)}</div>
+                <div class="pl-meta muted">
+                  ${tr.mood ? `<span class="tag mood">${escapeHtml(tr.mood)}</span>` : ""}
+                  ${tr.bpm ? `<span class="tag">${tr.bpm} BPM</span>` : ""}
+                  ${tr.key ? `<span class="tag">${escapeHtml(tr.key)}</span>` : ""}
+                  ${tr.role ? `<span class="tag">${escapeHtml(tr.role)}</span>` : ""}
+                </div>
+                <div class="pl-prompt muted">${escapeHtml(tr.prompt)}</div>
+              </div>
+              <div class="pl-actions">
+                <button class="copy" data-prompt="${escapeAttr(tr.prompt)}">Copy</button>
+                ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(tr.prompt)}" data-name="${escapeAttr(tr.title)}">${t("ai.gen.btn")}</button>` : ""}
+              </div>
+            </div>`).join("")}
+        </div>
+        <button class="copy" data-prompt="${escapeAttr(allPrompts)}" style="margin-top:14px">${t("playlist.copy.all")}</button>
+      </div>`;
+  }
+})();
 
 /* ---------- Init (after all declarations) ---------- */
 setTheme(localStorage.getItem("ss_theme") || "dark");
