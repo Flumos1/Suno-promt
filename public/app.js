@@ -1763,6 +1763,7 @@ if (transBtn) {
       b.addEventListener("click", () => {
         state.instruments.has(chip) ? state.instruments.delete(chip) : state.instruments.add(chip);
         renderInstChips();
+        renderInstTabs();
         const cnt = state.instruments.size;
         const el = document.getElementById("ctor-inst-count");
         if (el) el.textContent = cnt > 0 ? cnt + " выбр." : "";
@@ -1776,9 +1777,14 @@ if (transBtn) {
     const bar = document.getElementById("ctor-inst-tabs"); if (!bar) return;
     bar.innerHTML = "";
     Object.keys(INST_CATS).forEach(cat => {
+      const selCount = INST_CATS[cat].filter(i => state.instruments.has(i)).length;
       const b = document.createElement("button");
       b.className = "ctor-itab" + (cat === activeInstCat ? " active" : "");
-      b.textContent = cat;
+      if (selCount > 0) {
+        b.innerHTML = escapeHtml(cat) + ` <span class="ctor-itab-cnt">${selCount}</span>`;
+      } else {
+        b.textContent = cat;
+      }
       b.addEventListener("click", () => {
         activeInstCat = cat;
         bar.querySelectorAll(".ctor-itab").forEach(t => t.classList.remove("active"));
@@ -1876,7 +1882,21 @@ if (transBtn) {
       if (words > 0 && words < 8) hints.push("💡 Добавь жанр, настроение, инструменты (цель 15–30 слов)");
       if (words > 40) hints.push("⚠ Более 40 слов — риск противоречий");
       if (chars > 950) hints.push("⚠ Лимит 1000 символов — Suno обрежет молча");
-      quality.innerHTML = hints.map(h => `<div class="ctor-hint-line">${h}</div>`).join("");
+      let slopHtml = "";
+      if (words >= 4) {
+        const { score, flags } = scorePrompt(prompt);
+        const cls = score >= 80 ? "good" : score >= 60 ? "mid" : "bad";
+        const tagHtml = flags.slice(0, 5).map(f => {
+          const t = f.type === "cliche" ? "cliche" : f.type === "weak" ? "weak" : "missing";
+          return `<span class="ctor-slop-tag ${t}">${escapeHtml(f.token)}</span>`;
+        }).join("");
+        slopHtml = `<div class="ctor-slop-row">
+          <span class="ctor-slop-badge ${cls}" title="Анти-слоп · 100 = идеально">${score}</span>
+          <span class="ctor-slop-label">Анти-слоп</span>
+          ${tagHtml}
+        </div>`;
+      }
+      quality.innerHTML = hints.map(h => `<div class="ctor-hint-line">${h}</div>`).join("") + slopHtml;
     }
   }
 
@@ -1907,13 +1927,27 @@ if (transBtn) {
     if (btn) { const orig = btn.textContent; btn.textContent = "✓ Скопировано!"; setTimeout(() => btn.textContent = orig, 1500); }
   });
 
+  document.getElementById("ctor-save-btn")?.addEventListener("click", () => {
+    const preview = document.getElementById("ctor-preview");
+    const text = (preview?.textContent || buildPrompt()).trim();
+    if (!text) return;
+    const name = ["Constructor", state.genre, state.era].filter(Boolean).join(" · ");
+    const id = "ctor-" + Date.now();
+    toggleSave({ id, name, prompt: text, genre: state.genre || "" });
+    const btn = document.getElementById("ctor-save-btn");
+    const saved = getSaved().some(s => s.prompt === text);
+    if (btn) { btn.classList.toggle("on", saved); btn.title = saved ? "Сохранено ✓" : "Сохранить в Saved"; }
+  });
+
   document.getElementById("ctor-reset-btn")?.addEventListener("click", () => {
     Object.assign(state, { era: null, genre: "", mood: new Set(), vocalGender: null,
       vocalTimbre: new Set(), vocalDelivery: null, vocalFx: new Set(), instruments: new Set(),
       production: new Set(), bpm: 0, keyNote: null, keyMode: "major", carattere: new Set(), useCase: null, theme: "" });
     const g = document.getElementById("ctor-genre"); if (g) g.value = "";
     const t = document.getElementById("ctor-theme"); if (t) t.value = "";
-    setBpm(0); refreshChips(); updatePreview();
+    const sb = document.getElementById("ctor-save-btn");
+    if (sb) { sb.classList.remove("on"); sb.title = "Сохранить в Saved"; }
+    setBpm(0); refreshChips(); renderInstTabs(); updatePreview();
   });
 
   document.getElementById("ctor-genre")?.addEventListener("change", e => { state.genre = e.target.value; updatePreview(); });

@@ -672,6 +672,40 @@ code { font-family: ui-monospace, monospace; }
 .ctor-gen-btn { width: 100%; margin-top: 4px; }
 .disabled-gen { opacity: .5; cursor: not-allowed; }
 
+/* ── Instrument tab count badges ───────────────────────────────────────── */
+.ctor-itab-cnt {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--neon2); color: #1a1a2e;
+  width: 16px; height: 16px; border-radius: 50%;
+  font-size: 9px; font-weight: 700; margin-left: 3px; vertical-align: middle;
+  pointer-events: none;
+}
+
+/* ── Anti-slop inline score in Constructor ─────────────────────────────── */
+.ctor-slop-row {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border);
+}
+.ctor-slop-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 50%; font-weight: 700; font-size: 11px;
+  border: 2px solid; flex-shrink: 0;
+}
+.ctor-slop-badge.good { background: rgba(80,250,123,.1); border-color: #50fa7b; color: #50fa7b; }
+.ctor-slop-badge.mid  { background: rgba(255,184,108,.1); border-color: #ffb86c; color: #ffb86c; }
+.ctor-slop-badge.bad  { background: rgba(255,107,107,.1); border-color: #ff6b6b; color: #ff6b6b; }
+.ctor-slop-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.ctor-slop-tag {
+  font-size: 10px; padding: 2px 6px; border-radius: 999px;
+}
+.ctor-slop-tag.weak    { background: rgba(255,184,108,.15); color: #ffb86c; }
+.ctor-slop-tag.cliche  { background: rgba(255,107,107,.15); color: #ff6b6b; }
+.ctor-slop-tag.missing { background: rgba(139,233,253,.15); color: #8be9fd; }
+
+/* ── Save to Saved star button ─────────────────────────────────────────── */
+.star-btn { font-size: 16px; padding: 6px 10px; line-height: 1; }
+.star-btn.on { color: #ffd700; border-color: #ffd700; }
+
 @media (max-width: 900px) {
   .ctor-wrap { grid-template-columns: 1fr; }
   .ctor-right { position: static; order: -1; }
