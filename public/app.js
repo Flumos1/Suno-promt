@@ -10,6 +10,264 @@ const state = { language: "", era: "", genre: "", mood: "", q: "", free: false, 
 let facets = null;
 let canGenerate = false; // set from /api/status
 
+/* ── i18n ───────────────────────────────────────────────────────────────── */
+let currentLang = localStorage.getItem("ss_lang") || "ru";
+
+const LANG = {
+  en: {
+    "nav.catalog":"⌕ Catalog","nav.anchor":"🎙 Vocal Anchor","nav.reference":"♪ Reference",
+    "nav.cover":"▦ Cover Art","nav.structure":"⊞ Structure","nav.lyrics":"✎ Lyrics",
+    "nav.constructor":"🎛 Constructor","nav.ailab":"🧪 AI Lab","nav.saved":"★ Saved",
+    "gate.hint":"Enter your access code to continue.",
+    "gate.ph":"ACCESS CODE","gate.btn":"Unlock →",
+    "gate.demo":"Demo codes:",
+    "cat.title":"Prompt Catalog",
+    "cat.sub":"Ready 60–90 word style descriptions: era, instruments, production, vocal anchor. No artist names — passes Suno's filter.",
+    "cat.unlock":"🔓 Unlock all","cat.search.ph":"Search style, genre, sub-genre…","cat.search.btn":"Search","cat.mood.all":"All moods",
+    "anchor.title":"Vocal Anchor Builder",
+    "anchor.sub":"Shape a unique vocal along 5 axes. Add a donor for spirit, not imitation.",
+    "anchor.pitch":"Pitch","anchor.timbre":"Timbre","anchor.delivery":"Delivery",
+    "anchor.texture":"Texture","anchor.age":"Age","anchor.donor":"Donor (optional)",
+    "anchor.donor.ph":"e.g. a smoky jazz crooner","anchor.btn":"Build Anchor",
+    "analyze.title":"Reference Analysis",
+    "analyze.sub":"Drop an audio file — real metadata (duration, bitrate, codec, tags) is read from it, then turned into a Suno prompt plus the 3 closest catalog styles.",
+    "analyze.drop":"Click or drop an audio file here","analyze.btn":"Analyze",
+    "cover.title":"Album Cover Concept",
+    "cover.sub":"Generate a 2048×2048 cover concept for Spotify / Apple Music / Yandex.",
+    "cover.title.ph":"Album title","cover.artist.ph":"Artist name","cover.genre.ph":"Genre / vibe",
+    "cover.logo":"Include wordmark logo","cover.btn":"Generate Concept",
+    "struct.title":"Song Structure",
+    "struct.sub":"Generate a Suno-ready arrangement with [Section] tags and production hints.",
+    "struct.style.ph":"Style (e.g. 80s synthwave, female vocal)","struct.title.ph":"Title (optional)",
+    "struct.preset":"Preset","struct.btn":"Build Structure",
+    "lyrics.title":"Lyrics Generator",
+    "lyrics.sub":"Draft original lyrics with verse/chorus tags. Full lyrics need an AI key — otherwise you get a structured skeleton.",
+    "lyrics.theme.ph":"Theme (e.g. late-night city drive)","lyrics.style.ph":"Musical style (optional)",
+    "lyrics.mood.ph":"Mood (e.g. hopeful)","lyrics.lang.ph":"Language (e.g. English)","lyrics.btn":"Write Lyrics",
+    "ctor.title":"🎛 Prompt Constructor",
+    "ctor.sub":"Build the perfect Suno prompt. Correct word order — automatic. Reference + Generate — right here.",
+    "ctor.label.era":"ERA","ctor.label.genre":"GENRE","ctor.label.mood":"MOOD",
+    "ctor.label.vgender":"VOCAL — GENDER","ctor.label.vtimbre":"VOCAL — TIMBRE",
+    "ctor.label.vdelivery":"VOCAL — DELIVERY","ctor.label.vfx":"VOCAL — FX",
+    "ctor.label.instruments":"INSTRUMENTS","ctor.label.production":"PRODUCTION",
+    "ctor.label.tempo":"TEMPO","ctor.label.key":"KEY / TONALITY",
+    "ctor.label.carattere":"CARATTERE","ctor.label.usecase":"USE CASE","ctor.label.theme":"LYRIC THEME",
+    "ctor.hint.23":"2–3","ctor.hint.to3":"up to 3","ctor.hint.25":"2–5",
+    "ctor.hint.opt":"opt.","ctor.hint.opt2":"opt., up to 2","ctor.hint.opt3":"opt., up to 3",
+    "ctor.genre.ph":"— select —","ctor.theme.ph":"love and longing / midnight city / inner conflict…",
+    "ctor.bpm.auto":"Auto",
+    "ctor.out.label":"SUNO v5.5 · STYLE",
+    "ctor.copy":"Copy","ctor.reset":"Reset",
+    "ctor.ref.none":"No reference","ctor.ref.file":"📁 File","ctor.ref.mic":"🎙 Mic",
+    "ctor.ref.divider":"— or generate with reference —",
+    "ctor.mic.record":"🎙 Record","ctor.mic.redo":"🔄 Re-record",
+    "ctor.ref.influence":"Reference influence","ctor.dz.text":"MP3 / WAV up to 25MB",
+    "ctor.gen":"🎵 Create Track",
+    "ctor.hint.vocal":"💡 Add vocal gender — without it Suno picks randomly",
+    "ctor.hint.short":"💡 Add genre, mood, instruments (target 15–30 words)",
+    "ctor.hint.long":"⚠ Over 40 words — risk of contradictions",
+    "ctor.hint.chars":"⚠ 1000-char limit — Suno will cut silently",
+    "ctor.wc.words":" words","ctor.wc.few":" · too few","ctor.wc.ok":" · optimal ✓",
+    "ctor.wc.many":" · too many","ctor.wc.over":" · conflict risk",
+    "ctor.slop.label":"Anti-Slop","btn.copied":"✓ Copied!","ctor.sel":" sel.",
+    "ailab.title":"🧪 AI Lab",
+    "ailab.sub":"AI-powered tools. Free tier — 3 requests/day per IP. Unlock code removes the limit.",
+    "gen.title":"🎵 Generate Track","gen.badge":"Suno live",
+    "gen.sub":"Paste a prompt — get a real Suno track right here. Same model as suno.com, via API.",
+    "gen.prompt.ph":"Style/prompt: synthwave, female vocal, cinematic, 120 BPM, A minor",
+    "gen.lyrics.ph":"Lyrics (optional, with [Verse] [Chorus] tags). Empty = Suno writes itself.",
+    "gen.title.ph":"Track title (optional)","gen.model":"Model","gen.vocal":"Vocal",
+    "gen.vocal.any":"any","gen.vocal.f":"Female","gen.vocal.m":"Male",
+    "gen.instr":"Instrumental","gen.btn":"🎵 Generate (≈6 quota)",
+    "reftrack.title":"🎵 Reference → Track","reftrack.badge":"new",
+    "reftrack.sub":"Upload MP3 or record a melody with your mic — Suno generates a new track in the same style.",
+    "reftrack.file":"📁 Upload file","reftrack.mic":"🎙 Record from mic",
+    "reftrack.drop":"Click or drop reference MP3 / WAV (up to 25MB)",
+    "reftrack.start":"🎙 Start recording","reftrack.use":"✓ Use as reference","reftrack.redo":"🔄 Re-record",
+    "reftrack.from":"Fragment from","reftrack.to":"to",
+    "reftrack.influence":"Reference influence",
+    "reftrack.desc.ph":"Style description (optional): add epic strings, darker mood…",
+    "reftrack.btn":"🎵 Create Track (~6.5 quota)",
+    "voice.title":"🎙 Voice Memo → Prompt",
+    "voice.sub":"Speak — get a prompt. Describe genre, mood, instruments, era. Whisper + AI builds a Suno prompt in seconds.",
+    "voice.start":"🎙 Start recording","voice.send":"✨ Create Prompt","voice.redo":"🔄 Re-record",
+    "genome.title":"🧬 Style Genome",
+    "genome.sub":"Cross-breed 2–3 artists by weight → get a hybrid Suno prompt. Dominant sets the skeleton, others add DNA proportionally.",
+    "genome.a1.ph":"Artist 1 (dominant): Drake, Radiohead…","genome.a2.ph":"Artist 2: adds flavor…",
+    "genome.a3.ph":"Artist 3: final touch…","genome.add":"+ Artist 3","genome.btn":"🧬 Blend Styles",
+    "tm.title":"🕰 Style Time Machine",
+    "tm.sub":"What would [artist] sound like in [era]? Drake in 1975? Kino in witch house era? Artist signature × production from another time.",
+    "tm.artist.ph":"Artist: Drake, Kino, Nirvana, Alla Pugacheva…","tm.era":"Era:",
+    "tm.note.ph":"Additional context (optional): dark ambient, lo-fi, USSR…","tm.btn":"🕰 Time-travel",
+    "ls.title":"🎼 Lyrics Sync Conductor",
+    "ls.sub":"Paste lyrics — AI inserts Suno inline tags [High Energy] [Vocal: raspy] [Drop] by emotional arc. Inline tags work 10× stronger than style field.",
+    "ls.style.ph":"Genre / style (optional): dark pop, Russian rock, trap…",
+    "ls.btn":"🎼 Apply Tags",
+    "dna.title":"🔬 Track DNA Decoder",
+    "dna.sub":"Upload any MP3/WAV — Whisper transcribes, AI identifies era, genre, instruments, production and finds 3 closest artists from 747 in the catalog. Plus a ready Suno prompt.",
+    "dna.drop":"Click or drop audio (MP3 / WAV / OGG, max 25MB)","dna.btn":"Decode DNA",
+    "slop.title":"🛡 Anti-Slop Filter",
+    "slop.sub":"Paste a prompt — instant strength score 0–100 with cliché highlighting. Fix button rewrites weak tokens into specific ones. No clichés — we fight them.",
+    "slop.ph":"Paste Suno prompt: epic cinematic orchestral, beautiful emotional, powerful drums…",
+    "slop.btn":"🛡 Fix Clichés",
+    "mood.title":"🎭 Mood from Image",
+    "mood.sub":"Drop a picture, meme, or film still — Claude Vision describes how it sounds.",
+    "mood.drop":"Click or drop an image (max 5MB)","mood.btn":"Analyze Mood",
+    "scene.title":"🎬 Cinematic Scene → Score",
+    "scene.sub":"Describe a scene in words — get a prompt and structure [Intro][Build][Drop][Outro].",
+    "scene.ph":"Example: night chase through an empty city, neon in puddles, rain, protagonist running to the bridge…",
+    "scene.lang":"Structure in Russian","scene.btn":"Compose Score",
+    "mirror.title":"🔁 RU → EN Mirror Mode",
+    "mirror.sub":"Suno pronounces English cleaner. Translation preserving rhyme and syllable count — for a bilingual track version.",
+    "mirror.ph":"Paste Russian lyrics with [Verse] [Chorus] tags…","mirror.btn":"Mirror to English",
+    "saved.title":"Saved Prompts","saved.sub":"Everything you star is kept in this browser. Export to take it with you.",
+    "saved.json":"⭳ Export JSON","saved.txt":"⭳ Export TXT","saved.clear":"Clear all",
+  },
+  ru: {
+    "nav.catalog":"⌕ Каталог","nav.anchor":"🎙 Вокал","nav.reference":"♪ Референс",
+    "nav.cover":"▦ Обложка","nav.structure":"⊞ Структура","nav.lyrics":"✎ Лирика",
+    "nav.constructor":"🎛 Конструктор","nav.ailab":"🧪 AI Lab","nav.saved":"★ Сохранено",
+    "gate.hint":"Введи код доступа чтобы продолжить.",
+    "gate.ph":"КОД ДОСТУПА","gate.btn":"Войти →",
+    "gate.demo":"Демо-коды:",
+    "cat.title":"Каталог промптов",
+    "cat.sub":"Готовые описания стилей 60–90 слов: эпоха, инструменты, продакшн, вокал. Без имён артистов — проходит фильтр Suno.",
+    "cat.unlock":"🔓 Открыть всё","cat.search.ph":"Поиск стиля, жанра, сабжанра…","cat.search.btn":"Найти","cat.mood.all":"Все настроения",
+    "anchor.title":"Конструктор вокала",
+    "anchor.sub":"Настрой уникальный вокал по 5 осям. Добавь донора за характер — не за имитацию.",
+    "anchor.pitch":"Высота","anchor.timbre":"Тембр","anchor.delivery":"Подача",
+    "anchor.texture":"Текстура","anchor.age":"Возраст","anchor.donor":"Донор (опц.)",
+    "anchor.donor.ph":"напр. хриплый джазовый крунер","anchor.btn":"Создать вокал",
+    "analyze.title":"Анализ референса",
+    "analyze.sub":"Брось аудиофайл — реальные метаданные (длительность, битрейт, кодек, теги) считываются и превращаются в Suno-промпт плюс 3 ближайших стиля из каталога.",
+    "analyze.drop":"Кликни или перетащи аудиофайл сюда","analyze.btn":"Анализировать",
+    "cover.title":"Концепция обложки",
+    "cover.sub":"Генерируй концепцию обложки 2048×2048 для Spotify / Apple Music / Яндекс.",
+    "cover.title.ph":"Название альбома","cover.artist.ph":"Имя артиста","cover.genre.ph":"Жанр / атмосфера",
+    "cover.logo":"Включить логотип","cover.btn":"Создать концепцию",
+    "struct.title":"Структура песни",
+    "struct.sub":"Генерируй Suno-аранжировку с тегами [Секция] и подсказками по продакшну.",
+    "struct.style.ph":"Стиль (напр. 80s synthwave, female vocal)","struct.title.ph":"Название (опционально)",
+    "struct.preset":"Пресет","struct.btn":"Создать структуру",
+    "lyrics.title":"Генератор лирики",
+    "lyrics.sub":"Черновик лирики с тегами куплет/припев. Полная лирика требует AI-ключа — иначе структурный скелет.",
+    "lyrics.theme.ph":"Тема (напр. ночная поездка по городу)","lyrics.style.ph":"Музыкальный стиль (опционально)",
+    "lyrics.mood.ph":"Настроение (напр. hopeful)","lyrics.lang.ph":"Язык (напр. English)","lyrics.btn":"Написать лирику",
+    "ctor.title":"🎛 Конструктор промптов",
+    "ctor.sub":"Собери идеальный Suno-промпт. Правильный порядок слов — автоматически. Референс + Generate — прямо здесь.",
+    "ctor.label.era":"ЭПОХА","ctor.label.genre":"ЖАНР","ctor.label.mood":"НАСТРОЕНИЕ",
+    "ctor.label.vgender":"ВОКАЛ — ПОЛ","ctor.label.vtimbre":"ВОКАЛ — ТЕМБР",
+    "ctor.label.vdelivery":"ВОКАЛ — ПОДАЧА","ctor.label.vfx":"ВОКАЛ — ЭФФЕКТЫ",
+    "ctor.label.instruments":"ИНСТРУМЕНТЫ","ctor.label.production":"ПРОДАКШН",
+    "ctor.label.tempo":"ТЕМП","ctor.label.key":"ТОНАЛЬНОСТЬ",
+    "ctor.label.carattere":"CARATTERE","ctor.label.usecase":"USE CASE","ctor.label.theme":"ТЕМАТИКА ЛИРИКИ",
+    "ctor.hint.23":"2–3","ctor.hint.to3":"до 3","ctor.hint.25":"2–5",
+    "ctor.hint.opt":"опц.","ctor.hint.opt2":"опц., до 2","ctor.hint.opt3":"опц., до 3",
+    "ctor.genre.ph":"— выбери —","ctor.theme.ph":"love and longing / midnight city / inner conflict…",
+    "ctor.bpm.auto":"Авто",
+    "ctor.out.label":"SUNO v5.5 · STYLE",
+    "ctor.copy":"Скопировать","ctor.reset":"Сбросить",
+    "ctor.ref.none":"Без референса","ctor.ref.file":"📁 Файл","ctor.ref.mic":"🎙 Микрофон",
+    "ctor.ref.divider":"— или сгенерировать с референсом —",
+    "ctor.mic.record":"🎙 Запись","ctor.mic.redo":"🔄 Перезаписать",
+    "ctor.ref.influence":"Влияние референса","ctor.dz.text":"MP3 / WAV до 25MB",
+    "ctor.gen":"🎵 Создать трек",
+    "ctor.hint.vocal":"💡 Укажи вокал — без пола Suno выбирает случайно",
+    "ctor.hint.short":"💡 Добавь жанр, настроение, инструменты (цель 15–30 слов)",
+    "ctor.hint.long":"⚠ Более 40 слов — риск противоречий",
+    "ctor.hint.chars":"⚠ Лимит 1000 символов — Suno обрежет молча",
+    "ctor.wc.words":" слов","ctor.wc.few":" · мало","ctor.wc.ok":" · оптимально ✓",
+    "ctor.wc.many":" · много","ctor.wc.over":" · риск конфликтов",
+    "ctor.slop.label":"Анти-слоп","btn.copied":"✓ Скопировано!","ctor.sel":" выбр.",
+    "ailab.title":"🧪 AI Lab",
+    "ailab.sub":"AI-инструменты. Бесплатно — 3 запроса в сутки на IP. Unlock-код снимает лимит.",
+    "gen.title":"🎵 Создать трек","gen.badge":"Suno live",
+    "gen.sub":"Вставь промпт — получи настоящий трек от Suno прямо здесь. Та же модель, что на suno.com, через API.",
+    "gen.prompt.ph":"Стиль/промпт: synthwave, female vocal, cinematic, 120 BPM, A minor",
+    "gen.lyrics.ph":"Лирика (опционально, с тегами [Verse] [Chorus]). Пусто = Suno напишет сам.",
+    "gen.title.ph":"Название трека (опционально)","gen.model":"Модель","gen.vocal":"Вокал",
+    "gen.vocal.any":"любой","gen.vocal.f":"женский","gen.vocal.m":"мужской",
+    "gen.instr":"Инструментал","gen.btn":"🎵 Сгенерировать (≈6 quota)",
+    "reftrack.title":"🎵 Референс → Трек","reftrack.badge":"новинка",
+    "reftrack.sub":"Загрузи MP3 или запиши мелодию с микрофона — Suno сгенерирует новый трек в том же стиле.",
+    "reftrack.file":"📁 Загрузить файл","reftrack.mic":"🎙 Записать с микрофона",
+    "reftrack.drop":"Click или drop референсный MP3 / WAV (до 25MB)",
+    "reftrack.start":"🎙 Начать запись","reftrack.use":"✓ Использовать как референс","reftrack.redo":"🔄 Перезаписать",
+    "reftrack.from":"Фрагмент с","reftrack.to":"по",
+    "reftrack.influence":"Влияние референса",
+    "reftrack.desc.ph":"Описание стиля (опционально): add epic strings, darker mood…",
+    "reftrack.btn":"🎵 Создать трек (~6.5 quota)",
+    "voice.title":"🎙 Голосовая заметка → Промпт",
+    "voice.sub":"Говори — получай промпт. Опиши жанр, настроение, инструменты, эпоху. Whisper + AI соберут Suno-промпт за секунды.",
+    "voice.start":"🎙 Начать запись","voice.send":"✨ Создать промпт","voice.redo":"🔄 Перезаписать",
+    "genome.title":"🧬 Style Genome",
+    "genome.sub":"Скрести 2–3 артиста по весу → получи гибридный Suno-промпт. Доминирующий задаёт скелет, остальные добавляют ДНК пропорционально.",
+    "genome.a1.ph":"Артист 1 (доминирующий): Drake, Radiohead…","genome.a2.ph":"Артист 2: добавляет флейвор…",
+    "genome.a3.ph":"Артист 3: финальный флейвор…","genome.add":"+ Артист 3","genome.btn":"🧬 Скрестить стили",
+    "tm.title":"🕰 Машина времени",
+    "tm.sub":"Как бы звучал [артист] в [эпоху]? Drake в 1975? Кино в эпоху витч-хауса? Сигнатура артиста × продакшн другого времени.",
+    "tm.artist.ph":"Артист: Drake, Кино, Nirvana, Алла Пугачёва…","tm.era":"Эпоха:",
+    "tm.note.ph":"Доп. контекст (опционально): dark ambient, lo-fi, СССР…","tm.btn":"🕰 Перенести в эпоху",
+    "ls.title":"🎼 Дирижёр тегов",
+    "ls.sub":"Вставь лирику — AI расставит Suno-теги [High Energy] [Vocal: raspy] [Drop] по эмоциональному арку. Inline-теги работают в 10× сильнее style-поля.",
+    "ls.style.ph":"Жанр / стиль (опционально): dark pop, Russian rock, trap…",
+    "ls.btn":"🎼 Расставить теги",
+    "dna.title":"🔬 ДНК-декодер трека",
+    "dna.sub":"Загрузи любой MP3/WAV — Whisper расшифрует лирику, AI определит эру, жанр, инструменты, продакшн и найдёт 3 ближайших артиста из 747 в каталоге. Плюс готовый Suno-промпт.",
+    "dna.drop":"Кликни или перетащи аудио (MP3 / WAV / OGG, до 25MB)","dna.btn":"Декодировать ДНК",
+    "slop.title":"🛡 Анти-Слоп Фильтр",
+    "slop.sub":"Вставь промпт — мгновенный балл силы 0–100 и подсветка штампов. Кнопка «Починить» переписывает банальные токены в конкретные. Мы не штампы — мы антиштампы.",
+    "slop.ph":"Вставь Suno-промпт: epic cinematic orchestral, beautiful emotional, powerful drums…",
+    "slop.btn":"🛡 Починить штампы",
+    "mood.title":"🎭 Настроение из картинки",
+    "mood.sub":"Брось картинку, мем или скрин из фильма — Claude Vision расскажет как это звучит.",
+    "mood.drop":"Кликни или перетащи картинку (до 5MB)","mood.btn":"Анализировать настроение",
+    "scene.title":"🎬 Сцена → Саундтрек",
+    "scene.sub":"Опиши сцену словами — получи промпт и структуру [Intro][Build][Drop][Outro].",
+    "scene.ph":"Пример: погоня ночью по пустому городу, неон отражается в лужах, дождь, главный герой бежит к мосту…",
+    "scene.lang":"Структура на русском","scene.btn":"Создать саундтрек",
+    "mirror.title":"🔁 RU → EN Зеркало",
+    "mirror.sub":"Suno чище произносит английский. Перевод с сохранением рифмы и числа слогов — для билингвальной версии трека.",
+    "mirror.ph":"Вставь русскую лирику с тегами [Verse] [Chorus]…","mirror.btn":"Зеркалировать в EN",
+    "saved.title":"Сохранённые промпты","saved.sub":"Всё, что вы отметили звёздочкой, хранится в этом браузере. Экспорт — чтобы взять с собой.",
+    "saved.json":"⭳ Экспорт JSON","saved.txt":"⭳ Экспорт TXT","saved.clear":"Очистить всё",
+  }
+};
+
+function t(key) {
+  return LANG[currentLang]?.[key] ?? LANG.en?.[key] ?? key;
+}
+
+function applyLang(lang) {
+  currentLang = lang;
+  localStorage.setItem("ss_lang", lang);
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const v = t(el.dataset.i18n);
+    if (v) el.textContent = v;
+  });
+  document.querySelectorAll("[data-i18n-ph]").forEach(el => {
+    const v = t(el.dataset.i18nPh);
+    if (v) el.placeholder = v;
+  });
+  const lb = document.getElementById("lang-toggle");
+  if (lb) lb.textContent = lang === "ru" ? "EN" : "RU";
+  // re-render dynamic elements that depend on language
+  const bpmD = document.getElementById("ctor-bpm-display");
+  if (bpmD && bpmD.textContent !== "" && !bpmD.textContent.includes("BPM")) {
+    bpmD.textContent = t("ctor.bpm.auto");
+  }
+  // update constructor preview hints
+  if (typeof window._ctorUpdate === "function") window._ctorUpdate();
+}
+
+function setTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("ss_theme", theme);
+  const tb = document.getElementById("theme-toggle");
+  if (tb) tb.textContent = theme === "dark" ? "☀" : "🌙";
+}
+
 /* ---------- Access gate ---------- */
 function showApp() {
   $("#gate").classList.add("hidden");
@@ -1516,7 +1774,7 @@ if (transBtn) {
     row.className = "genome-row";
     row.dataset.idx = "2";
     row.innerHTML = `
-      <input class="genome-name" type="text" placeholder="Артист 3: финальный флейвор…" />
+      <input class="genome-name" type="text" placeholder="${escapeHtml(t("genome.a3.ph"))}" />
       <input class="genome-weight" type="number" min="1" max="99" value="10" />
       <span class="genome-pct">%</span>
       <button class="genome-remove ghost small">✕</button>`;
@@ -1766,7 +2024,7 @@ if (transBtn) {
         renderInstTabs();
         const cnt = state.instruments.size;
         const el = document.getElementById("ctor-inst-count");
-        if (el) el.textContent = cnt > 0 ? cnt + " выбр." : "";
+        if (el) el.textContent = cnt > 0 ? cnt + t("ctor.sel") : "";
         updatePreview();
       });
       c.appendChild(b);
@@ -1802,7 +2060,7 @@ if (transBtn) {
     });
     renderInstChips();
     const el = document.getElementById("ctor-inst-count");
-    if (el) el.textContent = state.instruments.size > 0 ? state.instruments.size + " выбр." : "";
+    if (el) el.textContent = state.instruments.size > 0 ? state.instruments.size + t("ctor.sel") : "";
   }
 
   // ── Prompt builder ─────────────────────────────────────────────────────
@@ -1854,12 +2112,12 @@ if (transBtn) {
 
     const wcEl = document.getElementById("ctor-wc");
     if (wcEl) {
-      let cls = "ctor-wc", label = words + " слов";
+      let cls = "ctor-wc", label = words + t("ctor.wc.words");
       if (!words) cls += " muted";
-      else if (words < 8) { cls += " warn"; label += " · мало"; }
-      else if (words <= 30) { cls += " ok"; label += " · оптимально ✓"; }
-      else if (words <= 40) { cls += " warn"; label += " · много"; }
-      else { cls += " over"; label += " · риск конфликтов"; }
+      else if (words < 8) { cls += " warn"; label += t("ctor.wc.few"); }
+      else if (words <= 30) { cls += " ok"; label += t("ctor.wc.ok"); }
+      else if (words <= 40) { cls += " warn"; label += t("ctor.wc.many"); }
+      else { cls += " over"; label += t("ctor.wc.over"); }
       wcEl.className = cls; wcEl.textContent = label;
     }
 
@@ -1878,27 +2136,29 @@ if (transBtn) {
     const quality = document.getElementById("ctor-quality");
     if (quality) {
       const hints = [];
-      if (!state.vocalGender && words > 0) hints.push("💡 Укажи вокал — без пола Suno выбирает случайно");
-      if (words > 0 && words < 8) hints.push("💡 Добавь жанр, настроение, инструменты (цель 15–30 слов)");
-      if (words > 40) hints.push("⚠ Более 40 слов — риск противоречий");
-      if (chars > 950) hints.push("⚠ Лимит 1000 символов — Suno обрежет молча");
+      if (!state.vocalGender && words > 0) hints.push(t("ctor.hint.vocal"));
+      if (words > 0 && words < 8) hints.push(t("ctor.hint.short"));
+      if (words > 40) hints.push(t("ctor.hint.long"));
+      if (chars > 950) hints.push(t("ctor.hint.chars"));
       let slopHtml = "";
       if (words >= 4) {
         const { score, flags } = scorePrompt(prompt);
         const cls = score >= 80 ? "good" : score >= 60 ? "mid" : "bad";
         const tagHtml = flags.slice(0, 5).map(f => {
-          const t = f.type === "cliche" ? "cliche" : f.type === "weak" ? "weak" : "missing";
-          return `<span class="ctor-slop-tag ${t}">${escapeHtml(f.token)}</span>`;
+          const tc = f.type === "cliche" ? "cliche" : f.type === "weak" ? "weak" : "missing";
+          return `<span class="ctor-slop-tag ${tc}">${escapeHtml(f.token)}</span>`;
         }).join("");
         slopHtml = `<div class="ctor-slop-row">
-          <span class="ctor-slop-badge ${cls}" title="Анти-слоп · 100 = идеально">${score}</span>
-          <span class="ctor-slop-label">Анти-слоп</span>
+          <span class="ctor-slop-badge ${cls}" title="${t("ctor.slop.label")} · 100 = max">${score}</span>
+          <span class="ctor-slop-label">${t("ctor.slop.label")}</span>
           ${tagHtml}
         </div>`;
       }
       quality.innerHTML = hints.map(h => `<div class="ctor-hint-line">${h}</div>`).join("") + slopHtml;
     }
   }
+
+  window._ctorUpdate = updatePreview; // expose for applyLang
 
   // ── BPM ────────────────────────────────────────────────────────────────
   const bpmSlider = document.getElementById("ctor-bpm-slider");
@@ -1907,7 +2167,7 @@ if (transBtn) {
   function setBpm(val) {
     state.bpm = val;
     if (bpmSlider) bpmSlider.value = val > 0 ? val : 120;
-    if (bpmDisplay) bpmDisplay.textContent = val > 0 ? val + " BPM" : "Авто";
+    if (bpmDisplay) bpmDisplay.textContent = val > 0 ? val + " BPM" : t("ctor.bpm.auto");
     document.querySelectorAll(".ctor-preset").forEach(b =>
       b.classList.toggle("active", parseInt(b.dataset.bpm, 10) === val));
     updatePreview();
@@ -1924,7 +2184,7 @@ if (transBtn) {
     if (!text) return;
     navigator.clipboard.writeText(text).catch(() => {});
     const btn = document.getElementById("ctor-copy-btn");
-    if (btn) { const orig = btn.textContent; btn.textContent = "✓ Скопировано!"; setTimeout(() => btn.textContent = orig, 1500); }
+    if (btn) { const orig = btn.textContent; btn.textContent = t("btn.copied"); setTimeout(() => btn.textContent = orig, 1500); }
   });
 
   document.getElementById("ctor-save-btn")?.addEventListener("click", () => {
@@ -2095,5 +2355,16 @@ if (transBtn) {
   }).catch(() => {});
 })();
 
+/* ---------- Theme & Language ---------- */
+document.getElementById("theme-toggle")?.addEventListener("click", () => {
+  const current = document.documentElement.getAttribute("data-theme") || "dark";
+  setTheme(current === "dark" ? "light" : "dark");
+});
+document.getElementById("lang-toggle")?.addEventListener("click", () => {
+  applyLang(currentLang === "ru" ? "en" : "ru");
+});
+
 /* ---------- Init (after all declarations) ---------- */
+setTheme(localStorage.getItem("ss_theme") || "dark");
+applyLang(currentLang);
 if (localStorage.getItem(GATE_KEY)) showApp();

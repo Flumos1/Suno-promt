@@ -710,3 +710,173 @@ code { font-family: ui-monospace, monospace; }
   .ctor-wrap { grid-template-columns: 1fr; }
   .ctor-right { position: static; order: -1; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   THEME & LANG TOGGLE BUTTONS
+══════════════════════════════════════════════════════════════════════════ */
+.icon-btn {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--muted); padding: 5px 10px; border-radius: 8px;
+  cursor: pointer; font-size: 14px; transition: all .15s;
+  line-height: 1; font-family: inherit;
+}
+.icon-btn:hover { border-color: var(--neon2); color: var(--neon2); transform: none; box-shadow: none; filter: none; }
+.lang-btn { font-size: 11px; font-weight: 700; letter-spacing: .08em; padding: 5px 9px; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LIGHT THEME  —  "Studio Day"
+   Best-practice palette: lavender-tinted white + deep indigo/violet accents
+   Maintains brand DNA, maximises contrast, easy on eyes for long sessions.
+══════════════════════════════════════════════════════════════════════════ */
+[data-theme="light"] {
+  /* Core palette */
+  --bg: #F0EFF8;
+  --panel: rgba(255,255,255,0.88);
+  --panel-solid: #FFFFFF;
+  --border: rgba(79,70,229,0.16);
+  --border-bright: rgba(79,70,229,0.42);
+
+  /* Accent colors — same hue family, readable on white */
+  --neon: #4F46E5;     /* indigo (replaces cyan) */
+  --neon2: #7C3AED;    /* violet (replaces lavender) */
+  --pink: #DB2777;     /* deep rose */
+
+  /* Text */
+  --text: #1A1630;     /* deep navy — brand inversion of dark bg */
+  --muted: #6A6891;    /* muted lavender-gray */
+
+  /* Semantic */
+  --good: #059669;
+  --bad:  #DC2626;
+}
+
+/* Background decorations — lighter for day mode */
+[data-theme="light"] body { background: var(--bg); }
+[data-theme="light"] .bg-grid {
+  background:
+    linear-gradient(transparent 95%, rgba(79,70,229,0.05) 95%) 0 0 / 100% 40px,
+    linear-gradient(90deg, transparent 95%, rgba(79,70,229,0.05) 95%) 0 0 / 40px 100%;
+}
+[data-theme="light"] .orb-a {
+  background: radial-gradient(circle, rgba(124,80,255,0.16), transparent 70%);
+  opacity: 0.35;
+}
+[data-theme="light"] .orb-b {
+  background: radial-gradient(circle, rgba(79,130,255,0.14), transparent 70%);
+  opacity: 0.28;
+}
+
+/* Inputs & selects */
+[data-theme="light"] input[type="text"],
+[data-theme="light"] input[type="number"],
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+  background: rgba(255,255,255,0.92);
+  border-color: var(--border);
+  color: var(--text);
+}
+[data-theme="light"] input[type="text"]:focus,
+[data-theme="light"] select:focus { box-shadow: 0 0 0 3px rgba(79,70,229,0.12); }
+[data-theme="light"] select option { background: #ffffff; color: var(--text); }
+
+/* Output / code blocks */
+[data-theme="light"] .output pre,
+[data-theme="light"] .output .prompt,
+[data-theme="light"] .card .prompt {
+  background: rgba(79,70,229,0.05);
+  color: var(--text);
+  border-color: var(--border);
+}
+[data-theme="light"] .metagrid div {
+  background: rgba(79,70,229,0.05);
+  color: var(--text);
+}
+
+/* Card & panel fills */
+[data-theme="light"] .card,
+[data-theme="light"] .ai-card,
+[data-theme="light"] .ctor-output-card {
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 2px 12px rgba(79,70,229,0.08);
+}
+[data-theme="light"] .ai-card.flagship {
+  border-color: rgba(124,80,255,0.35);
+  background: rgba(124,80,255,0.04);
+}
+
+/* Gate */
+[data-theme="light"] .gate-card {
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 0 80px rgba(79,70,229,0.14);
+}
+
+/* Generation modal */
+[data-theme="light"] .gen-modal { background: rgba(26,22,48,0.55); }
+[data-theme="light"] .gen-modal-box {
+  background: #FFFFFF;
+  border-color: rgba(79,70,229,0.18);
+}
+
+/* AI Lab specific textareas + inputs */
+[data-theme="light"] #gen-card textarea,
+[data-theme="light"] #gen-card input[type=text],
+[data-theme="light"] .tm-inputs input[type=text],
+[data-theme="light"] #ref-card input[type=text],
+[data-theme="light"] #ls-card textarea,
+[data-theme="light"] #ls-card input[type=text],
+[data-theme="light"] #dna-card,
+[data-theme="light"] #slop-card textarea {
+  background: rgba(255,255,255,0.9);
+  color: var(--text);
+  border-color: var(--border);
+}
+[data-theme="light"] .gen-opts select {
+  background: rgba(255,255,255,0.9);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+/* Era chips (Style Time Machine) */
+[data-theme="light"] .era-chip {
+  background: rgba(79,70,229,0.06);
+  border-color: rgba(79,70,229,0.2);
+  color: var(--text);
+}
+[data-theme="light"] .era-chip.active { background: var(--neon2); color: #fff; }
+
+/* Ref card number inputs */
+[data-theme="light"] .ref-time-row input[type=number] {
+  background: rgba(255,255,255,0.9);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+/* Track cards */
+[data-theme="light"] .track-card { background: rgba(79,70,229,0.06); }
+
+/* Chip backgrounds */
+[data-theme="light"] .ctor-chip { background: rgba(79,70,229,0.05); color: var(--text); }
+[data-theme="light"] .ctor-chip.active {
+  background: rgba(124,80,255,0.14);
+  border-color: var(--neon2);
+  color: var(--neon2);
+}
+[data-theme="light"] .ctor-output-card .ctor-preview {
+  background: rgba(79,70,229,0.04);
+  color: var(--text);
+}
+[data-theme="light"] .ctor-preview:empty::before { color: var(--muted); }
+
+/* Constructor label */
+[data-theme="light"] .ctor-label { color: var(--neon); }
+
+/* Tab active — keep gradient (stays readable in both modes) */
+[data-theme="light"] .tab.active { color: #fff; }
+[data-theme="light"] .fchip.active { color: #fff; }
+
+/* Scrollbar for light */
+[data-theme="light"] ::-webkit-scrollbar-track { background: rgba(79,70,229,0.06); }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(79,70,229,0.25); }
+
+/* logo on light: deepen gradient slightly */
+[data-theme="light"] .logo span { color: #DB2777; -webkit-text-fill-color: #DB2777; }

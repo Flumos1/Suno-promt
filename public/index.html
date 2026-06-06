@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SiliconSense — Suno AI Prompt Catalog</title>
-  <link rel="stylesheet" href="styles.css?v=12" />
+  <link rel="stylesheet" href="styles.css?v=13" />
 </head>
 <body>
   <div class="bg-grid"></div>
@@ -16,13 +16,13 @@
     <div class="gate-card">
       <div class="logo">◢◣ SILICON<span>SENSE</span></div>
       <p class="tagline">SUNO AI PROMPT CATALOG · v5.5</p>
-      <p class="gate-hint">Enter your access code to continue.</p>
+      <p class="gate-hint" data-i18n="gate.hint">Введи код доступа чтобы продолжить.</p>
       <form id="gate-form">
-        <input id="access-code" type="text" placeholder="ACCESS CODE" autocomplete="off" />
-        <button type="submit">Unlock →</button>
+        <input id="access-code" type="text" data-i18n-ph="gate.ph" placeholder="КОД ДОСТУПА" autocomplete="off" />
+        <button type="submit" data-i18n="gate.btn">Войти →</button>
       </form>
       <p id="gate-error" class="error"></p>
-      <p class="demo-note">Demo codes: <code>SILICON-DEMO</code> · <code>SUNO-2026</code> · <code>FREEPASS</code></p>
+      <p class="demo-note"><span data-i18n="gate.demo">Демо-коды:</span> <code>SILICON-DEMO</code> · <code>SUNO-2026</code> · <code>FREEPASS</code></p>
     </div>
   </section>
 
@@ -33,29 +33,31 @@
       <div class="topbar-right">
         <span id="unlock-pill" class="pill" title="Catalog access">locked</span>
         <span id="ai-pill" class="pill" title="Generation engine">…</span>
+        <button id="theme-toggle" class="icon-btn" title="Toggle theme">🌙</button>
+        <button id="lang-toggle" class="icon-btn lang-btn">EN</button>
         <button id="logout" class="ghost" title="Lock">⏻</button>
       </div>
     </header>
 
     <nav class="tabs">
-      <button class="tab active" data-tab="catalog">⌕ Catalog</button>
-      <button class="tab" data-tab="anchor">🎙 Vocal Anchor</button>
-      <button class="tab" data-tab="analyze">♪ Reference</button>
-      <button class="tab" data-tab="cover">▦ Cover Art</button>
-      <button class="tab" data-tab="structure">⊞ Structure</button>
-      <button class="tab" data-tab="lyrics">✎ Lyrics</button>
-      <button class="tab" data-tab="constructor">🎛 Constructor</button>
-      <button class="tab" data-tab="ailab">🧪 AI Lab</button>
-      <button class="tab" data-tab="saved">★ Saved</button>
+      <button class="tab active" data-tab="catalog" data-i18n="nav.catalog">⌕ Каталог</button>
+      <button class="tab" data-tab="anchor" data-i18n="nav.anchor">🎙 Вокал</button>
+      <button class="tab" data-tab="analyze" data-i18n="nav.reference">♪ Референс</button>
+      <button class="tab" data-tab="cover" data-i18n="nav.cover">▦ Обложка</button>
+      <button class="tab" data-tab="structure" data-i18n="nav.structure">⊞ Структура</button>
+      <button class="tab" data-tab="lyrics" data-i18n="nav.lyrics">✎ Лирика</button>
+      <button class="tab" data-tab="constructor" data-i18n="nav.constructor">🎛 Конструктор</button>
+      <button class="tab" data-tab="ailab" data-i18n="nav.ailab">🧪 AI Lab</button>
+      <button class="tab" data-tab="saved" data-i18n="nav.saved">★ Сохранено</button>
     </nav>
 
     <!-- Catalog -->
     <section class="panel active" id="tab-catalog">
       <div class="cat-head">
-        <h1>Prompt Catalog <span id="cat-total" class="count-big"></span></h1>
-        <button id="unlock-btn" class="primary small">🔓 Unlock all</button>
+        <h1><span data-i18n="cat.title">Каталог промптов</span> <span id="cat-total" class="count-big"></span></h1>
+        <button id="unlock-btn" class="primary small" data-i18n="cat.unlock">🔓 Открыть всё</button>
       </div>
-      <p class="sub">Ready 60–90 word style descriptions: era, instruments, production, vocal anchor. No artist names — passes Suno's filter.</p>
+      <p class="sub" data-i18n="cat.sub">Готовые описания стилей 60–90 слов: эпоха, инструменты, продакшн, вокал. Без имён артистов — проходит фильтр Suno.</p>
 
       <div class="filters">
         <div id="f-language" class="chiprow"></div>
@@ -63,7 +65,7 @@
         <div id="f-genre" class="chiprow"></div>
         <div class="filter-bottom">
           <select id="f-mood">
-            <option value="">All moods</option>
+            <option value="" data-i18n="cat.mood.all">Все настроения</option>
             <option>bright</option><option>uplifting</option><option>romantic</option><option>catchy</option>
             <option>energetic</option><option>angsty</option><option>bittersweet</option><option>anthemic</option>
             <option>confident</option><option>moody</option><option>menacing</option><option>nostalgic</option>
@@ -72,8 +74,8 @@
             <option>earthy</option><option>yearning</option><option>hopeful</option><option>spiritual</option>
             <option>epic</option><option>dark</option><option>heavy</option><option>dramatic</option><option>smoky</option>
           </select>
-          <input id="search" type="text" placeholder="Search style, genre, sub-genre…" />
-          <button id="search-btn">Search</button>
+          <input id="search" type="text" data-i18n-ph="cat.search.ph" placeholder="Поиск стиля, жанра, сабжанра…" />
+          <button id="search-btn" data-i18n="cat.search.btn">Найти</button>
         </div>
       </div>
 
@@ -83,76 +85,76 @@
 
     <!-- Vocal Anchor -->
     <section class="panel" id="tab-anchor">
-      <h1>Vocal Anchor Builder</h1>
-      <p class="sub">Shape a unique vocal along 5 axes. Add a donor for spirit, not imitation.</p>
+      <h1 data-i18n="anchor.title">Конструктор вокала</h1>
+      <p class="sub" data-i18n="anchor.sub">Настрой уникальный вокал по 5 осям. Добавь донора за характер — не за имитацию.</p>
       <div class="axes">
-        <label>Pitch<select id="ax-pitch"><option value="">—</option><option>low bass</option><option>baritone</option><option>tenor</option><option>alto</option><option>soprano</option><option>falsetto</option></select></label>
-        <label>Timbre<select id="ax-timbre"><option value="">—</option><option>bright</option><option>warm</option><option>breathy</option><option>gritty</option><option>smooth</option><option>rich</option><option>metallic</option></select></label>
-        <label>Delivery<select id="ax-delivery"><option value="">—</option><option>intimate close-mic</option><option>belting</option><option>whispered</option><option>rap cadence</option><option>operatic</option><option>crooned</option><option>shouted</option></select></label>
-        <label>Texture<select id="ax-texture"><option value="">—</option><option>clean</option><option>lightly distorted</option><option>auto-tuned</option><option>vocoded</option><option>doubled and layered</option><option>tape-saturated</option></select></label>
-        <label>Age<select id="ax-age"><option value="">—</option><option>youthful</option><option>mature</option><option>ageless</option><option>weathered</option></select></label>
-        <label>Donor (optional)<input id="ax-donor" type="text" placeholder="e.g. a smoky jazz crooner" /></label>
+        <label><span data-i18n="anchor.pitch">Высота</span><select id="ax-pitch"><option value="">—</option><option>low bass</option><option>baritone</option><option>tenor</option><option>alto</option><option>soprano</option><option>falsetto</option></select></label>
+        <label><span data-i18n="anchor.timbre">Тембр</span><select id="ax-timbre"><option value="">—</option><option>bright</option><option>warm</option><option>breathy</option><option>gritty</option><option>smooth</option><option>rich</option><option>metallic</option></select></label>
+        <label><span data-i18n="anchor.delivery">Подача</span><select id="ax-delivery"><option value="">—</option><option>intimate close-mic</option><option>belting</option><option>whispered</option><option>rap cadence</option><option>operatic</option><option>crooned</option><option>shouted</option></select></label>
+        <label><span data-i18n="anchor.texture">Текстура</span><select id="ax-texture"><option value="">—</option><option>clean</option><option>lightly distorted</option><option>auto-tuned</option><option>vocoded</option><option>doubled and layered</option><option>tape-saturated</option></select></label>
+        <label><span data-i18n="anchor.age">Возраст</span><select id="ax-age"><option value="">—</option><option>youthful</option><option>mature</option><option>ageless</option><option>weathered</option></select></label>
+        <label><span data-i18n="anchor.donor">Донор (опц.)</span><input id="ax-donor" type="text" data-i18n-ph="anchor.donor.ph" placeholder="напр. хриплый джазовый крунер" /></label>
       </div>
-      <button id="anchor-btn" class="primary">Build Anchor</button>
+      <button id="anchor-btn" class="primary" data-i18n="anchor.btn">Создать вокал</button>
       <div id="anchor-out" class="output"></div>
     </section>
 
     <!-- Reference -->
     <section class="panel" id="tab-analyze">
-      <h1>Reference Analysis</h1>
-      <p class="sub">Drop an audio file — real metadata (duration, bitrate, codec, tags) is read from it, then turned into a Suno prompt plus the 3 closest catalog styles.</p>
+      <h1 data-i18n="analyze.title">Анализ референса</h1>
+      <p class="sub" data-i18n="analyze.sub">Брось аудиофайл — реальные метаданные (длительность, битрейт, кодек, теги) считываются и превращаются в Suno-промпт плюс 3 ближайших стиля из каталога.</p>
       <div class="dropzone" id="dropzone">
         <input id="file" type="file" accept="audio/*" hidden />
         <div class="dz-icon">♪</div>
-        <p>Click or drop an audio file here</p>
+        <p data-i18n="analyze.drop">Кликни или перетащи аудиофайл сюда</p>
         <span id="filename" class="muted"></span>
       </div>
-      <button id="analyze-btn" class="primary" disabled>Analyze</button>
+      <button id="analyze-btn" class="primary" disabled data-i18n="analyze.btn">Анализировать</button>
       <div id="analyze-out" class="output"></div>
     </section>
 
     <!-- Cover -->
     <section class="panel" id="tab-cover">
-      <h1>Album Cover Concept</h1>
-      <p class="sub">Generate a 2048×2048 cover concept for Spotify / Apple Music / Yandex.</p>
+      <h1 data-i18n="cover.title">Концепция обложки</h1>
+      <p class="sub" data-i18n="cover.sub">Генерируй концепцию обложки 2048×2048 для Spotify / Apple Music / Яндекс.</p>
       <div class="cover-form">
-        <input id="cv-title" type="text" placeholder="Album title" />
-        <input id="cv-artist" type="text" placeholder="Artist name" />
-        <input id="cv-genre" type="text" placeholder="Genre / vibe" />
-        <label class="check"><input id="cv-logo" type="checkbox" /> Include wordmark logo</label>
+        <input id="cv-title" type="text" data-i18n-ph="cover.title.ph" placeholder="Название альбома" />
+        <input id="cv-artist" type="text" data-i18n-ph="cover.artist.ph" placeholder="Имя артиста" />
+        <input id="cv-genre" type="text" data-i18n-ph="cover.genre.ph" placeholder="Жанр / атмосфера" />
+        <label class="check"><input id="cv-logo" type="checkbox" /> <span data-i18n="cover.logo">Включить логотип</span></label>
       </div>
-      <button id="cover-btn" class="primary">Generate Concept</button>
+      <button id="cover-btn" class="primary" data-i18n="cover.btn">Создать концепцию</button>
       <div id="cover-out" class="output"></div>
     </section>
 
     <!-- Structure -->
     <section class="panel" id="tab-structure">
-      <h1>Song Structure</h1>
-      <p class="sub">Generate a Suno-ready arrangement with [Section] tags and production hints.</p>
+      <h1 data-i18n="struct.title">Структура песни</h1>
+      <p class="sub" data-i18n="struct.sub">Генерируй Suno-аранжировку с тегами [Секция] и подсказками по продакшну.</p>
       <div class="cover-form">
-        <input id="st-style" type="text" placeholder="Style (e.g. 80s synthwave, female vocal)" />
-        <input id="st-title" type="text" placeholder="Title (optional)" />
-        <label>Preset
+        <input id="st-style" type="text" data-i18n-ph="struct.style.ph" placeholder="Стиль (напр. 80s synthwave, female vocal)" />
+        <input id="st-title" type="text" data-i18n-ph="struct.title.ph" placeholder="Название (опционально)" />
+        <label><span data-i18n="struct.preset">Пресет</span>
           <select id="st-preset"><option value="standard">Standard (pop)</option><option value="short">Short</option><option value="electronic">Electronic (build/drop)</option><option value="ballad">Ballad</option></select>
         </label>
       </div>
-      <button id="structure-btn" class="primary">Build Structure</button>
+      <button id="structure-btn" class="primary" data-i18n="struct.btn">Создать структуру</button>
       <div id="structure-out" class="output"></div>
     </section>
 
     <!-- Lyrics -->
     <section class="panel" id="tab-lyrics">
-      <h1>Lyrics Generator</h1>
-      <p class="sub">Draft original lyrics with verse/chorus tags. Full lyrics need an AI key — otherwise you get a structured skeleton.</p>
+      <h1 data-i18n="lyrics.title">Генератор лирики</h1>
+      <p class="sub" data-i18n="lyrics.sub">Черновик лирики с тегами куплет/припев. Полная лирика требует AI-ключа — иначе структурный скелет.</p>
       <div class="cover-form">
-        <input id="ly-theme" type="text" placeholder="Theme (e.g. late-night city drive)" />
-        <input id="ly-style" type="text" placeholder="Musical style (optional)" />
+        <input id="ly-theme" type="text" data-i18n-ph="lyrics.theme.ph" placeholder="Тема (напр. ночная поездка по городу)" />
+        <input id="ly-style" type="text" data-i18n-ph="lyrics.style.ph" placeholder="Музыкальный стиль (опционально)" />
         <div class="row2">
-          <input id="ly-mood" type="text" placeholder="Mood (e.g. hopeful)" />
-          <input id="ly-lang" type="text" placeholder="Language (e.g. English)" />
+          <input id="ly-mood" type="text" data-i18n-ph="lyrics.mood.ph" placeholder="Настроение (напр. hopeful)" />
+          <input id="ly-lang" type="text" data-i18n-ph="lyrics.lang.ph" placeholder="Язык (напр. English)" />
         </div>
       </div>
-      <button id="lyrics-btn" class="primary">Write Lyrics</button>
+      <button id="lyrics-btn" class="primary" data-i18n="lyrics.btn">Написать лирику</button>
       <div id="lyrics-out" class="output"></div>
     </section>
 
@@ -160,20 +162,20 @@
     <section class="panel" id="tab-constructor">
       <div class="ctor-wrap">
         <div class="ctor-left">
-          <h1>🎛 Конструктор промптов <span class="badge-v">v5.5</span></h1>
-          <p class="sub">Собери идеальный Suno-промпт. Правильный порядок слов — автоматически. Референс + Generate — прямо здесь.</p>
+          <h1><span data-i18n="ctor.title">🎛 Конструктор промптов</span> <span class="badge-v">v5.5</span></h1>
+          <p class="sub" data-i18n="ctor.sub">Собери идеальный Suno-промпт. Правильный порядок слов — автоматически. Референс + Generate — прямо здесь.</p>
 
           <!-- Era -->
           <div class="ctor-section" id="cs-era">
-            <div class="ctor-label">ЭПОХА</div>
+            <div class="ctor-label" data-i18n="ctor.label.era">ЭПОХА</div>
             <div class="ctor-chips" data-key="era" data-multi="0"></div>
           </div>
 
           <!-- Genre -->
           <div class="ctor-section" id="cs-genre">
-            <div class="ctor-label">ЖАНР</div>
+            <div class="ctor-label" data-i18n="ctor.label.genre">ЖАНР</div>
             <select id="ctor-genre" class="ctor-select">
-              <option value="">— выбери —</option>
+              <option value="" data-i18n="ctor.genre.ph">— выбери —</option>
               <optgroup label="Electronic">
                 <option>synthwave</option><option>darkwave</option><option>electropop</option>
                 <option>house</option><option>deep house</option><option>techno</option>
@@ -264,52 +266,52 @@
 
           <!-- Mood -->
           <div class="ctor-section" id="cs-mood">
-            <div class="ctor-label">НАСТРОЕНИЕ <span class="ctor-hint">2–3</span></div>
+            <div class="ctor-label"><span data-i18n="ctor.label.mood">НАСТРОЕНИЕ</span> <span class="ctor-hint" data-i18n="ctor.hint.23">2–3</span></div>
             <div class="ctor-chips" data-key="mood" data-multi="3"></div>
           </div>
 
           <!-- Vocal gender -->
           <div class="ctor-section" id="cs-vgender">
-            <div class="ctor-label">ВОКАЛ — ПОЛ</div>
+            <div class="ctor-label" data-i18n="ctor.label.vgender">ВОКАЛ — ПОЛ</div>
             <div class="ctor-chips" data-key="vocalGender" data-multi="0"></div>
           </div>
 
           <!-- Vocal timbre -->
           <div class="ctor-section" id="cs-vtimbre">
-            <div class="ctor-label">ВОКАЛ — ТЕМБР <span class="ctor-hint">до 3</span></div>
+            <div class="ctor-label"><span data-i18n="ctor.label.vtimbre">ВОКАЛ — ТЕМБР</span> <span class="ctor-hint" data-i18n="ctor.hint.to3">до 3</span></div>
             <div class="ctor-chips" data-key="vocalTimbre" data-multi="3"></div>
           </div>
 
           <!-- Vocal delivery -->
           <div class="ctor-section" id="cs-vdelivery">
-            <div class="ctor-label">ВОКАЛ — ПОДАЧА</div>
+            <div class="ctor-label" data-i18n="ctor.label.vdelivery">ВОКАЛ — ПОДАЧА</div>
             <div class="ctor-chips" data-key="vocalDelivery" data-multi="0"></div>
           </div>
 
           <!-- Vocal FX -->
           <div class="ctor-section" id="cs-vfx">
-            <div class="ctor-label">ВОКАЛ — ЭФФЕКТЫ <span class="ctor-hint">опц., до 2</span></div>
+            <div class="ctor-label"><span data-i18n="ctor.label.vfx">ВОКАЛ — ЭФФЕКТЫ</span> <span class="ctor-hint" data-i18n="ctor.hint.opt2">опц., до 2</span></div>
             <div class="ctor-chips" data-key="vocalFx" data-multi="2"></div>
           </div>
 
           <!-- Instruments -->
           <div class="ctor-section" id="cs-instruments">
-            <div class="ctor-label">ИНСТРУМЕНТЫ <span class="ctor-hint">2–5</span> <span id="ctor-inst-count" class="ctor-sel-count"></span></div>
+            <div class="ctor-label"><span data-i18n="ctor.label.instruments">ИНСТРУМЕНТЫ</span> <span class="ctor-hint" data-i18n="ctor.hint.25">2–5</span> <span id="ctor-inst-count" class="ctor-sel-count"></span></div>
             <div class="ctor-inst-tabs" id="ctor-inst-tabs"></div>
             <div class="ctor-chips ctor-inst-panel" id="ctor-inst-chips"></div>
           </div>
 
           <!-- Production -->
           <div class="ctor-section" id="cs-production">
-            <div class="ctor-label">ПРОДАКШН <span class="ctor-hint">опц., до 3</span></div>
+            <div class="ctor-label"><span data-i18n="ctor.label.production">ПРОДАКШН</span> <span class="ctor-hint" data-i18n="ctor.hint.opt3">опц., до 3</span></div>
             <div class="ctor-chips" data-key="production" data-multi="3"></div>
           </div>
 
           <!-- BPM -->
           <div class="ctor-section" id="cs-bpm">
-            <div class="ctor-label">ТЕМП <span id="ctor-bpm-display" class="neon-val"></span></div>
+            <div class="ctor-label"><span data-i18n="ctor.label.tempo">ТЕМП</span> <span id="ctor-bpm-display" class="neon-val"></span></div>
             <div class="ctor-bpm-presets">
-              <button class="ctor-preset" data-bpm="0">Авто</button>
+              <button class="ctor-preset" data-bpm="0" data-i18n="ctor.bpm.auto">Авто</button>
               <button class="ctor-preset" data-bpm="70">Slow 70</button>
               <button class="ctor-preset" data-bpm="90">Mid 90</button>
               <button class="ctor-preset" data-bpm="110">Pop 110</button>
@@ -323,27 +325,27 @@
 
           <!-- Key -->
           <div class="ctor-section" id="cs-key">
-            <div class="ctor-label">ТОНАЛЬНОСТЬ <span class="ctor-hint">опц.</span></div>
+            <div class="ctor-label"><span data-i18n="ctor.label.key">ТОНАЛЬНОСТЬ</span> <span class="ctor-hint" data-i18n="ctor.hint.opt">опц.</span></div>
             <div class="ctor-chips" data-key="keyNote" data-multi="0"></div>
             <div class="ctor-chips ctor-key-mode" data-key="keyMode" data-multi="0"></div>
           </div>
 
           <!-- Carattere -->
           <div class="ctor-section" id="cs-carattere">
-            <div class="ctor-label">CARATTERE <span class="ctor-hint">оттенок исполнения, до 2</span></div>
+            <div class="ctor-label"><span data-i18n="ctor.label.carattere">CARATTERE</span> <span class="ctor-hint" data-i18n="ctor.hint.opt2">опц., до 2</span></div>
             <div class="ctor-chips" data-key="carattere" data-multi="2"></div>
           </div>
 
           <!-- Use case -->
           <div class="ctor-section" id="cs-usecase">
-            <div class="ctor-label">USE CASE <span class="ctor-hint">опц.</span></div>
+            <div class="ctor-label"><span data-i18n="ctor.label.usecase">USE CASE</span> <span class="ctor-hint" data-i18n="ctor.hint.opt">опц.</span></div>
             <div class="ctor-chips" data-key="useCase" data-multi="0"></div>
           </div>
 
           <!-- Theme -->
           <div class="ctor-section">
-            <div class="ctor-label">ТЕМАТИКА ЛИРИКИ <span class="ctor-hint">опц.</span></div>
-            <input id="ctor-theme" type="text" placeholder="love and longing / midnight city / inner conflict…" />
+            <div class="ctor-label"><span data-i18n="ctor.label.theme">ТЕМАТИКА ЛИРИКИ</span> <span class="ctor-hint" data-i18n="ctor.hint.opt">опц.</span></div>
+            <input id="ctor-theme" type="text" data-i18n-ph="ctor.theme.ph" placeholder="love and longing / midnight city / inner conflict…" />
           </div>
         </div>
 
@@ -351,7 +353,7 @@
         <div class="ctor-right">
           <div class="ctor-output-card" id="ctor-output-card">
             <div class="ctor-out-hdr">
-              <span class="ctor-out-label">SUNO v5.5 · STYLE</span>
+              <span class="ctor-out-label" data-i18n="ctor.out.label">SUNO v5.5 · STYLE</span>
               <span id="ctor-wc" class="ctor-wc">0 слов</span>
             </div>
             <div id="ctor-preview" class="ctor-preview" contenteditable="true" spellcheck="false"></div>
@@ -361,47 +363,47 @@
             </div>
             <div id="ctor-quality" class="ctor-quality"></div>
             <div class="ctor-btns">
-              <button id="ctor-copy-btn" class="primary">Скопировать</button>
+              <button id="ctor-copy-btn" class="primary" data-i18n="ctor.copy">Скопировать</button>
               <button id="ctor-save-btn" class="ghost star-btn" title="Сохранить в Saved">★</button>
-              <button id="ctor-reset-btn" class="ghost">Сбросить</button>
+              <button id="ctor-reset-btn" class="ghost" data-i18n="ctor.reset">Сбросить</button>
             </div>
 
             <!-- Reference section -->
             <div class="ctor-ref-divider">
-              <span>— или сгенерировать с референсом —</span>
+              <span data-i18n="ctor.ref.divider">— или сгенерировать с референсом —</span>
             </div>
             <div class="ctor-ref-mode-tabs">
-              <button class="ctor-ref-tab active" data-rmode="none">Без референса</button>
-              <button class="ctor-ref-tab" data-rmode="file">📁 Файл</button>
-              <button class="ctor-ref-tab" data-rmode="mic">🎙 Микрофон</button>
+              <button class="ctor-ref-tab active" data-rmode="none" data-i18n="ctor.ref.none">Без референса</button>
+              <button class="ctor-ref-tab" data-rmode="file" data-i18n="ctor.ref.file">📁 Файл</button>
+              <button class="ctor-ref-tab" data-rmode="mic" data-i18n="ctor.ref.mic">🎙 Микрофон</button>
             </div>
             <div id="ctor-ref-file-zone" class="hidden">
               <div class="dropzone ctor-dz" id="ctor-dz">
                 <input id="ctor-ref-file" type="file" accept="audio/*" hidden />
                 <div class="dz-icon" style="font-size:20px">♫</div>
-                <p style="font-size:12px;margin:4px 0">MP3 / WAV до 25MB</p>
+                <p style="font-size:12px;margin:4px 0" data-i18n="ctor.dz.text">MP3 / WAV до 25MB</p>
                 <span id="ctor-ref-fname" class="muted" style="font-size:11px"></span>
               </div>
               <audio id="ctor-ref-audio" controls class="hidden"></audio>
             </div>
             <div id="ctor-ref-mic-zone" class="hidden">
               <div class="ref-mic-ui">
-                <button id="ctor-mic-btn" class="voice-btn small">🎙 Запись</button>
+                <button id="ctor-mic-btn" class="voice-btn small" data-i18n="ctor.mic.record">🎙 Запись</button>
                 <div id="ctor-mic-timer" class="voice-timer hidden">⏺ <span id="ctor-mic-sec">0</span>s</div>
                 <div id="ctor-mic-wave" class="voice-wave hidden"><span></span><span></span><span></span><span></span><span></span></div>
               </div>
               <div id="ctor-mic-ready" class="hidden">
                 <audio id="ctor-mic-audio" controls></audio>
-                <button id="ctor-mic-redo" class="ghost small" style="margin-top:6px">🔄 Перезаписать</button>
+                <button id="ctor-mic-redo" class="ghost small" style="margin-top:6px" data-i18n="ctor.mic.redo">🔄 Перезаписать</button>
               </div>
             </div>
             <div id="ctor-ref-weight-row" class="hidden">
-              <label class="ctor-weight-label">Влияние референса
+              <label class="ctor-weight-label"><span data-i18n="ctor.ref.influence">Влияние референса</span>
                 <input id="ctor-ref-weight" type="range" min="0.1" max="1" step="0.1" value="0.7" />
                 <span id="ctor-ref-weight-val">0.7</span>
               </label>
             </div>
-            <button id="ctor-gen-btn" class="primary ctor-gen-btn">🎵 Создать трек</button>
+            <button id="ctor-gen-btn" class="primary ctor-gen-btn" data-i18n="ctor.gen">🎵 Создать трек</button>
             <div id="ctor-gen-out" class="output"></div>
           </div>
         </div>
@@ -410,19 +412,19 @@
 
     <!-- AI Lab -->
     <section class="panel" id="tab-ailab">
-      <h1>🧪 AI Lab</h1>
-      <p class="sub">Three AI-powered tools. Free tier — 3 запроса в сутки на IP. Unlock-код снимает лимит.</p>
+      <h1 data-i18n="ailab.title">🧪 AI Lab</h1>
+      <p class="sub" data-i18n="ailab.sub">AI-инструменты. Бесплатно — 3 запроса в сутки на IP. Unlock-код снимает лимит.</p>
       <div id="ailab-quota" class="quota-pill"></div>
 
       <div class="ai-card flagship" id="gen-card">
-        <h2>🎵 Создать трек <span class="badge-new">Suno live</span></h2>
-        <p class="sub">Вставь промпт — получи настоящий трек от Suno прямо здесь. Это та же модель, что на suno.com, через API.</p>
+        <h2><span data-i18n="gen.title">🎵 Создать трек</span> <span class="badge-new" data-i18n="gen.badge">Suno live</span></h2>
+        <p class="sub" data-i18n="gen.sub">Вставь промпт — получи настоящий трек от Suno прямо здесь. Та же модель, что на suno.com, через API.</p>
         <div id="gen-disabled" class="gen-disabled hidden">⚠ Генерация ещё не подключена (нет TTAPI-ключа на сервере).</div>
-        <textarea id="gen-input" rows="3" placeholder="Стиль/промпт: synthwave, female vocal, cinematic, 120 BPM, A minor"></textarea>
-        <textarea id="gen-lyrics" rows="3" placeholder="Лирика (опционально, с тегами [Verse] [Chorus]). Пусто = Suno напишет сам."></textarea>
-        <input id="gen-title" type="text" placeholder="Название трека (опционально)" />
+        <textarea id="gen-input" rows="3" data-i18n-ph="gen.prompt.ph" placeholder="Стиль/промпт: synthwave, female vocal, cinematic, 120 BPM, A minor"></textarea>
+        <textarea id="gen-lyrics" rows="3" data-i18n-ph="gen.lyrics.ph" placeholder="Лирика (опционально, с тегами [Verse] [Chorus]). Пусто = Suno напишет сам."></textarea>
+        <input id="gen-title" type="text" data-i18n-ph="gen.title.ph" placeholder="Название трека (опционально)" />
         <div class="gen-opts">
-          <label>Модель
+          <label><span data-i18n="gen.model">Модель</span>
             <select id="gen-mv">
               <option value="chirp-v5">v5</option>
               <option value="chirp-v5-5">v5.5</option>
@@ -430,38 +432,38 @@
               <option value="chirp-v4">v4</option>
             </select>
           </label>
-          <label>Вокал
+          <label><span data-i18n="gen.vocal">Вокал</span>
             <select id="gen-vocal">
-              <option value="">любой</option>
-              <option value="Female">женский</option>
-              <option value="Male">мужской</option>
+              <option value="" data-i18n="gen.vocal.any">любой</option>
+              <option value="Female" data-i18n="gen.vocal.f">женский</option>
+              <option value="Male" data-i18n="gen.vocal.m">мужской</option>
             </select>
           </label>
-          <label class="check"><input id="gen-instr" type="checkbox" /> Инструментал</label>
+          <label class="check"><input id="gen-instr" type="checkbox" /> <span data-i18n="gen.instr">Инструментал</span></label>
         </div>
-        <button id="gen-btn" class="primary">🎵 Сгенерировать (≈6 quota)</button>
+        <button id="gen-btn" class="primary" data-i18n="gen.btn">🎵 Сгенерировать (≈6 quota)</button>
         <div id="gen-out" class="output"></div>
       </div>
 
       <div class="ai-card flagship" id="ref-card">
-        <h2>🎵 Референс → Трек <span class="badge-new">новинка</span></h2>
-        <p class="sub">Загрузи MP3 или запиши мелодию с микрофона — Suno сгенерирует новый трек в том же стиле.</p>
+        <h2><span data-i18n="reftrack.title">🎵 Референс → Трек</span> <span class="badge-new" data-i18n="reftrack.badge">новинка</span></h2>
+        <p class="sub" data-i18n="reftrack.sub">Загрузи MP3 или запиши мелодию с микрофона — Suno сгенерирует новый трек в том же стиле.</p>
         <div id="ref-disabled" class="gen-disabled hidden">⚠ Генерация не подключена (нет TTAPI_KEY).</div>
         <div class="ref-mode-tabs">
-          <button class="ref-tab active" data-mode="file">📁 Загрузить файл</button>
-          <button class="ref-tab" data-mode="mic">🎙 Записать с микрофона</button>
+          <button class="ref-tab active" data-mode="file" data-i18n="reftrack.file">📁 Загрузить файл</button>
+          <button class="ref-tab" data-mode="mic" data-i18n="reftrack.mic">🎙 Записать с микрофона</button>
         </div>
         <div id="ref-file-mode">
           <div class="dropzone" id="ref-dropzone">
             <input id="ref-file" type="file" accept="audio/*" hidden />
             <div class="dz-icon">♫</div>
-            <p>Click или drop референсный MP3 / WAV (до 25MB)</p>
+            <p data-i18n="reftrack.drop">Click или drop референсный MP3 / WAV (до 25MB)</p>
             <span id="ref-filename" class="muted"></span>
           </div>
         </div>
         <div id="ref-mic-mode" class="hidden">
           <div class="ref-mic-ui">
-            <button id="ref-mic-btn" class="voice-btn">🎙 Начать запись</button>
+            <button id="ref-mic-btn" class="voice-btn" data-i18n="reftrack.start">🎙 Начать запись</button>
             <div id="ref-mic-timer" class="voice-timer hidden">⏺ <span id="ref-mic-sec">0</span>s</div>
             <div id="ref-mic-wave" class="voice-wave hidden">
               <span></span><span></span><span></span><span></span><span></span>
@@ -470,8 +472,8 @@
           <div id="ref-mic-playback" class="hidden">
             <audio id="ref-mic-audio" controls></audio>
             <div class="voice-actions">
-              <button id="ref-mic-use-btn" class="primary small">✓ Использовать как референс</button>
-              <button id="ref-mic-redo-btn" class="ghost small">🔄 Перезаписать</button>
+              <button id="ref-mic-use-btn" class="primary small" data-i18n="reftrack.use">✓ Использовать как референс</button>
+              <button id="ref-mic-redo-btn" class="ghost small" data-i18n="reftrack.redo">🔄 Перезаписать</button>
             </div>
             <span id="ref-mic-name" class="muted" style="font-size:12px"></span>
           </div>
@@ -486,29 +488,29 @@
             <div class="wf-cursor" id="ref-wf-cursor"></div>
           </div>
           <div class="ref-time-row">
-            <label>Фрагмент с <input id="ref-start" type="number" min="0" value="0" />с</label>
-            <label>по <input id="ref-end" type="number" min="1" value="30" />с</label>
-            <label class="ref-weight-label">Влияние референса
+            <label><span data-i18n="reftrack.from">Фрагмент с</span> <input id="ref-start" type="number" min="0" value="0" />с</label>
+            <label><span data-i18n="reftrack.to">по</span> <input id="ref-end" type="number" min="1" value="30" />с</label>
+            <label class="ref-weight-label"><span data-i18n="reftrack.influence">Влияние референса</span>
               <input id="ref-weight" type="range" min="0.1" max="1" step="0.1" value="0.7" />
               <span id="ref-weight-val">0.7</span>
             </label>
           </div>
-          <input id="ref-desc" type="text" placeholder="Описание стиля (опционально): add epic strings, darker mood…" />
+          <input id="ref-desc" type="text" data-i18n-ph="reftrack.desc.ph" placeholder="Описание стиля (опционально): add epic strings, darker mood…" />
           <div class="gen-opts">
-            <label>Модель<select id="ref-mv"><option value="chirp-v5">v5</option><option value="chirp-v5-5">v5.5</option><option value="chirp-v4-5+">v4.5+</option></select></label>
-            <label>Вокал<select id="ref-vocal"><option value="">любой</option><option value="Female">женский</option><option value="Male">мужской</option></select></label>
-            <label class="check"><input id="ref-instr" type="checkbox" /> Инструментал</label>
+            <label><span data-i18n="gen.model">Модель</span><select id="ref-mv"><option value="chirp-v5">v5</option><option value="chirp-v5-5">v5.5</option><option value="chirp-v4-5+">v4.5+</option></select></label>
+            <label><span data-i18n="gen.vocal">Вокал</span><select id="ref-vocal"><option value="" data-i18n="gen.vocal.any">любой</option><option value="Female" data-i18n="gen.vocal.f">женский</option><option value="Male" data-i18n="gen.vocal.m">мужской</option></select></label>
+            <label class="check"><input id="ref-instr" type="checkbox" /> <span data-i18n="gen.instr">Инструментал</span></label>
           </div>
-          <button id="ref-btn" class="primary">🎵 Создать трек (~6.5 quota)</button>
+          <button id="ref-btn" class="primary" data-i18n="reftrack.btn">🎵 Создать трек (~6.5 quota)</button>
         </div>
         <div id="ref-out" class="output"></div>
       </div>
 
       <div class="ai-card" id="voice-card">
-        <h2>🎙 Voice Memo → Prompt</h2>
-        <p class="sub">Говори — получай промпт. Опиши голосом что хочешь создать: жанр, настроение, инструменты, эпоха. Whisper + AI соберут Suno-промпт за секунды.</p>
+        <h2 data-i18n="voice.title">🎙 Голосовая заметка → Промпт</h2>
+        <p class="sub" data-i18n="voice.sub">Говори — получай промпт. Опиши жанр, настроение, инструменты, эпоху. Whisper + AI соберут Suno-промпт за секунды.</p>
         <div class="voice-controls">
-          <button id="voice-record-btn" class="voice-btn">🎙 Начать запись</button>
+          <button id="voice-record-btn" class="voice-btn" data-i18n="voice.start">🎙 Начать запись</button>
           <div id="voice-timer" class="voice-timer hidden">⏺ <span id="voice-sec">0</span>s</div>
           <div id="voice-wave" class="voice-wave hidden">
             <span></span><span></span><span></span><span></span><span></span>
@@ -517,43 +519,43 @@
         <div id="voice-playback" class="hidden">
           <audio id="voice-audio" controls></audio>
           <div class="voice-actions">
-            <button id="voice-send-btn" class="primary">✨ Создать промпт</button>
-            <button id="voice-redo-btn" class="ghost">🔄 Перезаписать</button>
+            <button id="voice-send-btn" class="primary" data-i18n="voice.send">✨ Создать промпт</button>
+            <button id="voice-redo-btn" class="ghost" data-i18n="voice.redo">🔄 Перезаписать</button>
           </div>
         </div>
         <div id="voice-out" class="output"></div>
       </div>
 
       <div class="ai-card" id="genome-card">
-        <h2>🧬 Style Genome</h2>
-        <p class="sub">Скрести 2–3 артиста по весу → получи гибридный Suno-промпт. Доминирующий задаёт скелет, остальные добавляют ДНК пропорционально.</p>
+        <h2 data-i18n="genome.title">🧬 Style Genome</h2>
+        <p class="sub" data-i18n="genome.sub">Скрести 2–3 артиста по весу → получи гибридный Suno-промпт. Доминирующий задаёт скелет, остальные добавляют ДНК пропорционально.</p>
         <div id="genome-artists">
           <div class="genome-row" data-idx="0">
-            <input class="genome-name" type="text" placeholder="Артист 1 (доминирующий): Drake, Radiohead…" />
+            <input class="genome-name" type="text" data-i18n-ph="genome.a1.ph" placeholder="Артист 1 (доминирующий): Drake, Radiohead…" />
             <input class="genome-weight" type="number" min="1" max="99" value="60" />
             <span class="genome-pct">%</span>
           </div>
           <div class="genome-row" data-idx="1">
-            <input class="genome-name" type="text" placeholder="Артист 2: добавляет флейвор…" />
+            <input class="genome-name" type="text" data-i18n-ph="genome.a2.ph" placeholder="Артист 2: добавляет флейвор…" />
             <input class="genome-weight" type="number" min="1" max="99" value="40" />
             <span class="genome-pct">%</span>
           </div>
         </div>
         <div class="genome-controls">
-          <button id="genome-add" class="ghost small">+ Артист 3</button>
+          <button id="genome-add" class="ghost small" data-i18n="genome.add">+ Артист 3</button>
           <span id="genome-total" class="genome-total">100%</span>
         </div>
-        <button id="genome-btn" class="primary">🧬 Скрестить стили</button>
+        <button id="genome-btn" class="primary" data-i18n="genome.btn">🧬 Скрестить стили</button>
         <div id="genome-out" class="output"></div>
       </div>
 
       <div class="ai-card" id="tm-card">
-        <h2>🕰 Style Time Machine</h2>
-        <p class="sub">Как звучал бы [артист] в [эпоху]? Drake в 1975? Кино в эпоху витч-хауса? Сигнатура артиста × продакшн другого времени.</p>
+        <h2 data-i18n="tm.title">🕰 Машина времени</h2>
+        <p class="sub" data-i18n="tm.sub">Как звучал бы [артист] в [эпоху]? Drake в 1975? Кино в эпоху витч-хауса? Сигнатура артиста × продакшн другого времени.</p>
         <div class="tm-inputs">
-          <input id="tm-artist" type="text" placeholder="Артист: Drake, Кино, Nirvana, Алла Пугачёва…" />
+          <input id="tm-artist" type="text" data-i18n-ph="tm.artist.ph" placeholder="Артист: Drake, Кино, Nirvana, Алла Пугачёва…" />
           <div class="tm-eras">
-            <span class="tm-label">Эпоха:</span>
+            <span class="tm-label" data-i18n="tm.era">Эпоха:</span>
             <div class="chiprow" id="tm-era-chips">
               <button class="era-chip" data-era="1950s">1950s</button>
               <button class="era-chip" data-era="1960s">1960s</button>
@@ -565,38 +567,38 @@
               <button class="era-chip" data-era="2020s">2020s</button>
             </div>
           </div>
-          <input id="tm-note" type="text" placeholder="Доп. контекст (опционально): dark ambient, lo-fi, USSR…" />
+          <input id="tm-note" type="text" data-i18n-ph="tm.note.ph" placeholder="Доп. контекст (опционально): dark ambient, lo-fi, СССР…" />
         </div>
-        <button id="tm-btn" class="primary">🕰 Перенести в эпоху</button>
+        <button id="tm-btn" class="primary" data-i18n="tm.btn">🕰 Перенести в эпоху</button>
         <div id="tm-out" class="output"></div>
       </div>
 
       <div class="ai-card" id="ls-card">
-        <h2>🎼 Lyrics Sync Conductor</h2>
-        <p class="sub">Вставь лирику — AI расставит Suno inline-теги <code>[High Energy]</code> <code>[Vocal: raspy]</code> <code>[Drop]</code> в нужных местах по эмоциональному арку. Inline-теги работают в 10× сильнее style-поля.</p>
-        <input id="ls-style" type="text" placeholder="Жанр / стиль (опционально): dark pop, Russian rock, trap…" />
+        <h2 data-i18n="ls.title">🎼 Дирижёр тегов</h2>
+        <p class="sub" data-i18n="ls.sub">Вставь лирику — AI расставит Suno-теги <code>[High Energy]</code> <code>[Vocal: raspy]</code> <code>[Drop]</code> по эмоциональному арку. Inline-теги работают в 10× сильнее style-поля.</p>
+        <input id="ls-style" type="text" data-i18n-ph="ls.style.ph" placeholder="Жанр / стиль (опционально): dark pop, Russian rock, trap…" />
         <textarea id="ls-lyrics" rows="8" placeholder="[Verse 1]&#10;Вставь сюда лирику с секциями...&#10;&#10;[Chorus]&#10;..."></textarea>
-        <button id="ls-btn" class="primary">🎼 Расставить теги</button>
+        <button id="ls-btn" class="primary" data-i18n="ls.btn">🎼 Расставить теги</button>
         <div id="ls-out" class="output"></div>
       </div>
 
       <div class="ai-card" id="dna-card">
-        <h2>🔬 Track DNA Decoder</h2>
-        <p class="sub">Загрузи любой MP3/WAV — Whisper расшифрует лирику, AI определит эру, жанр, инструменты, продакшн и найдёт 3 ближайших артиста из 747 в каталоге. Плюс готовый Suno-промпт.</p>
+        <h2 data-i18n="dna.title">🔬 ДНК-декодер трека</h2>
+        <p class="sub" data-i18n="dna.sub">Загрузи любой MP3/WAV — Whisper расшифрует лирику, AI определит эру, жанр, инструменты, продакшн и найдёт 3 ближайших артиста из каталога. Плюс готовый Suno-промпт.</p>
         <div class="dropzone" id="dna-dropzone">
           <input id="dna-file" type="file" accept="audio/*" hidden />
           <div class="dz-icon">🔬</div>
-          <p>Click or drop audio (MP3 / WAV / OGG, max 25MB)</p>
+          <p data-i18n="dna.drop">Кликни или перетащи аудио (MP3 / WAV / OGG, до 25MB)</p>
           <span id="dna-filename" class="muted"></span>
         </div>
-        <button id="dna-btn" class="primary" disabled>Decode DNA</button>
+        <button id="dna-btn" class="primary" disabled data-i18n="dna.btn">Декодировать ДНК</button>
         <div id="dna-out" class="output"></div>
       </div>
 
       <div class="ai-card" id="slop-card">
-        <h2>🛡 Anti-Slop Filter</h2>
-        <p class="sub">Вставь промпт — мгновенный балл силы 0–100 и подсветка штампов. Кнопка «Починить» переписывает банальные токены в конкретные. Мы не штампы — мы антиштампы.</p>
-        <textarea id="slop-input" rows="4" placeholder="Вставь Suno-промпт: epic cinematic orchestral, beautiful emotional, powerful drums…"></textarea>
+        <h2 data-i18n="slop.title">🛡 Анти-Слоп Фильтр</h2>
+        <p class="sub" data-i18n="slop.sub">Вставь промпт — мгновенный балл силы 0–100 и подсветка штампов. Кнопка «Починить» переписывает банальные токены в конкретные. Мы не штампы — мы антиштампы.</p>
+        <textarea id="slop-input" rows="4" data-i18n-ph="slop.ph" placeholder="Вставь Suno-промпт: epic cinematic orchestral, beautiful emotional, powerful drums…"></textarea>
         <div id="slop-meter" class="slop-meter hidden">
           <div class="slop-score-ring"><span id="slop-score">0</span></div>
           <div class="slop-details">
@@ -604,57 +606,57 @@
             <div id="slop-flags" class="slop-flags"></div>
           </div>
         </div>
-        <button id="slop-btn" class="primary" disabled>🛡 Починить штампы</button>
+        <button id="slop-btn" class="primary" disabled data-i18n="slop.btn">🛡 Починить штампы</button>
         <div id="slop-out" class="output"></div>
       </div>
 
       <div class="ai-card">
-        <h2>🎭 Mood from Image</h2>
-        <p class="sub">Brosь картинку, мем или скрин из фильма — Claude Vision расскажет как это звучит.</p>
+        <h2 data-i18n="mood.title">🎭 Настроение из картинки</h2>
+        <p class="sub" data-i18n="mood.sub">Брось картинку, мем или скрин из фильма — Claude Vision расскажет как это звучит.</p>
         <div class="dropzone" id="img-dropzone">
           <input id="img-file" type="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden />
           <div class="dz-icon">🖼</div>
-          <p>Click or drop an image (max 5MB)</p>
+          <p data-i18n="mood.drop">Кликни или перетащи картинку (до 5MB)</p>
           <span id="img-filename" class="muted"></span>
         </div>
         <img id="img-preview" class="img-preview hidden" alt="preview" />
-        <button id="img-btn" class="primary" disabled>Analyze Mood</button>
+        <button id="img-btn" class="primary" disabled data-i18n="mood.btn">Анализировать настроение</button>
         <div id="img-out" class="output"></div>
       </div>
 
       <div class="ai-card">
-        <h2>🎬 Cinematic Scene → Score</h2>
-        <p class="sub">Опиши сцену словами — получи промпт и структуру [Intro][Build][Drop][Outro].</p>
-        <textarea id="scene-input" rows="4" placeholder="Пример: погоня ночью по пустому городу, неон отражается в лужах, дождь, главный герой бежит к мосту…"></textarea>
+        <h2 data-i18n="scene.title">🎬 Сцена → Саундтрек</h2>
+        <p class="sub" data-i18n="scene.sub">Опиши сцену словами — получи промпт и структуру [Intro][Build][Drop][Outro].</p>
+        <textarea id="scene-input" rows="4" data-i18n-ph="scene.ph" placeholder="Пример: погоня ночью по пустому городу, неон отражается в лужах, дождь, главный герой бежит к мосту…"></textarea>
         <div class="row2">
-          <label class="check"><input id="scene-lang" type="checkbox" /> Структура на русском</label>
-          <button id="scene-btn" class="primary">Compose Score</button>
+          <label class="check"><input id="scene-lang" type="checkbox" /> <span data-i18n="scene.lang">Структура на русском</span></label>
+          <button id="scene-btn" class="primary" data-i18n="scene.btn">Создать саундтрек</button>
         </div>
         <div id="scene-out" class="output"></div>
       </div>
 
       <div class="ai-card">
-        <h2>🔁 RU → EN Mirror Mode</h2>
-        <p class="sub">Suno чище произносит английский. Перевод с сохранением рифмы и числа слогов — для билингвальной версии трека.</p>
-        <textarea id="trans-input" rows="6" placeholder="Вставь русскую лирику с тегами [Verse] [Chorus]…"></textarea>
-        <button id="trans-btn" class="primary">Mirror to English</button>
+        <h2 data-i18n="mirror.title">🔁 RU → EN Зеркало</h2>
+        <p class="sub" data-i18n="mirror.sub">Suno чище произносит английский. Перевод с сохранением рифмы и числа слогов — для билингвальной версии трека.</p>
+        <textarea id="trans-input" rows="6" data-i18n-ph="mirror.ph" placeholder="Вставь русскую лирику с тегами [Verse] [Chorus]…"></textarea>
+        <button id="trans-btn" class="primary" data-i18n="mirror.btn">Зеркалировать в EN</button>
         <div id="trans-out" class="output"></div>
       </div>
     </section>
 
     <!-- Saved -->
     <section class="panel" id="tab-saved">
-      <h1>Saved Prompts <span id="saved-count" class="count-big"></span></h1>
-      <p class="sub">Everything you star is kept in this browser. Export to take it with you.</p>
+      <h1><span data-i18n="saved.title">Сохранённые промпты</span> <span id="saved-count" class="count-big"></span></h1>
+      <p class="sub" data-i18n="saved.sub">Всё, что вы отметили звёздочкой, хранится в этом браузере. Экспорт — чтобы взять с собой.</p>
       <div class="saved-actions">
-        <button id="export-json" class="small">⭳ Export JSON</button>
-        <button id="export-txt" class="small">⭳ Export TXT</button>
-        <button id="clear-saved" class="ghost small">Clear all</button>
+        <button id="export-json" class="small" data-i18n="saved.json">⭳ Экспорт JSON</button>
+        <button id="export-txt" class="small" data-i18n="saved.txt">⭳ Экспорт TXT</button>
+        <button id="clear-saved" class="ghost small" data-i18n="saved.clear">Очистить всё</button>
       </div>
       <div id="saved-list" class="cards"></div>
     </section>
 
-    <footer class="foot">SiliconSense-style demo · <span id="foot-engine">template engine</span> · catalog of <span id="foot-count">…</span> styles</footer>
+    <footer class="foot">SiliconSense · <span id="foot-engine">template engine</span> · <span id="foot-count">…</span> styles</footer>
   </main>
 
   <script src="app.js?v=13"></script>
