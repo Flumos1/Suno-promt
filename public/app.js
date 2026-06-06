@@ -1633,7 +1633,8 @@ if (transBtn) {
       "warm mastering", "broadcast-quality", "4-on-the-floor", "half-time drums",
       "orchestral recording", "live concert hall", "period recording", "HDCD remaster"],
     keyNote: ["—", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"],
-    keyMode: ["major", "minor"],
+    keyMode: ["major", "minor", "dorian", "phrygian", "lydian", "mixolydian",
+      "harmonic minor", "melodic minor", "whole tone", "pentatonic", "chromatic"],
     carattere: [
       "maestoso", "con brio", "dolce", "espressivo", "agitato", "con fuoco",
       "semplice", "grazioso", "tranquillo", "furioso", "misterioso", "scherzando",
@@ -1654,15 +1655,17 @@ if (transBtn) {
     "🎛 Synths": ["Minimoog", "Roland Juno-60", "Roland Jupiter-8", "Oberheim OB-Xa", "Prophet-5",
       "Korg M1", "ARP string machine", "modular synth", "analog pads", "FM bass",
       "supersaw chords", "arpeggiator", "lo-fi synth", "TB-303 acid", "Yamaha DX7"],
-    "🎺 Brass/Wind": ["saxophone", "alto saxophone", "tenor saxophone", "trumpet", "French horn",
-      "trombone", "flugelhorn", "flute", "clarinet", "oboe", "brass section", "horn section",
-      "woodwind ensemble", "bagpipes", "piccolo", "cor anglais", "bass clarinet",
-      "contrabassoon", "bass trombone", "tuba", "natural trumpet", "baroque oboe"],
+    "🎺 Brass/Wind": ["saxophone", "alto saxophone", "tenor saxophone", "baritone saxophone", "trumpet",
+      "French horn", "trombone", "flugelhorn", "flute", "clarinet", "oboe", "bassoon",
+      "brass section", "horn section", "woodwind ensemble", "bagpipes",
+      "piccolo", "cor anglais", "bass clarinet", "contrabassoon",
+      "bass trombone", "tuba", "natural trumpet", "baroque oboe", "recorder"],
     "🥁 Drums/Perc": ["acoustic drums", "live drums", "TR-808", "TR-909", "LinnDrum LM-1", "Akai MPC60",
       "trap drums", "boom-bap drums", "breakbeat", "programmed drums", "tambourine", "shaker",
       "bongos", "taiko drums", "tabla", "congas", "handpan", "dembow rhythm", "brushed drums",
-      "timpani", "orchestral snare", "bass drum", "tam-tam", "tubular bells",
-      "glockenspiel", "xylophone", "vibraphone", "marimba", "bass marimba", "crotales"],
+      "timpani", "orchestral snare", "snare drum", "bass drum", "cymbals", "triangle",
+      "tam-tam", "tubular bells", "glockenspiel", "xylophone", "vibraphone",
+      "marimba", "bass marimba", "crotales", "castanets", "wind chimes", "ratchet"],
     "🎻 Strings": ["violin", "cello", "viola", "orchestral strings", "string quartet",
       "symphonic strings", "pizzicato strings", "harp", "mellotron strings", "string ensemble",
       "violin I section", "violin II section", "viola section", "cello section",
@@ -1797,6 +1800,10 @@ if (transBtn) {
   }
 
   // ── Prompt builder ─────────────────────────────────────────────────────
+  const CLASSICAL_ERAS = new Set(["Baroque", "Classical era", "Romantic", "Late Romantic", "Impressionist"]);
+  const CLASSICAL_DELIVERY = new Set(["bel canto", "coloratura", "operatic vibrato", "recitative",
+    "aria style", "cantabile", "melismatic", "parlando", "sprechgesang", "declamatory"]);
+
   function buildPrompt() {
     const parts = [];
     const isInstr = state.vocalGender === "instrumental";
@@ -1804,18 +1811,28 @@ if (transBtn) {
       const vp = [];
       if (state.vocalGender && state.vocalGender !== "—") vp.push(state.vocalGender + " vocals");
       if (state.vocalTimbre.size) vp.push([...state.vocalTimbre].join(" "));
-      if (state.vocalDelivery && state.vocalDelivery !== "—") vp.push(state.vocalDelivery + " delivery");
+      if (state.vocalDelivery && state.vocalDelivery !== "—") {
+        // classical terms need no " delivery" suffix — "bel canto delivery" is wrong
+        vp.push(CLASSICAL_DELIVERY.has(state.vocalDelivery)
+          ? state.vocalDelivery
+          : state.vocalDelivery + " delivery");
+      }
       if (state.vocalFx.size) vp.push([...state.vocalFx].join(", "));
       if (vp.length) parts.push(vp.join(", "));
     }
     if (state.genre) parts.push(state.genre);
-    if (state.era && state.era !== "—") parts.push(state.era + " production");
+    // classical eras don't need " production" suffix — "Baroque" works on its own
+    if (state.era && state.era !== "—") {
+      parts.push(CLASSICAL_ERAS.has(state.era) ? state.era : state.era + " production");
+    }
     if (state.mood.size) parts.push([...state.mood].join(" and "));
     if (state.instruments.size) parts.push([...state.instruments].join(", "));
     if (state.production.size) parts.push([...state.production].join(", "));
     if (state.carattere.size) parts.push([...state.carattere].join(", "));
     if (state.bpm > 0) parts.push(state.bpm + " BPM");
-    if (state.keyNote && state.keyNote !== "—") parts.push(state.keyNote + " " + state.keyMode);
+    if (state.keyNote && state.keyNote !== "—") {
+      parts.push(state.keyNote + " " + (state.keyMode || "major"));
+    }
     if (isInstr) parts.push("instrumental"); // MUST be last per v5.5 rules
     return parts.join(", ");
   }
