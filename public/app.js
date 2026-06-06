@@ -1598,25 +1598,50 @@ if (transBtn) {
 
   // ── Data ──────────────────────────────────────────────────────────────
   const CHIPS = {
-    era: ["—", "1930–50s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s", "2020s", "Futuristic"],
+    era: ["—", "Baroque", "Classical era", "Romantic", "Late Romantic", "Impressionist",
+      "1930–50s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s", "2020s", "Futuristic"],
     mood: ["euphoric", "melancholic", "dreamy", "dark", "anthemic", "intimate", "restless", "peaceful",
       "triumphant", "nostalgic", "hypnotic", "raw", "eerie", "playful", "aggressive", "seductive",
-      "introspective", "cinematic", "cathartic", "ethereal", "bittersweet", "urgent", "wistful", "haunting", "joyful", "tense"],
+      "introspective", "cinematic", "cathartic", "ethereal", "bittersweet", "urgent", "wistful",
+      "haunting", "joyful", "tense", "majestic", "tragic", "sublime", "pastoral", "heroic"],
     vocalGender: ["—", "female", "male", "androgynous", "instrumental"],
-    vocalTimbre: ["breathy", "raspy", "silky", "warm", "dark", "gritty", "bright", "ethereal",
-      "gravelly", "sultry", "powerful", "nasal", "operatic", "metallic", "crystalline", "husky", "velvety", "hollow"],
-    vocalDelivery: ["—", "intimate", "belted", "whispered", "spoken word", "soaring", "conversational",
-      "commanding", "falsetto", "melodic rap", "aggressive rap", "crooned", "chanted", "lyrical", "deadpan"],
+    vocalTimbre: [
+      // Pop/Rock
+      "breathy", "raspy", "silky", "warm", "dark", "gritty", "bright", "ethereal",
+      "gravelly", "sultry", "powerful", "nasal", "metallic", "crystalline", "husky", "velvety", "hollow",
+      // Classical voice types
+      "lyric soprano", "coloratura soprano", "dramatic soprano", "spinto soprano",
+      "mezzo-soprano", "contralto", "countertenor",
+      "lyric tenor", "dramatic tenor", "heldentenor",
+      "lyric baritone", "dramatic baritone", "bass-baritone", "basso profondo"
+    ],
+    vocalDelivery: [
+      "—",
+      // Pop/Rock/Urban
+      "intimate", "belted", "whispered", "spoken word", "soaring", "conversational",
+      "commanding", "falsetto", "melodic rap", "aggressive rap", "crooned", "chanted", "lyrical", "deadpan",
+      // Classical
+      "bel canto", "coloratura", "operatic vibrato", "recitative", "aria style",
+      "cantabile", "melismatic", "parlando", "sprechgesang", "declamatory"
+    ],
     vocalFx: ["dry close-mic", "reverb-drenched", "auto-tuned", "heavily processed", "tape-saturated",
-      "doubled & layered", "lo-fi compressed", "wide stereo", "vocoded", "bit-crushed"],
+      "doubled & layered", "lo-fi compressed", "wide stereo", "vocoded", "bit-crushed",
+      "reverb hall", "cathedral reverb", "warm tube mic"],
     production: ["lo-fi", "polished mix", "bedroom pop", "studio quality", "raw live", "layered",
       "sparse", "cinematic", "gated reverb snare", "sidechain pump", "tape saturation", "plate reverb",
       "lo-fi 4-track", "heavy fuzz", "slapback delay", "pitch-shifted", "glitched", "punchy mix",
-      "warm mastering", "broadcast-quality", "4-on-the-floor", "half-time drums"],
+      "warm mastering", "broadcast-quality", "4-on-the-floor", "half-time drums",
+      "orchestral recording", "live concert hall", "period recording", "HDCD remaster"],
     keyNote: ["—", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"],
     keyMode: ["major", "minor"],
+    carattere: [
+      "maestoso", "con brio", "dolce", "espressivo", "agitato", "con fuoco",
+      "semplice", "grazioso", "tranquillo", "furioso", "misterioso", "scherzando",
+      "appassionato", "marcato", "leggiero", "pesante", "cantabile", "giocoso"
+    ],
     useCase: ["—", "full song", "short-form video", "study/focus", "workout", "podcast intro",
-      "club night", "romantic", "trailer", "lo-fi chill", "meditation", "background", "cinematic score", "game OST"]
+      "club night", "romantic", "trailer", "lo-fi chill", "meditation", "background",
+      "cinematic score", "game OST", "wedding ceremony", "film overture"]
   };
 
   const INST_CATS = {
@@ -1624,23 +1649,55 @@ if (transBtn) {
       "slide guitar", "12-string guitar", "nylon-string guitar", "lap steel guitar",
       "bass guitar", "slap bass", "fretless bass", "walking bass", "double bass"],
     "🎹 Keys/Piano": ["grand piano", "upright piano", "Rhodes electric piano", "Wurlitzer EP-200",
-      "Hammond organ", "harpsichord", "celesta", "clavinet", "toy piano", "tack piano"],
+      "Hammond organ", "harpsichord", "celesta", "clavinet", "toy piano", "tack piano",
+      "fortepiano", "clavichord", "pipe organ", "prepared piano"],
     "🎛 Synths": ["Minimoog", "Roland Juno-60", "Roland Jupiter-8", "Oberheim OB-Xa", "Prophet-5",
       "Korg M1", "ARP string machine", "modular synth", "analog pads", "FM bass",
       "supersaw chords", "arpeggiator", "lo-fi synth", "TB-303 acid", "Yamaha DX7"],
     "🎺 Brass/Wind": ["saxophone", "alto saxophone", "tenor saxophone", "trumpet", "French horn",
       "trombone", "flugelhorn", "flute", "clarinet", "oboe", "brass section", "horn section",
-      "woodwind ensemble", "bagpipes"],
+      "woodwind ensemble", "bagpipes", "piccolo", "cor anglais", "bass clarinet",
+      "contrabassoon", "bass trombone", "tuba", "natural trumpet", "baroque oboe"],
     "🥁 Drums/Perc": ["acoustic drums", "live drums", "TR-808", "TR-909", "LinnDrum LM-1", "Akai MPC60",
       "trap drums", "boom-bap drums", "breakbeat", "programmed drums", "tambourine", "shaker",
-      "bongos", "taiko drums", "tabla", "congas", "handpan", "dembow rhythm", "brushed drums"],
+      "bongos", "taiko drums", "tabla", "congas", "handpan", "dembow rhythm", "brushed drums",
+      "timpani", "orchestral snare", "bass drum", "tam-tam", "tubular bells",
+      "glockenspiel", "xylophone", "vibraphone", "marimba", "bass marimba", "crotales"],
     "🎻 Strings": ["violin", "cello", "viola", "orchestral strings", "string quartet",
-      "symphonic strings", "pizzicato strings", "harp", "mellotron strings", "string ensemble"],
+      "symphonic strings", "pizzicato strings", "harp", "mellotron strings", "string ensemble",
+      "violin I section", "violin II section", "viola section", "cello section",
+      "col legno", "sul ponticello", "harmonics", "viola da gamba", "theorbo", "baroque violin"],
+    "🎼 Orchestra": [
+      // Full ensembles
+      "full symphony orchestra", "chamber orchestra", "baroque ensemble", "string orchestra",
+      "brass band", "wind orchestra", "piano trio", "string quartet", "woodwind quintet",
+      "brass quintet", "piano quintet", "string sextet",
+      // Orchestral colors
+      "basso continuo", "obbligato violin", "concertino group", "tutti strings",
+      "horn call", "fanfare brass", "woodwind soli", "tremolo strings",
+      "col legno bowing", "flutter-tongue flute", "stopped horn", "muted brass",
+      "pizzicato bass", "arco cello", "divisi strings", "unison strings"
+    ],
+    "🎭 Choir/Voice": [
+      // Choral ensembles
+      "SATB choir", "full chorus", "chamber choir", "boys choir", "women's choir",
+      "men's choir", "a cappella", "vocal ensemble", "madrigal ensemble", "vocal quartet",
+      // Choral textures
+      "close harmony", "barbershop harmony", "unison singing", "choral swells",
+      "Gregorian chant", "plainchant", "polyphony", "counterpoint vocals",
+      // Operatic
+      "soprano soloist", "mezzo-soprano soloist", "tenor soloist", "baritone soloist",
+      "bass soloist", "operatic ensemble", "soprano aria", "tenor aria",
+      // Choral production
+      "cathedral acoustics", "choral reverb", "double chorus", "antiphonal choir"
+    ],
     "🌍 World": ["banjo", "mandolin", "ukulele", "sitar", "koto", "erhu", "mbira", "oud",
-      "balalaika", "hurdy-gurdy", "duduk", "steel drum", "marimba", "vibraphone",
-      "accordion", "pedal steel", "dulcimer", "jaw harp"],
+      "balalaika", "hurdy-gurdy", "duduk", "steel drum", "marimba", "accordion",
+      "pedal steel", "dulcimer", "jaw harp", "shamisen", "pipa", "guzheng",
+      "didgeridoo", "panpipes", "kalimba", "hang drum", "berimbau"],
     "🌫 Textures": ["vinyl crackle", "tape hiss", "field recordings", "ambient noise", "vinyl samples",
-      "church bells", "static", "crowd noise", "rain sounds", "granular texture", "sub-bass drone", "noise floor"]
+      "church bells", "static", "crowd noise", "rain sounds", "granular texture",
+      "sub-bass drone", "noise floor", "concert hall ambience", "audience applause"]
   };
 
   // ── State ──────────────────────────────────────────────────────────────
@@ -1651,7 +1708,7 @@ if (transBtn) {
     vocalFx: new Set(), instruments: new Set(),
     production: new Set(), bpm: 0,
     keyNote: null, keyMode: "major",
-    useCase: null, theme: ""
+    carattere: new Set(), useCase: null, theme: ""
   };
 
   let activeInstCat = Object.keys(INST_CATS)[0];
@@ -1756,6 +1813,7 @@ if (transBtn) {
     if (state.mood.size) parts.push([...state.mood].join(" and "));
     if (state.instruments.size) parts.push([...state.instruments].join(", "));
     if (state.production.size) parts.push([...state.production].join(", "));
+    if (state.carattere.size) parts.push([...state.carattere].join(", "));
     if (state.bpm > 0) parts.push(state.bpm + " BPM");
     if (state.keyNote && state.keyNote !== "—") parts.push(state.keyNote + " " + state.keyMode);
     if (isInstr) parts.push("instrumental"); // MUST be last per v5.5 rules
@@ -1835,7 +1893,7 @@ if (transBtn) {
   document.getElementById("ctor-reset-btn")?.addEventListener("click", () => {
     Object.assign(state, { era: null, genre: "", mood: new Set(), vocalGender: null,
       vocalTimbre: new Set(), vocalDelivery: null, vocalFx: new Set(), instruments: new Set(),
-      production: new Set(), bpm: 0, keyNote: null, keyMode: "major", useCase: null, theme: "" });
+      production: new Set(), bpm: 0, keyNote: null, keyMode: "major", carattere: new Set(), useCase: null, theme: "" });
     const g = document.getElementById("ctor-genre"); if (g) g.value = "";
     const t = document.getElementById("ctor-theme"); if (t) t.value = "";
     setBpm(0); refreshChips(); updatePreview();
