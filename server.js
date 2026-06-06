@@ -15,7 +15,7 @@ import { buildSongStructure, aiSongStructure, buildLyricSkeleton, aiLyrics } fro
 import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite, decodeDNA, transcribeAudio, styleTimeMachine, lyricsSyncConduct, styleGenome, buildPlaylist } from "./lib/aiFeatures.js";
 import { aiRateLimit } from "./lib/rateLimit.js";
 import { ttapiEnabled, submitMusic, fetchJob, submitSampleFromBuffer } from "./lib/ttapi.js";
-import { dolbyEnabled, submitMasterJob, getMasterStatus } from "./lib/dolby.js";
+import { auphonicEnabled, submitMasterJob, getMasterStatus } from "./lib/auphonic.js";
 
 // Temporary file store for reference audio (TTAPI upload needs a public URL).
 // Files live max 5 min; cleaned up after TTAPI fetches them.
@@ -70,7 +70,7 @@ function publicEntry(c, unlocked) {
 
 // --- Status ---
 app.get("/api/status", (req, res) => {
-  res.json({ ai: aiEnabled(), provider: activeProvider(), catalogSize: catalog.length, generate: ttapiEnabled(), master: dolbyEnabled() });
+  res.json({ ai: aiEnabled(), provider: activeProvider(), catalogSize: catalog.length, generate: ttapiEnabled(), master: auphonicEnabled() });
 });
 
 // --- Facets (counts for the filter UI) ---
@@ -489,8 +489,8 @@ app.post("/api/ai/playlist-build", aiRateLimit, async (req, res) => {
   }
 });
 
-// ─── Dolby.io Mastering ───────────────────────────────────────────────────
-// In-memory job store: jobId → { outputPath, createdAt }
+// ─── Auphonic Mastering ──────────────────────────────────────────────────
+// In-memory job store: jobId → { createdAt }
 const masterJobs = new Map();
 setInterval(() => {
   const cutoff = Date.now() - 24 * 3600 * 1000;
@@ -498,31 +498,30 @@ setInterval(() => {
 }, 3600 * 1000).unref();
 
 app.post("/api/ai/master-track", aiRateLimit, async (req, res) => {
-  if (!dolbyEnabled()) return res.status(503).json({ ok: false, error: "Mastering not configured (DOLBY_API_KEY missing)" });
+  if (!auphonicEnabled()) return res.status(503).json({ ok: false, error: "Mastering not configured (AUPHONIC_USER/PASS missing)" });
   const audioUrl = String(req.body?.audioUrl || "").trim();
   const loudness = String(req.body?.loudness || "streaming");
   if (!audioUrl) return res.status(400).json({ ok: false, error: "audioUrl required" });
   try {
-    const { jobId, outputPath } = await submitMasterJob(audioUrl, { loudness });
-    masterJobs.set(jobId, { outputPath, createdAt: Date.now() });
+    const { jobId } = await submitMasterJob(audioUrl, { loudness });
+    masterJobs.set(jobId, { createdAt: Date.now() });
     res.json({ ok: true, jobId });
   } catch (err) {
-    console.error("[dolby-submit]", err.message);
+    console.error("[auphonic-submit]", err.message);
     res.status(500).json({ ok: false, error: err.message });
   }
 });
 
 app.get("/api/ai/master-status", async (req, res) => {
-  if (!dolbyEnabled()) return res.status(503).json({ ok: false, error: "Not configured" });
+  if (!auphonicEnabled()) return res.status(503).json({ ok: false, error: "Not configured" });
   const jobId = String(req.query.jobId || "").trim();
   if (!jobId) return res.status(400).json({ ok: false, error: "Missing jobId" });
-  const stored = masterJobs.get(jobId);
-  if (!stored) return res.status(404).json({ ok: false, error: "Unknown job" });
+  if (!masterJobs.has(jobId)) return res.status(404).json({ ok: false, error: "Unknown job" });
   try {
-    const result = await getMasterStatus(jobId, stored.outputPath);
+    const result = await getMasterStatus(jobId);
     res.json({ ok: true, ...result });
   } catch (err) {
-    console.error("[dolby-status]", err.message);
+    console.error("[auphonic-status]", err.message);
     res.status(500).json({ ok: false, error: err.message });
   }
 });
