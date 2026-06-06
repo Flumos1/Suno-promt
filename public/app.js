@@ -122,6 +122,15 @@ const LANG = {
     "mirror.ph":"Paste Russian lyrics with [Verse] [Chorus] tags…","mirror.btn":"Mirror to English",
     "saved.title":"Saved Prompts","saved.sub":"Everything you star is kept in this browser. Export to take it with you.",
     "saved.json":"⭳ Export JSON","saved.txt":"⭳ Export TXT","saved.clear":"Clear all",
+    "mood.loading":"Claude Vision is reading the image…","scene.loading":"Claude is scoring the scene…","mirror.loading":"Mirroring to English, preserving rhyme…",
+    "scene.empty":"Describe a scene","mirror.empty":"Paste Russian lyrics",
+    "mood.atmo":"Atmosphere","ai.prompt.label":"Suno Prompt",
+    "scene.style.label":"Style (prompt)","scene.struct.label":"Structure (for Lyrics field)",
+    "mirror.label":"English mirror","mirror.syllab":"· syllables matched","mirror.rhyme":"Rhyme notes",
+    "quota.unlocked":"● Unlocked — unlimited","quota.remaining":"{n} of {limit} free requests left today",
+    "quota.unlock.cta":"Enter an unlock code to continue.","ai.gen.btn":"🎵 Generate in Suno",
+    "gen.modal.sending":"Sending to Suno…","gen.modal.gen":"Suno is generating… {p}","gen.modal.time":"(30–90 sec)",
+    "gen.modal.fail":"Suno returned an error","gen.modal.timeout":"Timeout — try again",
   },
   ru: {
     "nav.catalog":"⌕ Каталог","nav.anchor":"🎙 Вокал","nav.reference":"♪ Референс",
@@ -231,6 +240,15 @@ const LANG = {
     "mirror.ph":"Вставь русскую лирику с тегами [Verse] [Chorus]…","mirror.btn":"Зеркалировать в EN",
     "saved.title":"Сохранённые промпты","saved.sub":"Всё, что вы отметили звёздочкой, хранится в этом браузере. Экспорт — чтобы взять с собой.",
     "saved.json":"⭳ Экспорт JSON","saved.txt":"⭳ Экспорт TXT","saved.clear":"Очистить всё",
+    "mood.loading":"Claude Vision слушает картинку…","scene.loading":"Claude собирает партитуру…","mirror.loading":"Зеркалю на английский с рифмой…",
+    "scene.empty":"Опиши сцену","mirror.empty":"Вставь русскую лирику",
+    "mood.atmo":"Атмосфера","ai.prompt.label":"Suno-промпт",
+    "scene.style.label":"Style (промпт)","scene.struct.label":"Structure (для Lyrics-поля)",
+    "mirror.label":"English mirror","mirror.syllab":"· слоги совпали","mirror.rhyme":"Заметки о рифме",
+    "quota.unlocked":"● Разблокировано — без лимита","quota.remaining":"Осталось {n} из {limit} запросов на сегодня",
+    "quota.unlock.cta":"Введи unlock-код чтобы продолжить.","ai.gen.btn":"🎵 Сгенерировать в Suno",
+    "gen.modal.sending":"Отправляю в Suno…","gen.modal.gen":"Suno генерирует… {p}","gen.modal.time":"(30–90 сек)",
+    "gen.modal.fail":"Suno вернул ошибку","gen.modal.timeout":"Слишком долго — попробуй ещё раз",
   }
 };
 
@@ -446,37 +464,34 @@ function openGenModal(prompt, name) {
     modal = document.createElement("div");
     modal.id = "gen-modal";
     modal.className = "gen-modal";
-    modal.innerHTML = `
-      <div class="gen-modal-box">
-        <button class="gen-modal-close" id="gen-modal-close">✕</button>
-        <h2>🎵 Создать трек</h2>
-        <div class="gen-modal-name" id="gen-modal-name"></div>
-        <div class="gen-modal-prompt" id="gen-modal-prompt"></div>
-        <div class="gen-opts" style="margin-top:12px">
-          <label>Модель<select id="gm-mv"><option value="chirp-v5">v5</option><option value="chirp-v5-5">v5.5</option><option value="chirp-v4-5+">v4.5+</option></select></label>
-          <label>Вокал<select id="gm-vocal"><option value="">любой</option><option value="Female">женский</option><option value="Male">мужской</option></select></label>
-          <label class="check"><input id="gm-instr" type="checkbox" /> Инструментал</label>
-        </div>
-        <button id="gen-modal-btn" class="primary" style="margin-top:14px;width:100%">🎵 Сгенерировать (≈6 quota)</button>
-        <div id="gen-modal-out" class="output"></div>
-      </div>`;
     document.body.appendChild(modal);
-    $("#gen-modal-close").addEventListener("click", () => modal.classList.remove("open"));
     modal.addEventListener("click", (e) => { if (e.target === modal) modal.classList.remove("open"); });
   }
+  // Regenerate inner HTML each open so t() picks up the current language
+  modal.innerHTML = `
+    <div class="gen-modal-box">
+      <button class="gen-modal-close" id="gen-modal-close">✕</button>
+      <h2>${t("gen.title")}</h2>
+      <div class="gen-modal-name" id="gen-modal-name"></div>
+      <div class="gen-modal-prompt" id="gen-modal-prompt"></div>
+      <div class="gen-opts" style="margin-top:12px">
+        <label>${t("gen.model")}<select id="gm-mv"><option value="chirp-v5">v5</option><option value="chirp-v5-5">v5.5</option><option value="chirp-v4-5+">v4.5+</option></select></label>
+        <label>${t("gen.vocal")}<select id="gm-vocal"><option value="">${t("gen.vocal.any")}</option><option value="Female">${t("gen.vocal.f")}</option><option value="Male">${t("gen.vocal.m")}</option></select></label>
+        <label class="check"><input id="gm-instr" type="checkbox" /> ${t("gen.instr")}</label>
+      </div>
+      <button id="gen-modal-btn" class="primary" style="margin-top:14px;width:100%">${t("gen.btn")}</button>
+      <div id="gen-modal-out" class="output"></div>
+    </div>`;
+  $("#gen-modal-close").addEventListener("click", () => modal.classList.remove("open"));
   $("#gen-modal-name").textContent = name || "";
   $("#gen-modal-prompt").textContent = prompt || "";
-  $("#gen-modal-out").innerHTML = "";
-  $("#gen-modal-btn").disabled = false;
   modal.classList.add("open");
 
-  // wire button (remove previous listener)
-  const newBtn = $("#gen-modal-btn").cloneNode(true);
-  $("#gen-modal-btn").replaceWith(newBtn);
-  newBtn.addEventListener("click", async () => {
-    newBtn.disabled = true;
-    const out = $("#gen-modal-out");
-    out.innerHTML = `<div class="spinner">Отправляю в Suno…</div>`;
+  const btn = $("#gen-modal-btn");
+  const out = $("#gen-modal-out");
+  btn.addEventListener("click", async () => {
+    btn.disabled = true;
+    out.innerHTML = `<div class="spinner">${t("gen.modal.sending")}</div>`;
     try {
       const data = await aiCall("/api/ai/generate-track", {
         method: "POST",
@@ -489,16 +504,16 @@ function openGenModal(prompt, name) {
         })
       });
       if (!data.ok) throw new Error(data.error);
-      pollModalTrack(data.jobId, out, newBtn);
+      pollModalTrack(data.jobId, out, btn);
     } catch (err) {
       out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
-      newBtn.disabled = false;
+      btn.disabled = false;
     }
   });
 }
 
 function pollModalTrack(jobId, out, btn) {
-  out.innerHTML = `<div class="spinner">Suno генерирует… <span id="gm-prog">0%</span> <span class="muted">(30–90 сек)</span></div>`;
+  out.innerHTML = `<div class="spinner">${t("gen.modal.gen").replace("{p}", '<span id="gm-prog">0%</span>')} <span class="muted">${t("gen.modal.time")}</span></div>`;
   let elapsed = 0;
   const iv = setInterval(async () => {
     elapsed += 5;
@@ -519,10 +534,10 @@ function pollModalTrack(jobId, out, btn) {
           </div>`).join("")}</div>`;
       } else if (job.status === "FAILED") {
         clearInterval(iv); btn.disabled = false;
-        out.innerHTML = `<div class="error">Suno вернул ошибку</div>`;
+        out.innerHTML = `<div class="error">${t("gen.modal.fail")}</div>`;
       } else if (elapsed > 240) {
         clearInterval(iv); btn.disabled = false;
-        out.innerHTML = `<div class="error">Слишком долго — попробуй ещё раз</div>`;
+        out.innerHTML = `<div class="error">${t("gen.modal.timeout")}</div>`;
       }
     } catch (err) { clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`; }
   }, 5000);
@@ -1591,14 +1606,14 @@ function renderQuota(headers) {
   const pill = $("#ailab-quota");
   if (!pill) return;
   if (headers.get("X-RateLimit-Unlocked") === "1") {
-    pill.textContent = "● Unlocked — без лимита";
+    pill.textContent = t("quota.unlocked");
     pill.className = "quota-pill unlocked";
     return;
   }
   const remaining = headers.get("X-RateLimit-Remaining");
   const limit = headers.get("X-RateLimit-Limit");
   if (remaining != null && limit != null) {
-    pill.textContent = `${remaining} из ${limit} бесплатных запросов осталось сегодня`;
+    pill.textContent = t("quota.remaining").replace("{n}", remaining).replace("{limit}", limit);
     pill.className = "quota-pill";
   }
 }
@@ -1609,7 +1624,7 @@ async function aiCall(url, opts = {}) {
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
     if (data.unlock) {
-      throw new Error(`${data.message || data.error}\nВведи unlock-код, чтобы продолжить.`);
+      throw new Error(`${data.message || data.error}\n${t("quota.unlock.cta")}`);
     }
     throw new Error(data.error || `HTTP ${res.status}`);
   }
@@ -1640,7 +1655,7 @@ if (imgDz) {
   imgBtn.addEventListener("click", async () => {
     const f = imgFile.files[0]; if (!f) return;
     const out = $("#img-out");
-    out.innerHTML = `<div class="spinner">Claude Vision слушает картинку…</div>`;
+    out.innerHTML = `<div class="spinner">${t("mood.loading")}</div>`;
     imgBtn.disabled = true;
     try {
       const fd = new FormData(); fd.append("image", f);
@@ -1648,6 +1663,7 @@ if (imgDz) {
       if (!data.ok) throw new Error(data.error);
       out.innerHTML = renderMoodResult(data);
       wireCopyButtons(out);
+      out.querySelectorAll(".gen-track-btn").forEach((b) => b.addEventListener("click", () => openGenModal(b.dataset.prompt, b.dataset.name)));
     } catch (err) {
       out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
     } finally { imgBtn.disabled = false; }
@@ -1656,11 +1672,12 @@ if (imgDz) {
 function renderMoodResult(d) {
   return `
     <div class="ai-result">
-      <div class="ai-atmo"><strong>Атмосфера:</strong> ${escapeHtml(d.atmosphere)}</div>
+      <div class="ai-atmo"><strong>${t("mood.atmo")}:</strong> ${escapeHtml(d.atmosphere)}</div>
       <div class="ai-prompt-box">
-        <div class="prompt-label">Suno-промпт</div>
+        <div class="prompt-label">${t("ai.prompt.label")}</div>
         <div class="prompt">${escapeHtml(d.prompt)}</div>
         <button class="copy" data-prompt="${escapeAttr(d.prompt)}">Copy</button>
+        ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(d.prompt)}" data-name="Mood from Image">${t("ai.gen.btn")}</button>` : ""}
       </div>
       <div class="ai-meta">
         ${d.bpm ? `<span class="tag">${d.bpm} BPM</span>` : ""}
@@ -1678,9 +1695,9 @@ if (sceneBtn) {
   sceneBtn.addEventListener("click", async () => {
     const scene = $("#scene-input").value.trim();
     const out = $("#scene-out");
-    if (!scene) { out.innerHTML = `<div class="error">Опиши сцену</div>`; return; }
+    if (!scene) { out.innerHTML = `<div class="error">${t("scene.empty")}</div>`; return; }
     const lang = $("#scene-lang").checked ? "ru" : "en";
-    out.innerHTML = `<div class="spinner">Claude собирает партитуру…</div>`;
+    out.innerHTML = `<div class="spinner">${t("scene.loading")}</div>`;
     sceneBtn.disabled = true;
     try {
       const data = await aiCall("/api/ai/scene-to-score", {
@@ -1691,6 +1708,7 @@ if (sceneBtn) {
       if (!data.ok) throw new Error(data.error);
       out.innerHTML = renderSceneResult(data);
       wireCopyButtons(out);
+      out.querySelectorAll(".gen-track-btn").forEach((b) => b.addEventListener("click", () => openGenModal(b.dataset.prompt, b.dataset.name)));
     } catch (err) {
       out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
     } finally { sceneBtn.disabled = false; }
@@ -1700,12 +1718,13 @@ function renderSceneResult(d) {
   return `
     <div class="ai-result">
       <div class="ai-prompt-box">
-        <div class="prompt-label">Style (промпт)</div>
+        <div class="prompt-label">${t("scene.style.label")}</div>
         <div class="prompt">${escapeHtml(d.prompt)}</div>
         <button class="copy" data-prompt="${escapeAttr(d.prompt)}">Copy style</button>
+        ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(d.prompt)}" data-name="Cinematic Score">${t("ai.gen.btn")}</button>` : ""}
       </div>
       <div class="ai-prompt-box">
-        <div class="prompt-label">Structure (для Lyrics-поля)</div>
+        <div class="prompt-label">${t("scene.struct.label")}</div>
         <pre class="prompt struct">${escapeHtml(d.structure)}</pre>
         <button class="copy" data-prompt="${escapeAttr(d.structure)}">Copy structure</button>
       </div>
@@ -1724,8 +1743,8 @@ if (transBtn) {
   transBtn.addEventListener("click", async () => {
     const text = $("#trans-input").value.trim();
     const out = $("#trans-out");
-    if (!text) { out.innerHTML = `<div class="error">Вставь русскую лирику</div>`; return; }
-    out.innerHTML = `<div class="spinner">Зеркалю на английский с рифмой…</div>`;
+    if (!text) { out.innerHTML = `<div class="error">${t("mirror.empty")}</div>`; return; }
+    out.innerHTML = `<div class="spinner">${t("mirror.loading")}</div>`;
     transBtn.disabled = true;
     try {
       const data = await aiCall("/api/ai/translate-lyrics", {
@@ -1737,11 +1756,11 @@ if (transBtn) {
       out.innerHTML = `
         <div class="ai-result">
           <div class="ai-prompt-box">
-            <div class="prompt-label">English mirror ${data.syllablesMatched ? "<span class='ok'>· syllables matched</span>" : ""}</div>
+            <div class="prompt-label">${t("mirror.label")} ${data.syllablesMatched ? `<span class='ok'>${t("mirror.syllab")}</span>` : ""}</div>
             <pre class="prompt struct">${escapeHtml(data.english)}</pre>
             <button class="copy" data-prompt="${escapeAttr(data.english)}">Copy English</button>
           </div>
-          ${data.rhymeNotes ? `<div class="ai-atmo"><strong>Rhyme notes:</strong> ${escapeHtml(data.rhymeNotes)}</div>` : ""}
+          ${data.rhymeNotes ? `<div class="ai-atmo"><strong>${t("mirror.rhyme")}:</strong> ${escapeHtml(data.rhymeNotes)}</div>` : ""}
         </div>`;
       wireCopyButtons(out);
     } catch (err) {
