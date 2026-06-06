@@ -2585,3 +2585,93 @@ window._startMastering = (audioUrl) => {
 setTheme(localStorage.getItem("ss_theme") || "dark");
 applyLang(currentLang);
 if (localStorage.getItem(GATE_KEY)) showApp();
+
+/* ─── Pricing Modal ──────────────────────────────────────────────────── */
+;(function pricingModule() {
+  const modal   = document.getElementById("pricing-modal");
+  const openBtn = document.getElementById("pricing-btn");
+  const closeBtn= document.getElementById("pricing-close");
+  const activatePanel = document.getElementById("pricing-activate");
+  const showActivate  = document.getElementById("show-activate");
+  const activateEmail = document.getElementById("activate-email");
+  const activateBtn   = document.getElementById("activate-btn");
+  const activateMsg   = document.getElementById("activate-msg");
+
+  function open() { modal.style.display = "flex"; }
+  function close(){ modal.style.display = "none"; }
+
+  openBtn?.addEventListener("click", open);
+  closeBtn?.addEventListener("click", close);
+  modal?.addEventListener("click", e => { if (e.target === modal) close(); });
+
+  // If redirected back after payment
+  if (location.search.includes("activated=1")) {
+    history.replaceState(null, "", location.pathname);
+    open();
+    activatePanel.style.display = "block";
+    showActivate.style.display  = "none";
+    activateMsg.textContent = "Payment received! Enter your email to activate your subscription.";
+  }
+
+  showActivate?.addEventListener("click", () => {
+    activatePanel.style.display = "block";
+    showActivate.style.display  = "none";
+  });
+
+  // Subscribe buttons
+  document.querySelectorAll(".plan-btn[data-plan]").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const plan = btn.dataset.plan;
+      btn.disabled = true;
+      btn.textContent = "Loading…";
+      try {
+        const r = await fetch("/api/lemon/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ plan })
+        });
+        const data = await r.json();
+        if (data.checkoutUrl) {
+          window.location.href = data.checkoutUrl;
+        } else {
+          alert(data.error || "Could not start checkout");
+          btn.disabled = false;
+          btn.textContent = plan === "pro" ? "Subscribe Pro" : "Subscribe Creator";
+        }
+      } catch {
+        btn.disabled = false;
+        btn.textContent = plan === "pro" ? "Subscribe Pro" : "Subscribe Creator";
+      }
+    });
+  });
+
+  // Activate by email
+  activateBtn?.addEventListener("click", async () => {
+    const email = activateEmail.value.trim();
+    if (!email) return;
+    activateBtn.disabled = true;
+    activateMsg.textContent = "Checking…";
+    try {
+      const r = await fetch("/api/lemon/activate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+      const data = await r.json();
+      if (data.ok && data.token) {
+        localStorage.setItem("unlockToken", data.token);
+        activateMsg.textContent = `✓ ${data.plan === "pro" ? "Pro" : "Creator"} plan activated!`;
+        activateMsg.style.color = "#22c55e";
+        setTimeout(() => { close(); location.reload(); }, 1500);
+      } else {
+        activateMsg.textContent = data.error || "Subscription not found for this email";
+        activateMsg.style.color = "#ef4444";
+        activateBtn.disabled = false;
+      }
+    } catch {
+      activateMsg.textContent = "Network error, try again";
+      activateMsg.style.color = "#ef4444";
+      activateBtn.disabled = false;
+    }
+  });
+})();

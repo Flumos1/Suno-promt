@@ -16,6 +16,7 @@ import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToProm
 import { aiRateLimit } from "./lib/rateLimit.js";
 import { ttapiEnabled, submitMusic, fetchJob, submitSampleFromBuffer } from "./lib/ttapi.js";
 import { auphonicEnabled, submitMasterJob, getMasterStatus } from "./lib/auphonic.js";
+import { lemonEnabled, createCheckout, findSubscriptionByEmail, createToken, verifyToken, verifyWebhookSig, planFromVariant } from "./lib/lemon.js";
 
 // Temporary file store for reference audio (TTAPI upload needs a public URL).
 // Files live max 5 min; cleaned up after TTAPI fetches them.
@@ -51,9 +52,16 @@ app.use(express.static(join(__dirname, "public")));
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 25 * 1024 * 1024 } });
 
 const isUnlocked = (token) => {
-  try { return UNLOCK_CODES.includes(Buffer.from(String(token || ""), "base64").toString("utf8").toUpperCase()); }
-  catch { return false; }
+  if (!token) return false;
+  // Legacy unlock codes
+  try {
+    if (UNLOCK_CODES.includes(Buffer.from(String(token), "base64").toString("utf8").toUpperCase())) return true;
+  } catch {}
+  // LemonSqueezy subscription token
+  return !!verifyToken(String(token));
 };
+
+const getTokenPlan = (token) => verifyToken(String(token || ""))?.plan || null;
 
 // Strip the prompt from locked entries unless the user is unlocked.
 function publicEntry(c, unlocked) {
@@ -524,6 +532,66 @@ app.get("/api/ai/master-status", async (req, res) => {
     console.error("[auphonic-status]", err.message);
     res.status(500).json({ ok: false, error: err.message });
   }
+});
+
+// ─── LemonSqueezy Subscription Routes ────────────────────────────────────
+
+// POST /api/lemon/checkout — create hosted checkout URL
+app.post("/api/lemon/checkout", async (req, res) => {
+  if (!lemonEnabled()) return res.status(503).json({ ok: false, error: "Payments not configured" });
+  const plan = String(req.body?.plan || "").toLowerCase();
+  const variantId = plan === "pro"
+    ? process.env.LEMON_VARIANT_PRO
+    : process.env.LEMON_VARIANT_CREATOR;
+  if (!variantId) return res.status(400).json({ ok: false, error: "Invalid plan" });
+  try {
+    const successUrl = `${PUBLIC_BASE}/?activated=1`;
+    const cancelUrl = `${PUBLIC_BASE}/`;
+    const { checkoutUrl } = await createCheckout(variantId, { successUrl, cancelUrl });
+    res.json({ ok: true, checkoutUrl });
+  } catch (err) {
+    console.error("[lemon-checkout]", err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+// POST /api/lemon/activate — user enters email after payment → get access token
+app.post("/api/lemon/activate", async (req, res) => {
+  if (!lemonEnabled()) return res.status(503).json({ ok: false, error: "Payments not configured" });
+  const email = String(req.body?.email || "").trim();
+  if (!email || !email.includes("@")) return res.status(400).json({ ok: false, error: "Invalid email" });
+  try {
+    const sub = await findSubscriptionByEmail(email);
+    if (!sub) return res.status(404).json({ ok: false, error: "No active subscription found for this email" });
+    const token = createToken(sub.plan || "creator", String(sub.subscriptionId));
+    res.json({ ok: true, token, plan: sub.plan });
+  } catch (err) {
+    console.error("[lemon-activate]", err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+// GET /api/lemon/status — check current token plan
+app.get("/api/lemon/status", (req, res) => {
+  const token = req.headers["x-unlock-token"] || req.query.token || "";
+  const info = verifyToken(String(token));
+  if (!info) return res.json({ ok: false, plan: null });
+  res.json({ ok: true, plan: info.plan });
+});
+
+// POST /api/lemon/webhook — LemonSqueezy event handler
+app.post("/api/lemon/webhook", express.raw({ type: "application/json" }), (req, res) => {
+  const sig = req.headers["x-signature"] || "";
+  const rawBody = Buffer.isBuffer(req.body) ? req.body : Buffer.from(JSON.stringify(req.body));
+  if (!verifyWebhookSig(rawBody, sig)) {
+    console.warn("[lemon-webhook] Invalid signature");
+    return res.status(401).send("Invalid signature");
+  }
+  const event = JSON.parse(rawBody.toString());
+  const eventName = event.meta?.event_name || "";
+  const attrs = event.data?.attributes || {};
+  console.log(`[lemon-webhook] ${eventName} — ${attrs.user_email} plan=${planFromVariant(attrs.variant_id)}`);
+  res.sendStatus(200);
 });
 
 app.listen(PORT, () => {
