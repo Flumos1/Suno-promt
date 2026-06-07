@@ -2,6 +2,7 @@
   --bg: #06060b;
   --panel: rgba(20, 21, 38, 0.66);
   --panel-solid: #12131f;
+  --surface: #111222;
   --border: rgba(124, 140, 255, 0.16);
   --border-bright: rgba(124, 140, 255, 0.4);
   --neon: #5cd6ff;
@@ -783,6 +784,7 @@ code { font-family: ui-monospace, monospace; }
   /* Semantic */
   --good: #059669;
   --bad:  #DC2626;
+  --surface: #FFFFFF;
 }
 
 /* Background decorations — lighter for day mode */
