@@ -243,6 +243,8 @@ button.small { padding: 8px 14px; font-size: 13px; }
   border-radius: 12px; padding: 16px; margin: 0; overflow-x: auto; }
 
 .muted { color: var(--muted); }
+.btn-link { background: none; border: none; color: var(--accent); cursor: pointer; font-size: inherit; padding: 0; text-decoration: underline; }
+.btn-link:hover { opacity: 0.8; }
 .foot { margin-top: 54px; text-align: center; color: var(--muted); font-size: 12px; }
 .foot span { color: var(--neon2); }
 

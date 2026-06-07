@@ -153,6 +153,8 @@ const LANG = {
     "master.btn.inline":"🎚 Master this track",
     "card.badge.new":"New","copy.prompt":"Copy prompt",
     "cat.noresults":"No styles match these filters.",
+    "cat.loading":"Loading catalog…","cat.warmup":"Server is warming up, please wait…",
+    "cat.error":"Failed to load catalog.","retry":"Try again",
     "pill.unlocked":"✓ full access","pill.free":"🔒 free tier","pill.gen":"gen/mo",
     "pill.expired":"⚠ Expired — re-activate",
     "saved.count":"{n} saved",
@@ -326,6 +328,8 @@ const LANG = {
     "master.btn.inline":"🎚 Мастеровать трек",
     "card.badge.new":"Новинка","copy.prompt":"Копировать",
     "cat.noresults":"Нет стилей, подходящих под фильтры.",
+    "cat.loading":"Загружаем каталог…","cat.warmup":"Сервер запускается, подождите…",
+    "cat.error":"Не удалось загрузить каталог.","retry":"Попробовать снова",
     "pill.unlocked":"✓ полный доступ","pill.free":"🔒 бесплатный","pill.gen":"ген/мес",
     "pill.expired":"⚠ Истёк — повторная активация",
     "saved.count":"{n} сохранено",
@@ -500,9 +504,11 @@ function renderFacets() {
 }
 
 async function loadFacets() {
-  facets = await api("/api/facets");
-  $("#cat-total").textContent = `${facets.total} styles`;
-  renderFacets();
+  try {
+    facets = await api("/api/facets");
+    $("#cat-total").textContent = `${facets.total} styles`;
+    renderFacets();
+  } catch {}
 }
 
 function onFilter(chip) {
@@ -683,27 +689,37 @@ function qs() {
 
 async function loadCatalog() {
   const results = $("#results");
-  results.innerHTML = spin("loading…");
+  results.innerHTML = spin(t("cat.loading"));
   $("#pager").innerHTML = "";
 
-  if (state.q && !state.language && !state.era && !state.genre && !state.mood && !state.free && !state.isNew) {
-    // pure text search may also generate a card if nothing matches
-    const data = await api("/api/catalog?" + qs());
-    if (!data.results.length) {
-      results.innerHTML = `<div class="card">${spin("generating card…")}</div>`;
-      const gen = await api("/api/card/" + encodeURIComponent(state.q) + (localStorage.getItem(UNLOCK_KEY) ? "?u=" + localStorage.getItem(UNLOCK_KEY) : ""));
-      results.innerHTML = cardHTML(gen.card, gen.source);
-      wireCards(results);
-      return;
-    }
-  }
+  const warmup = setTimeout(() => {
+    if (results.querySelector(".spinner")) results.innerHTML = spin(t("cat.warmup"));
+  }, 4000);
 
-  const data = await api("/api/catalog?" + qs());
-  results.innerHTML = data.results.length
-    ? data.results.map((c) => cardHTML(c, "catalog")).join("")
-    : `<p class="muted">${t("cat.noresults")}</p>`;
-  wireCards(results);
-  renderPager(data);
+  try {
+    if (state.q && !state.language && !state.era && !state.genre && !state.mood && !state.free && !state.isNew) {
+      const data = await api("/api/catalog?" + qs());
+      if (!data.results.length) {
+        results.innerHTML = `<div class="card">${spin("generating card…")}</div>`;
+        const gen = await api("/api/card/" + encodeURIComponent(state.q) + (localStorage.getItem(UNLOCK_KEY) ? "?u=" + localStorage.getItem(UNLOCK_KEY) : ""));
+        clearTimeout(warmup);
+        results.innerHTML = cardHTML(gen.card, gen.source);
+        wireCards(results);
+        return;
+      }
+    }
+
+    const data = await api("/api/catalog?" + qs());
+    clearTimeout(warmup);
+    results.innerHTML = data.results.length
+      ? data.results.map((c) => cardHTML(c, "catalog")).join("")
+      : `<p class="muted">${t("cat.noresults")}</p>`;
+    wireCards(results);
+    renderPager(data);
+  } catch {
+    clearTimeout(warmup);
+    results.innerHTML = `<p class="error">${t("cat.error")} <button class="btn-link" onclick="loadCatalog()">${t("retry")}</button></p>`;
+  }
 }
 
 function renderPager(data) {
