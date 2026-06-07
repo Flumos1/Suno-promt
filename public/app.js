@@ -154,6 +154,7 @@ const LANG = {
     "card.badge.new":"New","copy.prompt":"Copy prompt",
     "cat.noresults":"No styles match these filters.",
     "pill.unlocked":"✓ full access","pill.free":"🔒 free tier","pill.gen":"gen/mo",
+    "pill.expired":"⚠ Expired — re-activate",
     "saved.count":"{n} saved",
     "card.gen.btn":"🎵 Create Track","card.gen.title":"Generate track in Suno",
     "analyze.closest":"3 closest catalog styles",
@@ -326,6 +327,7 @@ const LANG = {
     "card.badge.new":"Новинка","copy.prompt":"Копировать",
     "cat.noresults":"Нет стилей, подходящих под фильтры.",
     "pill.unlocked":"✓ полный доступ","pill.free":"🔒 бесплатный","pill.gen":"ген/мес",
+    "pill.expired":"⚠ Истёк — повторная активация",
     "saved.count":"{n} сохранено",
     "card.gen.btn":"🎵 Создать трек","card.gen.title":"Создать трек в Suno",
     "analyze.closest":"3 ближайших стиля из каталога",
@@ -722,21 +724,45 @@ $("#f-mood").addEventListener("change", () => { state.mood = $("#f-mood").value;
 /* ---------- Unlock ---------- */
 let planInfo = null;
 
+// Returns true only for LemonSqueezy-format tokens (plan:cid:exp:hmac).
+// Legacy base64 unlock codes won't match, so they never show "expired".
+function isLemonToken(tok) {
+  try {
+    const dec = atob(tok.replace(/-/g, "+").replace(/_/g, "/").split(".")[0]);
+    const p = dec.split(":");
+    return p.length === 4 && (p[0] === "creator" || p[0] === "pro");
+  } catch { return false; }
+}
+
 async function loadPlanStatus() {
   const tok = localStorage.getItem(UNLOCK_KEY);
   if (!tok) return;
   try {
     const data = await fetch("/api/lemon/status", { headers: { "X-Unlock-Token": tok } }).then(r => r.json());
-    if (data.ok && data.plan) { planInfo = data; renderUnlockPill(); }
+    if (data.ok && data.plan) {
+      planInfo = data;
+    } else if (!data.ok && isLemonToken(tok)) {
+      planInfo = { expired: true };
+    }
+    renderUnlockPill();
   } catch {}
 }
 
 function renderUnlockPill() {
   const unlocked = !!localStorage.getItem(UNLOCK_KEY);
   const pill = $("#unlock-pill");
-  pill.classList.toggle("live", unlocked);
-  pill.dataset.plan = planInfo?.plan || "";
-  $("#unlock-btn").style.display = unlocked ? "none" : "";
+  const expired = planInfo?.expired === true;
+  pill.classList.toggle("live", unlocked && !expired);
+  pill.classList.toggle("expired", expired);
+  pill.dataset.plan = expired ? "expired" : (planInfo?.plan || "");
+  pill.style.cursor = expired ? "pointer" : "";
+  $("#unlock-btn").style.display = (unlocked && !expired) ? "none" : "";
+  if (expired) {
+    pill.textContent = t("pill.expired");
+    pill.onclick = () => document.dispatchEvent(new CustomEvent("open-pricing-activate"));
+    return;
+  }
+  pill.onclick = null;
   if (!unlocked) { pill.textContent = t("pill.free"); return; }
   if (planInfo?.plan === "creator" || planInfo?.plan === "pro") {
     const label = planInfo.plan === "pro" ? "Pro" : "Creator";
@@ -2732,6 +2758,11 @@ if (localStorage.getItem(GATE_KEY)) showApp();
   function close(){ modal.style.display = "none"; }
 
   document.addEventListener("open-pricing", open);
+  document.addEventListener("open-pricing-activate", () => {
+    open();
+    if (activatePanel) activatePanel.style.display = "block";
+    if (showActivate) showActivate.style.display = "none";
+  });
   openBtn?.addEventListener("click", open);
   closeBtn?.addEventListener("click", close);
   modal?.addEventListener("click", e => { if (e.target === modal) close(); });

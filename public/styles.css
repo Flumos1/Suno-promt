@@ -108,6 +108,7 @@ button.ghost:hover { color: var(--text); box-shadow: none; }
 .pill.live { color: var(--good); border-color: rgba(87,240,168,0.4); background: rgba(87,240,168,0.08); }
 .pill.live[data-plan="creator"] { color: #38bdf8; border-color: rgba(56,189,248,0.4); background: rgba(56,189,248,0.08); }
 .pill.live[data-plan="pro"]     { color: #fbbf24; border-color: rgba(251,191,36,0.4);  background: rgba(251,191,36,0.08);  }
+.pill.expired { color: #f97316; border-color: rgba(249,115,22,0.4); background: rgba(249,115,22,0.08); }
 
 /* Tabs */
 .tabs {
