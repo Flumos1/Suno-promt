@@ -87,6 +87,10 @@ const LANG = {
     "gen.title.ph":"Track title (optional)","gen.model":"Model","gen.vocal":"Vocal",
     "gen.vocal.any":"any","gen.vocal.f":"Female","gen.vocal.m":"Male",
     "gen.instr":"Instrumental","gen.btn":"🎵 Generate (≈6 quota)",
+    "gen.style.label":"Style prompt","gen.lyrics.toggle":"Custom lyrics","gen.ref.toggle":"Reference audio",
+    "gen.ref.drop":"Drop MP3/WAV or click to upload","gen.ref.from":"From","gen.ref.to":"to",
+    "gen.ref.weight":"Influence","gen.ref.clear":"✕ Remove","gen.open.ctor":"Edit in Constructor",
+    "gen.ref.sending":"Uploading reference…",
     "reftrack.title":"🎵 Reference → Track","reftrack.badge":"new",
     "reftrack.sub":"Upload MP3 or record a melody with your mic — Suno generates a new track in the same style.",
     "reftrack.file":"📁 Upload file","reftrack.mic":"🎙 Record from mic",
@@ -277,6 +281,10 @@ const LANG = {
     "gen.title.ph":"Название трека (опционально)","gen.model":"Модель","gen.vocal":"Вокал",
     "gen.vocal.any":"любой","gen.vocal.f":"женский","gen.vocal.m":"мужской",
     "gen.instr":"Инструментал","gen.btn":"🎵 Сгенерировать (≈6 quota)",
+    "gen.style.label":"Стиль-промпт","gen.lyrics.toggle":"Свои тексты","gen.ref.toggle":"Референс (аудио)",
+    "gen.ref.drop":"MP3/WAV — дроп или клик","gen.ref.from":"С","gen.ref.to":"по",
+    "gen.ref.weight":"Влияние","gen.ref.clear":"✕ Убрать","gen.open.ctor":"Открыть в Конструкторе",
+    "gen.ref.sending":"Загружаем референс…",
     "reftrack.title":"🎵 Референс → Трек","reftrack.badge":"новинка",
     "reftrack.sub":"Загрузи MP3 или запиши мелодию с микрофона — Suno сгенерирует новый трек в том же стиле.",
     "reftrack.file":"📁 Загрузить файл","reftrack.mic":"🎙 Записать с микрофона",
@@ -631,37 +639,129 @@ function openGenModal(prompt, name) {
       <button class="gen-modal-close" id="gen-modal-close">✕</button>
       <h2>${t("gen.title")}</h2>
       <div class="gen-modal-name" id="gen-modal-name"></div>
-      <div class="gen-modal-prompt" id="gen-modal-prompt"></div>
-      ${planInfo?.genLimit > 0 ? `<div class="gen-quota-note muted" style="font-size:0.78em;margin-top:6px">${t("gen.quota.info").replace("{used}", planInfo.genUsed).replace("{limit}", planInfo.genLimit)}</div>` : ""}
-      <div class="gen-opts" style="margin-top:12px">
+      ${planInfo?.genLimit > 0 ? `<div class="gen-quota-note muted" style="font-size:0.78em;margin-top:4px">${t("gen.quota.info").replace("{used}", planInfo.genUsed).replace("{limit}", planInfo.genLimit)}</div>` : ""}
+
+      <div class="gm-field" style="margin-top:10px">
+        <div class="gm-label">${t("gen.style.label")}</div>
+        <textarea id="gm-prompt" class="gm-textarea gm-prompt-area" rows="3" spellcheck="false"></textarea>
+      </div>
+
+      <div class="gen-opts" style="margin-top:8px">
         <label>${t("gen.model")}<select id="gm-mv"><option value="chirp-v5">v5</option><option value="chirp-v5-5">v5.5</option><option value="chirp-v4-5+">v4.5+</option></select></label>
         <label>${t("gen.vocal")}<select id="gm-vocal"><option value="">${t("gen.vocal.any")}</option><option value="Female">${t("gen.vocal.f")}</option><option value="Male">${t("gen.vocal.m")}</option></select></label>
         <label class="check"><input id="gm-instr" type="checkbox" /> ${t("gen.instr")}</label>
       </div>
-      <button id="gen-modal-btn" class="primary" style="margin-top:14px;width:100%">${t("gen.btn")}</button>
+
+      <div class="gm-field" style="margin-top:8px">
+        <input id="gm-title" type="text" class="gm-input" placeholder="${t("gen.title.ph")}" maxlength="80" />
+      </div>
+
+      <details class="gm-details">
+        <summary>${t("gen.lyrics.toggle")}</summary>
+        <textarea id="gm-lyrics" class="gm-textarea" rows="6" placeholder="${t("gen.lyrics.ph")}" maxlength="5000" spellcheck="false"></textarea>
+      </details>
+
+      <details class="gm-details">
+        <summary>${t("gen.ref.toggle")}</summary>
+        <div id="gm-ref-drop" class="gm-ref-drop">
+          <input type="file" id="gm-ref-file" accept="audio/*" style="display:none" />
+          <span>${t("gen.ref.drop")}</span>
+        </div>
+        <div id="gm-ref-info" style="display:none;align-items:center;gap:8px;margin-top:6px">
+          <span id="gm-ref-fname" class="muted" style="font-size:0.82em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1"></span>
+          <button id="gm-ref-clear" class="btn-link" style="white-space:nowrap">${t("gen.ref.clear")}</button>
+        </div>
+        <div id="gm-ref-opts" class="gm-ref-opts" style="display:none">
+          <label class="gm-ref-range">${t("gen.ref.from")} <input id="gm-ref-start" type="number" value="0" min="0" max="119" class="gm-num" /> ${t("gen.ref.to")} <input id="gm-ref-end" type="number" value="30" min="1" max="120" class="gm-num" /> s</label>
+          <label class="gm-weight-row">${t("gen.ref.weight")} <input id="gm-ref-weight" type="range" min="0" max="1" step="0.05" value="0.7" style="flex:1" /> <span id="gm-ref-pct">70%</span></label>
+        </div>
+      </details>
+
+      <div style="margin-top:14px;display:flex;gap:8px;align-items:stretch">
+        <button id="gen-modal-btn" class="primary" style="flex:1">${t("gen.btn")}</button>
+        <button id="gm-ctor-btn" class="gm-ctor-btn" title="${t("gen.open.ctor")}">🎛</button>
+      </div>
       <div id="gen-modal-out" class="output"></div>
     </div>`;
+
+  // ── Close
   $("#gen-modal-close").addEventListener("click", () => modal.classList.remove("open"));
   $("#gen-modal-name").textContent = name || "";
-  $("#gen-modal-prompt").textContent = prompt || "";
+  $("#gm-prompt").value = prompt || "";
   modal.classList.add("open");
 
+  // ── Reference file wiring
+  let refFile = null;
+  const refDrop = $("#gm-ref-drop");
+  const refInput = $("#gm-ref-file");
+  const refInfo = $("#gm-ref-info");
+  const refOpts = $("#gm-ref-opts");
+  function attachFile(f) {
+    if (!f || !f.type.startsWith("audio/")) return;
+    refFile = f;
+    $("#gm-ref-fname").textContent = f.name;
+    refInfo.style.display = "flex";
+    refOpts.style.display = "block";
+    refDrop.style.display = "none";
+  }
+  refDrop.addEventListener("click", () => refInput.click());
+  refDrop.addEventListener("dragover", (e) => { e.preventDefault(); refDrop.classList.add("dragover"); });
+  refDrop.addEventListener("dragleave", () => refDrop.classList.remove("dragover"));
+  refDrop.addEventListener("drop", (e) => { e.preventDefault(); refDrop.classList.remove("dragover"); attachFile(e.dataTransfer.files[0]); });
+  refInput.addEventListener("change", () => attachFile(refInput.files[0]));
+  $("#gm-ref-clear").addEventListener("click", () => {
+    refFile = null; refInput.value = "";
+    refInfo.style.display = "none"; refOpts.style.display = "none"; refDrop.style.display = "flex";
+  });
+  $("#gm-ref-weight").addEventListener("input", (e) => { $("#gm-ref-pct").textContent = Math.round(Number(e.target.value) * 100) + "%"; });
+
+  // ── Constructor button
+  $("#gm-ctor-btn").addEventListener("click", () => {
+    const ctorPreview = document.getElementById("ctor-preview");
+    if (ctorPreview) ctorPreview.textContent = $("#gm-prompt").value || prompt || "";
+    const ctorTab = document.querySelector(".tab[data-tab='constructor']");
+    if (ctorTab) ctorTab.click();
+    modal.classList.remove("open");
+  });
+
+  // ── Generate
   const btn = $("#gen-modal-btn");
   const out = $("#gen-modal-out");
   btn.addEventListener("click", async () => {
+    const tags = ($("#gm-prompt").value || prompt || "").trim();
+    if (!tags) { out.innerHTML = `<div class="error">${t("gen.prompt.empty")}</div>`; return; }
     btn.disabled = true;
-    out.innerHTML = `<div class="spinner">${t("gen.modal.sending")}</div>`;
     try {
-      const data = await aiCall("/api/ai/generate-track", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          tags: prompt,
-          mv: $("#gm-mv").value,
-          vocalGender: $("#gm-vocal").value || undefined,
-          instrumental: $("#gm-instr").checked
-        })
-      });
+      let data;
+      if (refFile) {
+        out.innerHTML = `<div class="spinner">${t("gen.ref.sending")}</div>`;
+        const fd = new FormData();
+        fd.append("audio", refFile);
+        fd.append("tags", tags);
+        fd.append("mv", $("#gm-mv").value);
+        fd.append("startSec", $("#gm-ref-start").value);
+        fd.append("endSec", $("#gm-ref-end").value);
+        fd.append("audioWeight", $("#gm-ref-weight").value);
+        fd.append("instrumental", String($("#gm-instr").checked));
+        if ($("#gm-vocal").value) fd.append("vocalGender", $("#gm-vocal").value);
+        if ($("#gm-lyrics").value.trim()) fd.append("lyrics", $("#gm-lyrics").value.trim());
+        if ($("#gm-title").value.trim()) fd.append("title", $("#gm-title").value.trim());
+        data = await aiCall("/api/ai/reference-generate", { method: "POST", body: fd });
+      } else {
+        out.innerHTML = `<div class="spinner">${t("gen.modal.sending")}</div>`;
+        data = await aiCall("/api/ai/generate-track", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            tags,
+            mv: $("#gm-mv").value,
+            vocalGender: $("#gm-vocal").value || undefined,
+            instrumental: $("#gm-instr").checked,
+            lyrics: $("#gm-lyrics").value.trim() || undefined,
+            title: $("#gm-title").value.trim() || undefined
+          })
+        });
+      }
       if (!data.ok) throw new Error(data.error);
       pollModalTrack(data.jobId, out, btn);
     } catch (err) {
