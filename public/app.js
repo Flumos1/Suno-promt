@@ -923,7 +923,8 @@ function pollModalTrack(jobId, out, btn) {
           </div>`).join("")}</div>`;
       } else if (job.status === "FAILED") {
         clearInterval(iv); btn.disabled = false;
-        out.innerHTML = `<div class="error">${t("gen.modal.fail")}</div>`;
+        const reason = job.failReason ? ` — ${escapeHtml(job.failReason)}` : "";
+        out.innerHTML = `<div class="error">${t("gen.modal.fail")}${reason}</div>`;
       } else if (elapsed > 240) {
         clearInterval(iv); btn.disabled = false;
         out.innerHTML = `<div class="error">${t("gen.modal.timeout")}</div>`;
