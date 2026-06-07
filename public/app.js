@@ -136,6 +136,7 @@ const LANG = {
     "plan.required":"This feature requires a Creator or Pro plan.",
     "plan.required.pro":"This feature requires a Pro plan.",
     "gen.quota.exceeded":"Monthly generation limit reached ({used}/{limit} used). Resets next month.",
+    "gen.quota.info":"{used}/{limit} gen used this month",
     "ai.gen.btn":"🎵 Generate in Suno",
     "gen.modal.sending":"Sending to Suno…","gen.modal.gen":"Suno is generating… {p}","gen.modal.time":"(30–90 sec)",
     "gen.modal.fail":"Suno returned an error","gen.modal.timeout":"Timeout — try again",
@@ -307,6 +308,7 @@ const LANG = {
     "plan.required":"Эта функция доступна на плане Creator или Pro.",
     "plan.required.pro":"Эта функция доступна только на плане Pro.",
     "gen.quota.exceeded":"Месячный лимит генераций исчерпан ({used}/{limit}). Обновится в следующем месяце.",
+    "gen.quota.info":"{used}/{limit} ген использовано в этом месяце",
     "ai.gen.btn":"🎵 Сгенерировать в Suno",
     "gen.modal.sending":"Отправляю в Suno…","gen.modal.gen":"Suno генерирует… {p}","gen.modal.time":"(30–90 сек)",
     "gen.modal.fail":"Suno вернул ошибку","gen.modal.timeout":"Слишком долго — попробуй ещё раз",
@@ -592,6 +594,7 @@ function openGenModal(prompt, name) {
       <h2>${t("gen.title")}</h2>
       <div class="gen-modal-name" id="gen-modal-name"></div>
       <div class="gen-modal-prompt" id="gen-modal-prompt"></div>
+      ${planInfo?.genLimit > 0 ? `<div class="gen-quota-note muted" style="font-size:0.78em;margin-top:6px">${t("gen.quota.info").replace("{used}", planInfo.genUsed).replace("{limit}", planInfo.genLimit)}</div>` : ""}
       <div class="gen-opts" style="margin-top:12px">
         <label>${t("gen.model")}<select id="gm-mv"><option value="chirp-v5">v5</option><option value="chirp-v5-5">v5.5</option><option value="chirp-v4-5+">v4.5+</option></select></label>
         <label>${t("gen.vocal")}<select id="gm-vocal"><option value="">${t("gen.vocal.any")}</option><option value="Female">${t("gen.vocal.f")}</option><option value="Male">${t("gen.vocal.m")}</option></select></label>
@@ -732,6 +735,7 @@ function renderUnlockPill() {
   const unlocked = !!localStorage.getItem(UNLOCK_KEY);
   const pill = $("#unlock-pill");
   pill.classList.toggle("live", unlocked);
+  pill.dataset.plan = planInfo?.plan || "";
   $("#unlock-btn").style.display = unlocked ? "none" : "";
   if (!unlocked) { pill.textContent = t("pill.free"); return; }
   if (planInfo?.plan === "creator" || planInfo?.plan === "pro") {
