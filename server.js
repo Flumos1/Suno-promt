@@ -119,6 +119,16 @@ function publicEntry(c, unlocked) {
 // --- Health check (for Render + uptime monitoring) ---
 app.get("/health", (req, res) => res.json({ status: "ok", ts: Date.now(), catalog: catalog.length }));
 
+// Admin: generate a test token (needs ADMIN_KEY env var)
+app.get("/api/admin/token", (req, res) => {
+  const key = process.env.ADMIN_KEY;
+  if (!key || req.query.key !== key) return res.status(403).json({ error: "forbidden" });
+  const plan = ["creator", "pro"].includes(req.query.plan) ? req.query.plan : "pro";
+  const days = Math.min(Number(req.query.days) || 365, 730);
+  const token = createToken(plan, "owner", days);
+  res.json({ ok: true, token, plan, days });
+});
+
 // --- Status ---
 app.get("/api/status", (req, res) => {
   res.json({ ai: aiEnabled(), provider: activeProvider(), catalogSize: catalog.length, generate: ttapiEnabled(), master: auphonicEnabled() });
