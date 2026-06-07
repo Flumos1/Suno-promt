@@ -206,6 +206,14 @@ button.small { padding: 8px 14px; font-size: 13px; }
 .fchip:hover { color: var(--text); border-color: var(--border-bright); }
 .fchip.active { color: #06060b; background: linear-gradient(90deg, var(--neon), var(--neon2)); border-color: transparent; }
 .fchip .n { opacity: 0.7; font-size: 11px; margin-left: 4px; }
+.genre-pin-icon {
+  margin-left: 5px; font-size: 10px; opacity: 0; color: var(--muted);
+  transition: opacity 0.15s, color 0.15s; cursor: pointer; line-height: 1;
+}
+.fchip:hover .genre-pin-icon { opacity: 1; }
+.genre-pin-icon.pinned { opacity: 1; color: #ffd700; }
+.fchip.genre-pinned { border-color: rgba(255,215,0,0.25); }
+.fchip.genre-pinned:hover { border-color: rgba(255,215,0,0.5); }
 .filter-bottom { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
 .filter-bottom #search { flex: 1; min-width: 180px; }
 .sort-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }

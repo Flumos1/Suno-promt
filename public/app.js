@@ -5,6 +5,17 @@ const api = async (url, opts) => (await fetch(url, opts)).json();
 const GATE_KEY = "siliconsense_token";
 const UNLOCK_KEY = "siliconsense_unlock";
 const SAVED_KEY = "siliconsense_saved";
+const FAV_GENRES_KEY = "ss_fav_genres";
+
+const getFavGenres = () => { try { return new Set(JSON.parse(localStorage.getItem(FAV_GENRES_KEY)) || []); } catch { return new Set(); } };
+const saveFavGenres = (s) => { try { localStorage.setItem(FAV_GENRES_KEY, JSON.stringify([...s])); } catch {} };
+function toggleFavGenre(genre) {
+  const favs = getFavGenres();
+  favs.has(genre) ? favs.delete(genre) : favs.add(genre);
+  saveFavGenres(favs);
+  renderFacets();
+  syncChips();
+}
 
 const state = { language: "", era: "", genre: "", mood: "", q: "", free: false, isNew: false, page: 1, sort: "" };
 const cardCache = new Map(); // id → full card data for artist modal
@@ -540,17 +551,28 @@ function renderFacets() {
   $("#f-era").innerHTML = eraChips +
     `<button class="fchip" data-f="isNew" data-v="1">${t("cat.new")}<span class="n">${facets.isNew}</span></button>` +
     `<button class="fchip" data-f="free" data-v="1">${t("cat.free")}<span class="n">${facets.free}</span></button>`;
-  // Genre row
-  const genres = Object.entries(facets.genres).sort((a, b) => b[1] - a[1]);
+  // Genre row — favorites pinned to top
+  const favGenres = getFavGenres();
+  const genres = Object.entries(facets.genres).sort((a, b) => {
+    const af = favGenres.has(a[0]) ? 1 : 0, bf = favGenres.has(b[0]) ? 1 : 0;
+    return bf !== af ? bf - af : b[1] - a[1];
+  });
   $("#f-genre").innerHTML = `<button class="fchip" data-f="genre" data-v="">${t("cat.genre.all")}</button>` +
-    genres.map(([g, n]) => `<button class="fchip" data-f="genre" data-v="${escapeAttr(g)}">${escapeHtml(g)}<span class="n">${n}</span></button>`).join("");
+    genres.map(([g, n]) => {
+      const fav = favGenres.has(g);
+      return `<button class="fchip${fav ? " genre-pinned" : ""}" data-f="genre" data-v="${escapeAttr(g)}">${escapeHtml(g)}<span class="n">${n}</span><span class="genre-pin-icon${fav ? " pinned" : ""}" data-pin="${escapeAttr(g)}">★</span></button>`;
+    }).join("");
   // Sort row
   const sortOpts = ["","name_az","name_za","bpm_asc","bpm_desc","era_new","era_old"];
   $("#f-sort").innerHTML = `<span class="sort-label">${t("sort.label")}</span>` +
     `<select id="sort-select" class="sort-select">${sortOpts.map(v => `<option value="${v}">${t("sort." + (v||"default"))}</option>`).join("")}</select>`;
   $("#sort-select").value = state.sort;
   $("#sort-select").addEventListener("change", (e) => { state.sort = e.target.value; state.page = 1; loadCatalog(); });
-  $$(".fchip").forEach((chip) => chip.addEventListener("click", () => onFilter(chip)));
+  $$(".fchip").forEach((chip) => chip.addEventListener("click", (e) => {
+    const pin = e.target.closest(".genre-pin-icon");
+    if (pin) { e.stopPropagation(); toggleFavGenre(pin.dataset.pin); return; }
+    onFilter(chip);
+  }));
   syncChips();
 }
 
