@@ -30,6 +30,8 @@ const LANG = {
     "ctor.placeholder":"Pick chips on the left — prompt builds here…",
     "ctor.gen.empty":"Build a prompt first — add genre, mood or instruments",
     "ctor.save.title":"Save to Saved","ctor.saved":"Saved ✓",
+    "ctor.loading.ref":"Reference uploaded, generating… {p}",
+    "ctor.loading.gen":"Suno is generating… {p} <span class=\"muted\">(30–90 sec)</span>",
     "anchor.title":"Vocal Anchor Builder",
     "anchor.sub":"Shape a unique vocal along 5 axes. Add a donor for spirit, not imitation.",
     "anchor.pitch":"Pitch","anchor.timbre":"Timbre","anchor.delivery":"Delivery",
@@ -90,6 +92,9 @@ const LANG = {
     "reftrack.file":"📁 Upload file","reftrack.mic":"🎙 Record from mic",
     "reftrack.drop":"Click or drop reference MP3 / WAV (up to 25MB)",
     "reftrack.start":"🎙 Start recording","reftrack.use":"✓ Use as reference","reftrack.redo":"🔄 Re-record",
+    "ref.upload.required":"Upload an audio file first","ref.mic.required":"Record a mic reference first, then click 'Use'",
+    "ref.loading.upload":"Uploading reference to Suno… <span class=\"muted\">(step 1 of 2)</span>",
+    "ref.loading.gen":"Reference uploaded, Suno is generating… <span id=\"ref-prog\">0%</span> <span class=\"muted\">(30–90 sec)</span>",
     "reftrack.from":"Fragment from","reftrack.to":"to",
     "reftrack.influence":"Reference influence",
     "reftrack.desc.ph":"Style description (optional): add epic strings, darker mood…",
@@ -101,9 +106,12 @@ const LANG = {
     "genome.sub":"Cross-breed 2–3 artists by weight → get a hybrid Suno prompt. Dominant sets the skeleton, others add DNA proportionally.",
     "genome.a1.ph":"Artist 1 (dominant): Drake, Radiohead…","genome.a2.ph":"Artist 2: adds flavor…",
     "genome.a3.ph":"Artist 3: final touch…","genome.add":"+ Artist 3","genome.btn":"🧬 Blend Styles",
+    "genome.artists.required":"Enter at least 2 artists with name and weight","genome.loading":"Splicing DNA: {artists}…",
     "tm.title":"🕰 Style Time Machine",
     "tm.sub":"What would [artist] sound like in [era]? Drake in 1975? Kino in witch house era? Artist signature × production from another time.",
     "tm.artist.ph":"Artist: Drake, Kino, Nirvana, Alla Pugacheva…","tm.era":"Era:",
+    "tm.artist.required":"Enter an artist name","tm.era.required":"Select an era",
+    "tm.loading":"Time Machine launched… transposing {artist} to {era}…",
     "tm.note.ph":"Additional context (optional): dark ambient, lo-fi, USSR…","tm.btn":"🕰 Time-travel",
     "ls.title":"🎼 Lyrics Sync Conductor",
     "ls.sub":"Paste lyrics — AI inserts Suno inline tags [High Energy] [Vocal: raspy] [Drop] by emotional arc. Inline tags work 10× stronger than style field.",
@@ -146,9 +154,11 @@ const LANG = {
     "voice.mic.error":"No microphone access: ","voice.loading":"Whisper is listening… then AI builds the prompt…","voice.heard":"I heard:",
     "unlock.ph":"Unlock code","unlock.btn":"🔓 Unlock","unlock.success":"✓ Unlocked!","unlock.invalid":"Invalid code",
     "playlist.title":"🎵 Playlist Builder","playlist.sub":"Set a style — get 8 coherent tracks with a shared album concept.",
+    "playlist.style.required":"Enter a style",
     "playlist.style.ph":"Style: dark synthwave, female vocal, 80s production…","playlist.theme.ph":"Album theme (opt.): neon city, solitude…",
     "playlist.tracks":"Tracks","playlist.btn":"🎵 Build Playlist","playlist.loading":"AI is building your album…","playlist.copy.all":"Copy all prompts",
     "master.title":"🎚 Track Mastering","master.sub":"Improve Suno track quality via Auphonic: noise cleanup, EQ balance, loudness normalization. 2 hours/month free.",
+    "master.url.required":"Paste an MP3 URL",
     "master.url.ph":"MP3 file URL (e.g. from generated track result)","master.loudness":"Loudness",
     "master.btn":"🎚 Master","master.loading":"Auphonic is mastering…","master.progress":"Mastering… {p}%",
     "master.done":"🎚 Mastering complete","master.download":"⭳ Download mastered MP3","master.fail":"Mastering failed",
@@ -187,6 +197,7 @@ const LANG = {
     "slop.clean":"clean, no clichés found","slop.loading":"AI is rewriting clichés into specifics…",
     "slop.result.label":"Fixed prompt","slop.changes.label":"What changed",
     "tm.from.era":"From {era}","tm.retained":"Retained from {artist}",
+    "ls.lyrics.required":"Paste lyrics to analyse","ls.loading":"Conducting the emotional arc…",
     "ls.result.label":"Lyrics with tags","ls.tags.added":"added","ls.why":"What and why",
     "dna.tech":"Technical data","dna.analysis":"Track analysis",
     "dna.vocals":"Vocals","dna.production":"Production",
@@ -209,6 +220,8 @@ const LANG = {
     "ctor.placeholder":"Выбирай чипы слева — промпт появится здесь…",
     "ctor.gen.empty":"Собери промпт — добавь жанр, настроение или инструменты",
     "ctor.save.title":"Сохранить в Saved","ctor.saved":"Сохранено ✓",
+    "ctor.loading.ref":"Референс загружен, генерирую… {p}",
+    "ctor.loading.gen":"Suno генерирует… {p} <span class=\"muted\">(30–90 сек)</span>",
     "anchor.title":"Конструктор вокала",
     "anchor.sub":"Настрой уникальный вокал по 5 осям. Добавь донора за характер — не за имитацию.",
     "anchor.pitch":"Высота","anchor.timbre":"Тембр","anchor.delivery":"Подача",
@@ -269,6 +282,9 @@ const LANG = {
     "reftrack.file":"📁 Загрузить файл","reftrack.mic":"🎙 Записать с микрофона",
     "reftrack.drop":"Click или drop референсный MP3 / WAV (до 25MB)",
     "reftrack.start":"🎙 Начать запись","reftrack.use":"✓ Использовать как референс","reftrack.redo":"🔄 Перезаписать",
+    "ref.upload.required":"Загрузи аудио-файл","ref.mic.required":"Сначала запиши референс с микрофона и нажми «Использовать»",
+    "ref.loading.upload":"Загружаю референс в Suno… <span class=\"muted\">(шаг 1 из 2)</span>",
+    "ref.loading.gen":"Референс загружен, Suno генерирует трек… <span id=\"ref-prog\">0%</span> <span class=\"muted\">(30–90 сек)</span>",
     "reftrack.from":"Фрагмент с","reftrack.to":"по",
     "reftrack.influence":"Влияние референса",
     "reftrack.desc.ph":"Описание стиля (опционально): add epic strings, darker mood…",
@@ -280,14 +296,18 @@ const LANG = {
     "genome.sub":"Скрести 2–3 артиста по весу → получи гибридный Suno-промпт. Доминирующий задаёт скелет, остальные добавляют ДНК пропорционально.",
     "genome.a1.ph":"Артист 1 (доминирующий): Drake, Radiohead…","genome.a2.ph":"Артист 2: добавляет флейвор…",
     "genome.a3.ph":"Артист 3: финальный флейвор…","genome.add":"+ Артист 3","genome.btn":"🧬 Скрестить стили",
+    "genome.artists.required":"Введи хотя бы 2 артиста с именем и весом","genome.loading":"Скрещиваем ДНК: {artists}…",
     "tm.title":"🕰 Машина времени",
     "tm.sub":"Как бы звучал [артист] в [эпоху]? Drake в 1975? Кино в эпоху витч-хауса? Сигнатура артиста × продакшн другого времени.",
     "tm.artist.ph":"Артист: Drake, Кино, Nirvana, Алла Пугачёва…","tm.era":"Эпоха:",
     "tm.note.ph":"Доп. контекст (опционально): dark ambient, lo-fi, СССР…","tm.btn":"🕰 Перенести в эпоху",
+    "tm.artist.required":"Введи имя артиста","tm.era.required":"Выбери эпоху",
+    "tm.loading":"Машина времени запущена… переносим {artist} в {era}…",
     "ls.title":"🎼 Дирижёр тегов",
     "ls.sub":"Вставь лирику — AI расставит Suno-теги [High Energy] [Vocal: raspy] [Drop] по эмоциональному арку. Inline-теги работают в 10× сильнее style-поля.",
     "ls.style.ph":"Жанр / стиль (опционально): dark pop, Russian rock, trap…",
     "ls.btn":"🎼 Расставить теги",
+    "ls.lyrics.required":"Вставь лирику","ls.loading":"Дирижирую эмоциональным арком…",
     "dna.title":"🔬 ДНК-декодер трека",
     "dna.sub":"Загрузи любой MP3/WAV — Whisper расшифрует лирику, AI определит эру, жанр, инструменты, продакшн и найдёт 3 ближайших артиста из 747 в каталоге. Плюс готовый Suno-промпт.",
     "dna.drop":"Кликни или перетащи аудио (MP3 / WAV / OGG, до 25MB)","dna.btn":"Декодировать ДНК",
@@ -325,9 +345,11 @@ const LANG = {
     "voice.mic.error":"Нет доступа к микрофону: ","voice.loading":"Whisper слушает… затем AI строит промпт…","voice.heard":"Я услышал:",
     "unlock.ph":"Unlock-код","unlock.btn":"🔓 Разблокировать","unlock.success":"✓ Разблокировано!","unlock.invalid":"Неверный код",
     "playlist.title":"🎵 Плейлист-билдер","playlist.sub":"Задай стиль — получи 8 связных треков с единой концепцией альбома.",
+    "playlist.style.required":"Введи стиль",
     "playlist.style.ph":"Стиль: dark synthwave, female vocal, 80s production…","playlist.theme.ph":"Тема альбома (опц.): ночной город, одиночество…",
     "playlist.tracks":"Треков","playlist.btn":"🎵 Собрать плейлист","playlist.loading":"AI собирает альбом…","playlist.copy.all":"Скопировать все промпты",
     "master.title":"🎚 Мастеринг трека","master.sub":"Улучши качество Suno-трека через Auphonic: шумоподавление, EQ, нормализация громкости. Бесплатно 2 ч/мес.",
+    "master.url.required":"Вставь URL MP3",
     "master.url.ph":"URL MP3-файла (напр. из результата генерации)","master.loudness":"Громкость",
     "master.btn":"🎚 Мастеровать","master.loading":"Auphonic обрабатывает…","master.progress":"Мастеринг… {p}%",
     "master.done":"🎚 Мастеринг завершён","master.download":"⭳ Скачать мастер MP3","master.fail":"Ошибка мастеринга",
@@ -1155,7 +1177,7 @@ function download(name, text) {
       if (micSec) micSec.textContent = 0;
       micTimerIv = setInterval(() => { secs++; if (micSec) micSec.textContent = secs; if (secs >= 120) micRecorder.stop(); }, 1000);
     } catch (e) {
-      out.innerHTML = `<div class="error">Нет доступа к микрофону: ${escapeHtml(e.message)}</div>`;
+      out.innerHTML = `<div class="error">${t("voice.mic.error")}${escapeHtml(e.message)}</div>`;
     }
   });
 
@@ -1177,13 +1199,13 @@ function download(name, text) {
     let f = null;
     if (activeMode === "file") {
       f = fileInput?.files[0];
-      if (!f) { out.innerHTML = `<div class="error">Загрузи аудио-файл</div>`; return; }
+      if (!f) { out.innerHTML = `<div class="error">${t("ref.upload.required")}</div>`; return; }
     } else {
-      if (!micBlob) { out.innerHTML = `<div class="error">Сначала запиши референс с микрофона и нажми «Использовать»</div>`; return; }
+      if (!micBlob) { out.innerHTML = `<div class="error">${t("ref.mic.required")}</div>`; return; }
       f = new File([micBlob], "mic-reference.webm", { type: micBlob.type });
     }
     if (!f) return;
-    out.innerHTML = `<div class="spinner">Загружаю референс в Suno… <span class="muted">(шаг 1 из 2)</span></div>`;
+    out.innerHTML = `<div class="spinner">${t("ref.loading.upload")}</div>`;
     btn.disabled = true;
     try {
       const fd = new FormData();
@@ -1200,7 +1222,7 @@ function download(name, text) {
 
       const data = await aiCall("/api/ai/reference-generate", { method: "POST", body: fd });
       if (!data.ok) throw new Error(data.error);
-      out.innerHTML = `<div class="spinner">Референс загружен, Suno генерирует трек… <span id="ref-prog">0%</span> <span class="muted">(30–90 сек)</span></div>`;
+      out.innerHTML = `<div class="spinner">${t("ref.loading.gen")}</div>`;
       pollRef(data.jobId);
     } catch (err) {
       out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
@@ -1232,10 +1254,10 @@ function download(name, text) {
             </div>`).join("")}</div>`;
         } else if (job.status === "FAILED") {
           clearInterval(iv); btn.disabled = false;
-          out.innerHTML = `<div class="error">Ошибка генерации</div>`;
+          out.innerHTML = `<div class="error">${t("gen.modal.fail")}</div>`;
         } else if (elapsed > 300) {
           clearInterval(iv); btn.disabled = false;
-          out.innerHTML = `<div class="error">Слишком долго — попробуй ещё раз</div>`;
+          out.innerHTML = `<div class="error">${t("gen.modal.timeout")}</div>`;
         }
       } catch (e) { clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`; }
     }, 5000);
@@ -1346,9 +1368,9 @@ function download(name, text) {
 
   btn.addEventListener("click", async () => {
     const artist = artistInput.value.trim();
-    if (!artist) { out.innerHTML = `<div class="error">Введи имя артиста</div>`; return; }
-    if (!selectedEra) { out.innerHTML = `<div class="error">Выбери эпоху</div>`; return; }
-    out.innerHTML = `<div class="spinner">Машина времени запущена… Claude переносит ${escapeHtml(artist)} в ${escapeHtml(selectedEra)}…</div>`;
+    if (!artist) { out.innerHTML = `<div class="error">${t("tm.artist.required")}</div>`; return; }
+    if (!selectedEra) { out.innerHTML = `<div class="error">${t("tm.era.required")}</div>`; return; }
+    out.innerHTML = `<div class="spinner">${t("tm.loading").replace("{artist}", escapeHtml(artist)).replace("{era}", escapeHtml(selectedEra))}</div>`;
     btn.disabled = true;
     try {
       const data = await aiCall("/api/ai/time-machine", {
@@ -1408,8 +1430,8 @@ function download(name, text) {
 
   btn.addEventListener("click", async () => {
     const lyrics = lyricsInput.value.trim();
-    if (!lyrics) { out.innerHTML = `<div class="error">Вставь лирику</div>`; return; }
-    out.innerHTML = `<div class="spinner">Дирижирую эмоциональным арком…</div>`;
+    if (!lyrics) { out.innerHTML = `<div class="error">${t("ls.lyrics.required")}</div>`; return; }
+    out.innerHTML = `<div class="spinner">${t("ls.loading")}</div>`;
     btn.disabled = true;
     try {
       const data = await aiCall("/api/ai/lyrics-sync", {
@@ -2022,9 +2044,9 @@ if (transBtn) {
       weight: Number(r.querySelector(".genome-weight").value) || 0
     })).filter((a) => a.name && a.weight > 0);
 
-    if (artists.length < 2) { out.innerHTML = `<div class="error">Введи хотя бы 2 артиста с именем и весом</div>`; return; }
+    if (artists.length < 2) { out.innerHTML = `<div class="error">${t("genome.artists.required")}</div>`; return; }
 
-    out.innerHTML = `<div class="spinner">Скрещиваем ДНК: ${artists.map((a) => a.name).join(" × ")}…</div>`;
+    out.innerHTML = `<div class="spinner">${t("genome.loading").replace("{artists}", artists.map((a) => a.name).join(" × "))}</div>`;
     btn.disabled = true;
     try {
       const data = await aiCall("/api/ai/style-genome", {
@@ -2527,7 +2549,7 @@ if (transBtn) {
         const data = await aiCall("/api/ai/reference-generate", { method: "POST", body: fd });
         if (!data.ok) throw new Error(data.error);
         jobId = data.jobId;
-        out.innerHTML = `<div class="spinner">Референс загружен, генерирую… <span id="ctor-prog">0%</span></div>`;
+        out.innerHTML = `<div class="spinner">${t("ctor.loading.ref").replace("{p}", '<span id="ctor-prog">0%</span>')}</div>`;
       } else {
         const data = await aiCall("/api/ai/generate-track", {
           method: "POST", headers: { "Content-Type": "application/json" },
@@ -2535,7 +2557,7 @@ if (transBtn) {
         });
         if (!data.ok) throw new Error(data.error);
         jobId = data.jobId;
-        out.innerHTML = `<div class="spinner">Suno генерирует… <span id="ctor-prog">0%</span> <span class="muted">(30–90 сек)</span></div>`;
+        out.innerHTML = `<div class="spinner">${t("ctor.loading.gen").replace("{p}", '<span id="ctor-prog">0%</span>')}</div>`;
       }
       let elapsed = 0;
       const iv = setInterval(async () => {
@@ -2556,9 +2578,9 @@ if (transBtn) {
                 </div>
               </div>`).join("")}</div>`;
           } else if (job.status === "FAILED") {
-            clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">Ошибка генерации</div>`;
+            clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">${t("gen.modal.fail")}</div>`;
           } else if (elapsed > 300) {
-            clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">Таймаут — попробуй ещё раз</div>`;
+            clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">${t("gen.modal.timeout")}</div>`;
           }
         } catch(e) { clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">${escapeHtml(e.message)}</div>`; }
       }, 5000);
@@ -2639,7 +2661,7 @@ document.getElementById("lang-toggle")?.addEventListener("click", () => {
     const style = $("#playlist-style").value.trim();
     const theme = $("#playlist-theme").value.trim();
     const count = Number($("#playlist-count").value) || 8;
-    if (!style) { out.innerHTML = `<div class="error">Введи стиль</div>`; return; }
+    if (!style) { out.innerHTML = `<div class="error">${t("playlist.style.required")}</div>`; return; }
     out.innerHTML = `<div class="spinner">${t("playlist.loading")}</div>`;
     btn.disabled = true;
     try {
@@ -2706,7 +2728,7 @@ api("/api/status").then(s => {
 })();
 
 function startMastering(audioUrl, loudness, out, btn) {
-  if (!audioUrl) { out.innerHTML = `<div class="error">Вставь URL MP3</div>`; return; }
+  if (!audioUrl) { out.innerHTML = `<div class="error">${t("master.url.required")}</div>`; return; }
   out.innerHTML = `<div class="spinner">${t("master.loading")}</div>`;
   if (btn) btn.disabled = true;
 
