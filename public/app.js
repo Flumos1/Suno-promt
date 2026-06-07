@@ -562,17 +562,26 @@ function renderFacets() {
       const fav = favGenres.has(g);
       return `<button class="fchip${fav ? " genre-pinned" : ""}" data-f="genre" data-v="${escapeAttr(g)}">${escapeHtml(g)}<span class="n">${n}</span><span class="genre-pin-icon${fav ? " pinned" : ""}" data-pin="${escapeAttr(g)}">★</span></button>`;
     }).join("");
-  // Sort + per-page row
+  // Sort + per-page + view toggle row
   const sortOpts = ["","name_az","name_za","bpm_asc","bpm_desc","era_new","era_old"];
   const pageSizeLabel = currentLang === "ru" ? "По" : "Per page";
+  const isCompact = localStorage.getItem("ss_compact") === "1";
   $("#f-sort").innerHTML = `<span class="sort-label">${t("sort.label")}</span>` +
     `<select id="sort-select" class="sort-select">${sortOpts.map(v => `<option value="${v}">${t("sort." + (v||"default"))}</option>`).join("")}</select>` +
     `<span class="sort-label" style="margin-left:8px">${pageSizeLabel}</span>` +
-    `<select id="page-size-select" class="sort-select"><option value="24">24</option><option value="48">48</option><option value="96">96</option></select>`;
+    `<select id="page-size-select" class="sort-select"><option value="24">24</option><option value="48">48</option><option value="96">96</option></select>` +
+    `<button id="view-toggle" class="sort-select view-toggle-btn${isCompact ? " active" : ""}" title="${currentLang === "ru" ? "Компактный вид" : "Compact view"}">▦</button>`;
   $("#sort-select").value = state.sort;
   $("#page-size-select").value = state.pageSize;
+  if (isCompact) $("#results")?.classList.add("compact");
   $("#sort-select").addEventListener("change", (e) => { state.sort = e.target.value; state.page = 1; loadCatalog(); });
   $("#page-size-select").addEventListener("change", (e) => { state.pageSize = Number(e.target.value); state.page = 1; loadCatalog(); });
+  $("#view-toggle").addEventListener("click", () => {
+    const compact = !$("#results")?.classList.contains("compact");
+    $("#results")?.classList.toggle("compact", compact);
+    localStorage.setItem("ss_compact", compact ? "1" : "0");
+    $("#view-toggle").classList.toggle("active", compact);
+  });
   $$(".fchip").forEach((chip) => chip.addEventListener("click", (e) => {
     const pin = e.target.closest(".genre-pin-icon");
     if (pin) { e.stopPropagation(); toggleFavGenre(pin.dataset.pin); return; }
