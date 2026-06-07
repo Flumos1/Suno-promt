@@ -178,6 +178,7 @@ const LANG = {
     "ls.result.label":"Lyrics with tags","ls.tags.added":"added","ls.why":"What and why",
     "dna.tech":"Technical data","dna.analysis":"Track analysis",
     "dna.vocals":"Vocals","dna.production":"Production",
+    "gen.prompt.empty":"Enter a prompt first",
   },
   ru: {
     "nav.catalog":"⌕ Каталог","nav.anchor":"🎙 Вокал","nav.reference":"♪ Референс",
@@ -343,6 +344,7 @@ const LANG = {
     "ls.result.label":"Лирика с тегами","ls.tags.added":"добавлено","ls.why":"Что и почему",
     "dna.tech":"Технические данные","dna.analysis":"Анализ трека",
     "dna.vocals":"Вокал","dna.production":"Продакшн",
+    "gen.prompt.empty":"Вставь промпт",
   }
 };
 
@@ -1173,9 +1175,9 @@ function download(name, text) {
 
   btn.addEventListener("click", async () => {
     const tags = input.value.trim();
-    if (!tags) { out.innerHTML = `<div class="error">Вставь промпт</div>`; return; }
+    if (!tags) { out.innerHTML = `<div class="error">${t("gen.prompt.empty")}</div>`; return; }
     stopPoll();
-    out.innerHTML = `<div class="spinner">Отправляю в Suno…</div>`;
+    out.innerHTML = `<div class="spinner">${t("gen.modal.sending")}</div>`;
     btn.disabled = true;
     try {
       const data = await aiCall("/api/ai/generate-track", {
@@ -1200,7 +1202,7 @@ function download(name, text) {
 
   function pollTrack(jobId) {
     let elapsed = 0;
-    out.innerHTML = `<div class="spinner">Suno генерирует трек… <span id="gen-prog">0%</span> <span class="muted">(обычно 30–90 сек)</span></div>`;
+    out.innerHTML = `<div class="spinner">${t("gen.modal.gen").replace("{p}", '<span id="gen-prog">0%</span>')} <span class="muted">${t("gen.modal.time")}</span></div>`;
     polling = setInterval(async () => {
       elapsed += 5;
       try {
@@ -1211,10 +1213,10 @@ function download(name, text) {
           out.innerHTML = `<div class="ai-result">${job.musics.map(renderTrack).join("")}</div>`;
         } else if (job.status === "FAILED") {
           stopPoll(); btn.disabled = false;
-          out.innerHTML = `<div class="error">Suno вернул ошибку генерации</div>`;
+          out.innerHTML = `<div class="error">${t("gen.modal.fail")}</div>`;
         } else if (elapsed > 240) {
           stopPoll(); btn.disabled = false;
-          out.innerHTML = `<div class="error">Слишком долго — попробуй ещё раз</div>`;
+          out.innerHTML = `<div class="error">${t("gen.modal.timeout")}</div>`;
         }
       } catch (err) {
         stopPoll(); btn.disabled = false;
