@@ -15,7 +15,7 @@ import { buildSongStructure, aiSongStructure, buildLyricSkeleton, aiLyrics } fro
 import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite, decodeDNA, transcribeAudio, styleTimeMachine, lyricsSyncConduct, styleGenome, buildPlaylist } from "./lib/aiFeatures.js";
 import { aiRateLimit } from "./lib/rateLimit.js";
 import { ttapiEnabled, submitMusic, fetchJob, submitSampleFromBuffer } from "./lib/ttapi.js";
-import { auphonicEnabled, submitMasterJob, getMasterStatus, downloadMasterFile } from "./lib/auphonic.js";
+import { masterTrack } from "./lib/mastering.js";
 import { lemonEnabled, createCheckout, findSubscriptionByEmail, createToken, verifyToken, verifyWebhookSig, planFromVariant } from "./lib/lemon.js";
 
 // Temporary file store for reference audio (TTAPI upload needs a public URL).
@@ -139,7 +139,7 @@ app.get("/api/admin/token", (req, res) => {
 
 // --- Status ---
 app.get("/api/status", (req, res) => {
-  res.json({ ai: aiEnabled(), provider: activeProvider(), catalogSize: catalog.length, generate: ttapiEnabled(), master: auphonicEnabled() });
+  res.json({ ai: aiEnabled(), provider: activeProvider(), catalogSize: catalog.length, generate: ttapiEnabled(), master: true });
 });
 
 // --- Facets (counts for the filter UI) ---
@@ -592,67 +592,58 @@ app.post("/api/ai/playlist-build", aiRateLimit, async (req, res) => {
   }
 });
 
-// ─── Auphonic Mastering ──────────────────────────────────────────────────
-// In-memory job store: jobId → { createdAt }
+// ─── FFmpeg Mastering ─────────────────────────────────────────────────────
+// Jobs stored in memory: jobId → { status, buf?, error, createdAt }
+// ffmpeg processing takes ~5-15s per track — well within Render's timeout.
 const masterJobs = new Map();
 setInterval(() => {
-  const cutoff = Date.now() - 24 * 3600 * 1000;
+  const cutoff = Date.now() - 2 * 3600 * 1000;
   for (const [id, j] of masterJobs) if (j.createdAt < cutoff) masterJobs.delete(id);
 }, 3600 * 1000).unref();
 
 app.post("/api/ai/master-track", requirePlan("pro"), async (req, res) => {
-  if (!auphonicEnabled()) return res.status(503).json({ ok: false, error: "Mastering not configured (AUPHONIC_USER/PASS missing)" });
   const audioUrl = String(req.body?.audioUrl || "").trim();
   const loudness = String(req.body?.loudness || "streaming");
   if (!audioUrl) return res.status(400).json({ ok: false, error: "audioUrl required" });
   try { const u = new URL(audioUrl); if (!["http:", "https:"].includes(u.protocol)) throw new Error(); }
   catch { return res.status(400).json({ ok: false, error: "audioUrl must be a valid http(s) URL" }); }
-  try {
-    const { jobId } = await submitMasterJob(audioUrl, { loudness });
-    masterJobs.set(jobId, { createdAt: Date.now() });
-    res.json({ ok: true, jobId });
-  } catch (err) {
-    console.error("[auphonic-submit]", err.message);
-    res.status(500).json({ ok: false, error: err.message });
-  }
+
+  const { randomUUID } = await import("node:crypto");
+  const jobId = randomUUID();
+  masterJobs.set(jobId, { status: "Processing", createdAt: Date.now() });
+  res.json({ ok: true, jobId });
+
+  // Run ffmpeg in background — result stored in Map for client to download.
+  (async () => {
+    try {
+      const buf = await masterTrack(audioUrl, { loudness });
+      masterJobs.set(jobId, { status: "Done", buf, createdAt: Date.now() });
+      console.log(`[mastering] done jobId=${jobId} size=${buf.length}`);
+    } catch (err) {
+      masterJobs.set(jobId, { status: "Failed", error: err.message, createdAt: Date.now() });
+      console.error("[mastering]", err.message);
+    }
+  })();
 });
 
 app.get("/api/ai/master-status", async (req, res) => {
-  if (!auphonicEnabled()) return res.status(503).json({ ok: false, error: "Not configured" });
   const jobId = String(req.query.jobId || "").trim();
   if (!jobId) return res.status(400).json({ ok: false, error: "Missing jobId" });
-  // No in-memory Map check — Auphonic UUID is the authorisation. This makes the endpoint
-  // resilient to server restarts (which clear masterJobs) while a poll is in flight.
-  try {
-    const result = await getMasterStatus(jobId);
-    // Replace the direct Auphonic URL with our proxy so the browser never needs auth.
-    if (result.downloadUrl) {
-      result.downloadUrl = `/api/ai/master-download?jobId=${encodeURIComponent(jobId)}`;
-    }
-    res.json({ ok: true, ...result });
-  } catch (err) {
-    console.error("[auphonic-status]", err.message);
-    res.status(500).json({ ok: false, error: err.message });
-  }
+  const job = masterJobs.get(jobId);
+  if (!job) return res.status(404).json({ ok: false, error: "Unknown job (server may have restarted)" });
+  if (job.status === "Processing") return res.json({ ok: true, status: "Running", progress: 50 });
+  if (job.status === "Failed")     return res.json({ ok: true, status: "Failed", error: job.error });
+  return res.json({ ok: true, status: "Success", downloadUrl: `/api/ai/master-download?jobId=${encodeURIComponent(jobId)}` });
 });
 
 app.get("/api/ai/master-download", async (req, res) => {
-  if (!auphonicEnabled()) return res.status(503).end();
   const jobId = String(req.query.jobId || "").trim();
   if (!jobId) return res.status(400).end();
-  try {
-    const status = await getMasterStatus(jobId);
-    if (status.status !== "Success" || !status.downloadUrl) {
-      return res.status(404).json({ ok: false, error: "Not ready" });
-    }
-    const buf = await downloadMasterFile(status.downloadUrl);
-    res.setHeader("Content-Type", "audio/mpeg");
-    res.setHeader("Content-Disposition", 'inline; filename="mastered.mp3"');
-    res.end(buf);
-  } catch (err) {
-    console.error("[auphonic-download]", err.message);
-    res.status(500).json({ ok: false, error: err.message });
-  }
+  const job = masterJobs.get(jobId);
+  if (!job?.buf) return res.status(404).json({ ok: false, error: "Not ready or expired" });
+  res.setHeader("Content-Type", "audio/mpeg");
+  res.setHeader("Content-Disposition", 'inline; filename="mastered.mp3"');
+  res.end(job.buf);
 });
 
 // ─── LemonSqueezy Subscription Routes ────────────────────────────────────
