@@ -179,6 +179,7 @@ const LANG = {
     "dna.tech":"Technical data","dna.analysis":"Track analysis",
     "dna.vocals":"Vocals","dna.production":"Production",
     "gen.prompt.empty":"Enter a prompt first",
+    "saved.clear.confirm":"Clear all saved prompts?",
   },
   ru: {
     "nav.catalog":"⌕ Каталог","nav.anchor":"🎙 Вокал","nav.reference":"♪ Референс",
@@ -345,6 +346,7 @@ const LANG = {
     "dna.tech":"Технические данные","dna.analysis":"Анализ трека",
     "dna.vocals":"Вокал","dna.production":"Продакшн",
     "gen.prompt.empty":"Вставь промпт",
+    "saved.clear.confirm":"Очистить все сохранённые промпты?",
   }
 };
 
@@ -453,7 +455,7 @@ function wireCopyButtons(root) {
 
 /* ---------- Saved prompts ---------- */
 const getSaved = () => { try { return JSON.parse(localStorage.getItem(SAVED_KEY)) || []; } catch { return []; } };
-const setSaved = (arr) => localStorage.setItem(SAVED_KEY, JSON.stringify(arr));
+const setSaved = (arr) => { try { localStorage.setItem(SAVED_KEY, JSON.stringify(arr)); } catch { /* quota exceeded */ } };
 const isSaved = (id) => getSaved().some((s) => s.id === id);
 function toggleSave(item) {
   const arr = getSaved();
@@ -827,7 +829,7 @@ function renderSaved() {
     setSaved(getSaved().filter((s) => s.id !== btn.dataset.del)); renderSaved();
   }));
 }
-$("#clear-saved").addEventListener("click", () => { if (confirm("Clear all saved prompts?")) { setSaved([]); renderSaved(); } });
+$("#clear-saved").addEventListener("click", () => { if (confirm(t("saved.clear.confirm"))) { setSaved([]); renderSaved(); } });
 $("#export-json").addEventListener("click", () => download("siliconsense-prompts.json", JSON.stringify(getSaved(), null, 2)));
 $("#export-txt").addEventListener("click", () =>
   download("siliconsense-prompts.txt", getSaved().map((s) => `### ${s.name} (${s.genre})\n${s.prompt}`).join("\n\n")));
