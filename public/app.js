@@ -3015,13 +3015,21 @@ function pollMasterJob(jobId, out, btn) {
 
 // Expose for inline "Master this track" buttons in track results
 window._startMastering = (audioUrl) => {
-  const card = $("#master-card");
-  const urlInput = $("#master-url");
-  if (urlInput) urlInput.value = audioUrl;
-  if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
-  const out = $("#master-out");
-  const btn = $("#master-btn");
-  if (out && btn) startMastering(audioUrl, $("#master-loudness")?.value || "streaming", out, btn);
+  // Close generate modal if open
+  const genModal = $("#gen-modal");
+  if (genModal) genModal.classList.remove("open");
+  // Switch to AI Lab tab
+  document.querySelector(".tab[data-tab='ailab']")?.click();
+  // Give the tab time to become visible, then scroll + start
+  setTimeout(() => {
+    const urlInput = $("#master-url");
+    if (urlInput) urlInput.value = audioUrl;
+    const card = $("#master-card");
+    if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
+    const out = $("#master-out");
+    const btn = $("#master-btn");
+    if (out && btn) startMastering(audioUrl, $("#master-loudness")?.value || "streaming", out, btn);
+  }, 80);
 };
 
 /* ---------- Scroll-to-top button ---------- */
