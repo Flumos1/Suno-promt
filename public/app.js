@@ -171,6 +171,7 @@ const LANG = {
     "pricing.pro.f5":"✓ Priority support","pricing.pro.btn":"Subscribe Pro",
     "pricing.activate.sub":"Already subscribed? Enter your payment email to activate:",
     "pricing.activate.btn":"Activate","pricing.activate.link":"Already subscribed? Activate →",
+    "reftrack.rec.size":"Recording: {n} KB","reftrack.rec.ready":"· ready to use ✓",
   },
   ru: {
     "nav.catalog":"⌕ Каталог","nav.anchor":"🎙 Вокал","nav.reference":"♪ Референс",
@@ -329,6 +330,7 @@ const LANG = {
     "pricing.pro.f5":"✓ Приоритетная поддержка","pricing.pro.btn":"Подписка Pro",
     "pricing.activate.sub":"Уже подписан? Введи email оплаты для активации:",
     "pricing.activate.btn":"Активировать","pricing.activate.link":"Уже подписан? Активировать →",
+    "reftrack.rec.size":"Запись: {n} KB","reftrack.rec.ready":"· готово к отправке ✓",
   }
 };
 
@@ -1044,10 +1046,10 @@ function download(name, text) {
         micTimer?.classList.add("hidden");
         micWave?.classList.add("hidden");
         clearInterval(micTimerIv);
-        if (micName) micName.textContent = `Запись: ${Math.round(micBlob.size / 1024)} KB`;
+        if (micName) micName.textContent = t("reftrack.rec.size").replace("{n}", Math.round(micBlob.size / 1024));
       };
       micRecorder.start();
-      micBtn.textContent = "⏹ Стоп";
+      micBtn.textContent = t("voice.record.stop");
       micTimer?.classList.remove("hidden");
       micWave?.classList.remove("hidden");
       let secs = 0;
@@ -1063,11 +1065,11 @@ function download(name, text) {
     options?.classList.remove("hidden");
     const f = new File([micBlob], "mic-reference.webm", { type: micBlob.type });
     loadRefAudio(f);
-    if (micName) micName.textContent += " · готово к отправке ✓";
+    if (micName) micName.textContent += " " + t("reftrack.rec.ready");
   });
 
   micRedoBtn?.addEventListener("click", () => {
-    micBtn.textContent = "🎙 Начать запись";
+    micBtn.textContent = t("reftrack.start");
     resetMic();
   });
 
@@ -2369,13 +2371,13 @@ if (transBtn) {
         refBlob = new Blob(micChunks, { type: "audio/webm" });
         const ma = document.getElementById("ctor-mic-audio"); if (ma) ma.src = URL.createObjectURL(refBlob);
         document.getElementById("ctor-mic-ready")?.classList.remove("hidden");
-        ctorMicBtn.textContent = "🎙 Запись";
+        ctorMicBtn.textContent = t("ctor.mic.record");
         document.getElementById("ctor-mic-timer")?.classList.add("hidden");
         document.getElementById("ctor-mic-wave")?.classList.add("hidden");
         clearInterval(micTimerIv);
       };
       micRecorder.start();
-      ctorMicBtn.textContent = "⏹ Стоп";
+      ctorMicBtn.textContent = t("voice.record.stop");
       document.getElementById("ctor-mic-timer")?.classList.remove("hidden");
       document.getElementById("ctor-mic-wave")?.classList.remove("hidden");
       let secs = 0; const secEl = document.getElementById("ctor-mic-sec");
@@ -2631,7 +2633,7 @@ function pollMasterJob(jobId, out, btn) {
       } else {
         out.innerHTML = `<div class="spinner">${t("master.progress").replace("{p}", prog)}</div>`;
       }
-      if (elapsed > 300) { clearInterval(iv); if (btn) btn.disabled = false; out.innerHTML = `<div class="error">Timeout</div>`; }
+      if (elapsed > 300) { clearInterval(iv); if (btn) btn.disabled = false; out.innerHTML = `<div class="error">${t("gen.modal.timeout")}</div>`; }
     } catch (err) {
       clearInterval(iv);
       if (btn) btn.disabled = false;
