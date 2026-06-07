@@ -661,7 +661,7 @@ code { font-family: ui-monospace, monospace; }
   font-family: ui-monospace, monospace;
 }
 .ctor-preview:focus { border-color: var(--neon2); }
-.ctor-preview:empty::before { content: "Выбирай чипы слева — промпт появится здесь…"; color: var(--muted); pointer-events: none; }
+.ctor-preview:empty::before { content: var(--ctor-placeholder, "Pick chips → prompt builds here…"); color: var(--muted); pointer-events: none; }
 
 .ctor-bar-row { display: flex; align-items: center; gap: 8px; margin: 8px 0 4px; }
 .ctor-bar-wrap { flex: 1; height: 4px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; }

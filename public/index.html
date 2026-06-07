@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SiliconSense — Suno AI Prompt Catalog</title>
-  <link rel="stylesheet" href="styles.css?v=15" />
+  <link rel="stylesheet" href="styles.css?v=16" />
 </head>
 <body>
   <div class="bg-grid"></div>
@@ -494,8 +494,8 @@
             <div class="wf-cursor" id="ref-wf-cursor"></div>
           </div>
           <div class="ref-time-row">
-            <label><span data-i18n="reftrack.from">Фрагмент с</span> <input id="ref-start" type="number" min="0" value="0" />с</label>
-            <label><span data-i18n="reftrack.to">по</span> <input id="ref-end" type="number" min="1" value="30" />с</label>
+            <label><span data-i18n="reftrack.from">Фрагмент с</span> <input id="ref-start" type="number" min="0" step="1" value="0" />с</label>
+            <label><span data-i18n="reftrack.to">по</span> <input id="ref-end" type="number" min="1" step="1" value="30" />с</label>
             <label class="ref-weight-label"><span data-i18n="reftrack.influence">Влияние референса</span>
               <input id="ref-weight" type="range" min="0.1" max="1" step="0.1" value="0.7" />
               <span id="ref-weight-val">0.7</span>
@@ -762,6 +762,6 @@
   </div>
 </div>
 
-  <script src="app.js?v=15"></script>
+  <script src="app.js?v=16"></script>
 </body>
 </html>

@@ -24,6 +24,10 @@ const LANG = {
     "cat.title":"Prompt Catalog",
     "cat.sub":"Ready 60–90 word style descriptions: era, instruments, production, vocal anchor. No artist names — passes Suno's filter.",
     "cat.unlock":"🔓 Unlock all","cat.search.ph":"Search style, genre, sub-genre…","cat.search.btn":"Search","cat.mood.all":"All moods",
+    "cat.lang.all":"All","cat.era.all":"All eras","cat.new":"New","cat.free":"★ Free","cat.genre.all":"All genres",
+    "saved.empty":"Nothing saved yet. Tap ★ on any prompt to save it here.",
+    "pager.prev":"← Prev","pager.next":"Next →","pager.info":"Page {p} / {t} · {n} styles",
+    "ctor.placeholder":"Pick chips on the left — prompt builds here…",
     "anchor.title":"Vocal Anchor Builder",
     "anchor.sub":"Shape a unique vocal along 5 axes. Add a donor for spirit, not imitation.",
     "anchor.pitch":"Pitch","anchor.timbre":"Timbre","anchor.delivery":"Delivery",
@@ -142,6 +146,14 @@ const LANG = {
     "master.btn":"🎚 Master","master.loading":"Auphonic is mastering…","master.progress":"Mastering… {p}%",
     "master.done":"🎚 Mastering complete","master.download":"⭳ Download mastered MP3","master.fail":"Mastering failed",
     "master.btn.inline":"🎚 Master this track",
+    "card.badge.new":"New","copy.prompt":"Copy prompt",
+    "cat.noresults":"No styles match these filters.",
+    "pill.unlocked":"✓ full access","pill.free":"🔒 free tier",
+    "saved.count":"{n} saved",
+    "card.gen.btn":"🎵 Create Track","card.gen.title":"Generate track in Suno",
+    "analyze.closest":"3 closest catalog styles",
+    "card.locked":"LOCKED","card.locked.hint":"Unlock all to reveal this prompt",
+    "copy":"Copy",
   },
   ru: {
     "nav.catalog":"⌕ Каталог","nav.anchor":"🎙 Вокал","nav.reference":"♪ Референс",
@@ -153,6 +165,10 @@ const LANG = {
     "cat.title":"Каталог промптов",
     "cat.sub":"Готовые описания стилей 60–90 слов: эпоха, инструменты, продакшн, вокал. Без имён артистов — проходит фильтр Suno.",
     "cat.unlock":"🔓 Открыть всё","cat.search.ph":"Поиск стиля, жанра, сабжанра…","cat.search.btn":"Найти","cat.mood.all":"Все настроения",
+    "cat.lang.all":"Все","cat.era.all":"Все эпохи","cat.new":"Новинки","cat.free":"★ Бесплатные","cat.genre.all":"Все жанры",
+    "saved.empty":"Ничего не сохранено. Нажми ★ на промпт чтобы сохранить его.",
+    "pager.prev":"← Назад","pager.next":"Вперёд →","pager.info":"Стр. {p} / {t} · {n} стилей",
+    "ctor.placeholder":"Выбирай чипы слева — промпт появится здесь…",
     "anchor.title":"Конструктор вокала",
     "anchor.sub":"Настрой уникальный вокал по 5 осям. Добавь донора за характер — не за имитацию.",
     "anchor.pitch":"Высота","anchor.timbre":"Тембр","anchor.delivery":"Подача",
@@ -271,6 +287,14 @@ const LANG = {
     "master.btn":"🎚 Мастеровать","master.loading":"Auphonic обрабатывает…","master.progress":"Мастеринг… {p}%",
     "master.done":"🎚 Мастеринг завершён","master.download":"⭳ Скачать мастер MP3","master.fail":"Ошибка мастеринга",
     "master.btn.inline":"🎚 Мастеровать трек",
+    "card.badge.new":"Новинка","copy.prompt":"Копировать",
+    "cat.noresults":"Нет стилей, подходящих под фильтры.",
+    "pill.unlocked":"✓ полный доступ","pill.free":"🔒 бесплатный",
+    "saved.count":"{n} сохранено",
+    "card.gen.btn":"🎵 Создать трек","card.gen.title":"Создать трек в Suno",
+    "analyze.closest":"3 ближайших стиля из каталога",
+    "card.locked":"ЗАБЛОКИРОВАНО","card.locked.hint":"Открой всё чтобы увидеть промпт",
+    "copy":"Копировать",
   }
 };
 
@@ -299,6 +323,13 @@ function applyLang(lang) {
   }
   // update constructor preview hints
   if (typeof window._ctorUpdate === "function") window._ctorUpdate();
+  // re-render filter chips in new language
+  if (facets) renderFacets();
+  // update constructor placeholder via CSS variable
+  document.documentElement.style.setProperty("--ctor-placeholder", `"${t("ctor.placeholder")}"`);
+  // update dynamic pill and saved count (only when app is shown)
+  if ($("#unlock-pill")) renderUnlockPill();
+  if ($("#saved-count")) renderSaved();
 }
 
 function setTheme(theme) {
@@ -382,27 +413,31 @@ function toggleSave(item) {
 }
 
 /* ---------- Facets & filters ---------- */
-async function loadFacets() {
-  facets = await api("/api/facets");
-  $("#cat-total").textContent = `${facets.total} styles`;
+function renderFacets() {
+  if (!facets) return;
   // Language row
-  const langs = [{ code: "", label: "Все" }, ...facets.languages.sort((a, b) => b.n - a.n)];
+  const langs = [{ code: "", label: t("cat.lang.all") }, ...facets.languages.sort((a, b) => b.n - a.n)];
   $("#f-language").innerHTML = langs.map((l) =>
     `<button class="fchip" data-f="language" data-v="${escapeAttr(l.code)}">${escapeHtml(l.label)}${l.n ? `<span class="n">${l.n}</span>` : ""}</button>`).join("");
   // Era row
   const eras = ["", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s", "2020s"];
   const eraChips = eras.map((e) =>
-    `<button class="fchip" data-f="era" data-v="${e}">${e || "Все эпохи"}</button>`).join("");
+    `<button class="fchip" data-f="era" data-v="${e}">${e || t("cat.era.all")}</button>`).join("");
   $("#f-era").innerHTML = eraChips +
-    `<button class="fchip" data-f="isNew" data-v="1">Новинки<span class="n">${facets.isNew}</span></button>` +
-    `<button class="fchip" data-f="free" data-v="1">★ Бесплатные<span class="n">${facets.free}</span></button>`;
+    `<button class="fchip" data-f="isNew" data-v="1">${t("cat.new")}<span class="n">${facets.isNew}</span></button>` +
+    `<button class="fchip" data-f="free" data-v="1">${t("cat.free")}<span class="n">${facets.free}</span></button>`;
   // Genre row
   const genres = Object.entries(facets.genres).sort((a, b) => b[1] - a[1]);
-  $("#f-genre").innerHTML = `<button class="fchip" data-f="genre" data-v="">Все жанры</button>` +
+  $("#f-genre").innerHTML = `<button class="fchip" data-f="genre" data-v="">${t("cat.genre.all")}</button>` +
     genres.map(([g, n]) => `<button class="fchip" data-f="genre" data-v="${escapeAttr(g)}">${escapeHtml(g)}<span class="n">${n}</span></button>`).join("");
-
   $$(".fchip").forEach((chip) => chip.addEventListener("click", () => onFilter(chip)));
   syncChips();
+}
+
+async function loadFacets() {
+  facets = await api("/api/facets");
+  $("#cat-total").textContent = `${facets.total} styles`;
+  renderFacets();
 }
 
 function onFilter(chip) {
@@ -435,7 +470,7 @@ function cardHTML(card, source) {
   const badges = [
     `<span class="cbadge">${escapeHtml(card.era || "")}</span>`,
     `<span class="cbadge lang">${escapeHtml((card.language || "").toUpperCase())}</span>`,
-    card.isNew ? '<span class="cbadge new">Новинка</span>' : "",
+    card.isNew ? `<span class="cbadge new">${t("card.badge.new")}</span>` : "",
     card.free ? '<span class="cbadge free">FREE</span>' : ""
   ].join("");
   const metaLine = [card.genre, card.key, card.bpm ? card.bpm + " BPM" : null].filter(Boolean).join(" · ");
@@ -446,11 +481,11 @@ function wrapCard(card, badgesHTML, metaLine, prompt, locked, subgenre) {
   const saved = isSaved(card.id);
   const body = locked
     ? `<div class="prompt">${"locked ".repeat(14)}</div>
-       <div class="lock-overlay"><span class="lk">🔒</span><b>ЗАБЛОКИРОВАНО</b><small>Unlock all to reveal this prompt</small></div>`
+       <div class="lock-overlay"><span class="lk">🔒</span><b>${t("card.locked")}</b><small>${t("card.locked.hint")}</small></div>`
     : `<div class="prompt">${escapeHtml(prompt)}</div>
        <div class="card-actions">
-         <button class="copy" data-prompt="${escapeAttr(prompt)}">Copy prompt</button>
-         ${(!locked && canGenerate) ? `<button class="gen-track-btn" data-prompt="${escapeAttr(prompt)}" data-name="${escapeAttr(card.name)}" title="Сгенерировать трек в Suno">🎵 Создать трек</button>` : ""}
+         <button class="copy" data-prompt="${escapeAttr(prompt)}">${t("copy.prompt")}</button>
+         ${(!locked && canGenerate) ? `<button class="gen-track-btn" data-prompt="${escapeAttr(prompt)}" data-name="${escapeAttr(card.name)}" title="${t("card.gen.title")}">${t("card.gen.btn")}</button>` : ""}
        </div>`;
   return `
     <div class="card ${locked ? "locked" : ""}">
@@ -600,7 +635,7 @@ async function loadCatalog() {
   const data = await api("/api/catalog?" + qs());
   results.innerHTML = data.results.length
     ? data.results.map((c) => cardHTML(c, "catalog")).join("")
-    : `<p class="muted">No styles match these filters.</p>`;
+    : `<p class="muted">${t("cat.noresults")}</p>`;
   wireCards(results);
   renderPager(data);
 }
@@ -608,9 +643,9 @@ async function loadCatalog() {
 function renderPager(data) {
   if (data.pages <= 1) { $("#pager").innerHTML = ""; return; }
   $("#pager").innerHTML = `
-    <button id="prev" ${data.page <= 1 ? "disabled" : ""}>← Prev</button>
-    <span class="pinfo">Page ${data.page} / ${data.pages} · ${data.total} styles</span>
-    <button id="next" ${data.page >= data.pages ? "disabled" : ""}>Next →</button>`;
+    <button id="prev" ${data.page <= 1 ? "disabled" : ""}>${t("pager.prev")}</button>
+    <span class="pinfo">${t("pager.info").replace("{p}", data.page).replace("{t}", data.pages).replace("{n}", data.total)}</span>
+    <button id="next" ${data.page >= data.pages ? "disabled" : ""}>${t("pager.next")}</button>`;
   const prev = $("#prev"), next = $("#next");
   if (prev) prev.onclick = () => { state.page--; loadCatalog(); window.scrollTo({ top: 0, behavior: "smooth" }); };
   if (next) next.onclick = () => { state.page++; loadCatalog(); window.scrollTo({ top: 0, behavior: "smooth" }); };
@@ -624,18 +659,19 @@ $("#f-mood").addEventListener("change", () => { state.mood = $("#f-mood").value;
 function renderUnlockPill() {
   const unlocked = !!localStorage.getItem(UNLOCK_KEY);
   const pill = $("#unlock-pill");
-  pill.textContent = unlocked ? "✓ full access" : "🔒 free tier";
+  pill.textContent = unlocked ? t("pill.unlocked") : t("pill.free");
   pill.classList.toggle("live", unlocked);
   $("#unlock-btn").style.display = unlocked ? "none" : "";
 }
-$("#unlock-btn").addEventListener("click", async () => {
-  const code = prompt("Enter unlock code (demo: SILICON-PRO or UNLOCK-ALL):");
-  if (!code) return;
-  const data = await api("/api/unlock", {
-    method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code })
-  });
-  if (data.ok) { localStorage.setItem(UNLOCK_KEY, data.token); renderUnlockPill(); loadCatalog(); }
-  else alert(data.error || "Invalid unlock code");
+$("#unlock-btn").addEventListener("click", () => {
+  const modal = document.getElementById("pricing-modal");
+  const activatePanel = document.getElementById("pricing-activate");
+  const showActivate = document.getElementById("show-activate");
+  if (modal) {
+    modal.style.display = "flex";
+    if (activatePanel) activatePanel.style.display = "block";
+    if (showActivate) showActivate.style.display = "none";
+  }
 });
 
 /* ---------- Vocal Anchor ---------- */
@@ -645,7 +681,7 @@ $("#anchor-btn").addEventListener("click", async () => {
   const data = await api("/api/vocal-anchor", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
   const out = $("#anchor-out");
   out.innerHTML = `<h4>Vocal anchor</h4><div class="prompt">${escapeHtml(data.suno)}</div>
-    <button class="copy" data-prompt="${escapeAttr(data.suno)}" style="margin-top:12px">Copy</button>`;
+    <button class="copy" data-prompt="${escapeAttr(data.suno)}" style="margin-top:12px">${t("copy")}</button>`;
   wireCopyButtons(out);
 });
 
@@ -678,8 +714,8 @@ $("#analyze-btn").addEventListener("click", async () => {
   out.innerHTML = `<h4>Detected ${modeTag}</h4>
     <div class="metagrid">${cells.map(([k, v]) => `<div><b>${k}</b>${escapeHtml(String(v))}</div>`).join("")}</div>
     <h4>Suno prompt</h4><div class="prompt">${escapeHtml(data.prompt)}</div>
-    <button class="copy" data-prompt="${escapeAttr(data.prompt)}" style="margin:12px 0">Copy prompt</button>
-    <h4>3 closest catalog styles</h4>
+    <button class="copy" data-prompt="${escapeAttr(data.prompt)}" style="margin:12px 0">${t("copy.prompt")}</button>
+    <h4>${t("analyze.closest")}</h4>
     <div class="closest">${data.closest.map((a) => `<div class="chip">${escapeHtml(a.name)}<small>${escapeHtml(a.genre)}</small></div>`).join("")}</div>`;
   wireCopyButtons(out);
 });
@@ -694,7 +730,7 @@ $("#cover-btn").addEventListener("click", async () => {
   out.innerHTML = `<h4>Palette</h4>
     <div class="swatches">${data.palette.map((c) => `<div class="swatch" style="background:${escapeAttr(c)}"></div>`).join("")}</div>
     <h4>Concept (2048×2048)</h4><div class="prompt">${escapeHtml(data.concept)}</div>
-    <button class="copy" data-prompt="${escapeAttr(data.concept)}" style="margin-top:12px">Copy concept</button>`;
+    <button class="copy" data-prompt="${escapeAttr(data.concept)}" style="margin-top:12px">${t("copy")}</button>`;
   wireCopyButtons(out);
 });
 
@@ -705,7 +741,7 @@ $("#structure-btn").addEventListener("click", async () => {
   const data = await api("/api/song-structure", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
   const tag = data.mode === "ai" ? '<span class="mode-tag">AI</span>' : '<span class="mode-tag">template</span>';
   out.innerHTML = `<h4>Arrangement ${tag}</h4><pre>${escapeHtml(data.suno)}</pre>
-    <button class="copy" data-prompt="${escapeAttr(data.suno)}" style="margin-top:12px">Copy</button>`;
+    <button class="copy" data-prompt="${escapeAttr(data.suno)}" style="margin-top:12px">${t("copy")}</button>`;
   wireCopyButtons(out);
 });
 
@@ -717,16 +753,16 @@ $("#lyrics-btn").addEventListener("click", async () => {
   const data = await api("/api/lyrics", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
   const tag = data.mode === "ai" ? '<span class="mode-tag">AI</span>' : '<span class="mode-tag">skeleton (add AI key for full lyrics)</span>';
   out.innerHTML = `<h4>Lyrics ${tag}</h4><pre>${escapeHtml(data.lyrics)}</pre>
-    <button class="copy" data-prompt="${escapeAttr(data.lyrics)}" style="margin-top:12px">Copy</button>`;
+    <button class="copy" data-prompt="${escapeAttr(data.lyrics)}" style="margin-top:12px">${t("copy")}</button>`;
   wireCopyButtons(out);
 });
 
 /* ---------- Saved tab ---------- */
 function renderSaved() {
   const arr = getSaved();
-  $("#saved-count").textContent = `${arr.length} saved`;
+  $("#saved-count").textContent = t("saved.count").replace("{n}", arr.length);
   const list = $("#saved-list");
-  if (!arr.length) { list.innerHTML = `<p class="muted">Nothing saved yet. Tap ★ on any prompt to keep it here.</p>`; return; }
+  if (!arr.length) { list.innerHTML = `<p class="muted">${t("saved.empty")}</p>`; return; }
   list.innerHTML = arr.map((s) => `
     <div class="card">
       <h3>${escapeHtml(s.name)}
@@ -734,7 +770,7 @@ function renderSaved() {
       </h3>
       <div class="meta">${escapeHtml(s.genre || "")}</div>
       <div class="prompt">${escapeHtml(s.prompt)}</div>
-      <button class="copy" data-prompt="${escapeAttr(s.prompt)}" style="margin-top:12px">Copy prompt</button>
+      <button class="copy" data-prompt="${escapeAttr(s.prompt)}" style="margin-top:12px">${t("copy.prompt")}</button>
     </div>`).join("");
   wireCopyButtons(list);
   list.querySelectorAll(".star[data-del]").forEach((btn) => btn.addEventListener("click", () => {
@@ -1203,8 +1239,8 @@ function download(name, text) {
         <div class="prompt-label">Suno-промпт</div>
         <div class="prompt">${escapeHtml(d.prompt)}</div>
         <div class="card-actions">
-          <button class="copy" data-prompt="${escapeAttr(d.prompt)}">Copy</button>
-          ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(d.prompt)}" data-name="${escapeAttr(d.artist + " × " + d.targetEra)}">🎵 Создать трек</button>` : ""}
+          <button class="copy" data-prompt="${escapeAttr(d.prompt)}">${t("copy")}</button>
+          ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(d.prompt)}" data-name="${escapeAttr(d.artist + " × " + d.targetEra)}">${t("card.gen.btn")}</button>` : ""}
         </div>
       </div>
       <div class="tm-split">
@@ -1259,7 +1295,7 @@ function download(name, text) {
       <div class="ai-prompt-box">
         <div class="prompt-label">Лирика с тегами <span class="ok">· ${d.tagsAdded.length} тегов добавлено</span></div>
         <pre class="prompt struct">${escapeHtml(d.tagged)}</pre>
-        <button class="copy" data-prompt="${escapeAttr(d.tagged)}">Copy в Suno</button>
+        <button class="copy" data-prompt="${escapeAttr(d.tagged)}">${t("copy.prompt")}</button>
       </div>
       ${d.tagsAdded.length ? `
       <div class="ls-tags-list">
@@ -1355,8 +1391,8 @@ function download(name, text) {
         ${c.prompt ? `
           <div class="dna-match-prompt">${escapeHtml(c.prompt)}</div>
           <div class="dna-match-actions">
-            <button class="copy" data-prompt="${escapeAttr(c.prompt)}">Copy prompt</button>
-            ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(c.prompt)}" data-name="${escapeAttr(c.name)}">🎵 Создать трек</button>` : ""}
+            <button class="copy" data-prompt="${escapeAttr(c.prompt)}">${t("copy.prompt")}</button>
+            ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(c.prompt)}" data-name="${escapeAttr(c.name)}">${t("card.gen.btn")}</button>` : ""}
           </div>` : ""}
       </div>`).join("");
 
@@ -1392,8 +1428,8 @@ function download(name, text) {
         <div class="prompt-label">Готовый Suno-промпт</div>
         <div class="prompt">${escapeHtml(d.sunoPrompt)}</div>
         <div class="card-actions">
-          <button class="copy" data-prompt="${escapeAttr(d.sunoPrompt)}">Copy</button>
-          ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(d.sunoPrompt)}" data-name="DNA Decode">🎵 Создать трек</button>` : ""}
+          <button class="copy" data-prompt="${escapeAttr(d.sunoPrompt)}">${t("copy")}</button>
+          ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(d.sunoPrompt)}" data-name="DNA Decode">${t("card.gen.btn")}</button>` : ""}
         </div>
       </div>
 
@@ -1497,7 +1533,7 @@ function scorePrompt(text) {
           <div class="ai-prompt-box">
             <div class="prompt-label">Починенный промпт <span class="ok">· ${newScore}/100</span></div>
             <div class="prompt">${escapeHtml(data.rewritten)}</div>
-            <button class="copy" data-prompt="${escapeAttr(data.rewritten)}">Copy</button>
+            <button class="copy" data-prompt="${escapeAttr(data.rewritten)}">${t("copy")}</button>
           </div>
           ${data.changes.length ? `<div class="slop-changes">
             <div class="prompt-label">Что заменено</div>
@@ -1600,7 +1636,7 @@ function scorePrompt(text) {
           <div class="ai-prompt-box">
             <div class="prompt-label">${t("ai.prompt.label")}</div>
             <div class="prompt">${escapeHtml(data.prompt)}</div>
-            <button class="copy" data-prompt="${escapeAttr(data.prompt)}">Copy</button>
+            <button class="copy" data-prompt="${escapeAttr(data.prompt)}">${t("copy")}</button>
             ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(data.prompt)}" data-name="Voice Memo">${t("ai.gen.btn")}</button>` : ""}
           </div>
           <div class="ai-meta">
@@ -1699,7 +1735,7 @@ function renderMoodResult(d) {
       <div class="ai-prompt-box">
         <div class="prompt-label">${t("ai.prompt.label")}</div>
         <div class="prompt">${escapeHtml(d.prompt)}</div>
-        <button class="copy" data-prompt="${escapeAttr(d.prompt)}">Copy</button>
+        <button class="copy" data-prompt="${escapeAttr(d.prompt)}">${t("copy")}</button>
         ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(d.prompt)}" data-name="Mood from Image">${t("ai.gen.btn")}</button>` : ""}
       </div>
       <div class="ai-meta">
@@ -1743,13 +1779,13 @@ function renderSceneResult(d) {
       <div class="ai-prompt-box">
         <div class="prompt-label">${t("scene.style.label")}</div>
         <div class="prompt">${escapeHtml(d.prompt)}</div>
-        <button class="copy" data-prompt="${escapeAttr(d.prompt)}">Copy style</button>
+        <button class="copy" data-prompt="${escapeAttr(d.prompt)}">${t("copy")}</button>
         ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(d.prompt)}" data-name="Cinematic Score">${t("ai.gen.btn")}</button>` : ""}
       </div>
       <div class="ai-prompt-box">
         <div class="prompt-label">${t("scene.struct.label")}</div>
         <pre class="prompt struct">${escapeHtml(d.structure)}</pre>
-        <button class="copy" data-prompt="${escapeAttr(d.structure)}">Copy structure</button>
+        <button class="copy" data-prompt="${escapeAttr(d.structure)}">${t("copy")}</button>
       </div>
       <div class="ai-meta">
         ${d.bpm ? `<span class="tag">${d.bpm} BPM</span>` : ""}
@@ -1781,7 +1817,7 @@ if (transBtn) {
           <div class="ai-prompt-box">
             <div class="prompt-label">${t("mirror.label")} ${data.syllablesMatched ? `<span class='ok'>${t("mirror.syllab")}</span>` : ""}</div>
             <pre class="prompt struct">${escapeHtml(data.english)}</pre>
-            <button class="copy" data-prompt="${escapeAttr(data.english)}">Copy English</button>
+            <button class="copy" data-prompt="${escapeAttr(data.english)}">${t("copy")}</button>
           </div>
           ${data.rhymeNotes ? `<div class="ai-atmo"><strong>${t("mirror.rhyme")}:</strong> ${escapeHtml(data.rhymeNotes)}</div>` : ""}
         </div>`;
@@ -1866,8 +1902,8 @@ if (transBtn) {
         <div class="prompt-label">Suno-промпт</div>
         <div class="prompt">${escapeHtml(d.prompt)}</div>
         <div class="card-actions">
-          <button class="copy" data-prompt="${escapeAttr(d.prompt)}">Copy</button>
-          ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(d.prompt)}" data-name="${escapeAttr(title)}">🎵 Создать трек</button>` : ""}
+          <button class="copy" data-prompt="${escapeAttr(d.prompt)}">${t("copy")}</button>
+          ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(d.prompt)}" data-name="${escapeAttr(title)}">${t("card.gen.btn")}</button>` : ""}
         </div>
       </div>
       ${d.dnaBreakdown.length ? `
@@ -2493,7 +2529,7 @@ document.getElementById("lang-toggle")?.addEventListener("click", () => {
                 <div class="pl-prompt muted">${escapeHtml(tr.prompt)}</div>
               </div>
               <div class="pl-actions">
-                <button class="copy" data-prompt="${escapeAttr(tr.prompt)}">Copy</button>
+                <button class="copy" data-prompt="${escapeAttr(tr.prompt)}">${t("copy")}</button>
                 ${canGenerate ? `<button class="gen-track-btn" data-prompt="${escapeAttr(tr.prompt)}" data-name="${escapeAttr(tr.title)}">${t("ai.gen.btn")}</button>` : ""}
               </div>
             </div>`).join("")}
