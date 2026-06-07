@@ -155,6 +155,8 @@ const LANG = {
     "cat.noresults":"No styles match these filters.",
     "cat.loading":"Loading catalog…","cat.warmup":"Server is warming up, please wait…",
     "cat.error":"Failed to load catalog.","retry":"Try again",
+    "card.gen.loading":"Generating card…","analyze.loading":"Reading audio & building prompt…",
+    "structure.loading":"Building structure…","lyrics.loading":"Writing lyrics…",
     "pill.unlocked":"✓ full access","pill.free":"🔒 free tier","pill.gen":"gen/mo",
     "pill.expired":"⚠ Expired — re-activate",
     "saved.count":"{n} saved",
@@ -330,6 +332,8 @@ const LANG = {
     "cat.noresults":"Нет стилей, подходящих под фильтры.",
     "cat.loading":"Загружаем каталог…","cat.warmup":"Сервер запускается, подождите…",
     "cat.error":"Не удалось загрузить каталог.","retry":"Попробовать снова",
+    "card.gen.loading":"Генерируем карточку…","analyze.loading":"Читаем аудио и строим промпт…",
+    "structure.loading":"Строим структуру…","lyrics.loading":"Пишем текст…",
     "pill.unlocked":"✓ полный доступ","pill.free":"🔒 бесплатный","pill.gen":"ген/мес",
     "pill.expired":"⚠ Истёк — повторная активация",
     "saved.count":"{n} сохранено",
@@ -700,7 +704,7 @@ async function loadCatalog() {
     if (state.q && !state.language && !state.era && !state.genre && !state.mood && !state.free && !state.isNew) {
       const data = await api("/api/catalog?" + qs());
       if (!data.results.length) {
-        results.innerHTML = `<div class="card">${spin("generating card…")}</div>`;
+        results.innerHTML = `<div class="card">${spin(t("card.gen.loading"))}</div>`;
         const gen = await api("/api/card/" + encodeURIComponent(state.q) + (localStorage.getItem(UNLOCK_KEY) ? "?u=" + localStorage.getItem(UNLOCK_KEY) : ""));
         clearTimeout(warmup);
         results.innerHTML = cardHTML(gen.card, gen.source);
@@ -825,7 +829,7 @@ function setFile(f) { currentFile = f; $("#filename").textContent = `${f.name} �
 $("#analyze-btn").addEventListener("click", async () => {
   if (!currentFile) return;
   const out = $("#analyze-out");
-  out.innerHTML = spin("reading audio & building prompt…");
+  out.innerHTML = spin(t("analyze.loading"));
   const fd = new FormData(); fd.append("file", currentFile);
   let data;
   try { const res = await fetch("/api/analyze", { method: "POST", body: fd }); data = await res.json(); if (data.error) throw new Error(data.error); }
@@ -863,7 +867,7 @@ $("#cover-btn").addEventListener("click", async () => {
 
 /* ---------- Song Structure ---------- */
 $("#structure-btn").addEventListener("click", async () => {
-  const out = $("#structure-out"); out.innerHTML = spin("building…");
+  const out = $("#structure-out"); out.innerHTML = spin(t("structure.loading"));
   const body = { style: $("#st-style").value, title: $("#st-title").value, preset: $("#st-preset").value };
   const data = await api("/api/song-structure", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
   const tag = data.mode === "ai" ? '<span class="mode-tag">AI</span>' : '<span class="mode-tag">template</span>';
@@ -874,7 +878,7 @@ $("#structure-btn").addEventListener("click", async () => {
 
 /* ---------- Lyrics ---------- */
 $("#lyrics-btn").addEventListener("click", async () => {
-  const out = $("#lyrics-out"); out.innerHTML = spin("writing…");
+  const out = $("#lyrics-out"); out.innerHTML = spin(t("lyrics.loading"));
   const body = { theme: $("#ly-theme").value || "the open road", style: $("#ly-style").value,
     mood: $("#ly-mood").value || "hopeful", language: $("#ly-lang").value || "English" };
   const data = await api("/api/lyrics", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
