@@ -912,14 +912,14 @@ function pollModalTrack(jobId, out, btn) {
       const p = out.querySelector("#gm-prog"); if (p && job.progress) p.textContent = job.progress;
       if (job.status === "SUCCESS" && job.musics?.length) {
         clearInterval(iv); btn.disabled = false;
-        out.innerHTML = `<div class="ai-result">${job.musics.map((m) => `
+        out.innerHTML = `<div class="ai-result">${job.musics.map((m, idx) => `
           <div class="track-card">
             ${m.imageUrl ? `<img class="track-art" src="${escapeAttr(m.imageUrl)}" alt="art"/>` : ""}
             <div class="track-info">
               <div class="track-title">${escapeHtml(m.title || "Untitled")}</div>
               <div class="track-tags muted">${escapeHtml(m.tags || "")}${m.duration ? ` · ${Math.round(m.duration)}s` : ""}</div>
               <audio controls src="${escapeAttr(m.audioUrl)}"></audio>
-              <div class="track-actions"><a href="${escapeAttr(m.audioUrl)}" download>⭳ MP3</a>${m.videoUrl ? `<a href="${escapeAttr(m.videoUrl)}" target="_blank">▦ Video</a>` : ""}${canMaster ? `<button class="master-inline-btn" onclick="window._startMastering('${escapeAttr(m.audioUrl)}')">${t("master.btn.inline")}</button>` : ""}</div>
+              <div class="track-actions"><a href="${escapeAttr(m.audioUrl)}" download>⭳ MP3</a>${m.videoUrl ? `<a href="${escapeAttr(m.videoUrl)}" target="_blank">▦ Video</a>` : ""}${canMaster ? `<button class="master-inline-btn" onclick="window._startMastering('${escapeAttr(m.audioUrl)}')" title="${escapeAttr(m.title || "Track " + (idx+1))}">${t("master.btn.inline")} ${idx+1}</button>` : ""}</div>
             </div>
           </div>`).join("")}</div>`;
       } else if (job.status === "FAILED") {
@@ -2987,6 +2987,12 @@ function pollMasterJob(jobId, out, btn) {
     elapsed += 4;
     try {
       const job = await api(`/api/ai/master-status?jobId=${encodeURIComponent(jobId)}`);
+      if (!job.ok && job.error) {
+        clearInterval(iv);
+        if (btn) btn.disabled = false;
+        out.innerHTML = `<div class="error">${t("master.fail")}: ${escapeHtml(job.error)}</div>`;
+        return;
+      }
       const prog = job.progress ?? 0;
       if (job.status === "Success" && job.downloadUrl) {
         clearInterval(iv);
@@ -2997,10 +3003,10 @@ function pollMasterJob(jobId, out, btn) {
             <audio controls src="${escapeAttr(job.downloadUrl)}" style="width:100%;margin:10px 0"></audio>
             <a class="primary small" href="${escapeAttr(job.downloadUrl)}" download="mastered.mp3">${t("master.download")}</a>
           </div>`;
-      } else if (job.status !== "Pending" && job.status !== "Running") {
+      } else if (job.status !== "Running") {
         clearInterval(iv);
         if (btn) btn.disabled = false;
-        out.innerHTML = `<div class="error">${t("master.fail")}: ${escapeHtml(job.status || "")}</div>`;
+        out.innerHTML = `<div class="error">${t("master.fail")}: ${escapeHtml(job.status || job.error || "")}</div>`;
       } else {
         out.innerHTML = `<div class="spinner">${t("master.progress").replace("{p}", prog)}</div>`;
       }
@@ -3013,22 +3019,20 @@ function pollMasterJob(jobId, out, btn) {
   }, 4000);
 }
 
-// Expose for inline "Master this track" buttons in track results
+// Expose for inline "Master this track" buttons in track results.
+// Populates the URL field and scrolls to the mastering card — does NOT auto-start
+// so the user can confirm the track and choose loudness before clicking Master.
 window._startMastering = (audioUrl) => {
-  // Close generate modal if open
   const genModal = $("#gen-modal");
   if (genModal) genModal.classList.remove("open");
-  // Switch to AI Lab tab
   document.querySelector(".tab[data-tab='ailab']")?.click();
-  // Give the tab time to become visible, then scroll + start
   setTimeout(() => {
     const urlInput = $("#master-url");
     if (urlInput) urlInput.value = audioUrl;
     const card = $("#master-card");
     if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
-    const out = $("#master-out");
     const btn = $("#master-btn");
-    if (out && btn) startMastering(audioUrl, $("#master-loudness")?.value || "streaming", out, btn);
+    if (btn) btn.focus();
   }, 80);
 };
 

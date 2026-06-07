@@ -621,7 +621,8 @@ app.get("/api/ai/master-status", async (req, res) => {
   if (!auphonicEnabled()) return res.status(503).json({ ok: false, error: "Not configured" });
   const jobId = String(req.query.jobId || "").trim();
   if (!jobId) return res.status(400).json({ ok: false, error: "Missing jobId" });
-  if (!masterJobs.has(jobId)) return res.status(404).json({ ok: false, error: "Unknown job" });
+  // No in-memory Map check — Auphonic UUID is the authorisation. This makes the endpoint
+  // resilient to server restarts (which clear masterJobs) while a poll is in flight.
   try {
     const result = await getMasterStatus(jobId);
     res.json({ ok: true, ...result });
