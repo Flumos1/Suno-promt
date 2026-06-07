@@ -168,7 +168,7 @@ app.post("/api/unlock", (req, res) => {
 // --- Catalog search with facet filters + pagination ---
 app.get("/api/catalog", (req, res) => {
   const q = String(req.query.q || "").toLowerCase().trim();
-  const { language, era, genre, mood, free, isNew } = req.query;
+  const { language, era, genre, mood, free, isNew, sort } = req.query;
   const unlocked = isUnlocked(req.query.u);
   const page = Math.max(1, parseInt(req.query.page) || 1);
   const pageSize = Math.min(60, parseInt(req.query.pageSize) || 24);
@@ -184,10 +184,19 @@ app.get("/api/catalog", (req, res) => {
       c.name.toLowerCase().includes(q) ||
       c.genre.toLowerCase().includes(q) ||
       c.subgenre.toLowerCase().includes(q) ||
-      c.tags.some((t) => t.toLowerCase().includes(q))
+      c.tags.some((t) => t.toLowerCase().includes(q)) ||
+      (c.prompt && c.prompt.toLowerCase().includes(q))
     )) return false;
     return true;
   });
+
+  // Sorting
+  if (sort === "name_az") results.sort((a, b) => a.name.localeCompare(b.name));
+  else if (sort === "name_za") results.sort((a, b) => b.name.localeCompare(a.name));
+  else if (sort === "bpm_asc") results.sort((a, b) => (a.bpm || 0) - (b.bpm || 0));
+  else if (sort === "bpm_desc") results.sort((a, b) => (b.bpm || 0) - (a.bpm || 0));
+  else if (sort === "era_new") results.sort((a, b) => (b.era || "").localeCompare(a.era || ""));
+  else if (sort === "era_old") results.sort((a, b) => (a.era || "").localeCompare(b.era || ""));
 
   const total = results.length;
   const start = (page - 1) * pageSize;

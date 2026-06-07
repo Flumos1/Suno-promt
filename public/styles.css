@@ -208,6 +208,30 @@ button.small { padding: 8px 14px; font-size: 13px; }
 .fchip .n { opacity: 0.7; font-size: 11px; margin-left: 4px; }
 .filter-bottom { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
 .filter-bottom #search { flex: 1; min-width: 180px; }
+.sort-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.sort-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.sort-select {
+  background: rgba(0,0,0,0.3); color: #e8e8e8; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 5px 10px; font-size: 12px; cursor: pointer;
+}
+.card-name-link { cursor: pointer; }
+.card-name-link:hover { color: var(--neon2); text-decoration: underline; }
+
+/* ── Artist detail modal ────────────────────────────────────────────────── */
+.artist-modal-box { width: min(600px, 95vw); }
+.artist-prompt-box {
+  background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px; padding: 12px; font-size: 12px; color: var(--muted);
+  line-height: 1.6; user-select: text;
+}
+.artist-related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px,1fr)); gap: 8px; }
+.artist-related-card {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px; padding: 10px 12px; cursor: pointer; transition: background .15s;
+}
+.artist-related-card:hover { background: rgba(168,85,247,0.1); border-color: rgba(168,85,247,0.3); }
+.arc-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.arc-sub { font-size: 11px; }
 
 /* Card badges */
 .card-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }

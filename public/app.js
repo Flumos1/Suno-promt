@@ -6,7 +6,8 @@ const GATE_KEY = "siliconsense_token";
 const UNLOCK_KEY = "siliconsense_unlock";
 const SAVED_KEY = "siliconsense_saved";
 
-const state = { language: "", era: "", genre: "", mood: "", q: "", free: false, isNew: false, page: 1 };
+const state = { language: "", era: "", genre: "", mood: "", q: "", free: false, isNew: false, page: 1, sort: "" };
+const cardCache = new Map(); // id → full card data for artist modal
 let facets = null;
 let canGenerate = false; // set from /api/status
 
@@ -25,6 +26,9 @@ const LANG = {
     "cat.sub":"Ready 60–90 word style descriptions: era, instruments, production, vocal anchor. No artist names — passes Suno's filter.",
     "cat.unlock":"🔓 Unlock all","cat.search.ph":"Search style, genre, sub-genre…","cat.search.btn":"Search","cat.mood.all":"All moods",
     "cat.lang.all":"All","cat.era.all":"All eras","cat.new":"New","cat.free":"★ Free","cat.genre.all":"All genres",
+    "sort.label":"Sort:","sort.default":"Default","sort.name_az":"A → Z","sort.name_za":"Z → A",
+    "sort.bpm_asc":"BPM ↑","sort.bpm_desc":"BPM ↓","sort.era_new":"Newest era","sort.era_old":"Oldest era",
+    "artist.prompt.label":"Style prompt","artist.related":"Similar artists","artist.mood":"Mood",
     "saved.empty":"Nothing saved yet. Tap ★ on any prompt to save it here.",
     "pager.prev":"← Prev","pager.next":"Next →","pager.info":"Page {p} / {t} · {n} styles",
     "ctor.placeholder":"Pick chips on the left — prompt builds here…",
@@ -219,6 +223,9 @@ const LANG = {
     "cat.sub":"Готовые описания стилей 60–90 слов: эпоха, инструменты, продакшн, вокал. Без имён артистов — проходит фильтр Suno.",
     "cat.unlock":"🔓 Открыть всё","cat.search.ph":"Поиск стиля, жанра, сабжанра…","cat.search.btn":"Найти","cat.mood.all":"Все настроения",
     "cat.lang.all":"Все","cat.era.all":"Все эпохи","cat.new":"Новинки","cat.free":"★ Бесплатные","cat.genre.all":"Все жанры",
+    "sort.label":"Сортировка:","sort.default":"По умолчанию","sort.name_az":"А → Я","sort.name_za":"Я → А",
+    "sort.bpm_asc":"BPM ↑","sort.bpm_desc":"BPM ↓","sort.era_new":"Новейшая эпоха","sort.era_old":"Старейшая эпоха",
+    "artist.prompt.label":"Стиль-промпт","artist.related":"Похожие артисты","artist.mood":"Настроение",
     "saved.empty":"Ничего не сохранено. Нажми ★ на промпт чтобы сохранить его.",
     "pager.prev":"← Назад","pager.next":"Вперёд →","pager.info":"Стр. {p} / {t} · {n} стилей",
     "ctor.placeholder":"Выбирай чипы слева — промпт появится здесь…",
@@ -537,6 +544,12 @@ function renderFacets() {
   const genres = Object.entries(facets.genres).sort((a, b) => b[1] - a[1]);
   $("#f-genre").innerHTML = `<button class="fchip" data-f="genre" data-v="">${t("cat.genre.all")}</button>` +
     genres.map(([g, n]) => `<button class="fchip" data-f="genre" data-v="${escapeAttr(g)}">${escapeHtml(g)}<span class="n">${n}</span></button>`).join("");
+  // Sort row
+  const sortOpts = ["","name_az","name_za","bpm_asc","bpm_desc","era_new","era_old"];
+  $("#f-sort").innerHTML = `<span class="sort-label">${t("sort.label")}</span>` +
+    `<select id="sort-select" class="sort-select">${sortOpts.map(v => `<option value="${v}">${t("sort." + (v||"default"))}</option>`).join("")}</select>`;
+  $("#sort-select").value = state.sort;
+  $("#sort-select").addEventListener("change", (e) => { state.sort = e.target.value; state.page = 1; loadCatalog(); });
   $$(".fchip").forEach((chip) => chip.addEventListener("click", () => onFilter(chip)));
   syncChips();
 }
@@ -599,7 +612,7 @@ function wrapCard(card, badgesHTML, metaLine, prompt, locked, subgenre) {
   return `
     <div class="card ${locked ? "locked" : ""}">
       ${badgesHTML}
-      <h3>${escapeHtml(card.name)}
+      <h3><span class="card-name-link" data-id="${escapeAttr(card.id)}">${escapeHtml(card.name)}</span>
         <button class="star ${saved ? "on" : ""}" data-id="${escapeAttr(card.id)}"
           data-name="${escapeAttr(card.name)}" data-prompt="${escapeAttr(prompt || "")}"
           data-genre="${escapeAttr(card.genre || "")}" ${locked ? "disabled title='unlock first'" : ""}>★</button>
@@ -621,6 +634,87 @@ function wireCards(root) {
   root.querySelectorAll(".gen-track-btn").forEach((btn) => btn.addEventListener("click", () => {
     openGenModal(btn.dataset.prompt, btn.dataset.name);
   }));
+  root.querySelectorAll(".card-name-link").forEach((el) => el.addEventListener("click", () => {
+    const card = cardCache.get(el.dataset.id);
+    if (card) openArtistModal(card);
+  }));
+}
+
+/* ---------- Artist detail modal ---------- */
+function openArtistModal(card) {
+  let modal = $("#artist-modal");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "artist-modal";
+    modal.className = "gen-modal";
+    document.body.appendChild(modal);
+    modal.addEventListener("click", (e) => { if (e.target === modal) modal.classList.remove("open"); });
+  }
+
+  const badges = [
+    card.era ? `<span class="cbadge">${escapeHtml(card.era)}</span>` : "",
+    card.language ? `<span class="cbadge lang">${escapeHtml(card.language.toUpperCase())}</span>` : "",
+    card.isNew ? `<span class="cbadge new">${t("card.badge.new")}</span>` : "",
+    card.free ? `<span class="cbadge free">FREE</span>` : ""
+  ].join("");
+
+  const related = [...cardCache.values()]
+    .filter(c => c.id !== card.id && c.genre === card.genre && c.language === card.language)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 4);
+
+  modal.innerHTML = `
+    <div class="gen-modal-box artist-modal-box">
+      <button class="gen-modal-close" id="am-close">✕</button>
+      <div class="card-badges" style="margin-bottom:8px">${badges}</div>
+      <h2 style="margin:0 0 2px">${escapeHtml(card.name)}</h2>
+      ${card.subgenre ? `<div class="sub-genre" style="margin-bottom:6px">${escapeHtml(card.subgenre.toUpperCase())}</div>` : ""}
+      <div class="meta" style="margin-bottom:14px">${escapeHtml([card.genre, card.bpm ? card.bpm + " BPM" : ""].filter(Boolean).join(" · "))}</div>
+
+      <div class="gm-label" style="margin-bottom:4px">${t("artist.prompt.label")}</div>
+      <div class="artist-prompt-box">${escapeHtml(card.prompt || "")}</div>
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+        <button class="copy artist-copy-btn" data-prompt="${escapeAttr(card.prompt || "")}">${t("copy.prompt")}</button>
+        ${canGenerate ? `<button class="primary artist-gen-btn" style="flex:1">${t("card.gen.btn")}</button>` : ""}
+        <button class="gm-ctor-btn" id="am-ctor-btn" title="${t("gen.open.ctor")}">🎛</button>
+      </div>
+
+      ${(card.mood?.length) ? `<div style="margin-top:12px"><span class="gm-label">${t("artist.mood")}: </span>${card.mood.map(m => `<span class="tag">${escapeHtml(m)}</span>`).join(" ")}</div>` : ""}
+
+      ${related.length ? `
+      <div style="margin-top:16px">
+        <div class="gm-label" style="margin-bottom:8px">${t("artist.related")}</div>
+        <div class="artist-related-grid">
+          ${related.map(r => `
+            <div class="artist-related-card" data-id="${escapeAttr(r.id)}">
+              <div class="arc-name">${escapeHtml(r.name)}</div>
+              <div class="arc-sub muted">${escapeHtml(r.subgenre || r.genre)}</div>
+            </div>`).join("")}
+        </div>
+      </div>` : ""}
+    </div>`;
+
+  $("#am-close").addEventListener("click", () => modal.classList.remove("open"));
+  modal.querySelector(".artist-copy-btn")?.addEventListener("click", async (e) => {
+    try { await navigator.clipboard.writeText(card.prompt || ""); e.target.textContent = t("btn.copied"); setTimeout(() => e.target.textContent = t("copy.prompt"), 1500); } catch {}
+  });
+  modal.querySelector(".artist-gen-btn")?.addEventListener("click", () => {
+    modal.classList.remove("open");
+    openGenModal(card.prompt, card.name);
+  });
+  $("#am-ctor-btn")?.addEventListener("click", () => {
+    const ctorPreview = document.getElementById("ctor-preview");
+    if (ctorPreview) ctorPreview.textContent = card.prompt || "";
+    document.querySelector(".tab[data-tab='constructor']")?.click();
+    modal.classList.remove("open");
+  });
+  modal.querySelectorAll(".artist-related-card").forEach(el => {
+    el.addEventListener("click", () => {
+      const rel = cardCache.get(el.dataset.id);
+      if (rel) openArtistModal(rel);
+    });
+  });
+  modal.classList.add("open");
 }
 
 /* ---------- Generate-track modal ---------- */
@@ -811,6 +905,7 @@ function qs() {
   if (state.free) p.set("free", "1");
   if (state.isNew) p.set("isNew", "1");
   if (state.q) p.set("q", state.q);
+  if (state.sort) p.set("sort", state.sort);
   p.set("page", state.page);
   const u = localStorage.getItem(UNLOCK_KEY);
   if (u) p.set("u", u);
@@ -841,6 +936,7 @@ async function loadCatalog() {
 
     const data = await api("/api/catalog?" + qs());
     clearTimeout(warmup);
+    data.results.forEach(c => cardCache.set(c.id, c));
     results.innerHTML = data.results.length
       ? data.results.map((c) => cardHTML(c, "catalog")).join("")
       : `<p class="muted">${t("cat.noresults")}</p>`;
