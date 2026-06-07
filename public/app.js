@@ -152,7 +152,7 @@ const LANG = {
     "master.btn.inline":"🎚 Master this track",
     "card.badge.new":"New","copy.prompt":"Copy prompt",
     "cat.noresults":"No styles match these filters.",
-    "pill.unlocked":"✓ full access","pill.free":"🔒 free tier",
+    "pill.unlocked":"✓ full access","pill.free":"🔒 free tier","pill.gen":"gen/mo",
     "saved.count":"{n} saved",
     "card.gen.btn":"🎵 Create Track","card.gen.title":"Generate track in Suno",
     "analyze.closest":"3 closest catalog styles",
@@ -323,7 +323,7 @@ const LANG = {
     "master.btn.inline":"🎚 Мастеровать трек",
     "card.badge.new":"Новинка","copy.prompt":"Копировать",
     "cat.noresults":"Нет стилей, подходящих под фильтры.",
-    "pill.unlocked":"✓ полный доступ","pill.free":"🔒 бесплатный",
+    "pill.unlocked":"✓ полный доступ","pill.free":"🔒 бесплатный","pill.gen":"ген/мес",
     "saved.count":"{n} сохранено",
     "card.gen.btn":"🎵 Создать трек","card.gen.title":"Создать трек в Suno",
     "analyze.closest":"3 ближайших стиля из каталога",
@@ -407,6 +407,7 @@ function showApp() {
   loadFacets().then(loadCatalog);
   renderUnlockPill();
   renderSaved();
+  loadPlanStatus();
 }
 // Auto-enter the app if already authorized — called at the very end of the
 // file so all const helpers (spin, getSaved, …) are initialized first.
@@ -716,12 +717,32 @@ $("#search").addEventListener("keydown", (e) => { if (e.key === "Enter") { state
 $("#f-mood").addEventListener("change", () => { state.mood = $("#f-mood").value; state.page = 1; loadCatalog(); });
 
 /* ---------- Unlock ---------- */
+let planInfo = null;
+
+async function loadPlanStatus() {
+  const tok = localStorage.getItem(UNLOCK_KEY);
+  if (!tok) return;
+  try {
+    const data = await fetch("/api/lemon/status", { headers: { "X-Unlock-Token": tok } }).then(r => r.json());
+    if (data.ok && data.plan) { planInfo = data; renderUnlockPill(); }
+  } catch {}
+}
+
 function renderUnlockPill() {
   const unlocked = !!localStorage.getItem(UNLOCK_KEY);
   const pill = $("#unlock-pill");
-  pill.textContent = unlocked ? t("pill.unlocked") : t("pill.free");
   pill.classList.toggle("live", unlocked);
   $("#unlock-btn").style.display = unlocked ? "none" : "";
+  if (!unlocked) { pill.textContent = t("pill.free"); return; }
+  if (planInfo?.plan === "creator" || planInfo?.plan === "pro") {
+    const label = planInfo.plan === "pro" ? "Pro" : "Creator";
+    const quota = planInfo.genLimit > 0
+      ? ` · ${planInfo.genUsed}/${planInfo.genLimit} ${t("pill.gen")}`
+      : "";
+    pill.textContent = `✓ ${label}${quota}`;
+  } else {
+    pill.textContent = t("pill.unlocked");
+  }
 }
 $("#unlock-btn").addEventListener("click", () => {
   const modal = document.getElementById("pricing-modal");

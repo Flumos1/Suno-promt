@@ -615,12 +615,15 @@ app.post("/api/lemon/activate", async (req, res) => {
   }
 });
 
-// GET /api/lemon/status — check current token plan
+// GET /api/lemon/status — check current token plan + monthly gen quota
 app.get("/api/lemon/status", (req, res) => {
   const token = req.headers["x-unlock-token"] || req.query.token || "";
   const info = verifyToken(String(token));
   if (!info) return res.json({ ok: false, plan: null });
-  res.json({ ok: true, plan: info.plan });
+  const month = new Date().toISOString().slice(0, 7);
+  const genUsed = genCounters.get(`${info.customerId}:${month}`) || 0;
+  const genLimit = GEN_QUOTA[info.plan] ?? 0;
+  res.json({ ok: true, plan: info.plan, genUsed, genLimit });
 });
 
 // POST /api/lemon/webhook — LemonSqueezy event handler
