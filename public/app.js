@@ -154,6 +154,9 @@ const LANG = {
     "analyze.closest":"3 closest catalog styles",
     "card.locked":"LOCKED","card.locked.hint":"Unlock all to reveal this prompt",
     "copy":"Copy",
+    "ai.concept":"Concept","ai.prompt.ready":"Ready Suno prompt",
+    "dna.transcript.label":"Lyrics (Whisper)","dna.artists":"🎯 Closest artists in catalog","dna.breakdown":"DNA by artist",
+    "analyze.detected":"Detected",
   },
   ru: {
     "nav.catalog":"⌕ Каталог","nav.anchor":"🎙 Вокал","nav.reference":"♪ Референс",
@@ -295,6 +298,9 @@ const LANG = {
     "analyze.closest":"3 ближайших стиля из каталога",
     "card.locked":"ЗАБЛОКИРОВАНО","card.locked.hint":"Открой всё чтобы увидеть промпт",
     "copy":"Копировать",
+    "ai.concept":"Концепция","ai.prompt.ready":"Готовый Suno-промпт",
+    "dna.transcript.label":"Лирика (Whisper)","dna.artists":"🎯 Ближайшие артисты в каталоге","dna.breakdown":"ДНК по артистам",
+    "analyze.detected":"Определено",
   }
 };
 
@@ -711,9 +717,9 @@ $("#analyze-btn").addEventListener("click", async () => {
     ["Sample rate", d.sampleRate ? d.sampleRate / 1000 + " kHz" : "—"],
     ["Channels", d.channels === 1 ? "mono" : d.channels === 2 ? "stereo" : (d.channels || "—")],
     ["Codec", d.codec || "—"], ["Vocals", d.vocals || "—"]];
-  out.innerHTML = `<h4>Detected ${modeTag}</h4>
+  out.innerHTML = `<h4>${t("analyze.detected")} ${modeTag}</h4>
     <div class="metagrid">${cells.map(([k, v]) => `<div><b>${k}</b>${escapeHtml(String(v))}</div>`).join("")}</div>
-    <h4>Suno prompt</h4><div class="prompt">${escapeHtml(data.prompt)}</div>
+    <h4>${t("ai.prompt.label")}</h4><div class="prompt">${escapeHtml(data.prompt)}</div>
     <button class="copy" data-prompt="${escapeAttr(data.prompt)}" style="margin:12px 0">${t("copy.prompt")}</button>
     <h4>${t("analyze.closest")}</h4>
     <div class="closest">${data.closest.map((a) => `<div class="chip">${escapeHtml(a.name)}<small>${escapeHtml(a.genre)}</small></div>`).join("")}</div>`;
@@ -1234,9 +1240,9 @@ function download(name, text) {
   function renderTimeMachine(d) {
     return `<div class="ai-result">
       <div class="tm-headline">${escapeHtml(d.artist)} × ${escapeHtml(d.targetEra)}</div>
-      <div class="ai-atmo"><strong>Концепция:</strong> ${escapeHtml(d.concept)}</div>
+      <div class="ai-atmo"><strong>${t("ai.concept")}:</strong> ${escapeHtml(d.concept)}</div>
       <div class="ai-prompt-box">
-        <div class="prompt-label">Suno-промпт</div>
+        <div class="prompt-label">${t("ai.prompt.label")}</div>
         <div class="prompt">${escapeHtml(d.prompt)}</div>
         <div class="card-actions">
           <button class="copy" data-prompt="${escapeAttr(d.prompt)}">${t("copy")}</button>
@@ -1420,12 +1426,12 @@ function download(name, text) {
       </div>
 
       ${d.transcript ? `<div class="dna-section">
-        <div class="prompt-label">Лирика (Whisper)</div>
+        <div class="prompt-label">${t("dna.transcript.label")}</div>
         <div class="dna-lyrics">${escapeHtml(d.transcript.slice(0, 400))}${d.transcript.length > 400 ? "…" : ""}</div>
       </div>` : ""}
 
       <div class="ai-prompt-box">
-        <div class="prompt-label">Готовый Suno-промпт</div>
+        <div class="prompt-label">${t("ai.prompt.ready")}</div>
         <div class="prompt">${escapeHtml(d.sunoPrompt)}</div>
         <div class="card-actions">
           <button class="copy" data-prompt="${escapeAttr(d.sunoPrompt)}">${t("copy")}</button>
@@ -1434,7 +1440,7 @@ function download(name, text) {
       </div>
 
       <div class="dna-section">
-        <div class="prompt-label">🎯 Ближайшие артисты в каталоге</div>
+        <div class="prompt-label">${t("dna.artists")}</div>
         <div class="dna-matches">${closestHTML}</div>
       </div>
     </div>`;
@@ -1897,9 +1903,9 @@ if (transBtn) {
     const title = artists.map((a) => a.name).join(" × ");
     return `<div class="ai-result">
       <div class="tm-headline">${escapeHtml(title)}</div>
-      <div class="ai-atmo"><strong>Концепция:</strong> ${escapeHtml(d.concept)}</div>
+      <div class="ai-atmo"><strong>${t("ai.concept")}:</strong> ${escapeHtml(d.concept)}</div>
       <div class="ai-prompt-box">
-        <div class="prompt-label">Suno-промпт</div>
+        <div class="prompt-label">${t("ai.prompt.label")}</div>
         <div class="prompt">${escapeHtml(d.prompt)}</div>
         <div class="card-actions">
           <button class="copy" data-prompt="${escapeAttr(d.prompt)}">${t("copy")}</button>
@@ -1907,7 +1913,7 @@ if (transBtn) {
         </div>
       </div>
       ${d.dnaBreakdown.length ? `
-      <div class="prompt-label" style="margin-top:12px">ДНК по артистам</div>
+      <div class="prompt-label" style="margin-top:12px">${t("dna.breakdown")}</div>
       ${d.dnaBreakdown.map((b) => `
         <div class="genome-dna-row">
           <span class="genome-dna-name">${escapeHtml(b.artist)}</span>
