@@ -26,6 +26,14 @@ setInterval(() => {
   for (const [k, v] of tempFiles) if (v.expires < now) tempFiles.delete(k);
 }, 60_000).unref();
 
+// Pending reference-generate jobs (upload runs in background to avoid Render timeout).
+// Map: fakeJobId → { status: "ON_QUEUE"|"SUCCESS"|"FAILED", realJobId?, error? }
+const pendingRefJobs = new Map();
+setInterval(() => {
+  const cutoff = Date.now() - 10 * 60 * 1000;
+  for (const [k, v] of pendingRefJobs) if (v.created < cutoff) pendingRefJobs.delete(k);
+}, 120_000).unref();
+
 // Public URL base — used when uploading to TTAPI
 const PUBLIC_BASE = process.env.PUBLIC_URL || "https://siliconsense.onrender.com";
 
@@ -327,30 +335,36 @@ app.post("/api/ai/reference-generate", checkGenQuota, upload.single("audio"), as
   if (!ttapiEnabled()) return res.status(503).json({ ok: false, error: "Track generation not configured (TTAPI_KEY missing)" });
   if (!req.file?.buffer) return res.status(400).json({ ok: false, error: "No audio file uploaded" });
   if (req.file.size > 25 * 1024 * 1024) return res.status(400).json({ ok: false, error: "File too large (max 25MB)" });
-  try {
-    const { jobId } = await submitSampleFromBuffer(
-      req.file.buffer,
-      req.file.mimetype || "audio/mpeg",
-      tempFiles,
-      PUBLIC_BASE,
-      {
-        startSec: Math.max(0, Number(req.body?.startSec ?? 0)),
-        endSec: Math.min(120, Math.max(Number(req.body?.startSec ?? 0) + 1, Number(req.body?.endSec ?? 30))),
-        tags: req.body?.tags || undefined,
-        lyrics: req.body?.lyrics || undefined,
-        descriptionPrompt: req.body?.description || undefined,
-        instrumental: req.body?.instrumental === "true" || req.body?.instrumental === true,
-        mv: req.body?.mv || undefined,
-        vocalGender: req.body?.vocalGender || undefined,
-        audioWeight: req.body?.audioWeight !== undefined ? Number(req.body.audioWeight) : 0.7
-      }
-    );
-    incrementGenQuota(req);
-    res.json({ ok: true, jobId });
-  } catch (err) {
-    console.error("[reference-generate]", err.message);
-    res.status(500).json({ ok: false, error: err.message });
-  }
+  // Return immediately — upload+sample run in background to avoid Render's ~30s timeout.
+  const { randomUUID } = await import("node:crypto");
+  const fakeId = "ref-" + randomUUID();
+  const opts = {
+    startSec: Math.max(0, Number(req.body?.startSec ?? 0)),
+    endSec: Math.min(120, Math.max(Number(req.body?.startSec ?? 0) + 1, Number(req.body?.endSec ?? 30))),
+    tags: req.body?.tags || undefined,
+    lyrics: req.body?.lyrics || undefined,
+    descriptionPrompt: req.body?.description || undefined,
+    instrumental: req.body?.instrumental === "true" || req.body?.instrumental === true,
+    mv: req.body?.mv || undefined,
+    vocalGender: req.body?.vocalGender || undefined,
+    audioWeight: req.body?.audioWeight !== undefined ? Number(req.body.audioWeight) : 0.7
+  };
+  pendingRefJobs.set(fakeId, { status: "ON_QUEUE", created: Date.now() });
+  incrementGenQuota(req);
+  res.json({ ok: true, jobId: fakeId });
+
+  // Background: upload file to TTAPI then submit sample job
+  (async () => {
+    try {
+      const { jobId } = await submitSampleFromBuffer(
+        req.file.buffer, req.file.mimetype || "audio/mpeg", tempFiles, PUBLIC_BASE, opts
+      );
+      pendingRefJobs.set(fakeId, { status: "DELEGATED", realJobId: jobId, created: Date.now() });
+    } catch (err) {
+      console.error("[reference-generate-bg]", err.message);
+      pendingRefJobs.set(fakeId, { status: "FAILED", error: err.message, created: Date.now() });
+    }
+  })();
 });
 
 // ─── Real Suno track generation (TTAPI) ──────────────────────────────────
@@ -467,6 +481,23 @@ app.get("/api/ai/track-status", async (req, res) => {
   if (!ttapiEnabled()) return res.status(503).json({ ok: false, error: "Not configured" });
   const jobId = String(req.query.jobId || "").trim();
   if (!jobId) return res.status(400).json({ ok: false, error: "Missing jobId" });
+
+  // Handle background reference-generate jobs
+  if (jobId.startsWith("ref-")) {
+    const pending = pendingRefJobs.get(jobId);
+    if (!pending) return res.status(404).json({ ok: false, error: "Job not found" });
+    if (pending.status === "FAILED") return res.json({ ok: true, status: "FAILED", error: pending.error });
+    if (pending.status === "ON_QUEUE") return res.json({ ok: true, status: "ON_QUEUE", progress: "Uploading reference…" });
+    // DELEGATED — poll the real TTAPI job
+    try {
+      const job = await fetchJob(pending.realJobId);
+      res.json({ ok: true, ...job });
+    } catch (err) {
+      res.status(500).json({ ok: false, error: err.message });
+    }
+    return;
+  }
+
   try {
     const job = await fetchJob(jobId);
     res.json({ ok: true, ...job });
