@@ -793,13 +793,33 @@ function openGenModal(prompt, name) {
 
       <details class="gm-details">
         <summary>${t("gen.ref.toggle")}</summary>
-        <div id="gm-ref-drop" class="gm-ref-drop">
-          <input type="file" id="gm-ref-file" accept="audio/*" style="display:none" />
-          <span>${t("gen.ref.drop")}</span>
+        <div class="gm-ref-tabs">
+          <button id="gm-ref-tab-file" class="gm-ref-tab active">${t("ctor.ref.file")}</button>
+          <button id="gm-ref-tab-mic" class="gm-ref-tab">${t("ctor.ref.mic")}</button>
         </div>
-        <div id="gm-ref-info" style="display:none;align-items:center;gap:8px;margin-top:6px">
-          <span id="gm-ref-fname" class="muted" style="font-size:0.82em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1"></span>
-          <button id="gm-ref-clear" class="btn-link" style="white-space:nowrap">${t("gen.ref.clear")}</button>
+        <div id="gm-ref-file-zone">
+          <div id="gm-ref-drop" class="gm-ref-drop">
+            <input type="file" id="gm-ref-file" accept="audio/*" style="display:none" />
+            <span>${t("gen.ref.drop")}</span>
+          </div>
+          <div id="gm-ref-info" style="display:none;align-items:center;gap:8px;margin-top:6px">
+            <span id="gm-ref-fname" class="muted" style="font-size:0.82em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1"></span>
+            <button id="gm-ref-clear" class="btn-link" style="white-space:nowrap">${t("gen.ref.clear")}</button>
+          </div>
+        </div>
+        <div id="gm-ref-mic-zone" class="hidden">
+          <div class="gm-mic-row">
+            <button id="gm-mic-btn" class="voice-btn small">${t("ctor.mic.record")}</button>
+            <span id="gm-mic-timer" class="hidden muted" style="font-size:0.85em">&nbsp;<span id="gm-mic-sec">0</span>s ●</span>
+          </div>
+          <div id="gm-mic-playback" class="hidden" style="margin-top:8px">
+            <audio id="gm-mic-audio" controls style="width:100%;margin:4px 0"></audio>
+            <div style="display:flex;gap:8px;margin-top:4px">
+              <button id="gm-mic-use" class="primary small" style="flex:1">${t("reftrack.use")}</button>
+              <button id="gm-mic-redo" class="btn-link">${t("ctor.mic.redo")}</button>
+            </div>
+          </div>
+          <div id="gm-mic-ready" class="hidden muted" style="font-size:0.82em;margin-top:4px"></div>
         </div>
         <div id="gm-ref-opts" class="gm-ref-opts" style="display:none">
           <label class="gm-ref-range">${t("gen.ref.from")} <input id="gm-ref-start" type="number" value="0" min="0" max="119" class="gm-num" /> ${t("gen.ref.to")} <input id="gm-ref-end" type="number" value="30" min="1" max="120" class="gm-num" /> s</label>
@@ -844,6 +864,72 @@ function openGenModal(prompt, name) {
     refInfo.style.display = "none"; refOpts.style.display = "none"; refDrop.style.display = "flex";
   });
   $("#gm-ref-weight").addEventListener("input", (e) => { $("#gm-ref-pct").textContent = Math.round(Number(e.target.value) * 100) + "%"; });
+
+  // ── Reference tab switching (File | Mic)
+  function setGmRefTab(tab) {
+    $("#gm-ref-tab-file")?.classList.toggle("active", tab === "file");
+    $("#gm-ref-tab-mic")?.classList.toggle("active", tab === "mic");
+    $("#gm-ref-file-zone")?.classList.toggle("hidden", tab !== "file");
+    $("#gm-ref-mic-zone")?.classList.toggle("hidden", tab !== "mic");
+  }
+  $("#gm-ref-tab-file")?.addEventListener("click", () => setGmRefTab("file"));
+  $("#gm-ref-tab-mic")?.addEventListener("click", () => setGmRefTab("mic"));
+
+  // ── Mic recording for reference
+  let gmMicRecorder = null, gmMicChunks = [], gmMicBlob = null, gmMicTimerIv = null;
+  const gmMicBtn = $("#gm-mic-btn");
+  const gmMicTimer = $("#gm-mic-timer");
+  const gmMicSec = $("#gm-mic-sec");
+  const gmMicPlayback = $("#gm-mic-playback");
+  const gmMicAudio = $("#gm-mic-audio");
+  const gmMicReady = $("#gm-mic-ready");
+
+  gmMicBtn?.addEventListener("click", async () => {
+    if (gmMicRecorder?.state === "recording") { gmMicRecorder.stop(); return; }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      gmMicChunks = [];
+      gmMicRecorder = new MediaRecorder(stream);
+      gmMicRecorder.ondataavailable = e => { if (e.data.size) gmMicChunks.push(e.data); };
+      gmMicRecorder.onstop = () => {
+        stream.getTracks().forEach(tr => tr.stop());
+        gmMicBlob = new Blob(gmMicChunks, { type: "audio/webm" });
+        gmMicAudio.src = URL.createObjectURL(gmMicBlob);
+        gmMicPlayback?.classList.remove("hidden");
+        gmMicBtn.textContent = t("ctor.mic.record");
+        gmMicTimer?.classList.add("hidden");
+        clearInterval(gmMicTimerIv);
+      };
+      gmMicRecorder.start();
+      gmMicBtn.textContent = t("voice.record.stop");
+      gmMicPlayback?.classList.add("hidden");
+      gmMicReady?.classList.add("hidden");
+      gmMicTimer?.classList.remove("hidden");
+      let secs = 0;
+      if (gmMicSec) gmMicSec.textContent = 0;
+      gmMicTimerIv = setInterval(() => { secs++; if (gmMicSec) gmMicSec.textContent = secs; if (secs >= 120) gmMicRecorder.stop(); }, 1000);
+    } catch (e) {
+      out.innerHTML = `<div class="error">${t("voice.mic.error")}${escapeHtml(e.message)}</div>`;
+    }
+  });
+
+  $("#gm-mic-use")?.addEventListener("click", () => {
+    if (!gmMicBlob) return;
+    refFile = new File([gmMicBlob], "mic-reference.webm", { type: gmMicBlob.type });
+    refOpts.style.display = "block";
+    if (gmMicReady) {
+      gmMicReady.textContent = t("reftrack.rec.size").replace("{n}", Math.round(gmMicBlob.size / 1024)) + " " + t("reftrack.rec.ready");
+      gmMicReady.classList.remove("hidden");
+    }
+  });
+
+  $("#gm-mic-redo")?.addEventListener("click", () => {
+    refFile = null; gmMicBlob = null; gmMicChunks = [];
+    gmMicPlayback?.classList.add("hidden");
+    gmMicReady?.classList.add("hidden");
+    refOpts.style.display = "none";
+    if (gmMicBtn) gmMicBtn.textContent = t("ctor.mic.record");
+  });
 
   // ── Constructor button
   $("#gm-ctor-btn").addEventListener("click", () => {

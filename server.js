@@ -15,7 +15,7 @@ import { buildSongStructure, aiSongStructure, buildLyricSkeleton, aiLyrics } fro
 import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite, decodeDNA, transcribeAudio, styleTimeMachine, lyricsSyncConduct, styleGenome, buildPlaylist } from "./lib/aiFeatures.js";
 import { aiRateLimit } from "./lib/rateLimit.js";
 import { ttapiEnabled, submitMusic, fetchJob, submitSampleFromBuffer } from "./lib/ttapi.js";
-import { auphonicEnabled, submitMasterJob, getMasterStatus } from "./lib/auphonic.js";
+import { auphonicEnabled, submitMasterJob, getMasterStatus, downloadMasterFile } from "./lib/auphonic.js";
 import { lemonEnabled, createCheckout, findSubscriptionByEmail, createToken, verifyToken, verifyWebhookSig, planFromVariant } from "./lib/lemon.js";
 
 // Temporary file store for reference audio (TTAPI upload needs a public URL).
@@ -625,9 +625,32 @@ app.get("/api/ai/master-status", async (req, res) => {
   // resilient to server restarts (which clear masterJobs) while a poll is in flight.
   try {
     const result = await getMasterStatus(jobId);
+    // Replace the direct Auphonic URL with our proxy so the browser never needs auth.
+    if (result.downloadUrl) {
+      result.downloadUrl = `/api/ai/master-download?jobId=${encodeURIComponent(jobId)}`;
+    }
     res.json({ ok: true, ...result });
   } catch (err) {
     console.error("[auphonic-status]", err.message);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+app.get("/api/ai/master-download", async (req, res) => {
+  if (!auphonicEnabled()) return res.status(503).end();
+  const jobId = String(req.query.jobId || "").trim();
+  if (!jobId) return res.status(400).end();
+  try {
+    const status = await getMasterStatus(jobId);
+    if (status.status !== "Success" || !status.downloadUrl) {
+      return res.status(404).json({ ok: false, error: "Not ready" });
+    }
+    const buf = await downloadMasterFile(status.downloadUrl);
+    res.setHeader("Content-Type", "audio/mpeg");
+    res.setHeader("Content-Disposition", 'inline; filename="mastered.mp3"');
+    res.end(buf);
+  } catch (err) {
+    console.error("[auphonic-download]", err.message);
     res.status(500).json({ ok: false, error: err.message });
   }
 });

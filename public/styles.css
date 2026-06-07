@@ -367,6 +367,14 @@ button.small { padding: 8px 14px; font-size: 13px; }
   font-size: 13px; color: var(--muted); transition: border-color .15s, background .15s;
 }
 .gm-ref-drop:hover, .gm-ref-drop.dragover { border-color: rgba(168,85,247,0.6); background: rgba(168,85,247,0.06); }
+.gm-ref-tabs { display: flex; gap: 6px; margin: 8px 0 4px; }
+.gm-ref-tab {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px; padding: 4px 12px; font-size: 12px; cursor: pointer;
+  color: var(--muted); transition: background .15s, border-color .15s, color .15s;
+}
+.gm-ref-tab.active { border-color: rgba(168,85,247,0.6); color: #e8e8e8; background: rgba(168,85,247,0.1); }
+.gm-mic-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
 .gm-ref-opts { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
 .gm-ref-range, .gm-weight-row {
   font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
