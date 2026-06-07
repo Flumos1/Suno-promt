@@ -214,6 +214,15 @@ button.small { padding: 8px 14px; font-size: 13px; }
 .genre-pin-icon.pinned { opacity: 1; color: #ffd700; }
 .fchip.genre-pinned { border-color: rgba(255,215,0,0.25); }
 .fchip.genre-pinned:hover { border-color: rgba(255,215,0,0.5); }
+#scroll-top-btn {
+  position: fixed; bottom: 24px; right: 24px; z-index: 900;
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border-bright);
+  background: var(--panel-solid); color: var(--neon); font-size: 18px; cursor: pointer;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+#scroll-top-btn.visible { opacity: 1; pointer-events: auto; }
+#scroll-top-btn:hover { transform: translateY(-3px); background: rgba(92,214,255,0.12); }
 .filter-bottom { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
 .filter-bottom #search { flex: 1; min-width: 180px; }
 .sort-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }

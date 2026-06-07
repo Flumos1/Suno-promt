@@ -17,7 +17,7 @@ function toggleFavGenre(genre) {
   syncChips();
 }
 
-const state = { language: "", era: "", genre: "", mood: "", q: "", free: false, isNew: false, page: 1, sort: "" };
+const state = { language: "", era: "", genre: "", mood: "", q: "", free: false, isNew: false, page: 1, sort: "", pageSize: 24 };
 const cardCache = new Map(); // id → full card data for artist modal
 let facets = null;
 let canGenerate = false; // set from /api/status
@@ -562,12 +562,17 @@ function renderFacets() {
       const fav = favGenres.has(g);
       return `<button class="fchip${fav ? " genre-pinned" : ""}" data-f="genre" data-v="${escapeAttr(g)}">${escapeHtml(g)}<span class="n">${n}</span><span class="genre-pin-icon${fav ? " pinned" : ""}" data-pin="${escapeAttr(g)}">★</span></button>`;
     }).join("");
-  // Sort row
+  // Sort + per-page row
   const sortOpts = ["","name_az","name_za","bpm_asc","bpm_desc","era_new","era_old"];
+  const pageSizeLabel = currentLang === "ru" ? "По" : "Per page";
   $("#f-sort").innerHTML = `<span class="sort-label">${t("sort.label")}</span>` +
-    `<select id="sort-select" class="sort-select">${sortOpts.map(v => `<option value="${v}">${t("sort." + (v||"default"))}</option>`).join("")}</select>`;
+    `<select id="sort-select" class="sort-select">${sortOpts.map(v => `<option value="${v}">${t("sort." + (v||"default"))}</option>`).join("")}</select>` +
+    `<span class="sort-label" style="margin-left:8px">${pageSizeLabel}</span>` +
+    `<select id="page-size-select" class="sort-select"><option value="24">24</option><option value="48">48</option><option value="96">96</option></select>`;
   $("#sort-select").value = state.sort;
+  $("#page-size-select").value = state.pageSize;
   $("#sort-select").addEventListener("change", (e) => { state.sort = e.target.value; state.page = 1; loadCatalog(); });
+  $("#page-size-select").addEventListener("change", (e) => { state.pageSize = Number(e.target.value); state.page = 1; loadCatalog(); });
   $$(".fchip").forEach((chip) => chip.addEventListener("click", (e) => {
     const pin = e.target.closest(".genre-pin-icon");
     if (pin) { e.stopPropagation(); toggleFavGenre(pin.dataset.pin); return; }
@@ -928,6 +933,7 @@ function qs() {
   if (state.isNew) p.set("isNew", "1");
   if (state.q) p.set("q", state.q);
   if (state.sort) p.set("sort", state.sort);
+  if (state.pageSize !== 24) p.set("pageSize", state.pageSize);
   p.set("page", state.page);
   const u = localStorage.getItem(UNLOCK_KEY);
   if (u) p.set("u", u);
@@ -3005,6 +3011,17 @@ window._startMastering = (audioUrl) => {
   const btn = $("#master-btn");
   if (out && btn) startMastering(audioUrl, $("#master-loudness")?.value || "streaming", out, btn);
 };
+
+/* ---------- Scroll-to-top button ---------- */
+(function() {
+  const btn = document.createElement("button");
+  btn.id = "scroll-top-btn";
+  btn.textContent = "↑";
+  btn.title = "Наверх";
+  document.body.appendChild(btn);
+  window.addEventListener("scroll", () => { btn.classList.toggle("visible", window.scrollY > 400); });
+  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+})();
 
 /* ---------- Init (after all declarations) ---------- */
 setTheme(localStorage.getItem("ss_theme") || "dark");

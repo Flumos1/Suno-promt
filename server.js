@@ -171,7 +171,7 @@ app.get("/api/catalog", (req, res) => {
   const { language, era, genre, mood, free, isNew, sort } = req.query;
   const unlocked = isUnlocked(req.query.u);
   const page = Math.max(1, parseInt(req.query.page) || 1);
-  const pageSize = Math.min(60, parseInt(req.query.pageSize) || 24);
+  const pageSize = Math.min(96, parseInt(req.query.pageSize) || 24);
 
   let results = catalog.filter((c) => {
     if (language && c.language !== language) return false;
