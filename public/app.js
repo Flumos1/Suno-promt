@@ -908,6 +908,7 @@ function pollModalTrack(jobId, out, btn) {
     elapsed += 5;
     try {
       const job = await api(`/api/ai/track-status?jobId=${encodeURIComponent(jobId)}`);
+      if (!job.ok && job.error) { clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">${escapeHtml(job.error)}</div>`; return; }
       const p = out.querySelector("#gm-prog"); if (p && job.progress) p.textContent = job.progress;
       if (job.status === "SUCCESS" && job.musics?.length) {
         clearInterval(iv); btn.disabled = false;
