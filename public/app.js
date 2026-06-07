@@ -172,6 +172,12 @@ const LANG = {
     "pricing.activate.sub":"Already subscribed? Enter your payment email to activate:",
     "pricing.activate.btn":"Activate","pricing.activate.link":"Already subscribed? Activate →",
     "reftrack.rec.size":"Recording: {n} KB","reftrack.rec.ready":"· ready to use ✓",
+    "slop.clean":"clean, no clichés found","slop.loading":"AI is rewriting clichés into specifics…",
+    "slop.result.label":"Fixed prompt","slop.changes.label":"What changed",
+    "tm.from.era":"From {era}","tm.retained":"Retained from {artist}",
+    "ls.result.label":"Lyrics with tags","ls.tags.added":"added","ls.why":"What and why",
+    "dna.tech":"Technical data","dna.analysis":"Track analysis",
+    "dna.vocals":"Vocals","dna.production":"Production",
   },
   ru: {
     "nav.catalog":"⌕ Каталог","nav.anchor":"🎙 Вокал","nav.reference":"♪ Референс",
@@ -331,6 +337,12 @@ const LANG = {
     "pricing.activate.sub":"Уже подписан? Введи email оплаты для активации:",
     "pricing.activate.btn":"Активировать","pricing.activate.link":"Уже подписан? Активировать →",
     "reftrack.rec.size":"Запись: {n} KB","reftrack.rec.ready":"· готово к отправке ✓",
+    "slop.clean":"чисто, штампов не найдено","slop.loading":"AI переписывает штампы в конкретику…",
+    "slop.result.label":"Починенный промпт","slop.changes.label":"Что заменено",
+    "tm.from.era":"Из эпохи {era}","tm.retained":"Сохранено от {artist}",
+    "ls.result.label":"Лирика с тегами","ls.tags.added":"добавлено","ls.why":"Что и почему",
+    "dna.tech":"Технические данные","dna.analysis":"Анализ трека",
+    "dna.vocals":"Вокал","dna.production":"Продакшн",
   }
 };
 
@@ -1281,12 +1293,12 @@ function download(name, text) {
       </div>
       <div class="tm-split">
         <div>
-          <div class="prompt-label">Из эпохи ${escapeHtml(d.targetEra)}</div>
+          <div class="prompt-label">${t("tm.from.era").replace("{era}", escapeHtml(d.targetEra))}</div>
           ${d.eraInstruments.map((i) => `<span class="tag inst">${escapeHtml(i)}</span>`).join(" ")}
           ${d.eraProduction ? `<div class="muted" style="font-size:12px;margin-top:6px">${escapeHtml(d.eraProduction)}</div>` : ""}
         </div>
         <div>
-          <div class="prompt-label">Сохранено от ${escapeHtml(d.artist)}</div>
+          <div class="prompt-label">${t("tm.retained").replace("{artist}", escapeHtml(d.artist))}</div>
           ${d.retainedFromArtist.map((r) => `<span class="tag mood">${escapeHtml(r)}</span>`).join(" ")}
         </div>
       </div>
@@ -1329,13 +1341,13 @@ function download(name, text) {
   function renderLyricsSync(d) {
     return `<div class="ai-result">
       <div class="ai-prompt-box">
-        <div class="prompt-label">Лирика с тегами <span class="ok">· ${d.tagsAdded.length} тегов добавлено</span></div>
+        <div class="prompt-label">${t("ls.result.label")} <span class="ok">· ${d.tagsAdded.length} ${t("ls.tags.added")}</span></div>
         <pre class="prompt struct">${escapeHtml(d.tagged)}</pre>
         <button class="copy" data-prompt="${escapeAttr(d.tagged)}">${t("copy.prompt")}</button>
       </div>
       ${d.tagsAdded.length ? `
       <div class="ls-tags-list">
-        <div class="prompt-label">Что и почему</div>
+        <div class="prompt-label">${t("ls.why")}</div>
         ${d.tagsAdded.map((t) => `
           <div class="ls-tag-row">
             <code class="ls-tag-name">${escapeHtml(t.tag)}</code>
@@ -1443,15 +1455,15 @@ function download(name, text) {
     return `<div class="ai-result dna-result">
 
       <div class="dna-section">
-        <div class="prompt-label">Технические данные</div>
+        <div class="prompt-label">${t("dna.tech")}</div>
         <div class="muted" style="font-size:12px">${metaLine || "—"}</div>
       </div>
 
       <div class="dna-section">
-        <div class="prompt-label">Анализ трека</div>
+        <div class="prompt-label">${t("dna.analysis")}</div>
         <div class="ai-meta">${tags}</div>
-        ${a.vocals ? `<div style="margin-top:8px;font-size:13px"><b>Вокал:</b> ${escapeHtml(a.vocals)}</div>` : ""}
-        ${a.production ? `<div style="font-size:13px"><b>Продакшн:</b> ${escapeHtml(a.production)}</div>` : ""}
+        ${a.vocals ? `<div style="margin-top:8px;font-size:13px"><b>${t("dna.vocals")}:</b> ${escapeHtml(a.vocals)}</div>` : ""}
+        ${a.production ? `<div style="font-size:13px"><b>${t("dna.production")}:</b> ${escapeHtml(a.production)}</div>` : ""}
         ${a.producerNote ? `<div class="dna-note">💬 ${escapeHtml(a.producerNote)}</div>` : ""}
       </div>
 
@@ -1546,7 +1558,7 @@ function scorePrompt(text) {
     bar.style.background = color(score);
     flagsEl.innerHTML = flags.length
       ? flags.map((f) => `<span class="slop-flag ${f.type}">${escapeHtml(f.token)}</span>`).join("")
-      : `<span class="slop-flag ok">✓ чисто, штампов не найдено</span>`;
+      : `<span class="slop-flag ok">✓ ${t("slop.clean")}</span>`;
   }
   input.addEventListener("input", update);
 
@@ -1554,7 +1566,7 @@ function scorePrompt(text) {
     const prompt = input.value.trim();
     if (!prompt) return;
     const { flags } = scorePrompt(prompt);
-    out.innerHTML = `<div class="spinner">AI переписывает штампы в конкретику…</div>`;
+    out.innerHTML = `<div class="spinner">${t("slop.loading")}</div>`;
     btn.disabled = true;
     try {
       const data = await aiCall("/api/ai/anti-slop", {
@@ -1567,12 +1579,12 @@ function scorePrompt(text) {
       out.innerHTML = `
         <div class="ai-result">
           <div class="ai-prompt-box">
-            <div class="prompt-label">Починенный промпт <span class="ok">· ${newScore}/100</span></div>
+            <div class="prompt-label">${t("slop.result.label")} <span class="ok">· ${newScore}/100</span></div>
             <div class="prompt">${escapeHtml(data.rewritten)}</div>
             <button class="copy" data-prompt="${escapeAttr(data.rewritten)}">${t("copy")}</button>
           </div>
           ${data.changes.length ? `<div class="slop-changes">
-            <div class="prompt-label">Что заменено</div>
+            <div class="prompt-label">${t("slop.changes.label")}</div>
             ${data.changes.map((c) => `<div class="slop-change"><s>${escapeHtml(c.from)}</s> → <b>${escapeHtml(c.to)}</b><span class="why">${escapeHtml(c.why || "")}</span></div>`).join("")}
           </div>` : ""}
         </div>`;
