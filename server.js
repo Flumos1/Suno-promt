@@ -116,6 +116,9 @@ function publicEntry(c, unlocked) {
   };
 }
 
+// --- Health check (for Render + uptime monitoring) ---
+app.get("/health", (req, res) => res.json({ status: "ok", ts: Date.now(), catalog: catalog.length }));
+
 // --- Status ---
 app.get("/api/status", (req, res) => {
   res.json({ ai: aiEnabled(), provider: activeProvider(), catalogSize: catalog.length, generate: ttapiEnabled(), master: auphonicEnabled() });

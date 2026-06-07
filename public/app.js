@@ -28,6 +28,8 @@ const LANG = {
     "saved.empty":"Nothing saved yet. Tap ★ on any prompt to save it here.",
     "pager.prev":"← Prev","pager.next":"Next →","pager.info":"Page {p} / {t} · {n} styles",
     "ctor.placeholder":"Pick chips on the left — prompt builds here…",
+    "ctor.gen.empty":"Build a prompt first — add genre, mood or instruments",
+    "ctor.save.title":"Save to Saved","ctor.saved":"Saved ✓",
     "anchor.title":"Vocal Anchor Builder",
     "anchor.sub":"Shape a unique vocal along 5 axes. Add a donor for spirit, not imitation.",
     "anchor.pitch":"Pitch","anchor.timbre":"Timbre","anchor.delivery":"Delivery",
@@ -205,6 +207,8 @@ const LANG = {
     "saved.empty":"Ничего не сохранено. Нажми ★ на промпт чтобы сохранить его.",
     "pager.prev":"← Назад","pager.next":"Вперёд →","pager.info":"Стр. {p} / {t} · {n} стилей",
     "ctor.placeholder":"Выбирай чипы слева — промпт появится здесь…",
+    "ctor.gen.empty":"Собери промпт — добавь жанр, настроение или инструменты",
+    "ctor.save.title":"Сохранить в Saved","ctor.saved":"Сохранено ✓",
     "anchor.title":"Конструктор вокала",
     "anchor.sub":"Настрой уникальный вокал по 5 осям. Добавь донора за характер — не за имитацию.",
     "anchor.pitch":"Высота","anchor.timbre":"Тембр","anchor.delivery":"Подача",
@@ -2419,7 +2423,7 @@ if (transBtn) {
     toggleSave({ id, name, prompt: text, genre: state.genre || "" });
     const btn = document.getElementById("ctor-save-btn");
     const saved = getSaved().some(s => s.prompt === text);
-    if (btn) { btn.classList.toggle("on", saved); btn.title = saved ? "Сохранено ✓" : "Сохранить в Saved"; }
+    if (btn) { btn.classList.toggle("on", saved); btn.title = saved ? t("ctor.saved") : t("ctor.save.title"); }
   });
 
   document.getElementById("ctor-reset-btn")?.addEventListener("click", () => {
@@ -2427,9 +2431,9 @@ if (transBtn) {
       vocalTimbre: new Set(), vocalDelivery: null, vocalFx: new Set(), instruments: new Set(),
       production: new Set(), bpm: 0, keyNote: null, keyMode: "major", carattere: new Set(), useCase: null, theme: "" });
     const g = document.getElementById("ctor-genre"); if (g) g.value = "";
-    const t = document.getElementById("ctor-theme"); if (t) t.value = "";
+    const themeEl = document.getElementById("ctor-theme"); if (themeEl) themeEl.value = "";
     const sb = document.getElementById("ctor-save-btn");
-    if (sb) { sb.classList.remove("on"); sb.title = "Сохранить в Saved"; }
+    if (sb) { sb.classList.remove("on"); sb.title = t("ctor.save.title"); }
     setBpm(0); refreshChips(); renderInstTabs(); updatePreview();
   });
 
@@ -2493,13 +2497,13 @@ if (transBtn) {
       micTimerIv = setInterval(() => { secs++; if (secEl) secEl.textContent = secs; if (secs >= 120) micRecorder.stop(); }, 1000);
     } catch(e) {
       const out = document.getElementById("ctor-gen-out");
-      if (out) out.innerHTML = `<div class="error">Нет доступа к микрофону: ${escapeHtml(e.message)}</div>`;
+      if (out) out.innerHTML = `<div class="error">${t("voice.mic.error")}${escapeHtml(e.message)}</div>`;
     }
   });
   document.getElementById("ctor-mic-redo")?.addEventListener("click", () => {
     refBlob = null;
     document.getElementById("ctor-mic-ready")?.classList.add("hidden");
-    if (ctorMicBtn) ctorMicBtn.textContent = "🎙 Запись";
+    if (ctorMicBtn) ctorMicBtn.textContent = t("ctor.mic.record");
   });
 
   // ── Generate ───────────────────────────────────────────────────────────
@@ -2508,9 +2512,9 @@ if (transBtn) {
     const tags = (preview?.textContent || buildPrompt()).trim();
     const out = document.getElementById("ctor-gen-out");
     const btn = document.getElementById("ctor-gen-btn");
-    if (!tags) { out.innerHTML = `<div class="error">Собери промпт — добавь жанр, настроение или инструменты</div>`; return; }
+    if (!tags) { out.innerHTML = `<div class="error">${t("ctor.gen.empty")}</div>`; return; }
     btn.disabled = true;
-    out.innerHTML = `<div class="spinner">Отправляю в Suno…</div>`;
+    out.innerHTML = `<div class="spinner">${t("gen.modal.sending")}</div>`;
     try {
       let jobId;
       if (refMode !== "none" && refBlob) {
