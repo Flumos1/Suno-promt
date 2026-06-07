@@ -1808,6 +1808,10 @@ async function aiCall(url, opts = {}) {
     }
     throw new Error(data.error || `HTTP ${res.status}`);
   }
+  // Reflect generation use in local planInfo so the quota note stays current
+  if (planInfo?.genLimit > 0 && (url.includes("/generate-track") || url.includes("/reference-generate"))) {
+    planInfo = { ...planInfo, genUsed: Math.min((planInfo.genUsed || 0) + 1, planInfo.genLimit) };
+  }
   return data;
 }
 
