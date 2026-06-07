@@ -144,7 +144,7 @@ const LANG = {
     "quota.unlocked":"● Unlocked — unlimited","quota.remaining":"{n} of {limit} free requests left today",
     "quota.unlock.cta":"Enter an unlock code to continue.",
     "plan.required":"This feature requires a Creator or Pro plan.",
-    "plan.required.pro":"This feature requires a Pro plan.",
+    "plan.required.pro":"This feature requires a Pro plan.","gen.disabled.title":"Track generation not configured (TTAPI_KEY missing)",
     "gen.quota.exceeded":"Monthly generation limit reached ({used}/{limit} used). Resets next month.",
     "gen.quota.info":"{used}/{limit} gen used this month",
     "ai.gen.btn":"🎵 Generate in Suno",
@@ -335,7 +335,7 @@ const LANG = {
     "quota.unlocked":"● Разблокировано — без лимита","quota.remaining":"Осталось {n} из {limit} запросов на сегодня",
     "quota.unlock.cta":"Введи unlock-код чтобы продолжить.",
     "plan.required":"Эта функция доступна на плане Creator или Pro.",
-    "plan.required.pro":"Эта функция доступна только на плане Pro.",
+    "plan.required.pro":"Эта функция доступна только на плане Pro.","gen.disabled.title":"Генерация треков не настроена (нет TTAPI_KEY)",
     "gen.quota.exceeded":"Месячный лимит генераций исчерпан ({used}/{limit}). Обновится в следующем месяце.",
     "gen.quota.info":"{used}/{limit} ген использовано в этом месяце",
     "ai.gen.btn":"🎵 Сгенерировать в Suno",
@@ -495,7 +495,7 @@ const spin = (label) => `<span class="spinner"></span> <span class="muted">${lab
 function wireCopyButtons(root) {
   root.querySelectorAll(".copy").forEach((btn) => btn.addEventListener("click", async () => {
     try { await navigator.clipboard.writeText(btn.dataset.prompt);
-      const old = btn.textContent; btn.textContent = "Copied ✓"; setTimeout(() => (btn.textContent = old), 1400);
+      const old = btn.textContent; btn.textContent = t("btn.copied"); setTimeout(() => (btn.textContent = old), 1400);
     } catch { /* unavailable */ }
   }));
 }
@@ -2599,7 +2599,7 @@ if (transBtn) {
   api("/api/status").then(s => {
     if (!s.generate) {
       const btn = document.getElementById("ctor-gen-btn");
-      if (btn) btn.title = "TTAPI_KEY не настроен на сервере";
+      if (btn) btn.title = t("gen.disabled.title") || "TTAPI not configured";
     }
   }).catch(() => {});
 })();
