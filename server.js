@@ -15,7 +15,7 @@ import { buildSongStructure, aiSongStructure, buildLyricSkeleton, aiLyrics } fro
 import { translateLyricsRuToEn, sceneToScore, imageToMoodPrompt, voiceMemoToPrompt, antiSlopRewrite, decodeDNA, transcribeAudio, styleTimeMachine, lyricsSyncConduct, styleGenome, buildPlaylist } from "./lib/aiFeatures.js";
 import { aiRateLimit } from "./lib/rateLimit.js";
 import { ttapiEnabled, submitMusic, fetchJob, submitSampleFromBuffer } from "./lib/ttapi.js";
-import { masterTrack } from "./lib/mastering.js";
+import { masterTrack, transcodeToMp3 } from "./lib/mastering.js";
 import { lemonEnabled, createCheckout, findSubscriptionByEmail, createToken, verifyToken, verifyWebhookSig, planFromVariant } from "./lib/lemon.js";
 
 // Temporary file store for reference audio (TTAPI upload needs a public URL).
@@ -356,9 +356,16 @@ app.post("/api/ai/reference-generate", checkGenQuota, upload.single("audio"), as
   // Background: upload file to TTAPI then submit sample job
   (async () => {
     try {
-      const { jobId } = await submitSampleFromBuffer(
-        req.file.buffer, req.file.mimetype || "audio/mpeg", tempFiles, PUBLIC_BASE, opts
-      );
+      let buf  = req.file.buffer;
+      let mime = req.file.mimetype || "audio/mpeg";
+      // Suno only accepts MP3/WAV. MediaRecorder outputs WebM/Opus — transcode first.
+      if (mime === "audio/webm" || mime === "audio/ogg" || mime === "video/webm" ||
+          (req.file.originalname || "").match(/\.(webm|ogg)$/i)) {
+        console.log("[reference-generate] transcoding WebM → MP3");
+        buf  = await transcodeToMp3(buf, "webm");
+        mime = "audio/mpeg";
+      }
+      const { jobId } = await submitSampleFromBuffer(buf, mime, tempFiles, PUBLIC_BASE, opts);
       pendingRefJobs.set(fakeId, { status: "DELEGATED", realJobId: jobId, created: Date.now() });
     } catch (err) {
       console.error("[reference-generate-bg]", err.message);
