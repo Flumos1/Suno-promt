@@ -272,8 +272,8 @@ app.post("/api/ai/reference-generate", aiRateLimit, upload.single("audio"), asyn
       tempFiles,
       PUBLIC_BASE,
       {
-        startSec: Number(req.body?.startSec ?? 0),
-        endSec: Number(req.body?.endSec ?? 30),
+        startSec: Math.max(0, Number(req.body?.startSec ?? 0)),
+        endSec: Math.min(120, Math.max(Number(req.body?.startSec ?? 0) + 1, Number(req.body?.endSec ?? 30))),
         tags: req.body?.tags || undefined,
         lyrics: req.body?.lyrics || undefined,
         descriptionPrompt: req.body?.description || undefined,
@@ -510,6 +510,8 @@ app.post("/api/ai/master-track", aiRateLimit, async (req, res) => {
   const audioUrl = String(req.body?.audioUrl || "").trim();
   const loudness = String(req.body?.loudness || "streaming");
   if (!audioUrl) return res.status(400).json({ ok: false, error: "audioUrl required" });
+  try { const u = new URL(audioUrl); if (!["http:", "https:"].includes(u.protocol)) throw new Error(); }
+  catch { return res.status(400).json({ ok: false, error: "audioUrl must be a valid http(s) URL" }); }
   try {
     const { jobId } = await submitMasterJob(audioUrl, { loudness });
     masterJobs.set(jobId, { createdAt: Date.now() });
