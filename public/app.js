@@ -137,9 +137,9 @@ const LANG = {
     "playlist.title":"🎵 Playlist Builder","playlist.sub":"Set a style — get 8 coherent tracks with a shared album concept.",
     "playlist.style.ph":"Style: dark synthwave, female vocal, 80s production…","playlist.theme.ph":"Album theme (opt.): neon city, solitude…",
     "playlist.tracks":"Tracks","playlist.btn":"🎵 Build Playlist","playlist.loading":"AI is building your album…","playlist.copy.all":"Copy all prompts",
-    "master.title":"🎚 Track Mastering","master.sub":"Improve Suno track quality via Dolby.io: noise cleanup, EQ balance, loudness normalization. 200 min/month free.",
+    "master.title":"🎚 Track Mastering","master.sub":"Improve Suno track quality via Auphonic: noise cleanup, EQ balance, loudness normalization. 2 hours/month free.",
     "master.url.ph":"MP3 file URL (e.g. from generated track result)","master.loudness":"Loudness",
-    "master.btn":"🎚 Master","master.loading":"Dolby.io is mastering…","master.progress":"Mastering… {p}%",
+    "master.btn":"🎚 Master","master.loading":"Auphonic is mastering…","master.progress":"Mastering… {p}%",
     "master.done":"🎚 Mastering complete","master.download":"⭳ Download mastered MP3","master.fail":"Mastering failed",
     "master.btn.inline":"🎚 Master this track",
   },
@@ -266,9 +266,9 @@ const LANG = {
     "playlist.title":"🎵 Плейлист-билдер","playlist.sub":"Задай стиль — получи 8 связных треков с единой концепцией альбома.",
     "playlist.style.ph":"Стиль: dark synthwave, female vocal, 80s production…","playlist.theme.ph":"Тема альбома (опц.): ночной город, одиночество…",
     "playlist.tracks":"Треков","playlist.btn":"🎵 Собрать плейлист","playlist.loading":"AI собирает альбом…","playlist.copy.all":"Скопировать все промпты",
-    "master.title":"🎚 Мастеринг трека","master.sub":"Улучши качество Suno-трека через Dolby.io: шумоподавление, EQ, нормализация громкости. Бесплатно 200 мин/мес.",
+    "master.title":"🎚 Мастеринг трека","master.sub":"Улучши качество Suno-трека через Auphonic: шумоподавление, EQ, нормализация громкости. Бесплатно 2 ч/мес.",
     "master.url.ph":"URL MP3-файла (напр. из результата генерации)","master.loudness":"Громкость",
-    "master.btn":"🎚 Мастеровать","master.loading":"Dolby.io обрабатывает…","master.progress":"Мастеринг… {p}%",
+    "master.btn":"🎚 Мастеровать","master.loading":"Auphonic обрабатывает…","master.progress":"Мастеринг… {p}%",
     "master.done":"🎚 Мастеринг завершён","master.download":"⭳ Скачать мастер MP3","master.fail":"Ошибка мастеринга",
     "master.btn.inline":"🎚 Мастеровать трек",
   }
@@ -2503,7 +2503,7 @@ document.getElementById("lang-toggle")?.addEventListener("click", () => {
   }
 })();
 
-/* ---------- AI Lab — Mastering (Dolby.io) ---------- */
+/* ---------- AI Lab — Mastering (Auphonic) ---------- */
 let canMaster = false;
 api("/api/status").then(s => {
   canMaster = !!s.master;
@@ -2659,7 +2659,7 @@ if (localStorage.getItem(GATE_KEY)) showApp();
       });
       const data = await r.json();
       if (data.ok && data.token) {
-        localStorage.setItem("unlockToken", data.token);
+        localStorage.setItem(UNLOCK_KEY, data.token);
         activateMsg.textContent = `✓ ${data.plan === "pro" ? "Pro" : "Creator"} plan activated!`;
         activateMsg.style.color = "#22c55e";
         setTimeout(() => { close(); location.reload(); }, 1500);
