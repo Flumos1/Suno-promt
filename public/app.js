@@ -132,7 +132,11 @@ const LANG = {
     "scene.style.label":"Style (prompt)","scene.struct.label":"Structure (for Lyrics field)",
     "mirror.label":"English mirror","mirror.syllab":"· syllables matched","mirror.rhyme":"Rhyme notes",
     "quota.unlocked":"● Unlocked — unlimited","quota.remaining":"{n} of {limit} free requests left today",
-    "quota.unlock.cta":"Enter an unlock code to continue.","ai.gen.btn":"🎵 Generate in Suno",
+    "quota.unlock.cta":"Enter an unlock code to continue.",
+    "plan.required":"This feature requires a Creator or Pro plan.",
+    "plan.required.pro":"This feature requires a Pro plan.",
+    "gen.quota.exceeded":"Monthly generation limit reached ({used}/{limit} used). Resets next month.",
+    "ai.gen.btn":"🎵 Generate in Suno",
     "gen.modal.sending":"Sending to Suno…","gen.modal.gen":"Suno is generating… {p}","gen.modal.time":"(30–90 sec)",
     "gen.modal.fail":"Suno returned an error","gen.modal.timeout":"Timeout — try again",
     "voice.record.start":"🎙 Start recording","voice.record.stop":"⏹ Stop",
@@ -299,7 +303,11 @@ const LANG = {
     "scene.style.label":"Style (промпт)","scene.struct.label":"Structure (для Lyrics-поля)",
     "mirror.label":"English mirror","mirror.syllab":"· слоги совпали","mirror.rhyme":"Заметки о рифме",
     "quota.unlocked":"● Разблокировано — без лимита","quota.remaining":"Осталось {n} из {limit} запросов на сегодня",
-    "quota.unlock.cta":"Введи unlock-код чтобы продолжить.","ai.gen.btn":"🎵 Сгенерировать в Suno",
+    "quota.unlock.cta":"Введи unlock-код чтобы продолжить.",
+    "plan.required":"Эта функция доступна на плане Creator или Pro.",
+    "plan.required.pro":"Эта функция доступна только на плане Pro.",
+    "gen.quota.exceeded":"Месячный лимит генераций исчерпан ({used}/{limit}). Обновится в следующем месяце.",
+    "ai.gen.btn":"🎵 Сгенерировать в Suno",
     "gen.modal.sending":"Отправляю в Suno…","gen.modal.gen":"Suno генерирует… {p}","gen.modal.time":"(30–90 сек)",
     "gen.modal.fail":"Suno вернул ошибку","gen.modal.timeout":"Слишком долго — попробуй ещё раз",
     "voice.record.start":"🎙 Начать запись","voice.record.stop":"⏹ Стоп",
@@ -1737,6 +1745,16 @@ async function aiCall(url, opts = {}) {
     if (data.unlock) {
       throw new Error(`${data.message || data.error}\n${t("quota.unlock.cta")}`);
     }
+    if (data.error === "plan_required") {
+      document.dispatchEvent(new CustomEvent("open-pricing"));
+      const key = data.requiredPlans?.includes("pro") && !data.requiredPlans?.includes("creator")
+        ? "plan.required.pro" : "plan.required";
+      throw new Error(t(key));
+    }
+    if (data.error === "gen_quota_exceeded") {
+      document.dispatchEvent(new CustomEvent("open-pricing"));
+      throw new Error(t("gen.quota.exceeded").replace("{used}", data.used).replace("{limit}", data.limit));
+    }
     throw new Error(data.error || `HTTP ${res.status}`);
   }
   return data;
@@ -2688,6 +2706,7 @@ if (localStorage.getItem(GATE_KEY)) showApp();
   function open() { modal.style.display = "flex"; }
   function close(){ modal.style.display = "none"; }
 
+  document.addEventListener("open-pricing", open);
   openBtn?.addEventListener("click", open);
   closeBtn?.addEventListener("click", close);
   modal?.addEventListener("click", e => { if (e.target === modal) close(); });

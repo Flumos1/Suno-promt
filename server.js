@@ -63,6 +63,46 @@ const isUnlocked = (token) => {
 
 const getTokenPlan = (token) => verifyToken(String(token || ""))?.plan || null;
 
+const getRequestToken = (req) =>
+  req.headers["x-unlock-token"] || req.body?.unlock || req.query?.u || "";
+
+// Middleware factory: require one of the listed plans (or 403).
+const requirePlan = (...plans) => (req, res, next) => {
+  const plan = getTokenPlan(getRequestToken(req));
+  if (!plans.includes(plan))
+    return res.status(403).json({ ok: false, error: "plan_required", requiredPlans: plans });
+  next();
+};
+
+// Monthly generation quota — tracked in-memory by customerId.
+const genCounters = new Map(); // `${customerId}:YYYY-MM` -> count
+setInterval(() => {
+  const cur = new Date().toISOString().slice(0, 7);
+  for (const [k] of genCounters) if (!k.endsWith(cur)) genCounters.delete(k);
+}, 3_600_000).unref();
+
+const GEN_QUOTA = { creator: 5, pro: 25 };
+
+const checkGenQuota = (req, res, next) => {
+  const verified = verifyToken(getRequestToken(req));
+  if (!verified)
+    return res.status(403).json({ ok: false, error: "plan_required", requiredPlans: ["creator", "pro"] });
+  const { plan, customerId } = verified;
+  const month = new Date().toISOString().slice(0, 7);
+  const key = `${customerId}:${month}`;
+  const quota = GEN_QUOTA[plan] ?? 0;
+  const used = genCounters.get(key) || 0;
+  if (used >= quota)
+    return res.status(429).json({ ok: false, error: "gen_quota_exceeded", plan, used, limit: quota });
+  req._genQuota = { key, used };
+  next();
+};
+
+const incrementGenQuota = (req) => {
+  if (!req._genQuota) return;
+  genCounters.set(req._genQuota.key, req._genQuota.used + 1);
+};
+
 // Strip the prompt from locked entries unless the user is unlocked.
 function publicEntry(c, unlocked) {
   const locked = !c.free && !unlocked;
@@ -261,7 +301,7 @@ app.get("/api/tmp/:id", (req, res) => {
 });
 
 // ── Reference → Generate (TTAPI sample-to-song) ──────────────────────────
-app.post("/api/ai/reference-generate", aiRateLimit, upload.single("audio"), async (req, res) => {
+app.post("/api/ai/reference-generate", checkGenQuota, upload.single("audio"), async (req, res) => {
   if (!ttapiEnabled()) return res.status(503).json({ ok: false, error: "Track generation not configured (TTAPI_KEY missing)" });
   if (!req.file?.buffer) return res.status(400).json({ ok: false, error: "No audio file uploaded" });
   if (req.file.size > 25 * 1024 * 1024) return res.status(400).json({ ok: false, error: "File too large (max 25MB)" });
@@ -283,6 +323,7 @@ app.post("/api/ai/reference-generate", aiRateLimit, upload.single("audio"), asyn
         audioWeight: req.body?.audioWeight !== undefined ? Number(req.body.audioWeight) : 0.7
       }
     );
+    incrementGenQuota(req);
     res.json({ ok: true, jobId });
   } catch (err) {
     console.error("[reference-generate]", err.message);
@@ -322,7 +363,7 @@ app.post("/api/ai/lyrics-sync", aiRateLimit, async (req, res) => {
 });
 
 // Track DNA Decoder — full analysis: metadata + Whisper + Claude report + catalog match
-app.post("/api/ai/dna-decode", aiRateLimit, upload.single("file"), async (req, res) => {
+app.post("/api/ai/dna-decode", requirePlan("creator", "pro"), upload.single("file"), async (req, res) => {
   if (!req.file?.buffer) return res.status(400).json({ ok: false, error: "No audio file uploaded" });
   if (req.file.size > 25 * 1024 * 1024) return res.status(400).json({ ok: false, error: "File too large (max 25MB)" });
   try {
@@ -371,7 +412,7 @@ app.post("/api/ai/dna-decode", aiRateLimit, upload.single("file"), async (req, r
   }
 });
 
-app.post("/api/ai/generate-track", aiRateLimit, async (req, res) => {
+app.post("/api/ai/generate-track", checkGenQuota, async (req, res) => {
   if (!ttapiEnabled()) return res.status(503).json({ ok: false, error: "Track generation not configured (TTAPI_KEY missing)" });
   const tags = String(req.body?.tags || req.body?.prompt || "").trim();
   if (!tags) return res.status(400).json({ ok: false, error: "Empty prompt/tags" });
@@ -392,6 +433,7 @@ app.post("/api/ai/generate-track", aiRateLimit, async (req, res) => {
       vocalGender: req.body?.vocalGender || undefined
     });
     if (!jobId) throw new Error("No jobId returned");
+    incrementGenQuota(req);
     res.json({ ok: true, jobId });
   } catch (err) {
     console.error("[generate-track]", err.message);
@@ -505,7 +547,7 @@ setInterval(() => {
   for (const [id, j] of masterJobs) if (j.createdAt < cutoff) masterJobs.delete(id);
 }, 3600 * 1000).unref();
 
-app.post("/api/ai/master-track", aiRateLimit, async (req, res) => {
+app.post("/api/ai/master-track", requirePlan("pro"), async (req, res) => {
   if (!auphonicEnabled()) return res.status(503).json({ ok: false, error: "Mastering not configured (AUPHONIC_USER/PASS missing)" });
   const audioUrl = String(req.body?.audioUrl || "").trim();
   const loudness = String(req.body?.loudness || "streaming");
