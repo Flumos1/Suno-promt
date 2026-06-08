@@ -1576,7 +1576,8 @@ function download(name, text) {
             </div>`).join("")}</div>`;
         } else if (job.status === "FAILED") {
           clearInterval(iv); btn.disabled = false;
-          out.innerHTML = `<div class="error">${t("gen.modal.fail")}</div>`;
+          const why = job.failReason || job.error;
+          out.innerHTML = `<div class="error">${t("gen.modal.fail")}${why ? ` — ${escapeHtml(why)}` : ""}</div>`;
         } else if (elapsed > 300) {
           clearInterval(iv); btn.disabled = false;
           out.innerHTML = `<div class="error">${t("gen.modal.timeout")}</div>`;
@@ -1642,7 +1643,8 @@ function download(name, text) {
           out.innerHTML = `<div class="ai-result">${job.musics.map(renderTrack).join("")}</div>`;
         } else if (job.status === "FAILED") {
           stopPoll(); btn.disabled = false;
-          out.innerHTML = `<div class="error">${t("gen.modal.fail")}</div>`;
+          const why = job.failReason || job.error;
+          out.innerHTML = `<div class="error">${t("gen.modal.fail")}${why ? ` — ${escapeHtml(why)}` : ""}</div>`;
         } else if (elapsed > 240) {
           stopPoll(); btn.disabled = false;
           out.innerHTML = `<div class="error">${t("gen.modal.timeout")}</div>`;
@@ -2900,7 +2902,9 @@ if (transBtn) {
                 </div>
               </div>`).join("")}</div>`;
           } else if (job.status === "FAILED") {
-            clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">${t("gen.modal.fail")}</div>`;
+            clearInterval(iv); btn.disabled = false;
+            const why = job.failReason || job.error;
+            out.innerHTML = `<div class="error">${t("gen.modal.fail")}${why ? ` — ${escapeHtml(why)}` : ""}</div>`;
           } else if (elapsed > 300) {
             clearInterval(iv); btn.disabled = false; out.innerHTML = `<div class="error">${t("gen.modal.timeout")}</div>`;
           }
@@ -3079,6 +3083,7 @@ function pollMasterJob(jobId, out, btn) {
         out.innerHTML = `<div class="error">${t("master.fail")}: ${escapeHtml(job.error)}</div>`;
         return;
       }
+      if (elapsed > 300) { clearInterval(iv); if (btn) btn.disabled = false; out.innerHTML = `<div class="error">${t("gen.modal.timeout")}</div>`; return; }
       const prog = job.progress ?? 0;
       if (job.status === "Success" && job.downloadUrl) {
         clearInterval(iv);
@@ -3092,11 +3097,10 @@ function pollMasterJob(jobId, out, btn) {
       } else if (job.status !== "Running") {
         clearInterval(iv);
         if (btn) btn.disabled = false;
-        out.innerHTML = `<div class="error">${t("master.fail")}: ${escapeHtml(job.status || job.error || "")}</div>`;
+        out.innerHTML = `<div class="error">${t("master.fail")}: ${escapeHtml(job.error || job.status || "")}</div>`;
       } else {
         out.innerHTML = `<div class="spinner">${t("master.progress").replace("{p}", prog)}</div>`;
       }
-      if (elapsed > 300) { clearInterval(iv); if (btn) btn.disabled = false; out.innerHTML = `<div class="error">${t("gen.modal.timeout")}</div>`; }
     } catch (err) {
       clearInterval(iv);
       if (btn) btn.disabled = false;

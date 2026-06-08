@@ -350,7 +350,6 @@ app.post("/api/ai/reference-generate", checkGenQuota, upload.single("audio"), as
     audioWeight: req.body?.audioWeight !== undefined ? Number(req.body.audioWeight) : 0.7
   };
   pendingRefJobs.set(fakeId, { status: "ON_QUEUE", created: Date.now() });
-  incrementGenQuota(req);
   res.json({ ok: true, jobId: fakeId });
 
   // Background: upload file to TTAPI then submit sample job
@@ -366,6 +365,7 @@ app.post("/api/ai/reference-generate", checkGenQuota, upload.single("audio"), as
         mime = "audio/mpeg";
       }
       const { jobId } = await submitSampleFromBuffer(buf, mime, tempFiles, PUBLIC_BASE, opts);
+      incrementGenQuota(req);
       pendingRefJobs.set(fakeId, { status: "DELEGATED", realJobId: jobId, created: Date.now() });
     } catch (err) {
       console.error("[reference-generate-bg]", err.message);
@@ -422,7 +422,7 @@ app.post("/api/ai/dna-decode", requirePlan("creator", "pro"), upload.single("fil
     const { transcript } = await transcribeAudio(buf, mime);
 
     // Step 3: Claude producer report + catalog match
-    const catalogNames = catalog.slice(0, 300).map((a) => a.name); // top 300 by catalog order
+    const catalogNames = catalog.map((a) => a.name);
     const dna = await decodeDNA(meta, transcript, catalogNames);
     if (!dna.ok) return res.status(500).json(dna);
 
@@ -612,8 +612,15 @@ app.post("/api/ai/master-track", requirePlan("pro"), async (req, res) => {
   const audioUrl = String(req.body?.audioUrl || "").trim();
   const loudness = String(req.body?.loudness || "streaming");
   if (!audioUrl) return res.status(400).json({ ok: false, error: "audioUrl required" });
-  try { const u = new URL(audioUrl); if (!["http:", "https:"].includes(u.protocol)) throw new Error(); }
-  catch { return res.status(400).json({ ok: false, error: "audioUrl must be a valid http(s) URL" }); }
+  {
+    let parsedUrl;
+    try { parsedUrl = new URL(audioUrl); } catch { return res.status(400).json({ ok: false, error: "audioUrl must be a valid http(s) URL" }); }
+    if (!["http:", "https:"].includes(parsedUrl.protocol))
+      return res.status(400).json({ ok: false, error: "audioUrl must be a valid http(s) URL" });
+    const h = parsedUrl.hostname;
+    if (/^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(h) || h === "::1")
+      return res.status(400).json({ ok: false, error: "audioUrl must be a public URL" });
+  }
 
   const { randomUUID } = await import("node:crypto");
   const jobId = randomUUID();
