@@ -53,8 +53,18 @@ const catalog = JSON.parse(await readFile(join(__dirname, "data", "artists.json"
 const LANGUAGE_LABELS = {};
 for (const c of catalog) LANGUAGE_LABELS[c.language] = c.languageLabel;
 
+// Fail fast in production if the token-signing secret is left at its dev default —
+// otherwise access tokens (paid-plan grants) are forgeable by anyone.
+if (process.env.NODE_ENV === "production" && !process.env.TOKEN_SECRET) {
+  console.error("FATAL: TOKEN_SECRET must be set in production (tokens are forgeable without it).");
+  process.exit(1);
+}
+
 const app = express();
-app.use(express.json());
+// Render/most PaaS sit behind a reverse proxy — trust the first hop so req.ip
+// and X-Forwarded-For are read correctly (needed for rate limiting).
+app.set("trust proxy", 1);
+app.use(express.json({ limit: "1mb" }));
 app.use(express.static(join(__dirname, "public")));
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 25 * 1024 * 1024 } });
@@ -159,15 +169,33 @@ app.get("/api/facets", (req, res) => {
   });
 });
 
+// Brute-force guard for code/email endpoints: 20 attempts / 10 min per IP.
+const codeAttempts = new Map(); // ip -> { count, resetAt }
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, b] of codeAttempts) if (b.resetAt < now) codeAttempts.delete(ip);
+}, 5 * 60 * 1000).unref();
+
+const bruteGuard = (req, res, next) => {
+  const ip = req.ip || req.socket?.remoteAddress || "unknown";
+  const now = Date.now();
+  let b = codeAttempts.get(ip);
+  if (!b || b.resetAt < now) { b = { count: 0, resetAt: now + 10 * 60 * 1000 }; codeAttempts.set(ip, b); }
+  if (b.count >= 20)
+    return res.status(429).json({ ok: false, error: "Too many attempts, try again later" });
+  b.count++;
+  next();
+};
+
 // --- Access ---
-app.post("/api/access", (req, res) => {
+app.post("/api/access", bruteGuard, (req, res) => {
   const code = String(req.body?.code || "").trim().toUpperCase();
   if (ACCESS_CODES.includes(code)) return res.json({ ok: true, token: Buffer.from(code).toString("base64") });
   res.status(403).json({ ok: false, error: "Invalid access code" });
 });
 
 // --- Unlock premium catalog ---
-app.post("/api/unlock", (req, res) => {
+app.post("/api/unlock", bruteGuard, (req, res) => {
   const code = String(req.body?.code || "").trim().toUpperCase();
   if (UNLOCK_CODES.includes(code)) return res.json({ ok: true, token: Buffer.from(code).toString("base64") });
   res.status(403).json({ ok: false, error: "Invalid unlock code" });
@@ -682,7 +710,7 @@ app.post("/api/lemon/checkout", async (req, res) => {
 });
 
 // POST /api/lemon/activate — user enters email after payment → get access token
-app.post("/api/lemon/activate", async (req, res) => {
+app.post("/api/lemon/activate", bruteGuard, async (req, res) => {
   if (!lemonEnabled()) return res.status(503).json({ ok: false, error: "Payments not configured" });
   const email = String(req.body?.email || "").trim();
   if (!email || !email.includes("@")) return res.status(400).json({ ok: false, error: "Invalid email" });
