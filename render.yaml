@@ -11,6 +11,16 @@ services:
     envVars:
       - key: NODE_VERSION
         value: "22"
+      - key: NODE_ENV
+        value: production
+      # REQUIRED in production — the app refuses to boot without these:
+      #   TOKEN_SECRET         (random 32+ byte secret; signs access tokens)
+      #   LEMON_WEBHOOK_SECRET (from the LemonSqueezy webhook settings)
+      # Set them as secrets in the Render dashboard (sync: false):
+      # - key: TOKEN_SECRET
+      #   sync: false
+      # - key: LEMON_WEBHOOK_SECRET
+      #   sync: false
       # Optional — set in the Render dashboard to enable real AI generation:
       # - key: ANTHROPIC_API_KEY
       #   sync: false

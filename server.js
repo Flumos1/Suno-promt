@@ -1,5 +1,8 @@
 import express from "express";
+import helmet from "helmet";
+import compression from "compression";
 import multer from "multer";
+import { timingSafeEqual } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -17,6 +20,7 @@ import { aiRateLimit } from "./lib/rateLimit.js";
 import { ttapiEnabled, submitMusic, fetchJob, submitSampleFromBuffer } from "./lib/ttapi.js";
 import { masterTrack, transcodeToMp3 } from "./lib/mastering.js";
 import { lemonEnabled, createCheckout, findSubscriptionByEmail, createToken, verifyToken, verifyWebhookSig, planFromVariant } from "./lib/lemon.js";
+import { isUnlocked } from "./lib/access.js";
 
 // Temporary file store for reference audio (TTAPI upload needs a public URL).
 // Files live max 5 min; cleaned up after TTAPI fetches them.
@@ -44,6 +48,7 @@ const ACCESS_CODES = (process.env.ACCESS_CODES || "SILICON-DEMO,SUNO-2026,FREEPA
   .split(",").map((c) => c.trim().toUpperCase()).filter(Boolean);
 
 // Premium unlock codes reveal the locked (paid) catalog entries.
+// Kept here for the /api/unlock route; unlock validation lives in lib/access.js.
 const UNLOCK_CODES = (process.env.UNLOCK_CODES || "SILICON-PRO,UNLOCK-ALL")
   .split(",").map((c) => c.trim().toUpperCase()).filter(Boolean);
 
@@ -64,20 +69,36 @@ const app = express();
 // Render/most PaaS sit behind a reverse proxy — trust the first hop so req.ip
 // and X-Forwarded-For are read correctly (needed for rate limiting).
 app.set("trust proxy", 1);
-app.use(express.json({ limit: "1mb" }));
+
+// Security headers. CSP is permissive on inline scripts/styles because the page
+// ships an inline JSON-LD block and some inline styling; media/img allow the
+// external Suno CDN so generated tracks and cover art can play/render.
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "blob:", "https:"],
+      mediaSrc: ["'self'", "data:", "blob:", "https:"],
+      connectSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      frameAncestors: ["'self'"]
+    }
+  },
+  crossOriginEmbedderPolicy: false
+}));
+app.use(compression());
+// The LemonSqueezy webhook needs the RAW body to verify its HMAC signature.
+// Skip JSON parsing for that path — otherwise express.json consumes the stream
+// first and signature verification can never succeed.
+app.use((req, res, next) => {
+  if (req.originalUrl === "/api/lemon/webhook") return next();
+  express.json({ limit: "1mb" })(req, res, next);
+});
 app.use(express.static(join(__dirname, "public")));
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 25 * 1024 * 1024 } });
-
-const isUnlocked = (token) => {
-  if (!token) return false;
-  // Legacy unlock codes
-  try {
-    if (UNLOCK_CODES.includes(Buffer.from(String(token), "base64").toString("utf8").toUpperCase())) return true;
-  } catch {}
-  // LemonSqueezy subscription token
-  return !!verifyToken(String(token));
-};
 
 const getTokenPlan = (token) => verifyToken(String(token || ""))?.plan || null;
 
@@ -112,13 +133,25 @@ const checkGenQuota = (req, res, next) => {
   const used = genCounters.get(key) || 0;
   if (used >= quota)
     return res.status(429).json({ ok: false, error: "gen_quota_exceeded", plan, used, limit: quota });
-  req._genQuota = { key, used };
+  // Reserve the slot immediately (atomic against concurrent requests). If the
+  // downstream generation fails, releaseGenQuota() rolls it back.
+  genCounters.set(key, used + 1);
+  req._genQuota = { key, reserved: true };
   next();
 };
 
+// Kept for API compatibility — the slot is now reserved up-front in checkGenQuota,
+// so a successful generation just confirms the reservation (no-op).
 const incrementGenQuota = (req) => {
-  if (!req._genQuota) return;
-  genCounters.set(req._genQuota.key, req._genQuota.used + 1);
+  if (req._genQuota) req._genQuota.reserved = false;
+};
+
+// Roll back a reserved slot when generation fails before it produced anything.
+const releaseGenQuota = (req) => {
+  if (!req._genQuota?.reserved) return;
+  const cur = genCounters.get(req._genQuota.key) || 1;
+  genCounters.set(req._genQuota.key, Math.max(0, cur - 1));
+  req._genQuota.reserved = false;
 };
 
 // Strip the prompt from locked entries unless the user is unlocked.
@@ -137,10 +170,18 @@ function publicEntry(c, unlocked) {
 // --- Health check (for Render + uptime monitoring) ---
 app.get("/health", (req, res) => res.json({ status: "ok", ts: Date.now(), catalog: catalog.length }));
 
+// Constant-time string compare that never short-circuits on length.
+const safeEqual = (a, b) => {
+  const ba = Buffer.from(String(a));
+  const bb = Buffer.from(String(b));
+  if (ba.length !== bb.length) return false;
+  return timingSafeEqual(ba, bb);
+};
+
 // Admin: generate a test token (needs ADMIN_KEY env var)
 app.get("/api/admin/token", (req, res) => {
   const key = process.env.ADMIN_KEY;
-  if (!key || req.query.key !== key) return res.status(403).json({ error: "forbidden" });
+  if (!key || !safeEqual(req.query.key || "", key)) return res.status(403).json({ error: "forbidden" });
   const plan = ["creator", "pro"].includes(req.query.plan) ? req.query.plan : "pro";
   const days = Math.min(Number(req.query.days) || 365, 730);
   const token = createToken(plan, "owner", days);
@@ -276,7 +317,7 @@ app.post("/api/lyrics", async (req, res) => {
 });
 
 // --- Reference analysis ---
-app.post("/api/analyze", upload.single("file"), async (req, res) => {
+app.post("/api/analyze", aiRateLimit, upload.single("file"), async (req, res) => {
   try {
     let meta;
     if (req.file?.buffer) meta = await extractAudioMeta(req.file.buffer, req.file.originalname);
@@ -360,9 +401,9 @@ app.get("/api/tmp/:id", (req, res) => {
 
 // ── Reference → Generate (TTAPI sample-to-song) ──────────────────────────
 app.post("/api/ai/reference-generate", checkGenQuota, upload.single("audio"), async (req, res) => {
-  if (!ttapiEnabled()) return res.status(503).json({ ok: false, error: "Track generation not configured (TTAPI_KEY missing)" });
-  if (!req.file?.buffer) return res.status(400).json({ ok: false, error: "No audio file uploaded" });
-  if (req.file.size > 25 * 1024 * 1024) return res.status(400).json({ ok: false, error: "File too large (max 25MB)" });
+  if (!ttapiEnabled()) { releaseGenQuota(req); return res.status(503).json({ ok: false, error: "Track generation not configured (TTAPI_KEY missing)" }); }
+  if (!req.file?.buffer) { releaseGenQuota(req); return res.status(400).json({ ok: false, error: "No audio file uploaded" }); }
+  if (req.file.size > 25 * 1024 * 1024) { releaseGenQuota(req); return res.status(400).json({ ok: false, error: "File too large (max 25MB)" }); }
   // Return immediately — upload+sample run in background to avoid Render's ~30s timeout.
   const { randomUUID } = await import("node:crypto");
   const fakeId = "ref-" + randomUUID();
@@ -397,6 +438,7 @@ app.post("/api/ai/reference-generate", checkGenQuota, upload.single("audio"), as
       pendingRefJobs.set(fakeId, { status: "DELEGATED", realJobId: jobId, created: Date.now() });
     } catch (err) {
       console.error("[reference-generate-bg]", err.message);
+      releaseGenQuota(req); // background submission failed — give the slot back
       pendingRefJobs.set(fakeId, { status: "FAILED", error: err.message, created: Date.now() });
     }
   })();
@@ -484,9 +526,9 @@ app.post("/api/ai/dna-decode", requirePlan("creator", "pro"), upload.single("fil
 });
 
 app.post("/api/ai/generate-track", checkGenQuota, async (req, res) => {
-  if (!ttapiEnabled()) return res.status(503).json({ ok: false, error: "Track generation not configured (TTAPI_KEY missing)" });
+  if (!ttapiEnabled()) { releaseGenQuota(req); return res.status(503).json({ ok: false, error: "Track generation not configured (TTAPI_KEY missing)" }); }
   const tags = String(req.body?.tags || req.body?.prompt || "").trim();
-  if (!tags) return res.status(400).json({ ok: false, error: "Empty prompt/tags" });
+  if (!tags) { releaseGenQuota(req); return res.status(400).json({ ok: false, error: "Empty prompt/tags" }); }
   try {
     const lyrics = req.body?.lyrics ? String(req.body.lyrics).trim() : "";
     const instrumental = !!req.body?.instrumental;
@@ -508,6 +550,7 @@ app.post("/api/ai/generate-track", checkGenQuota, async (req, res) => {
     res.json({ ok: true, jobId });
   } catch (err) {
     console.error("[generate-track]", err.message);
+    releaseGenQuota(req); // submission failed — don't charge the user's quota
     res.status(500).json({ ok: false, error: err.message });
   }
 });
@@ -559,6 +602,9 @@ app.post("/api/ai/anti-slop", aiRateLimit, async (req, res) => {
 app.post("/api/ai/voice-memo", aiRateLimit, upload.single("audio"), async (req, res) => {
   if (!req.file?.buffer) return res.status(400).json({ ok: false, error: "No audio uploaded" });
   const mt = req.file.mimetype || "audio/webm";
+  if (!/^(audio\/(webm|ogg|mpeg|mp3|mp4|wav|x-wav|m4a)|video\/(webm|mp4))$/i.test(mt)) {
+    return res.status(400).json({ ok: false, error: "Unsupported audio type" });
+  }
   if (req.file.size > 25 * 1024 * 1024) {
     return res.status(400).json({ ok: false, error: "Audio too large (max 25MB)" });
   }
@@ -645,8 +691,15 @@ app.post("/api/ai/master-track", requirePlan("pro"), async (req, res) => {
     try { parsedUrl = new URL(audioUrl); } catch { return res.status(400).json({ ok: false, error: "audioUrl must be a valid http(s) URL" }); }
     if (!["http:", "https:"].includes(parsedUrl.protocol))
       return res.status(400).json({ ok: false, error: "audioUrl must be a valid http(s) URL" });
-    const h = parsedUrl.hostname;
-    if (/^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(h) || h === "::1")
+    const h = parsedUrl.hostname.replace(/^\[|\]$/g, "").toLowerCase();
+    // Block loopback, RFC1918 private ranges, link-local (incl. cloud metadata
+    // 169.254.169.254), and IPv6 loopback / mapped-IPv4 forms.
+    const blocked =
+      /^(localhost|127\.|10\.|192\.168\.|169\.254\.|172\.(1[6-9]|2\d|3[01])\.)/.test(h) ||
+      h === "::1" || h === "0.0.0.0" ||
+      h.startsWith("fe80:") || h.startsWith("fc") || h.startsWith("fd") ||
+      h.includes("::ffff:127.") || h.includes("::ffff:169.254.");
+    if (blocked)
       return res.status(400).json({ ok: false, error: "audioUrl must be a public URL" });
   }
 
