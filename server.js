@@ -291,8 +291,6 @@ app.get("/api/catalog", (req, res) => {
   // Sorting
   if (sort === "name_az") results.sort((a, b) => a.name.localeCompare(b.name));
   else if (sort === "name_za") results.sort((a, b) => b.name.localeCompare(a.name));
-  else if (sort === "bpm_asc") results.sort((a, b) => (a.bpm || 0) - (b.bpm || 0));
-  else if (sort === "bpm_desc") results.sort((a, b) => (b.bpm || 0) - (a.bpm || 0));
   else if (sort === "era_new") results.sort((a, b) => (b.era || "").localeCompare(a.era || ""));
   else if (sort === "era_old") results.sort((a, b) => (a.era || "").localeCompare(b.era || ""));
 

@@ -1,7 +1,7 @@
 # SiliconSense (clone)
 
 A self-contained clone of a [SiliconSense-style](https://siliconsense.club/) **Suno AI prompt catalog**.
-Search artists/styles and get ready-to-paste Suno v5.5 prompts, build vocal anchors,
+Search artists/styles and get ready-to-paste Suno prompts, build vocal anchors,
 analyze a reference track, and generate album-cover concepts — all behind an access-code gate.
 
 Works with **no API keys** (deterministic template generation). Add an LLM key to switch
@@ -11,7 +11,7 @@ on **real AI generation**. Reference analysis reads **real metadata** from the u
 
 | Tab | What it does |
 |-----|--------------|
-| **Catalog** | ~200 style entries with **faceted filters** (language/region, era 1960s–2020s, genre with live counts, mood) + search and pagination. Free vs **locked (freemium)** entries; unlock all with a code. Star any prompt to save it. If a search matches nothing, a card is generated on the fly. |
+| **Catalog** | 811 individually edited style entries with **faceted filters** (language/region, era, genre with live counts, mood) + search and pagination. Free vs **locked (freemium)** entries; unlock all with a code. Star any prompt to save it. If a search matches nothing, a card is generated on the fly. |
 | **Vocal Anchor** | Build a unique vocal along 5 axes — pitch, timbre, delivery, texture, age — with an optional "donor" for spirit (no direct imitation). |
 | **Reference** | Upload an audio file. Real properties (duration, bitrate, sample rate, channels, codec, embedded tags) are read with `music-metadata`, turned into a Suno prompt, plus the 3 closest catalog styles. AI-enhanced when a key is set. |
 | **Cover Art** | Generate a 2048×2048 album-cover concept + palette for Spotify / Apple Music / Yandex. |
@@ -27,11 +27,16 @@ Most catalog prompts are locked behind a paywall in the demo. Reveal them with a
 unlock code (demo: `SILICON-PRO`, `UNLOCK-ALL`; override with `UNLOCK_CODES`).
 `free` entries are always visible.
 
-### Rebuilding the catalog
+### Catalog maintenance
 
-```bash
-node scripts/buildCatalog.js   # regenerates data/artists.json (deterministic)
-```
+`data/artists.json` is the curated source of truth. Its original exact BPM and
+key fields were generated or guessed rather than measured from representative
+tracks, so the catalog leaves them unset. Prompts describe characteristic sound
+without exact BPM, key, or artist names; they are style sketches rather than
+transcriptions of any one recording. `scripts/upgrade-catalog-prompts.js` is the
+budget-capped, resumable one-time editorial workflow. Its checkpoint is private
+and ignored by Git. The legacy `scripts/buildCatalog.js` would overwrite the
+edited catalog and requires an explicit overwrite flag.
 
 ## Run
 
@@ -77,8 +82,8 @@ lib/promptGenerator.js    Template prompt / anchor / cover generation
 lib/aiProvider.js         LLM hook (Anthropic / OpenAI) with template fallback
 lib/audioAnalyzer.js      Real audio metadata extraction (music-metadata)
 lib/songTools.js          Song-structure + lyrics (template + AI)
-scripts/buildCatalog.js   Deterministic catalog generator
-data/artists.json         Catalog (~200 styles, faceted)
+scripts/buildCatalog.js   Legacy seed generator (overwrite guard)
+data/artists.json         Curated catalog (811 styles, faceted)
 public/                   Front-end (index.html, styles.css, app.js)
 test/                     Unit tests (node:test)
 ```

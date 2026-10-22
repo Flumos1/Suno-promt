@@ -6,3 +6,4 @@ npm-debug.log*
 *.msi
 *.docx
 .claude/
+.catalog-upgrade-progress.json

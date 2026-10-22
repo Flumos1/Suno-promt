@@ -9,6 +9,13 @@ import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
+// WARNING: This legacy generator overwrites the curated catalog. Require an
+// explicit flag to avoid discarding individually edited style prompts.
+if (!process.argv.includes("--overwrite-curated")) {
+  console.error("Refusing to overwrite the curated catalog. Pass --overwrite-curated to regenerate legacy seed data.");
+  process.exit(1);
+}
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 function hash(str) {
