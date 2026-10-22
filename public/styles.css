@@ -525,6 +525,11 @@ code { font-family: ui-monospace, monospace; }
   resize: vertical; min-height: 80px;
 }
 .ai-card .row2 { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; gap: 12px; flex-wrap: wrap; }
+.workshop-controls { display: grid; grid-template-columns: repeat(3, minmax(180px, 1fr)); gap: 14px; margin: 18px 0 10px; }
+.workshop-controls label { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; font-size: 13px; color: var(--text); }
+.workshop-controls input[type="range"] { grid-column: 1 / -1; width: 100%; accent-color: var(--neon2); }
+.workshop-controls output { color: var(--neon); font-variant-numeric: tabular-nums; }
+@media (max-width: 700px) { .workshop-controls { grid-template-columns: 1fr; } }
 .ai-card button.primary { margin-top: 12px; }
 
 .quota-pill {

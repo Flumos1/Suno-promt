@@ -7,6 +7,20 @@
   const download = document.getElementById("workshop-download");
   if (!fileInput) return;
 
+  const pitch = document.getElementById("workshop-pitch");
+  const tempo = document.getElementById("workshop-tempo");
+  const key = document.getElementById("workshop-key");
+  const signed = (value) => Number(value) > 0 ? `+${value}` : String(value);
+  for (const [input, output, format] of [
+    [pitch, document.getElementById("workshop-pitch-value"), signed],
+    [tempo, document.getElementById("workshop-tempo-value"), (value) => `${value}%`],
+    [key, document.getElementById("workshop-key-value"), signed]
+  ]) {
+    const update = () => { output.value = format(input.value); };
+    input.addEventListener("input", update);
+    update();
+  }
+
   const messages = {
     ru: { file: "Выберите аудиофайл", size: "Файл превышает 25 МБ", owner: "Сначала откройте доступ владельца в карточке «ДНК-декодер трека» на вкладке AI Lab.",
       local: "На бесплатном Render обработка недоступна. Откройте локальную версию программы на этом компьютере.",
@@ -57,6 +71,9 @@
       const body = new FormData();
       body.append("file", file);
       body.append("instrument", document.getElementById("workshop-instrument").value);
+      body.append("leadPitch", pitch.value);
+      body.append("tempoPercent", tempo.value);
+      body.append("keyShift", key.value);
       const started = await (await request("/api/audio/vocal-instrument", { method: "POST", body })).json();
       const id = encodeURIComponent(started.jobId);
       let job;

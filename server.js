@@ -142,7 +142,12 @@ app.post("/api/audio/vocal-instrument", requireOwner, upload.single("file"), asy
   if (!AUDIO_WORKSHOP_READY) return res.status(503).json({ ok: false, error: "Сначала установите аудиомодули: scripts/install-audio.ps1, затем перезапустите программу" });
   if (!req.file?.buffer?.length) return res.status(400).json({ ok: false, error: "Выберите аудиофайл" });
   try {
-    const jobId = await startVocalInstrument(req.file.buffer, req.file.originalname, String(req.body?.instrument || "flute"));
+    const jobId = await startVocalInstrument(req.file.buffer, req.file.originalname, {
+      instrument: String(req.body?.instrument || "flute"),
+      leadPitch: req.body?.leadPitch,
+      tempoPercent: req.body?.tempoPercent,
+      keyShift: req.body?.keyShift
+    });
     res.json({ ok: true, jobId });
   } catch (error) {
     res.status(400).json({ ok: false, error: error.message });

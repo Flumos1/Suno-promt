@@ -24,7 +24,7 @@
   <!-- Structured data -->
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"SiliconSense","url":"https://siliconsense.onrender.com","description":"AI prompt catalog and tools for Suno music generation","applicationCategory":"MusicApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 
-  <link rel="stylesheet" href="styles.css?v=23" />
+  <link rel="stylesheet" href="styles.css?v=24" />
 </head>
 <body>
   <div class="bg-grid"></div>
@@ -741,8 +741,26 @@
               <option value="organ" data-i18n="workshop.organ">Орган</option>
             </select>
           </label>
-          <button id="workshop-run" class="primary" type="button" data-i18n="workshop.run">Заменить вокал</button>
         </div>
+        <div class="workshop-controls">
+          <label for="workshop-pitch">
+            <span data-i18n="workshop.pitch">Pitch новой партии (полутона)</span>
+            <output id="workshop-pitch-value" for="workshop-pitch">0</output>
+            <input id="workshop-pitch" type="range" min="-12" max="12" step="1" value="0" />
+          </label>
+          <label for="workshop-tempo">
+            <span data-i18n="workshop.tempo">Темп всей песни</span>
+            <output id="workshop-tempo-value" for="workshop-tempo">100%</output>
+            <input id="workshop-tempo" type="range" min="75" max="125" step="5" value="100" />
+          </label>
+          <label for="workshop-key">
+            <span data-i18n="workshop.key">Тональность всей песни (полутона)</span>
+            <output id="workshop-key-value" for="workshop-key">0</output>
+            <input id="workshop-key" type="range" min="-6" max="6" step="1" value="0" />
+          </label>
+        </div>
+        <p class="sub" data-i18n="workshop.controls.help">Pitch меняет только новую партию; тональность сдвигает всю песню на указанное число полутонов, а темп меняет скорость без изменения высоты.</p>
+        <button id="workshop-run" class="primary" type="button" data-i18n="workshop.run">Заменить вокал</button>
         <div id="workshop-status" class="output" role="status" aria-live="polite"></div>
         <div id="workshop-result" class="hidden">
           <audio id="workshop-player" controls style="width:100%;margin-top:14px"></audio>
@@ -833,8 +851,8 @@
   </div>
 </div>
 
-  <script src="app.js?v=33"></script>
-  <script src="audio-workshop.js?v=1"></script>
+  <script src="app.js?v=34"></script>
+  <script src="audio-workshop.js?v=2"></script>
   <script src="/vendor/zip-core.min.js"></script>
   <script type="module" src="workspace-archive.js?v=1"></script>
 </body>
