@@ -97,13 +97,30 @@ Start `npm start`, plan Free. Render injects `PORT` automatically.
 Set `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` (and optionally `ACCESS_CODES`,
 `UNLOCK_CODES`) under *Environment* to enable real AI generation in production.
 
+### Owner-only deep audio analysis
+
+Set `ADMIN_KEY`, `TOKEN_SECRET`, and `OPENAI_API_KEY` on the server. In
+**Reference**, upload a track and choose **Deep sound analysis**, then enter
+`ADMIN_KEY` in the AI Lab card. The browser exchanges it for a signed seven-day
+owner token; the key itself is not stored. Paid audio analysis is restricted to
+this owner token, while the ordinary metadata reference analysis stays available.
+
+The server samples up to 60 seconds from the beginning, middle, and end of a
+track and sends that sample to OpenAI's audio model. The report separates
+audible evidence from uncertain estimates and produces an English Suno Style
+prompt. BPM and key are listening estimates, never instrument measurements.
+Processing runs as a background job because it may exceed a web request timeout.
+Jobs and audio are held in memory only; job results expire after 15 minutes.
+The model and API account must support `gpt-audio-1.5` (override with
+`SONIC_AUDIO_MODEL` if needed). Each analysis incurs OpenAI API usage charges.
+
 > Note: Render's free tier sleeps after inactivity, so the first request after
 > idle takes ~30s to wake.
 
 ## Notes
 
-- Reference analysis extracts **real** container/codec metadata and embedded ID3/Vorbis
-  tags. True musical BPM/key detection (DSP) is out of scope; when an LLM key is set the
-  model infers genre/era/vocals from the real metadata for a richer prompt.
+- The basic Reference analysis extracts container/codec metadata and embedded
+  ID3/Vorbis tags. It does not listen to the sound. Use owner-only deep analysis
+  when you need observations from the recording itself.
 - The access gate is a simple demo. In a real deployment, codes would be issued after
   payment and validated server-side against a store.

@@ -132,6 +132,7 @@
         <span id="filename" class="muted"></span>
       </div>
       <button id="analyze-btn" class="primary" disabled data-i18n="analyze.btn">Анализировать</button>
+      <button id="analyze-deep-btn" disabled data-i18n="dna.deep.reference">🎧 Глубокий анализ звука (для владельца)</button>
       <div id="analyze-out" class="output"></div>
     </section>
 
@@ -611,14 +612,19 @@
 
       <div class="ai-card" id="dna-card">
         <h2 data-i18n="dna.title">🔬 ДНК-декодер трека</h2>
-        <p class="sub" data-i18n="dna.sub">Загрузи любой MP3/WAV — Whisper расшифрует лирику, AI определит эру, жанр, инструменты, продакшн и найдёт 3 ближайших артиста из каталога. Плюс готовый Suno-промпт.</p>
+        <p class="sub" data-i18n="dna.deep.sub">Модель слушает до 60 секунд записи: начало, середину и конец. Получите подробный разбор звучания и готовый промпт для Suno. Доступно только владельцу; анализ расходует платный OpenAI API.</p>
+        <div id="dna-owner-login" style="margin:12px 0">
+          <input id="dna-owner-key" type="password" autocomplete="off" placeholder="Ключ владельца ADMIN_KEY из Render" aria-label="Ключ владельца" />
+          <button id="dna-owner-btn" type="button" data-i18n="dna.deep.login">Открыть глубокий анализ</button>
+          <span id="dna-owner-status" class="muted"></span>
+        </div>
         <div class="dropzone" id="dna-dropzone">
           <input id="dna-file" type="file" accept="audio/*" hidden />
           <div class="dz-icon">🔬</div>
           <p data-i18n="dna.drop">Кликни или перетащи аудио (MP3 / WAV / OGG, до 25MB)</p>
           <span id="dna-filename" class="muted"></span>
         </div>
-        <button id="dna-btn" class="primary" disabled data-i18n="dna.btn">Декодировать ДНК</button>
+        <button id="dna-btn" class="primary" disabled data-i18n="dna.deep.btn">🔬 Проанализировать звучание</button>
         <div id="dna-out" class="output"></div>
       </div>
 
@@ -783,6 +789,6 @@
   </div>
 </div>
 
-  <script src="app.js?v=28"></script>
+  <script src="app.js?v=29"></script>
 </body>
 </html>

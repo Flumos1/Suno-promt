@@ -137,6 +137,10 @@ const LANG = {
     "ls.style.ph":"Genre / style (optional): dark pop, Russian rock, trap…",
     "ls.btn":"🎼 Apply Tags",
     "dna.title":"🔬 Track DNA Decoder",
+    "dna.deep.sub":"The model listens to up to 60 seconds from the beginning, middle and end. Get an audible sound report and a ready Suno prompt. Owner access only; OpenAI API usage is billed.",
+    "dna.deep.btn":"🔬 Analyze the sound",
+    "dna.deep.reference":"🎧 Deep sound analysis (owner only)",
+    "dna.deep.login":"Open deep analysis",
     "dna.sub":"Upload any MP3/WAV — Whisper transcribes, AI identifies era, genre, instruments, production and finds 3 closest artists from 747 in the catalog. Plus a ready Suno prompt.",
     "dna.drop":"Click or drop audio (MP3 / WAV / OGG, max 25MB)","dna.btn":"Decode DNA",
     "slop.title":"🛡 Anti-Slop Filter",
@@ -335,6 +339,10 @@ const LANG = {
     "ls.btn":"🎼 Расставить теги",
     "ls.lyrics.required":"Вставь лирику","ls.loading":"Дирижирую эмоциональным арком…",
     "dna.title":"🔬 ДНК-декодер трека",
+    "dna.deep.sub":"Модель слушает до 60 секунд записи: начало, середину и конец. Получите подробный разбор звучания и готовый промпт для Suno. Доступно только владельцу; анализ расходует платный OpenAI API.",
+    "dna.deep.btn":"🔬 Проанализировать звучание",
+    "dna.deep.reference":"🎧 Глубокий анализ звука (для владельца)",
+    "dna.deep.login":"Открыть глубокий анализ",
     "dna.sub":"Загрузи любой MP3/WAV — Whisper расшифрует лирику, AI определит эру, жанр, инструменты, продакшн и найдёт 3 ближайших артиста из 747 в каталоге. Плюс готовый Suno-промпт.",
     "dna.drop":"Кликни или перетащи аудио (MP3 / WAV / OGG, до 25MB)","dna.btn":"Декодировать ДНК",
     "slop.title":"🛡 Анти-Слоп Фильтр",
@@ -1172,7 +1180,18 @@ dropzone.addEventListener("click", () => fileInput.click());
 ["dragleave", "drop"].forEach((ev) => dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.remove("drag"); }));
 dropzone.addEventListener("drop", (e) => { if (e.dataTransfer.files.length) setFile(e.dataTransfer.files[0]); });
 fileInput.addEventListener("change", () => { if (fileInput.files.length) setFile(fileInput.files[0]); });
-function setFile(f) { currentFile = f; $("#filename").textContent = `${f.name} · ${(f.size / 1048576).toFixed(1)} MB`; $("#analyze-btn").disabled = false; }
+function setFile(f) { currentFile = f; $("#filename").textContent = `${f.name} · ${(f.size / 1048576).toFixed(1)} MB`; $("#analyze-btn").disabled = false; $("#analyze-deep-btn").disabled = false; }
+
+$("#analyze-deep-btn").addEventListener("click", () => {
+  if (!currentFile) return;
+  const transfer = new DataTransfer();
+  transfer.items.add(currentFile);
+  const target = $("#dna-file");
+  target.files = transfer.files;
+  target.dispatchEvent(new Event("change"));
+  document.querySelector(".tab[data-tab='ailab']")?.click();
+  $("#dna-card")?.scrollIntoView({ behavior: "smooth", block: "start" });
+});
 
 $("#analyze-btn").addEventListener("click", async () => {
   if (!currentFile) return;
@@ -1800,6 +1819,40 @@ function download(name, text) {
   const out = $("#dna-out");
   if (!dz) return;
 
+  const ownerKey = $("#dna-owner-key");
+  const ownerStatus = $("#dna-owner-status");
+  const ownerLogin = $("#dna-owner-login");
+  async function refreshOwner() {
+    const token = localStorage.getItem(UNLOCK_KEY);
+    if (!token) return;
+    try {
+      const res = await fetch("/api/lemon/status", { headers: { "X-Unlock-Token": token } });
+      const status = await res.json();
+      if (status.ok && status.owner) {
+        ownerLogin.style.display = "none";
+        return;
+      }
+    } catch {}
+    ownerLogin.style.display = "";
+  }
+  refreshOwner();
+  $("#dna-owner-btn").addEventListener("click", async () => {
+    const key = ownerKey.value.trim();
+    if (!key) return;
+    ownerStatus.textContent = "Проверяю…";
+    try {
+      const res = await fetch("/api/admin/session", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ key })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.token) throw new Error(data.error || "Ошибка входа");
+      localStorage.setItem(UNLOCK_KEY, data.token);
+      ownerKey.value = "";
+      await loadPlanStatus();
+      await refreshOwner();
+    } catch (err) { ownerStatus.textContent = err.message; }
+  });
+
   dz.addEventListener("click", () => fileInput.click());
   dz.addEventListener("dragover", (e) => { e.preventDefault(); dz.classList.add("drag"); });
   dz.addEventListener("dragleave", () => dz.classList.remove("drag"));
@@ -1815,40 +1868,28 @@ function download(name, text) {
 
   btn.addEventListener("click", async () => {
     const f = fileInput.files[0]; if (!f) return;
-    out.innerHTML = `<div class="dna-steps">
-      <div class="dna-step active" id="ds1">📦 Читаю метаданные…</div>
-      <div class="dna-step" id="ds2">🎤 Whisper слушает лирику…</div>
-      <div class="dna-step" id="ds3">🧠 Claude строит ДНК-отчёт…</div>
-    </div>`;
+    out.innerHTML = `<div class="dna-steps"><div class="dna-step active">🎧 Слушаю запись и составляю точный промпт… Это может занять несколько минут.</div></div>`;
     btn.disabled = true;
-
-    // Animate steps — they're sequential on server so simulate timing
-    const steps = [1, 2, 3];
-    let si = 0;
-    const stepIv = setInterval(() => {
-      if (si < steps.length) {
-        const prev = out.querySelector(`#ds${steps[si]}`);
-        if (prev) prev.classList.add("done");
-        si++;
-        const cur = out.querySelector(`#ds${steps[si]}`);
-        if (cur) cur.classList.add("active");
-      }
-    }, 4000);
 
     try {
       const fd = new FormData();
       fd.append("file", f);
-      const data = await aiCall("/api/ai/dna-decode", { method: "POST", body: fd });
-      clearInterval(stepIv);
-      if (!data.ok) throw new Error(data.error);
-      out.innerHTML = renderDNA(data);
+      const started = await aiCall("/api/ai/dna-decode", { method: "POST", body: fd });
+      let job;
+      for (let i = 0; i < 60; i++) {
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        job = await aiCall(`/api/ai/dna-decode/${encodeURIComponent(started.jobId)}`);
+        if (job.status === "complete" || job.status === "failed") break;
+      }
+      if (job?.status === "failed") throw new Error(job.error || "Ошибка анализа");
+      if (job?.status !== "complete") throw new Error("Анализ занял слишком много времени. Попробуйте ещё раз.");
+      out.innerHTML = renderDNA(job.result);
       wireCopyButtons(out);
       // Wire generate buttons inside DNA result
       out.querySelectorAll(".gen-track-btn").forEach((b) => {
         b.addEventListener("click", () => openGenModal(b.dataset.prompt, b.dataset.name));
       });
     } catch (err) {
-      clearInterval(stepIv);
       out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
     } finally { btn.disabled = false; }
   });
@@ -1856,11 +1897,10 @@ function download(name, text) {
   function renderDNA(d) {
     const a = d.analysis || {};
     const tags = [
-      a.era && `<span class="tag">${escapeHtml(a.era)}</span>`,
       a.genre && `<span class="tag">${escapeHtml(a.genre)}</span>`,
       a.subgenre && `<span class="tag">${escapeHtml(a.subgenre)}</span>`,
-      a.bpm && `<span class="tag">${a.bpm} BPM</span>`,
-      a.key && `<span class="tag">${escapeHtml(a.key)}</span>`,
+      a.bpm && `<span class="tag">≈${escapeHtml(a.bpm)} BPM · оценка на слух</span>`,
+      a.key && `<span class="tag">${escapeHtml(a.key)} · оценка на слух</span>`,
       ...(a.mood || []).map((m) => `<span class="tag mood">${escapeHtml(m)}</span>`),
       ...(a.instruments || []).slice(0, 4).map((i) => `<span class="tag inst">${escapeHtml(i)}</span>`)
     ].filter(Boolean).join("");
@@ -1890,13 +1930,20 @@ function download(name, text) {
       <div class="dna-section">
         <div class="prompt-label">${t("dna.tech")}</div>
         <div class="muted" style="font-size:12px">${metaLine || "—"}</div>
+        <div class="muted" style="font-size:12px">Прослушанные фрагменты: ${(d.sampledAt || []).map(s => `${s}с`).join(", ")} · до ${d.sampleSeconds || 60}с. Оценки темпа и тональности приблизительные.</div>
       </div>
 
       <div class="dna-section">
         <div class="prompt-label">${t("dna.analysis")}</div>
         <div class="ai-meta">${tags}</div>
+        ${a.summary ? `<div style="margin-top:8px;font-size:13px">${escapeHtml(a.summary)}</div>` : ""}
+        ${(a.audibleEvidence || []).length ? `<div style="font-size:13px"><b>Что слышно:</b> ${escapeHtml(a.audibleEvidence.join(" · "))}</div>` : ""}
         ${a.vocals ? `<div style="margin-top:8px;font-size:13px"><b>${t("dna.vocals")}:</b> ${escapeHtml(a.vocals)}</div>` : ""}
+        ${a.rhythm ? `<div style="font-size:13px"><b>Ритм:</b> ${escapeHtml(a.rhythm)}</div>` : ""}
+        ${a.harmony ? `<div style="font-size:13px"><b>Гармония:</b> ${escapeHtml(a.harmony)}</div>` : ""}
+        ${a.structure ? `<div style="font-size:13px"><b>Развитие:</b> ${escapeHtml(a.structure)}</div>` : ""}
         ${a.production ? `<div style="font-size:13px"><b>${t("dna.production")}:</b> ${escapeHtml(a.production)}</div>` : ""}
+        ${(a.confidenceNotes || []).length ? `<div class="dna-note">⚠ ${escapeHtml(a.confidenceNotes.join(" · "))}</div>` : ""}
         ${a.producerNote ? `<div class="dna-note">💬 ${escapeHtml(a.producerNote)}</div>` : ""}
       </div>
 
@@ -1914,10 +1961,7 @@ function download(name, text) {
         </div>
       </div>
 
-      <div class="dna-section">
-        <div class="prompt-label">${t("dna.artists")}</div>
-        <div class="dna-matches">${closestHTML}</div>
-      </div>
+      ${closestHTML ? `<div class="dna-section"><div class="prompt-label">${t("dna.artists")}</div><div class="dna-matches">${closestHTML}</div></div>` : ""}
     </div>`;
   }
 })();
@@ -2171,6 +2215,9 @@ async function aiCall(url, opts = {}) {
       const key = data.requiredPlans?.includes("pro") && !data.requiredPlans?.includes("creator")
         ? "plan.required.pro" : "plan.required";
       throw new Error(t(key));
+    }
+    if (data.error === "owner_required") {
+      throw new Error("Для глубокого анализа откройте доступ ключом владельца в карточке выше.");
     }
     if (data.error === "gen_quota_exceeded") {
       document.dispatchEvent(new CustomEvent("open-pricing"));

@@ -2,7 +2,7 @@ import express from "express";
 import helmet from "helmet";
 import compression from "compression";
 import multer from "multer";
-import { timingSafeEqual } from "node:crypto";
+import { timingSafeEqual, randomUUID } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -21,6 +21,7 @@ import { ttapiEnabled, submitMusic, fetchJob, submitSampleFromBuffer } from "./l
 import { masterTrack, transcodeToMp3 } from "./lib/mastering.js";
 import { lemonEnabled, createCheckout, findSubscriptionByEmail, createToken, verifyToken, verifyWebhookSig, planFromVariant } from "./lib/lemon.js";
 import { isUnlocked } from "./lib/access.js";
+import { makeAudioSample, analyzeSound } from "./lib/sonicAnalysis.js";
 
 // Temporary file store for reference audio (TTAPI upload needs a public URL).
 // Files live max 5 min; cleaned up after TTAPI fetches them.
@@ -110,6 +111,13 @@ const requirePlan = (...plans) => (req, res, next) => {
   const plan = getTokenPlan(getRequestToken(req));
   if (!plans.includes(plan))
     return res.status(403).json({ ok: false, error: "plan_required", requiredPlans: plans });
+  next();
+};
+
+const requireOwner = (req, res, next) => {
+  const token = verifyToken(String(getRequestToken(req)));
+  if (token?.customerId !== "owner" || token.plan !== "pro")
+    return res.status(403).json({ ok: false, error: "owner_required" });
   next();
 };
 
@@ -227,6 +235,16 @@ const bruteGuard = (req, res, next) => {
   b.count++;
   next();
 };
+
+// Exchange the owner key once. The key is sent in a POST body and never kept
+// by the browser; subsequent requests use a short-lived signed token.
+app.post("/api/admin/session", bruteGuard, (req, res) => {
+  const key = process.env.ADMIN_KEY;
+  if (!key || !safeEqual(req.body?.key || "", key))
+    return res.status(403).json({ ok: false, error: "Invalid owner key" });
+  res.set("Cache-Control", "no-store");
+  res.json({ ok: true, token: createToken("pro", "owner", 7) });
+});
 
 // --- Access ---
 app.post("/api/access", bruteGuard, (req, res) => {
@@ -475,54 +493,64 @@ app.post("/api/ai/lyrics-sync", aiRateLimit, async (req, res) => {
   }
 });
 
-// Track DNA Decoder — full analysis: metadata + Whisper + Claude report + catalog match
-app.post("/api/ai/dna-decode", requirePlan("creator", "pro"), upload.single("file"), async (req, res) => {
+// Owner-only deep listening. Keep the request short; Render's proxy can time
+// out while the audio model is working, so clients poll the job separately.
+const sonicJobs = new Map();
+let sonicBusy = false;
+setInterval(() => {
+  const cutoff = Date.now() - 15 * 60_000;
+  for (const [id, job] of sonicJobs) if (job.created < cutoff) sonicJobs.delete(id);
+}, 60_000).unref();
+
+app.post("/api/ai/dna-decode", requireOwner, upload.single("file"), async (req, res) => {
   if (!req.file?.buffer) return res.status(400).json({ ok: false, error: "No audio file uploaded" });
   if (req.file.size > 25 * 1024 * 1024) return res.status(400).json({ ok: false, error: "File too large (max 25MB)" });
+  if (!process.env.OPENAI_API_KEY) return res.status(503).json({ ok: false, error: "OPENAI_API_KEY is not configured" });
+  if (sonicBusy) return res.status(429).json({ ok: false, error: "Another audio analysis is running. Try again shortly." });
+  const id = randomUUID();
+  const job = { status: "processing", created: Date.now() };
+  sonicJobs.set(id, job);
+  sonicBusy = true;
+  res.status(202).json({ ok: true, jobId: id });
+  const buf = req.file.buffer;
+  const filename = req.file.originalname || "track";
   try {
-    const buf = req.file.buffer;
-    const mime = req.file.mimetype || "audio/mpeg";
-    const name = req.file.originalname || "track";
-
-    // Step 1: extract metadata (existing, fast)
-    const { extractAudioMeta } = await import("./lib/audioAnalyzer.js");
-    const meta = await extractAudioMeta(buf, name);
-
-    // Step 2: Whisper transcription (parallel-friendly, may be empty for instrumentals)
-    const { transcript } = await transcribeAudio(buf, mime);
-
-    // Step 3: Claude producer report + catalog match
-    const catalogNames = catalog.map((a) => a.name);
-    const dna = await decodeDNA(meta, transcript, catalogNames);
-    if (!dna.ok) return res.status(500).json(dna);
-
-    // Enrich closest[] with full catalog entries
-    const closest = (dna.closest || []).map((c) => {
-      const found = catalog.find((a) => a.name.toLowerCase() === c.name.toLowerCase());
-      return found ? { ...c, id: found.id, genre: found.genre, prompt: found.prompt, bpm: found.bpm, key: found.key } : c;
-    });
-
-    res.json({
+    const meta = await extractAudioMeta(buf, filename);
+    const sample = await makeAudioSample(buf, meta.durationSec);
+    const dna = await analyzeSound(sample.audio, { ...sample, durationSec: meta.durationSec });
+    job.result = {
       ok: true,
       meta: {
         filename: meta.filename, duration: meta.durationSec, bitrate: meta.bitrate,
-        sampleRate: meta.sampleRate, codec: meta.codec, tagBpm: meta.tagBpm,
-        tagGenre: meta.tagGenre, tagArtist: meta.tagArtist, tagTitle: meta.tagTitle
+        sampleRate: meta.sampleRate, codec: meta.codec
       },
-      transcript: transcript || null,
+      sampledAt: sample.starts.map(Math.round),
+      sampleSeconds: sample.sampleSeconds,
       analysis: {
-        era: dna.era, genre: dna.genre, subgenre: dna.subgenre,
+        audibleEvidence: dna.audible_evidence, summary: dna.summary, genre: dna.genre, subgenre: dna.subgenre,
         mood: dna.mood, bpm: dna.bpm_estimate, key: dna.key_estimate,
-        instruments: dna.instruments, vocals: dna.vocals, production: dna.production,
-        producerNote: dna.producer_note
+        instruments: dna.instruments, vocals: dna.vocals, rhythm: dna.rhythm,
+        harmony: dna.harmony, structure: dna.structure, production: dna.production,
+        confidenceNotes: dna.confidence_notes
       },
       sunoPrompt: dna.suno_prompt,
-      closest
-    });
+      closest: []
+    };
+    job.status = "complete";
   } catch (err) {
     console.error("[dna-decode]", err.message);
-    res.status(500).json({ ok: false, error: err.message });
+    job.status = "failed";
+    job.error = err.message;
+  } finally {
+    sonicBusy = false;
   }
+});
+
+app.get("/api/ai/dna-decode/:id", requireOwner, (req, res) => {
+  res.set("Cache-Control", "no-store");
+  const job = sonicJobs.get(req.params.id);
+  if (!job) return res.status(404).json({ ok: false, error: "Analysis expired or not found" });
+  res.json({ ok: true, status: job.status, result: job.result, error: job.error });
 });
 
 app.post("/api/ai/generate-track", checkGenQuota, async (req, res) => {
@@ -786,7 +814,7 @@ app.get("/api/lemon/status", (req, res) => {
   const month = new Date().toISOString().slice(0, 7);
   const genUsed = genCounters.get(`${info.customerId}:${month}`) || 0;
   const genLimit = GEN_QUOTA[info.plan] ?? 0;
-  res.json({ ok: true, plan: info.plan, genUsed, genLimit });
+  res.json({ ok: true, plan: info.plan, owner: info.customerId === "owner", genUsed, genLimit });
 });
 
 // POST /api/lemon/webhook — LemonSqueezy event handler
