@@ -97,9 +97,10 @@ test/                     Unit tests (node:test)
 The **Audio Workshop** runs locally and never calls Suno or a paid API. It
 separates vocals with Demucs, tracks a monophonic lead melody, synthesizes a
 flute/synth/organ line, and mixes it with the accompaniment. Before processing,
-set the new instrument's pitch (-12 to +12 semitones), whole-song tempo (75-125%),
-and whole-song key shift (-6 to +6 semitones). Tempo preserves pitch; a key shift
-transposes both backing and new instrument. The owner token is required.
+set whole-song pitch (-12 to +12 semitones in 0.5-semitone steps), tempo
+(75-125%), and whole-song key shift (-6 to +6 whole semitones). Pitch and key
+shift add together and transpose both the backing and new instrument; tempo
+preserves pitch. The owner token is required.
 Source files and results are temporary; downloads expire after 30
 minutes. Separation can leave artifacts, especially on layered vocals.
 

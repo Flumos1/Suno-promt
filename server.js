@@ -144,7 +144,7 @@ app.post("/api/audio/vocal-instrument", requireOwner, upload.single("file"), asy
   try {
     const jobId = await startVocalInstrument(req.file.buffer, req.file.originalname, {
       instrument: String(req.body?.instrument || "flute"),
-      leadPitch: req.body?.leadPitch,
+      pitchShift: req.body?.pitchShift,
       tempoPercent: req.body?.tempoPercent,
       keyShift: req.body?.keyShift
     });

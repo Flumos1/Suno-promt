@@ -95,7 +95,7 @@ def track_pitch(vocal):
     return pitch, rms, confidence
 
 
-def render_melody(vocal_path, output_path, instrument, lead_pitch=0):
+def render_melody(vocal_path, output_path, instrument):
     if instrument not in INSTRUMENTS:
         raise ValueError("Неизвестный инструмент")
     report("melody")
@@ -117,7 +117,6 @@ def render_melody(vocal_path, output_path, instrument, lead_pitch=0):
     sample_times = np.arange(len(vocal), dtype=np.float64) / SAMPLE_RATE
     good = np.flatnonzero(active)
     frequency = np.interp(sample_times, frame_times[good], f0[good]).astype(np.float32)
-    frequency *= 2 ** (lead_pitch / 12)
     activity = np.interp(sample_times, frame_times, active.astype(float))
     energy = np.interp(sample_times, frame_times, rms)
     reference = max(float(np.percentile(rms[active], 90)), 0.005)
@@ -136,12 +135,12 @@ def render_melody(vocal_path, output_path, instrument, lead_pitch=0):
     return {"voicedSeconds": round(float(active.sum() * HOP / SAMPLE_RATE), 1)}
 
 
-def mix(ffmpeg, backing, melody, output, tempo_percent=100, key_shift=0):
+def mix(ffmpeg, backing, melody, output, tempo_percent=100, key_shift=0, pitch_shift=0):
     report("mixing")
     filters = "[0:a][1:a]amix=inputs=2:duration=first:normalize=0"
-    if tempo_percent != 100 or key_shift != 0:
+    if tempo_percent != 100 or key_shift != 0 or pitch_shift != 0:
         tempo = tempo_percent / 100
-        pitch = 2 ** (key_shift / 12)
+        pitch = 2 ** ((key_shift + pitch_shift) / 12)
         filters += f",rubberband=tempo={tempo:.4f}:pitch={pitch:.8f}"
     filters += ",alimiter=limit=0.95[out]"
     command = [ffmpeg, "-hide_banner", "-loglevel", "error", "-y",
@@ -158,11 +157,13 @@ def main():
     parser.add_argument("--backing", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--instrument", choices=INSTRUMENTS, default="flute")
-    parser.add_argument("--lead-pitch", type=int, choices=range(-12, 13), default=0)
+    parser.add_argument("--pitch-shift", type=float, default=0)
     parser.add_argument("--tempo-percent", type=int, choices=range(75, 126), default=100)
     parser.add_argument("--key-shift", type=int, choices=range(-6, 7), default=0)
     parser.add_argument("--ffmpeg", default="ffmpeg")
     args = parser.parse_args()
+    if not -12 <= args.pitch_shift <= 12 or not (args.pitch_shift * 2).is_integer():
+        parser.error("--pitch-shift must be between -12 and 12 in 0.5-semitone steps")
     args.output.mkdir(parents=True, exist_ok=True)
     try:
         if args.vocals and args.backing:
@@ -171,12 +172,12 @@ def main():
             vocals, backing = find_stems(args.source, args.output, args.ffmpeg)
         else:
             parser.error("Provide --source or both --vocals and --backing")
-        stats = render_melody(vocals, args.output / "melody.wav", args.instrument, args.lead_pitch)
+        stats = render_melody(vocals, args.output / "melody.wav", args.instrument)
         mix(args.ffmpeg, backing, args.output / "melody.wav", args.output / "result.mp3",
-            args.tempo_percent, args.key_shift)
+            args.tempo_percent, args.key_shift, args.pitch_shift)
         report("complete")
         print(json.dumps({"ok": True, "instrument": args.instrument,
-                          "leadPitch": args.lead_pitch, "tempoPercent": args.tempo_percent,
+                          "pitchShift": args.pitch_shift, "tempoPercent": args.tempo_percent,
                           "keyShift": args.key_shift, **stats}), flush=True)
     except Exception as exc:
         print(json.dumps({"ok": False, "error": str(exc)}), flush=True)

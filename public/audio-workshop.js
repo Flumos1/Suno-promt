@@ -71,7 +71,7 @@
       const body = new FormData();
       body.append("file", file);
       body.append("instrument", document.getElementById("workshop-instrument").value);
-      body.append("leadPitch", pitch.value);
+      body.append("pitchShift", pitch.value);
       body.append("tempoPercent", tempo.value);
       body.append("keyShift", key.value);
       const started = await (await request("/api/audio/vocal-instrument", { method: "POST", body })).json();
