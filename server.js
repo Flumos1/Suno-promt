@@ -98,6 +98,9 @@ app.use((req, res, next) => {
   express.json({ limit: "1mb" })(req, res, next);
 });
 app.use(express.static(join(__dirname, "public")));
+app.get("/vendor/zip-core.min.js", (_req, res) => {
+  res.sendFile(join(__dirname, "node_modules", "@zip.js", "zip.js", "dist", "zip-core.min.js"));
+});
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 25 * 1024 * 1024 } });
 

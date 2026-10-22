@@ -636,6 +636,15 @@
         <div id="form-out" class="output"></div>
       </div>
 
+      <div class="ai-card" id="workspace-archive-card">
+        <h2 data-i18n="workspace.title">📦 Suno Workspace → папка на компьютере</h2>
+        <p class="sub" data-i18n="workspace.sub">В Suno откройте Workspace, выделите нужные песни и выберите Download All. Затем выберите полученный ZIP здесь: программа распакует аудиофайлы в указанную вами папку. Музыка обрабатывается только в браузере.</p>
+        <input id="workspace-zip" type="file" accept=".zip,application/zip" />
+        <div id="workspace-archive-summary" class="muted" style="margin:10px 0"></div>
+        <button id="workspace-extract-btn" class="primary" disabled data-i18n="workspace.btn">📁 Выбрать папку и сохранить треки</button>
+        <div id="workspace-archive-out" class="output" role="status" aria-live="polite"></div>
+      </div>
+
       <div class="ai-card" id="slop-card">
         <h2 data-i18n="slop.title">🛡 Анти-Слоп Фильтр</h2>
         <p class="sub" data-i18n="slop.sub">Вставь промпт — мгновенный балл силы 0–100 и подсветка штампов. Кнопка «Починить» переписывает банальные токены в конкретные. Мы не штампы — мы антиштампы.</p>
@@ -797,6 +806,8 @@
   </div>
 </div>
 
-  <script src="app.js?v=30"></script>
+  <script src="app.js?v=31"></script>
+  <script src="/vendor/zip-core.min.js"></script>
+  <script type="module" src="workspace-archive.js?v=1"></script>
 </body>
 </html>

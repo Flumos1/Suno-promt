@@ -128,6 +128,18 @@ changes show an uncertainty message instead of invented sections or tags.
 This request is owner-only and incurs its own OpenAI API usage. Uploaded audio
 and samples remain in memory; the result expires after 15 minutes.
 
+### Save a Suno Workspace archive locally
+
+Suno's Workspace contents cannot be listed with the TTAPI key. In Suno, select
+the songs in a Workspace and use **Download All** to obtain a ZIP. In **AI Lab →
+Suno Workspace → folder on your computer**, choose that ZIP, review its audio
+file count, then pick a destination folder. The browser streams MP3/WAV/M4A and
+other audio entries into a newly created subfolder, preserving nested folders.
+It skips other file types, encrypted entries, and unsafe ZIP paths. The ZIP and
+music stay on the user's computer; no audio is uploaded to this server or TTAPI.
+Folder selection requires a current Chromium browser with the File System Access
+API, such as Brave, Chrome, or Edge. The archive parser is zip.js.
+
 > Note: Render's free tier sleeps after inactivity, so the first request after
 > idle takes ~30s to wake.
 
