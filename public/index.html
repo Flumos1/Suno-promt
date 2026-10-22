@@ -69,6 +69,7 @@
       <button class="tab" data-tab="lyrics" data-i18n="nav.lyrics">✎ Лирика</button>
       <button class="tab" data-tab="constructor" data-i18n="nav.constructor">🎛 Конструктор</button>
       <button class="tab" data-tab="ailab" data-i18n="nav.ailab">🧪 AI Lab</button>
+      <button class="tab" data-tab="workshop" data-i18n="nav.workshop">🎹 Аудиомастерская</button>
       <button class="tab" data-tab="saved" data-i18n="nav.saved">★ Сохранено</button>
     </nav>
 
@@ -724,6 +725,32 @@
       </div>
     </section>
 
+    <!-- Local audio workshop -->
+    <section class="panel" id="tab-workshop">
+      <h1 data-i18n="workshop.title">🎹 Аудиомастерская</h1>
+      <p class="sub" data-i18n="workshop.sub">Замените вокальную мелодию инструментом. Обработка на компьютере, без Suno и платного API. Требуется доступ владельца.</p>
+      <div class="ai-card">
+        <h2 data-i18n="workshop.card">Голос → инструмент</h2>
+        <p class="sub" data-i18n="workshop.info">Загрузите песню MP3, WAV, OGG, M4A или FLAC до 25 МБ. Программа выделит вокал, определит его мелодию и сведёт её с аккомпанементом.</p>
+        <input id="workshop-file" type="file" accept=".mp3,.wav,.ogg,.m4a,.flac,audio/*" />
+        <div class="row2">
+          <label><span data-i18n="workshop.instrument">Инструмент</span>:
+            <select id="workshop-instrument">
+              <option value="flute" data-i18n="workshop.flute">Флейта</option>
+              <option value="synth" data-i18n="workshop.synth">Синтезатор</option>
+              <option value="organ" data-i18n="workshop.organ">Орган</option>
+            </select>
+          </label>
+          <button id="workshop-run" class="primary" type="button" data-i18n="workshop.run">Заменить вокал</button>
+        </div>
+        <div id="workshop-status" class="output" role="status" aria-live="polite"></div>
+        <div id="workshop-result" class="hidden">
+          <audio id="workshop-player" controls style="width:100%;margin-top:14px"></audio>
+          <p><a id="workshop-download" download="instrumental-melody.mp3" data-i18n="workshop.download">⭳ Скачать MP3</a></p>
+        </div>
+      </div>
+    </section>
+
     <!-- Saved -->
     <section class="panel" id="tab-saved">
       <h1><span data-i18n="saved.title">Сохранённые промпты</span> <span id="saved-count" class="count-big"></span></h1>
@@ -806,7 +833,8 @@
   </div>
 </div>
 
-  <script src="app.js?v=32"></script>
+  <script src="app.js?v=33"></script>
+  <script src="audio-workshop.js?v=1"></script>
   <script src="/vendor/zip-core.min.js"></script>
   <script type="module" src="workspace-archive.js?v=1"></script>
 </body>

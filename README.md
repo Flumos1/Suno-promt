@@ -88,6 +88,32 @@ public/                   Front-end (index.html, styles.css, app.js)
 test/                     Unit tests (node:test)
 ```
 
+### Local audio workshop: replace vocals with an instrument
+
+The **Audio Workshop** runs locally and never calls Suno or a paid API. It
+separates vocals with Demucs, tracks a monophonic lead melody, synthesizes a
+flute/synth/organ line, and mixes it with the accompaniment. The owner token is
+required. Source files and results are temporary; downloads expire after 30
+minutes. Separation can leave artifacts, especially on layered vocals.
+
+On Windows PowerShell, in the project folder:
+
+```powershell
+./scripts/install-audio.ps1  # first time only; downloads PyTorch/Demucs
+./scripts/start-audio.ps1
+```
+
+The Python environment is installed in your Windows temporary directory, so
+the music project stays small on the flash drive. Install it once on each new
+computer before starting the local workshop.
+
+Open `http://localhost:3000`, enter the normal site access code, then unlock
+owner access in AI Lab using `ADMIN_KEY` from your local `.env`. In the Audio
+Workshop upload a song and choose an instrument. Set `AUDIO_PYTHON` manually if
+using a different Python environment. The free Render web service disables this
+CPU/memory-intensive feature; local processing does not run when browsing the
+public `onrender.com` URL.
+
 ## Deploy to Render
 
 The repo ships a `render.yaml` blueprint. Either:

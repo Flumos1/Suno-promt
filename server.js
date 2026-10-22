@@ -3,6 +3,7 @@ import helmet from "helmet";
 import compression from "compression";
 import multer from "multer";
 import { timingSafeEqual, randomUUID } from "node:crypto";
+import { spawnSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -22,6 +23,7 @@ import { masterTrack, transcodeToMp3 } from "./lib/mastering.js";
 import { lemonEnabled, createCheckout, findSubscriptionByEmail, createToken, verifyToken, verifyWebhookSig, planFromVariant } from "./lib/lemon.js";
 import { isUnlocked } from "./lib/access.js";
 import { makeAudioSample, analyzeSound, refineSunoPrompt, makeFormSample, measureFormSignal, analyzeFormAudio, composeInstrumentalForm } from "./lib/sonicAnalysis.js";
+import { startVocalInstrument, getVocalInstrumentJob, getVocalInstrumentAudio } from "./lib/vocalInstrument.js";
 
 // Temporary file store for reference audio (TTAPI upload needs a public URL).
 // Files live max 5 min; cleaned up after TTAPI fetches them.
@@ -44,6 +46,12 @@ const PUBLIC_BASE = process.env.PUBLIC_URL || "https://siliconsense.onrender.com
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
+const AUDIO_WORKSHOP_ENABLED = process.env.AUDIO_WORKSHOP_ENABLED === "1" || process.env.NODE_ENV !== "production";
+const AUDIO_WORKSHOP_READY = AUDIO_WORKSHOP_ENABLED && spawnSync(
+  process.env.AUDIO_PYTHON || (process.platform === "win32" ? "python" : "python3"),
+  ["-c", "import importlib.util,sys; sys.exit(0 if importlib.util.find_spec('demucs') else 1)"],
+  { timeout: 5000, windowsHide: true }
+).status === 0;
 
 const ACCESS_CODES = (process.env.ACCESS_CODES || "SILICON-DEMO,SUNO-2026,FREEPASS")
   .split(",").map((c) => c.trim().toUpperCase()).filter(Boolean);
@@ -123,6 +131,43 @@ const requireOwner = (req, res, next) => {
     return res.status(403).json({ ok: false, error: "owner_required" });
   next();
 };
+
+// Local vocal-to-instrument conversion. Neither Suno nor any cloud API is used.
+app.get("/api/audio/capabilities", (_req, res) => {
+  res.json({ ok: true, localProcessing: AUDIO_WORKSHOP_ENABLED, ready: AUDIO_WORKSHOP_READY });
+});
+
+app.post("/api/audio/vocal-instrument", requireOwner, upload.single("file"), async (req, res) => {
+  if (!AUDIO_WORKSHOP_ENABLED) return res.status(503).json({ ok: false, error: "Аудиообработка доступна при локальном запуске программы" });
+  if (!AUDIO_WORKSHOP_READY) return res.status(503).json({ ok: false, error: "Сначала установите аудиомодули: scripts/install-audio.ps1, затем перезапустите программу" });
+  if (!req.file?.buffer?.length) return res.status(400).json({ ok: false, error: "Выберите аудиофайл" });
+  try {
+    const jobId = await startVocalInstrument(req.file.buffer, req.file.originalname, String(req.body?.instrument || "flute"));
+    res.json({ ok: true, jobId });
+  } catch (error) {
+    res.status(400).json({ ok: false, error: error.message });
+  }
+});
+
+app.get("/api/audio/vocal-instrument/:id", requireOwner, (req, res) => {
+  if (!AUDIO_WORKSHOP_ENABLED) return res.status(503).json({ ok: false, error: "Аудиообработка доступна при локальном запуске программы" });
+  const job = getVocalInstrumentJob(req.params.id);
+  if (!job) return res.status(404).json({ ok: false, error: "Задача не найдена или срок хранения истёк" });
+  res.json({ ok: true, ...job });
+});
+
+app.get("/api/audio/vocal-instrument/:id/download", requireOwner, async (req, res) => {
+  if (!AUDIO_WORKSHOP_ENABLED) return res.status(503).json({ ok: false, error: "Аудиообработка доступна при локальном запуске программы" });
+  try {
+    const audio = await getVocalInstrumentAudio(req.params.id);
+    if (!audio) return res.status(404).json({ ok: false, error: "Результат ещё не готов" });
+    res.setHeader("Content-Type", "audio/mpeg");
+    res.setHeader("Content-Disposition", 'attachment; filename="instrumental-melody.mp3"');
+    res.send(audio);
+  } catch {
+    res.status(500).json({ ok: false, error: "Не удалось прочитать готовый файл" });
+  }
+});
 
 // Monthly generation quota — tracked in-memory by customerId.
 const genCounters = new Map(); // `${customerId}:YYYY-MM` -> count

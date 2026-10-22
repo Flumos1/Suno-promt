@@ -29,7 +29,10 @@ const LANG = {
   en: {
     "nav.catalog":"⌕ Catalog","nav.anchor":"🎙 Vocal Anchor","nav.reference":"♪ Reference",
     "nav.cover":"▦ Cover Art","nav.structure":"⊞ Structure","nav.lyrics":"✎ Lyrics",
-    "nav.constructor":"🎛 Constructor","nav.ailab":"🧪 AI Lab","nav.saved":"★ Saved",
+    "nav.constructor":"🎛 Constructor","nav.ailab":"🧪 AI Lab","nav.workshop":"🎹 Audio Workshop","nav.saved":"★ Saved",
+    "workshop.title":"🎹 Audio Workshop","workshop.sub":"Replace a vocal melody with an instrument. Runs on your computer without Suno or a paid API. Owner access required.",
+    "workshop.card":"Voice → instrument","workshop.info":"Upload an MP3, WAV, OGG, M4A or FLAC song up to 25 MB. The app separates vocals, traces the melody, and mixes an instrument with the backing.",
+    "workshop.instrument":"Instrument","workshop.flute":"Flute","workshop.synth":"Synth","workshop.organ":"Organ","workshop.run":"Replace vocal","workshop.download":"⭳ Download MP3",
     "gate.hint":"Enter your access code to continue.",
     "gate.ph":"ACCESS CODE","gate.btn":"Unlock →",
     "gate.demo":"Demo codes:",
@@ -246,7 +249,10 @@ const LANG = {
   ru: {
     "nav.catalog":"⌕ Каталог","nav.anchor":"🎙 Вокал","nav.reference":"♪ Референс",
     "nav.cover":"▦ Обложка","nav.structure":"⊞ Структура","nav.lyrics":"✎ Лирика",
-    "nav.constructor":"🎛 Конструктор","nav.ailab":"🧪 AI Lab","nav.saved":"★ Сохранено",
+    "nav.constructor":"🎛 Конструктор","nav.ailab":"🧪 AI Lab","nav.workshop":"🎹 Аудиомастерская","nav.saved":"★ Сохранено",
+    "workshop.title":"🎹 Аудиомастерская","workshop.sub":"Замените вокальную мелодию инструментом. Обработка на компьютере, без Suno и платного API. Требуется доступ владельца.",
+    "workshop.card":"Голос → инструмент","workshop.info":"Загрузите песню MP3, WAV, OGG, M4A или FLAC до 25 МБ. Программа выделит вокал, определит его мелодию и сведёт её с аккомпанементом.",
+    "workshop.instrument":"Инструмент","workshop.flute":"Флейта","workshop.synth":"Синтезатор","workshop.organ":"Орган","workshop.run":"Заменить вокал","workshop.download":"⭳ Скачать MP3",
     "gate.hint":"Введи код доступа чтобы продолжить.",
     "gate.ph":"КОД ДОСТУПА","gate.btn":"Войти →",
     "gate.demo":"Демо-коды:",

@@ -7,3 +7,6 @@ npm-debug.log*
 *.docx
 .claude/
 .catalog-upgrade-progress.json
+
+.venv-audio/
+__pycache__/
