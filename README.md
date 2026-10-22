@@ -1,5 +1,9 @@
 # SiliconSense (clone)
 
+For setup on another Windows computer and the current project state, see
+[HANDOFF.md](HANDOFF.md). Copy `.env.example` to `.env` and fill secrets locally;
+the real `.env` is intentionally excluded from Git.
+
 A self-contained clone of a [SiliconSense-style](https://siliconsense.club/) **Suno AI prompt catalog**.
 Search artists/styles and get ready-to-paste Suno prompts, build vocal anchors,
 analyze a reference track, and generate album-cover concepts — all behind an access-code gate.
