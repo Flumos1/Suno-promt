@@ -628,6 +628,14 @@
         <div id="dna-out" class="output"></div>
       </div>
 
+      <div class="ai-card" id="form-card">
+        <h2 data-i18n="form.title">🎼 Форма композиции</h2>
+        <p class="sub" data-i18n="form.sub">Используется файл, выбранный выше. Отдельный анализ прослушивает фрагменты по всей длине трека, определяет предполагаемые части и создаёт инструментальную разметку для поля Lyrics в Suno. Расход API оплачивается отдельно; время частей приблизительное.</p>
+        <div id="form-filename" class="muted"></div>
+        <button id="form-btn" class="primary" disabled data-i18n="form.btn">🎼 Проанализировать форму и создать разметку</button>
+        <div id="form-out" class="output"></div>
+      </div>
+
       <div class="ai-card" id="slop-card">
         <h2 data-i18n="slop.title">🛡 Анти-Слоп Фильтр</h2>
         <p class="sub" data-i18n="slop.sub">Вставь промпт — мгновенный балл силы 0–100 и подсветка штампов. Кнопка «Починить» переписывает банальные токены в конкретные. Мы не штампы — мы антиштампы.</p>
@@ -789,6 +797,6 @@
   </div>
 </div>
 
-  <script src="app.js?v=29"></script>
+  <script src="app.js?v=30"></script>
 </body>
 </html>

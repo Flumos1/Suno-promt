@@ -44,7 +44,7 @@ Demo access codes: `SILICON-DEMO`, `SUNO-2026`, `FREEPASS`
 (override with the `ACCESS_CODES` env var, comma-separated).
 
 ```bash
-npm test             # 8 unit tests (incl. real WAV parsing)
+npm test             # includes real WAV parsing and in-memory audio sampling
 ```
 
 ## Enabling real AI generation
@@ -115,6 +115,18 @@ Jobs and audio are held in memory only; job results expire after 15 minutes.
 The model and API account must support `gpt-audio-1.5` (override with
 `SONIC_AUDIO_MODEL` if needed). The editing pass uses `gpt-4o` by default
 (override with `SONIC_PROMPT_MODEL`). Each analysis incurs OpenAI API usage charges.
+
+### Owner-only composition form analysis
+
+In **AI Lab**, choose an audio file in **Track DNA Decoder** and use the
+separate **Composition Form** button. It samples up to twelve eight-second
+excerpts across the track, displays what was heard at each point, estimates
+section order, and drafts bracket-only instrumental tags for Suno's Lyrics field.
+The tags are an arrangement suggestion. Section boundaries are approximate
+because passages between excerpts are not heard. Tracks without distinguishable
+changes show an uncertainty message instead of invented sections or tags.
+This request is owner-only and incurs its own OpenAI API usage. Uploaded audio
+and samples remain in memory; the result expires after 15 minutes.
 
 > Note: Render's free tier sleeps after inactivity, so the first request after
 > idle takes ~30s to wake.

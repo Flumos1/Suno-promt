@@ -141,6 +141,19 @@ const LANG = {
     "dna.deep.btn":"🔬 Analyze the sound",
     "dna.deep.reference":"🎧 Deep sound analysis (owner only)",
     "dna.deep.login":"Open deep analysis",
+    "form.title":"🎼 Composition Form",
+    "form.sub":"Use the audio selected above. This separate, owner-only analysis samples the whole track, maps likely sections and creates instrumental tags for Suno Lyrics. API usage is billed separately; section times are approximate.",
+    "form.btn":"🎼 Analyze form and create tags",
+    "form.selected":"Selected track",
+    "form.summary":"Estimated form",
+    "form.sections":"Section map",
+    "form.observations":"Heard excerpts",
+    "form.coverage":"of the track sampled",
+    "form.markup":"Instrumental tags for Suno Lyrics",
+    "form.theme":"Recurring theme",
+    "form.transitions":"Changes and transitions",
+    "form.limits":"Confidence and limits",
+    "form.loading":"Listening across the track and building an instrumental arrangement…",
     "dna.sub":"Upload any MP3/WAV — Whisper transcribes, AI identifies era, genre, instruments, production and finds 3 closest artists from 747 in the catalog. Plus a ready Suno prompt.",
     "dna.drop":"Click or drop audio (MP3 / WAV / OGG, max 25MB)","dna.btn":"Decode DNA",
     "slop.title":"🛡 Anti-Slop Filter",
@@ -343,6 +356,19 @@ const LANG = {
     "dna.deep.btn":"🔬 Проанализировать звучание",
     "dna.deep.reference":"🎧 Глубокий анализ звука (для владельца)",
     "dna.deep.login":"Открыть глубокий анализ",
+    "form.title":"🎼 Форма композиции",
+    "form.sub":"Используется файл, выбранный выше. Отдельный анализ прослушивает фрагменты по всей длине трека, определяет предполагаемые части и создаёт инструментальную разметку для поля Lyrics в Suno. Расход API оплачивается отдельно; время частей приблизительное.",
+    "form.btn":"🎼 Проанализировать форму и создать разметку",
+    "form.selected":"Выбранный трек",
+    "form.summary":"Предполагаемая форма",
+    "form.sections":"Карта частей",
+    "form.observations":"Прослушанные фрагменты",
+    "form.coverage":"длительности трека прослушано",
+    "form.markup":"Инструментальные теги для Suno Lyrics",
+    "form.theme":"Повторяющаяся тема",
+    "form.transitions":"Изменения и переходы",
+    "form.limits":"Точность и ограничения",
+    "form.loading":"Слушаю фрагменты по всей длине трека и составляю инструментальную разметку…",
     "dna.sub":"Загрузи любой MP3/WAV — Whisper расшифрует лирику, AI определит эру, жанр, инструменты, продакшн и найдёт 3 ближайших артиста из 747 в каталоге. Плюс готовый Suno-промпт.",
     "dna.drop":"Кликни или перетащи аудио (MP3 / WAV / OGG, до 25MB)","dna.btn":"Декодировать ДНК",
     "slop.title":"🛡 Анти-Слоп Фильтр",
@@ -1817,6 +1843,8 @@ function download(name, text) {
   const fileInput = $("#dna-file");
   const btn = $("#dna-btn");
   const out = $("#dna-out");
+  const formBtn = $("#form-btn");
+  const formOut = $("#form-out");
   if (!dz) return;
 
   const ownerKey = $("#dna-owner-key");
@@ -1863,8 +1891,24 @@ function download(name, text) {
   fileInput.addEventListener("change", () => {
     const f = fileInput.files[0]; if (!f) return;
     $("#dna-filename").textContent = f.name;
+    $("#form-filename").textContent = `${t("form.selected")}: ${f.name}`;
+    out.innerHTML = "";
+    formOut.innerHTML = "";
     btn.disabled = false;
+    formBtn.disabled = false;
   });
+
+  async function awaitSonicJob(route, id) {
+    let job;
+    for (let i = 0; i < 60; i++) {
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+      job = await aiCall(`${route}/${encodeURIComponent(id)}`);
+      if (job.status === "complete" || job.status === "failed") break;
+    }
+    if (job?.status === "failed") throw new Error(job.error || "Ошибка анализа");
+    if (job?.status !== "complete") throw new Error("Анализ занял слишком много времени. Попробуйте ещё раз.");
+    return job.result;
+  }
 
   btn.addEventListener("click", async () => {
     const f = fileInput.files[0]; if (!f) return;
@@ -1875,15 +1919,7 @@ function download(name, text) {
       const fd = new FormData();
       fd.append("file", f);
       const started = await aiCall("/api/ai/dna-decode", { method: "POST", body: fd });
-      let job;
-      for (let i = 0; i < 60; i++) {
-        await new Promise((resolve) => setTimeout(resolve, 5000));
-        job = await aiCall(`/api/ai/dna-decode/${encodeURIComponent(started.jobId)}`);
-        if (job.status === "complete" || job.status === "failed") break;
-      }
-      if (job?.status === "failed") throw new Error(job.error || "Ошибка анализа");
-      if (job?.status !== "complete") throw new Error("Анализ занял слишком много времени. Попробуйте ещё раз.");
-      out.innerHTML = renderDNA(job.result);
+      out.innerHTML = renderDNA(await awaitSonicJob("/api/ai/dna-decode", started.jobId));
       wireCopyButtons(out);
       // Wire generate buttons inside DNA result
       out.querySelectorAll(".gen-track-btn").forEach((b) => {
@@ -1893,6 +1929,52 @@ function download(name, text) {
       out.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
     } finally { btn.disabled = false; }
   });
+
+  formBtn.addEventListener("click", async () => {
+    const f = fileInput.files[0]; if (!f) return;
+    formOut.innerHTML = spin(t("form.loading"));
+    formBtn.disabled = true;
+    try {
+      const fd = new FormData();
+      fd.append("file", f);
+      const started = await aiCall("/api/ai/form-analyze", { method: "POST", body: fd });
+      formOut.innerHTML = renderForm(await awaitSonicJob("/api/ai/form-analyze", started.jobId));
+      wireCopyButtons(formOut);
+    } catch (err) {
+      formOut.innerHTML = `<div class="error">${escapeHtml(err.message)}</div>`;
+    } finally { formBtn.disabled = false; }
+  });
+
+  function renderForm(d) {
+    const sections = (d.sections || []).map((s) => `<div class="dna-match">
+      <div class="dna-match-name">≈${fmtDur(Math.round(s.startSec))}–${fmtDur(Math.round(s.endSec))} · ${escapeHtml(s.label)}</div>
+      <div class="dna-match-reason">${escapeHtml(s.evidence || "")}</div>
+      <div class="muted" style="font-size:11px">${escapeHtml(s.confidence || "low")}</div>
+    </div>`).join("");
+    const observations = (d.observations || []).map((o) => `<div class="dna-match">
+      <div class="dna-match-name">≈${fmtDur(Math.round(o.startSec))} · ${escapeHtml(o.heard || "—")}</div>
+      ${o.motif ? `<div class="dna-match-reason">${escapeHtml(o.motif)}</div>` : ""}
+      ${o.change ? `<div class="muted" style="font-size:12px">${escapeHtml(o.change)}</div>` : ""}
+    </div>`).join("");
+    const markup = String(d.markup || "");
+    return `<div class="ai-result dna-result">
+      <div class="dna-section">
+        <div class="prompt-label">${t("form.summary")}</div>
+        <div>${escapeHtml(d.summary || "—")}</div>
+        <div class="muted" style="font-size:12px;margin-top:6px">${(d.sampledAt || []).length} × ${d.clipSeconds || 8}s · ${d.coveragePercent || 0}% ${escapeHtml(t("form.coverage"))}</div>
+        ${d.limitations ? `<div class="muted" style="font-size:12px;margin-top:6px">${escapeHtml(d.limitations)}</div>` : ""}
+      </div>
+      ${sections ? `<div class="dna-section"><div class="prompt-label">${t("form.sections")}</div><div class="dna-matches">${sections}</div></div>` : ""}
+      ${d.recurringTheme ? `<div class="dna-section"><div class="prompt-label">${t("form.theme")}</div><div>${escapeHtml(d.recurringTheme)}</div></div>` : ""}
+      ${(d.transitions || []).length ? `<div class="dna-section"><div class="prompt-label">${t("form.transitions")}</div><div>${escapeHtml(d.transitions.join(" · "))}</div></div>` : ""}
+      ${markup ? `<div class="ai-prompt-box">
+        <div class="prompt-label">${t("form.markup")}</div>
+        <pre>${escapeHtml(markup)}</pre>
+        <button class="copy" data-prompt="${escapeAttr(markup)}">${t("copy")}</button>
+      </div>` : ""}
+      <details class="dna-section"><summary>${t("form.observations")}</summary><div class="dna-matches">${observations}</div></details>
+    </div>`;
+  }
 
   function renderDNA(d) {
     const a = d.analysis || {};

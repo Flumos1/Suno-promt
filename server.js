@@ -21,7 +21,7 @@ import { ttapiEnabled, submitMusic, fetchJob, submitSampleFromBuffer } from "./l
 import { masterTrack, transcodeToMp3 } from "./lib/mastering.js";
 import { lemonEnabled, createCheckout, findSubscriptionByEmail, createToken, verifyToken, verifyWebhookSig, planFromVariant } from "./lib/lemon.js";
 import { isUnlocked } from "./lib/access.js";
-import { makeAudioSample, analyzeSound, refineSunoPrompt } from "./lib/sonicAnalysis.js";
+import { makeAudioSample, analyzeSound, refineSunoPrompt, makeFormSample, measureFormSignal, analyzeFormAudio, composeInstrumentalForm } from "./lib/sonicAnalysis.js";
 
 // Temporary file store for reference audio (TTAPI upload needs a public URL).
 // Files live max 5 min; cleaned up after TTAPI fetches them.
@@ -548,6 +548,82 @@ app.post("/api/ai/dna-decode", requireOwner, upload.single("file"), async (req, 
 });
 
 app.get("/api/ai/dna-decode/:id", requireOwner, (req, res) => {
+  res.set("Cache-Control", "no-store");
+  const job = sonicJobs.get(req.params.id);
+  if (!job) return res.status(404).json({ ok: false, error: "Analysis expired or not found" });
+  res.json({ ok: true, status: job.status, result: job.result, error: job.error });
+});
+
+app.post("/api/ai/form-analyze", requireOwner, upload.single("file"), async (req, res) => {
+  if (!req.file?.buffer) return res.status(400).json({ ok: false, error: "No audio file uploaded" });
+  if (!process.env.OPENAI_API_KEY) return res.status(503).json({ ok: false, error: "OPENAI_API_KEY is not configured" });
+  if (sonicBusy) return res.status(429).json({ ok: false, error: "Another audio analysis is running. Try again shortly." });
+  const id = randomUUID();
+  const job = { status: "processing", created: Date.now() };
+  sonicJobs.set(id, job);
+  sonicBusy = true;
+  res.status(202).json({ ok: true, jobId: id });
+  try {
+    const meta = await extractAudioMeta(req.file.buffer, req.file.originalname || "track");
+    const sample = await makeFormSample(req.file.buffer, meta.durationSec);
+    const context = { ...sample, durationSec: meta.durationSec };
+    const signal = await measureFormSignal(sample.audio, context);
+    if (signal.stationary || signal.silent) {
+      job.result = {
+        ok: true,
+        durationSec: meta.durationSec,
+        sampledAt: sample.starts.map(Math.round),
+        clipSeconds: sample.clipSeconds,
+        coveragePercent: sample.coveragePercent,
+        observations: sample.starts.map((start, i) => ({
+          index: i + 1, startSec: Math.round(start),
+          heard: signal.silent ? "Тишина или очень тихий сигнал" : "Устойчивый тон или дрон без отчётливых событий внутри фрагмента",
+          confidence: "high"
+        })),
+        summary: "В прослушанных фрагментах не обнаружено достаточно изменений, чтобы надёжно определить части композиции.",
+        sections: [],
+        recurringTheme: "",
+        transitions: [],
+        limitations: "Для такой записи нельзя обоснованно назвать куплеты, припев, бридж и сбивки или подготовить разметку по форме.",
+        markup: ""
+      };
+      job.status = "complete";
+      return;
+    }
+    const heard = await analyzeFormAudio(sample.audio, context);
+    const indexed = new Map(heard.observations.map((o) => [Number(o.index), o]));
+    const hasIndexes = heard.observations.some((o) => Number.isInteger(Number(o.index)));
+    const observations = sample.starts.map((start, i) => {
+      const o = (hasIndexes ? indexed.get(i + 1) : heard.observations[i]) || {};
+      return {
+        index: i + 1, startSec: Math.round(start),
+        heard: String(o.heard || "Not reliably identified"), motif: String(o.motif || ""),
+        layers: String(o.layers || ""), change: String(o.change || ""),
+        energy: Math.min(5, Math.max(0, Number(o.energy) || 0)),
+        confidence: ["high", "medium", "low"].includes(o.confidence) ? o.confidence : "low"
+      };
+    });
+    const form = await composeInstrumentalForm({ ...heard, observations }, context);
+    job.result = {
+      ok: true,
+      durationSec: meta.durationSec,
+      sampledAt: sample.starts.map(Math.round),
+      clipSeconds: sample.clipSeconds,
+      coveragePercent: sample.coveragePercent,
+      observations,
+      ...form
+    };
+    job.status = "complete";
+  } catch (err) {
+    console.error("[form-analyze]", err.message);
+    job.status = "failed";
+    job.error = err.message;
+  } finally {
+    sonicBusy = false;
+  }
+});
+
+app.get("/api/ai/form-analyze/:id", requireOwner, (req, res) => {
   res.set("Cache-Control", "no-store");
   const job = sonicJobs.get(req.params.id);
   if (!job) return res.status(404).json({ ok: false, error: "Analysis expired or not found" });
