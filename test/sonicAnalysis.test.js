@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { makeAudioSample, analyzeSound } from "../lib/sonicAnalysis.js";
+import { makeAudioSample, analyzeSound, refineSunoPrompt } from "../lib/sonicAnalysis.js";
 
 function sineWav(seconds = 2) {
   const rate = 16000;
@@ -53,4 +53,19 @@ test("long tracks are sampled at beginning, middle and end", async () => {
   assert.deepEqual(sampled.starts, [0, 35, 70]);
   assert.equal(sampled.sampleSeconds, 60);
   assert.ok(sampled.audio.length < 1024 * 1024);
+});
+
+test("prompt editing falls back to the listening draft when the text model fails", async () => {
+  const previousKey = process.env.OPENAI_API_KEY;
+  const previousFetch = globalThis.fetch;
+  process.env.OPENAI_API_KEY = "test-key";
+  globalThis.fetch = async () => ({ ok: false });
+  try {
+    assert.equal(await refineSunoPrompt({ suno_prompt: "Audible soft synth chord and slow beat." }),
+      "Audible soft synth chord and slow beat.");
+  } finally {
+    globalThis.fetch = previousFetch;
+    if (previousKey === undefined) delete process.env.OPENAI_API_KEY;
+    else process.env.OPENAI_API_KEY = previousKey;
+  }
 });

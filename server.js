@@ -21,7 +21,7 @@ import { ttapiEnabled, submitMusic, fetchJob, submitSampleFromBuffer } from "./l
 import { masterTrack, transcodeToMp3 } from "./lib/mastering.js";
 import { lemonEnabled, createCheckout, findSubscriptionByEmail, createToken, verifyToken, verifyWebhookSig, planFromVariant } from "./lib/lemon.js";
 import { isUnlocked } from "./lib/access.js";
-import { makeAudioSample, analyzeSound } from "./lib/sonicAnalysis.js";
+import { makeAudioSample, analyzeSound, refineSunoPrompt } from "./lib/sonicAnalysis.js";
 
 // Temporary file store for reference audio (TTAPI upload needs a public URL).
 // Files live max 5 min; cleaned up after TTAPI fetches them.
@@ -518,6 +518,7 @@ app.post("/api/ai/dna-decode", requireOwner, upload.single("file"), async (req, 
     const meta = await extractAudioMeta(buf, filename);
     const sample = await makeAudioSample(buf, meta.durationSec);
     const dna = await analyzeSound(sample.audio, { ...sample, durationSec: meta.durationSec });
+    const finalPrompt = await refineSunoPrompt(dna);
     job.result = {
       ok: true,
       meta: {
@@ -533,7 +534,7 @@ app.post("/api/ai/dna-decode", requireOwner, upload.single("file"), async (req, 
         harmony: dna.harmony, structure: dna.structure, production: dna.production,
         confidenceNotes: dna.confidence_notes
       },
-      sunoPrompt: dna.suno_prompt,
+      sunoPrompt: finalPrompt,
       closest: []
     };
     job.status = "complete";

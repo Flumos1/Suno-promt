@@ -108,11 +108,13 @@ this owner token, while the ordinary metadata reference analysis stays available
 The server samples up to 60 seconds from the beginning, middle, and end of a
 track and sends that sample to OpenAI's audio model. The report separates
 audible evidence from uncertain estimates and produces an English Suno Style
-prompt. BPM and key are listening estimates, never instrument measurements.
+prompt. A text-only editing pass tightens the prompt while keeping to the
+listening evidence. BPM and key are listening estimates, never instrument measurements.
 Processing runs as a background job because it may exceed a web request timeout.
 Jobs and audio are held in memory only; job results expire after 15 minutes.
 The model and API account must support `gpt-audio-1.5` (override with
-`SONIC_AUDIO_MODEL` if needed). Each analysis incurs OpenAI API usage charges.
+`SONIC_AUDIO_MODEL` if needed). The editing pass uses `gpt-4o` by default
+(override with `SONIC_PROMPT_MODEL`). Each analysis incurs OpenAI API usage charges.
 
 > Note: Render's free tier sleeps after inactivity, so the first request after
 > idle takes ~30s to wake.
